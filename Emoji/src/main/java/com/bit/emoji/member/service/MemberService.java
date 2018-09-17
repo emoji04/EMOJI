@@ -2,7 +2,7 @@ package com.bit.emoji.member.service;
 import javax.servlet.http.HttpSession;
 
 import com.bit.emoji.SHA256;
-import com.bit.emoji.member.model.MemberVO;
+import com.bit.emoji.model.MemberVO;
 
 public class MemberService {
     private SqlSession sqlSession;
