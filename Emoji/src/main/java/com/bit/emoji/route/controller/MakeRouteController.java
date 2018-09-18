@@ -13,7 +13,7 @@ import com.bit.emoji.route.service.MakeRouteService;
 
 @Controller
 public class MakeRouteController {
-	
+/*	
 	@Autowired
 	MakeRouteService makeRouteService;
 	
@@ -38,5 +38,5 @@ public class MakeRouteController {
 	
 	public String updateRoute(RouteVO route, Model model) {
 	
-	}
+	}*/
 }
