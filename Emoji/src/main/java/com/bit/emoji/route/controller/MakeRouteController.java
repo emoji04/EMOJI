@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+/*package com.bit.emoji.route.controller;
 
 import java.util.List;
 
@@ -40,3 +40,4 @@ public class MakeRouteController {
 	
 	}
 }
+*/

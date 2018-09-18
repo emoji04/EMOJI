@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+/*package com.bit.emoji.route.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,3 +35,4 @@ public class SearchRouteController {
 	
 	}
 }
+*/
