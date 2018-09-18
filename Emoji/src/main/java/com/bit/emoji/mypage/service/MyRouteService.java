@@ -37,6 +37,7 @@ public class MyRouteService {
 	}
 	
 	public RouteVO deleteJoinRoute(int routeNum) {
-		return null;
+		return null; 
+		
 	}
 }
