@@ -2,7 +2,9 @@ package com.bit.emoji.delicious.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bit.emoji.delicious.service.DeliciousReviewService;
 import com.bit.emoji.delicious.service.MapService;
@@ -11,13 +13,15 @@ import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.DeliciousReviewVO;
 
+@Controller
 public class MapController {
 	MapService mapService;
 	PinService pinService;
 	DeliciousReviewService deliciousReviewService;
 	
+	@RequestMapping("/deliciousForm")
 	public String deliciousForm() {
-		return "";
+		return "/delicious/deliciousForm";
 	}
 	
 	public String deliciousEditForm(int num, Model model) {
