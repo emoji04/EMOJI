@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit.emoji.route.service.SearchRouteService;
 
 @Controller
-public class SearchRouteController {
+public class SearchRouteController { 
 	@Autowired
 	SearchRouteService searchRouteService;
 	
