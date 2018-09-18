@@ -32,6 +32,10 @@
 
 	var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
 	
+	var imgSrc = 'resources/img/deliciousPin.jpg', //마커 이미지 주소
+		imgSize = new daum.maps.Size(50, 50),  //마커 이미지 크기
+		
+	
 	//지도에 클릭 이벤트 등록
 	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
 		var marker = new daum.maps.Marker({});   //지도에 클릭한 위치에 표출할 마커
