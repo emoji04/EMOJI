@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.bit.emoji.route.model.DeliciousMapVO;
-import com.bit.emoji.route.model.RouteVO;
+import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.route.service.MakeRouteService;
 
 @Controller
@@ -29,7 +28,7 @@ public class MakeRouteController {
 	public String getMyMap(HttpSession session, Model model) {
 	}
 	
-	public String searchMyDelicious(String search, List<DeliciousMapVO> myMaps, Model mpdel) {
+	public String searchMyDelicious(String search, List<DeliciousMapVO> myMaps, Model model) {
 	
 	}
 	
