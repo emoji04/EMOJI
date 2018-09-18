@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+/*package com.bit.emoji.route.controller;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit.emoji.model.DeliciousMapVO;
+import com.bit.emoji.model.RouteVO;
 import com.bit.emoji.route.service.MakeRouteService;
 
 @Controller
@@ -39,4 +40,4 @@ public class MakeRouteController {
 	public String updateRoute(RouteVO route, Model model) {
 	
 	}
-}
+}*/

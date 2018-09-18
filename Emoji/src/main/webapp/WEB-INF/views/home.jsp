@@ -86,6 +86,12 @@
         </p>
         <P>  The time on the server is ${serverTime}. </P>
       </div>
+      
+      
+      
+      
+      
+      
 
     </div> <!-- /container -->
 
@@ -98,5 +104,33 @@
     <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="map" style="width:500px;height:400px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new daum.maps.Map(container, options);
+	</script>
+    
+    
+    
+    
   </body>
 </html>

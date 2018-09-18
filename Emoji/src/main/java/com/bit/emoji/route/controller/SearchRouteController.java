@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+/*package com.bit.emoji.route.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,4 +34,4 @@ public class SearchRouteController {
 	public String clickJoin(HttpSession session, int routeNum, String state) {
 	
 	}
-}
+}*/
