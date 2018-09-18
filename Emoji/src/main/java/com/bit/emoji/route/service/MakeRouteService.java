@@ -12,7 +12,7 @@ import com.bit.emoji.route.mapper.SqlSession;
 
 public class MakeRouteService extends SqlSession {
 	
-	public List<DeliciousPinVO> selectDelicious(String search) {
+/*	public List<DeliciousPinVO> selectDelicious(String search) {
 	}
 	
 	public List<DeliciousMapVO> selectDeliciousMapbyId(int memberNum) {
@@ -35,5 +35,5 @@ public class MakeRouteService extends SqlSession {
 	
 	public int updateRouteInfo(RouteVO newRoute) {
 	
-	}
+	}*/
 }

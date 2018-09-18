@@ -1,4 +1,4 @@
-package com.bit.emoji.mypage.service;
+/*package com.bit.emoji.mypage.service;
 
 import com.bit.emoji.model.DeliciousMapVO;
 
@@ -35,3 +35,4 @@ public class MyDeliciousService {
 		return null;
 	}
 }
+*/

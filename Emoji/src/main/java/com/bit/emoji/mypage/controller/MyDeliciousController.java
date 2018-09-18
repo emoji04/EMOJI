@@ -1,4 +1,4 @@
-package com.bit.emoji.mypage.controller;
+/*package com.bit.emoji.mypage.controller;
 
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.mypage.service.MyDeliciousService;
@@ -21,7 +21,7 @@ public class MyDeliciousController {
 	
 	}
 	
-	public DeliciousMapNum updateLoadMadeDelicious(int deliciousMapNum) {
+	public DeliciousMap updateLoadMadeDelicious(int deliciousMapNum) {
 	
 	}
 	
@@ -45,3 +45,4 @@ public class MyDeliciousController {
 	
 	}
 }
+*/

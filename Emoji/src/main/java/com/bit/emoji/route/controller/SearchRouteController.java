@@ -11,7 +11,6 @@ import com.bit.emoji.route.service.SearchRouteService;
 
 @Controller
 public class SearchRouteController {
-	@Autowired
 	SearchRouteService searchRouteService;
 	
 	@RequestMapping("goSearchRoute")
@@ -19,7 +18,7 @@ public class SearchRouteController {
 		return "searchRoute";
 	}
 	
-	public String searchRoute(String search, String searchDate, Model model) {
+/*	public String searchRoute(String search, String searchDate, Model model) {
 	
 	}
 	
@@ -33,5 +32,5 @@ public class SearchRouteController {
 	
 	public String clickJoin(HttpSession session, int routeNum, String state) {
 	
-	}
+	}*/
 }

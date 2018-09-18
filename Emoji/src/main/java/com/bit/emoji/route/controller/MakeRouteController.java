@@ -14,15 +14,14 @@ import com.bit.emoji.route.service.MakeRouteService;
 @Controller
 public class MakeRouteController {
 	
-	@Autowired
 	MakeRouteService makeRouteService;
 	
-	@RequestMapping("goMakeRoute")
+	@RequestMapping("goRoute")
 	public String goMakeRoute() {
-		return "makeRoute";
+		return "route";
 	}
 	
-	public String searchDelicious(String search, Model model) {
+/*	public String searchDelicious(String search, Model model) {
 	}
 	
 	public String getMyMap(HttpSession session, Model model) {
@@ -38,5 +37,5 @@ public class MakeRouteController {
 	
 	public String updateRoute(RouteVO route, Model model) {
 	
-	}
+	}*/
 }
