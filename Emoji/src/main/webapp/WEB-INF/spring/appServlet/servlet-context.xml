@@ -21,8 +21,26 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- DataSource 등록 -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<beans:property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<beans:property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com:3306/emoji?characterEncoding=utf8" />
+		<beans:property name="username" value="eunalee" />
+		<beans:property name="password" value="eunalee1234" />
+	</beans:bean>
+	
+	<!-- SqlSessionFactory 등록 -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations" value="classpath:com/bit/emoji/delicious/mapper/*Mapper.xml" />
+	</beans:bean>
+	
+	<!-- SqlSessionTemplate 클래스 등록 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory" />
+	</beans:bean>
+	
 	<context:component-scan base-package="com.bit.emoji" />
-	
-	
-	
+	<context:component-scan base-package="com.bit.emoji.delicious.mapper" />
+
 </beans:beans>

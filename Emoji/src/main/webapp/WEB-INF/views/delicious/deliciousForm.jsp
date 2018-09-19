@@ -9,21 +9,71 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <style>
- 	#box {
- 		border: 1px solid black;
- 		width: 100%;
- 	}
- 	
+	ul.tab {
+		margin: 0;
+		padding: 0;
+		float: left;
+		list-style: none;
+		height: 32px;
+		border-bottom: 1px solid #999;
+		border-left: 1px solid #999;
+		width: 100%;
+	}
+	
+	ul.tab li {
+		float: left;
+		margin: 0;
+		padding: 0;
+		height: 31px;
+		line-height: 31px;
+		border: 1px solid #999;
+		border-left: none;
+		margin-bottom: -1px;
+		overflow: hidden;
+		position: relative;
+		background: #e0e0e0;
+	}
+	
+	ul.tab li a {
+		text-decoration: none;
+		color: #000;
+		display: block;
+		padding: 0 20px;
+		border: 1px solid #fff;
+		outline: none;
+	}
+	
+	ul.tab li a:hover {
+		background: #ccc;
+	}
+	
+	html ul.tab li.active, html ul.tab li.active a:hover {
+		backgroud: #fff;
+		border-bottom: 1px solid #fff;
+	}
+	
+	#container {
+		border: 1px solid #999;
+		border-top: none;
+		overflow: hidden;
+		clear: both;
+		float: left;
+		width: 100%;
+		background: #fff;
+	}
+	
+	.tab_content {
+		padding: 20px;
+	}
+	
  	#left {
- 	 	border: 1px solid red;
- 	 	padding-left: 3%;
+ 	 	padding-left: 2%;
  		width:30%;
- 		float: left;
  	}
  	
  	 #right {
- 	 	border: 1px solid blue;
- 	 	width:65%;
+ 	 	padding-left: 2%;
+ 	 	width:63%;
  	 	float: left;
  	}
  	
@@ -34,10 +84,16 @@
 </style>
 </head>
 <body>
-	<div id="box">
-		<div id="left">
-			<div id="leftTop">
-				<form method="post">
+<div id="left">
+	<div id="container">
+		<ul class="tab">
+			<li class="active"><a href="#makeMap">맛집지도 만들기</a></li>
+			<li><a href="#searchMap">맛집지도 검색</a></li>
+		</ul>
+		
+		<div class="tab_container">
+			<div id="makeMap" class="tab_content" style="display: block;">
+				<form>
 					<table>
 						<tr>
 							<td>지도이름</td>
@@ -56,35 +112,38 @@
 						</tr>
 					</table>
 					
+					<input type="hidden" name="deliciousMapOpen" value="open">
+					<input type="hidden" name="memberId" value="m20180919001">
+					
 					<input type="image" src="resources/img/saveBtn.png">
-					<a href=""><img src=""></a>
 				</form>
 			</div>
 			
-			<div id="leftBottom">
+			<div id="searchMap" class="tab_content" style="display: none;">
 				<input type="text" id="address" placeholder="주소검색"><br>
-				<input type="text" placeholder="상호명"><br>
-				<input type="text" placeholder="핀이름"><br>
+					<input type="text" placeholder="상호명"><br>
+					<input type="text" placeholder="핀이름"><br>
 		
-				<select id="category">
-					<option>한식</option>
-					<option>중식</option>
-					<option>일식</option>
-					<option>양식</option>
-				</select><br>
+					<select id="category">
+						<option>한식</option>
+						<option>중식</option>
+						<option>일식</option>
+						<option>양식</option>
+					</select><br>
 		
-				<input type="text" placeholder="평점"><br>
-				<input type="text" placeholder="전화번호"><br>
-				<input type="text" placeholder="상세설명"><br>
-				<input type="file">
+					<input type="text" placeholder="평점"><br>
+					<input type="text" placeholder="전화번호"><br>
+					<input type="text" placeholder="상세설명"><br>
+					<input type="file">
 			</div>
 		</div>
-		
-		<div id="right">
-			<div id="map"></div>
-			<div id="clickLatlng"></div>
-		</div>
 	</div>
+</div>
+
+<div id="right">
+	<div id="map"></div>
+	<div id="clickLatlng"></div>
+</div>
 
 <script>
 	$(document).ready(function(){
@@ -101,6 +160,19 @@
 
 			else
 				$('#textCnt').text(remain);
+		});
+		
+		$('.tab_content').hide();
+		$('ul.tab li:first').addClass('active').show();
+		$('.tab_content:first').show();
+		
+		$('ul.tab li').click(function(){
+			$('ul.tab li').removeClass('active');
+			$(this).addClass('active');
+			$('.tab_content').hide();
+			
+			var activeTab = $(this).find('a').attr('href');
+			$(activeTab).fadeIn();
 		});
 	});
 	

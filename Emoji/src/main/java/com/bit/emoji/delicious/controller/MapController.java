@@ -36,6 +36,7 @@ public class MapController {
 		return "";
 	}
 	
+	@RequestMapping("/deliciousMapInsert")
 	public String insertMap(HttpSession session, DeliciousMapVO deliciousMapVO, Model model) {
 		return "";
 	}

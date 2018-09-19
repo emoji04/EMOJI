@@ -7,7 +7,7 @@ import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
 
 public class MapService {
-	SqlSession sqlsession;
+	//SqlSession sqlsession;
 	
 	public int insertMap(int memberNum, DeliciousMapVO deliciousMapVO) {
 		return 1;
