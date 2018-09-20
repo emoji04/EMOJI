@@ -1,4 +1,4 @@
-package com.bit.emoji.delicious.service;
+package com.bit.emoji.service;
 
 import javax.inject.Inject;
 

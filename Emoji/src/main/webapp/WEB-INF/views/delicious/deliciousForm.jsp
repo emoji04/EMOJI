@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,48 +95,38 @@
 		
 		<div class="tab_container">
 			<div id="makeMap" class="tab_content" style="display: block;">
-				<form>
+				<form action="<c:url value='/deliciousMapInsert' />" method="post">
 					<table>
 						<tr>
 							<td>지도이름</td>
-							<td><input type="text"></td>
+							<td><input type="text" id="deliciousMapName" name="deliciousMapName"></td>
 						</tr>
 						<tr>
 							<td>해시태그</td>
-							<td><input type="text"></td>
+							<td><input type="text" id="deliciousMapTag" name="deliciousMapTag"></td>
 						</tr>
 						<tr>
 							<td>상세설명</td>
 							<td>
-								<textarea rows="20"></textarea>
+								<textarea rows="5" id="deliciousMapDetail" name="deliciousMapDetail"></textarea>
 								<span id="textCnt">0</span>/20
 							</td>
 						</tr>
 					</table>
 					
 					<input type="hidden" name="deliciousMapOpen" value="open">
-					<input type="hidden" name="memberId" value="m20180919001">
 					
-					<input type="image" src="resources/img/saveBtn.png">
+					<jsp:useBean id="now" class="java.util.Date" />
+					<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
+					
+					<input type="hidden" name="memberNum" value="2">
+					
+					<input type="image" src="resources/img/saveBtn.png" style="float:right;">
 				</form>
 			</div>
 			
 			<div id="searchMap" class="tab_content" style="display: none;">
-				<input type="text" id="address" placeholder="주소검색"><br>
-					<input type="text" placeholder="상호명"><br>
-					<input type="text" placeholder="핀이름"><br>
-		
-					<select id="category">
-						<option>한식</option>
-						<option>중식</option>
-						<option>일식</option>
-						<option>양식</option>
-					</select><br>
-		
-					<input type="text" placeholder="평점"><br>
-					<input type="text" placeholder="전화번호"><br>
-					<input type="text" placeholder="상세설명"><br>
-					<input type="file">
+				<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
 			</div>
 		</div>
 	</div>
@@ -176,59 +168,39 @@
 		});
 	});
 	
-	var mapContainer = document.getElementById('map'),   //지도 담을 영역
+	var mapContainer = document.getElementById('map')   //지도 담을 영역
+	
+	//HTML5의 GeoLocation으로 사용할 수 있는지 확인
+	if(navigator.geolocation) {
+		//GeoLocation을 이용해 접속 위치 얻어오기
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var lat = position.coords.latitude; //위도
+			var lon = position.coords.longtitude;  //경도
+			
+			var locPosition = new daum.maps.LatLng(lat, lon);
+			
 			//지도 생성 시, 필요한 기본 옵션
-			mapOptions = { 
-				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
+			var mapOptions = { 
+				center: locPosition, //지도 중심좌표
 				level: 3   //지도 레벨(확대, 축소)
 			};
 
-	var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
+			var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
+		});
+	}
 	
-/* 	//주소-좌표 변환 객체 생성
-	var geocoder = new daum.maps.services.Geocoder();
-	
-	//주소로 좌표 검색
-	geocoder.addressSearch(document.getElementById('address').value, function(result, status){
-		//정상적으로 검색 완료
-		if(status == daum.maps.services.Status.OK) {
-			var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-			
-			var mark = new daum.maps.Marker({
-				map: map,
-				position: coords
-			});
-		}
-		map.setCenter(coords);     //지도의 중심을 결과값으로 받은 위치로 이동
-	});  */
-	
-	//지도에 클릭 이벤트 등록
-	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-		var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
-			imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
-			
-		var latlng = mouseEvent.latLng;  //클릭한 위도, 경도 정보 가져오기
-			
-		var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize),
-			markerPosition = new daum.maps.LatLng(latlng);
+	//HTML5의 GeoLocation을 사용할 수 없을 때
+	else {
+		var locPosition = new daum.maps.Map(37.5706073, 126.9853092);
 		
-		//지도에 클릭한 위치에 표출할 마커 생성
-		var marker = new daum.maps.Marker({
-			position: markerPosition,
-			image: markerImg     //마커 이미지 설정
-		});   
-		
-		marker.setMap(map);   //지도에 마커 표시
-		
-		var latlng = mouseEvent.latLng;  //클릭한 위도, 경도 정보 가져오기
-		
-		marker.setPosition(latlng);    //마커 위치를 클릭한 위치로 이동
-		
-		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ', 경도는 ' + latlng.getLng() + '입니다.'; 
-		
-		var resultDiv = document.getElementById('clickLatlng');
-		resultDiv.innerHTML = message;
-	});
+		//지도 생성 시, 필요한 기본 옵션
+		var mapOptions = { 
+			center: locPosition, //지도 중심좌표
+			level: 3   //지도 레벨(확대, 축소)
+		};
+
+		var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
+	}
 </script>
 </body>
 
