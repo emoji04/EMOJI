@@ -29,10 +29,18 @@ public class membercontroller {
     }
 s
 
+<<<<<<< HEAD
     public String goEdiFormteset(ewe){
 
     public String goEdiFormtesttest(){dvfd
 
+=======
+<<<<<<< HEAD
+    public String goEdiFormtest(){
+=======
+    public String goEdiFormtesttest(){
+>>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴㄴs' of https://github.com/emoji04/EMOJI.git
+>>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
         return null;
     }
 
