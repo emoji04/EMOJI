@@ -10,5 +10,4 @@ public class MailSendService {
 
     public void mailSender(String toEmail, String type){
     }
-
 }
