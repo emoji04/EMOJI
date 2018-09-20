@@ -57,6 +57,13 @@ body {
 
 #smallleft {
 	width: 400px;
+	height:400px;
+	border-right: 1px solid;
+}
+
+#smallright {
+	width: 400px;
+	height:600px;
 	border-right: 1px solid;
 }
 
@@ -167,7 +174,7 @@ input[type=text] {
 						</div>
 						<div>
 							<label><input type="text" / placeholder="맛집이름,카테고리,상세정보">
-							<button onclick="search()">검색</button></label>
+								<button onclick="search()">검색</button></label>
 						</div>
 
 					</div>
@@ -184,35 +191,33 @@ input[type=text] {
 						<div>
 							<label><input type="text" placeholder="맛집이름,카테고리,상세정보"
 								name="search">
-							<button onclick="search()">검색</button></label>
+								<button onclick="search()">검색</button></label>
 						</div>
 					</div>
-
-
-                <div id="searched"></div>
-                    <!-- #tab2 -->
-                </div>
-
-
-
-					<!-- .tab_container -->
+					<!-- #tab2 -->
 				</div>
-				<!-- #container -->
+				<!-- .tab_container -->
+
 			</div>
-			<div id="rightside">
-				<div id="righttop">
-					<div id="map"></div>
-				</div>
-				<div id="rightbottom">
-					<div id="smallleft"></div>
-					<div id="smallright">
-						<table>
-							<tr></tr>
-						</table>
-					</div>
+				<div id="searched" ondrop="drop(event)"
+					ondragover="allowDrop(event)"></div>
+
+			<!-- #container -->
+		</div>
+		<div id="rightside">
+			<div id="righttop">
+				<div id="map"></div>
+			</div>
+			<div id="rightbottom">
+				<div id="smallleft" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				<div id="smallright">
+					<table>
+						<tr></tr>
+					</table>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 <c:url var="search1" value="/search"></c:url>
 <script>
@@ -222,20 +227,40 @@ input[type=text] {
 		level : 3
 	//지도의 레벨(확대, 축소 정도)
 	};
-
 	var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
 
+	//드래그앤 드롭
+	function drag(drag) {
+		drag.dataTransfer.setData("deliciousName", drag.target.innerHtml);
+	}
+	function drop(drop) {
+		drop.preventDefault();
+		var data = drop.dataTransfer.getData("deliciousName");
+		drop.target.appendChild(data);
+	}
+	function allowDrop(data){
+		data.preventDefault();
+	}
+	
 	function search() {
-		var search=document.getElementsByName("search");
 		$.ajax({
-			type:"get",
-			url:"${search1}",
-			success:function(data){
+			type : "get",
+			url : "${search1}",
+			dataType : "json",
+			success : function(data) {
 				console.log(data);
+				var name = new Array();
+				var detail = new Array();
+				$.each(data, function(key, value) {
+					name = value.deliciousPinName;
+					detail = value.deliciousPinDetail;
+					$('#searched').append(
+							"<div id='name' draggable='true' ondragstart='drag(event)'><div >" 
+							+ name + "</div>" + "<div>" + detail
+									+ "</div></div>");
+				});
 			}
-		})
-		
-		
+		});
 	}
 </script>
 <script>
@@ -253,8 +278,6 @@ input[type=text] {
 
 		});
 	});
-
-	//드래그앤 드롭
 </script>
 
 </html>
