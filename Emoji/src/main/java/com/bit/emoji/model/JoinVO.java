@@ -6,6 +6,8 @@ public class JoinVO {
 	private String state;
 	private double joinGrade;
 	
+	
+	
 	public JoinVO(int joinNum, int memberNum, int routeNum, String state, double joinGrade) {
 		super();
 		this.joinNum = joinNum;
