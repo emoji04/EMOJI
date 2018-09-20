@@ -28,7 +28,11 @@ public class membercontroller {
         return null;
     }
 
+<<<<<<< HEAD
     public String goEdiFormtest(){
+=======
+    public String goEdiFormtesttest(){
+>>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
         return null;
     }
 
