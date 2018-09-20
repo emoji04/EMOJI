@@ -14,12 +14,21 @@ public class membercontroller {
     MailSendService mailSendService;
     MemberService memberService;
 
-    @RequestMapping(value = "/loginForm")
+    @RequestMapping(value = "loginForm")
     public String goLoginForm(){
-        return "naverRegi";
+        return "member/LoginForm";
+    }
+    
+    @RequestMapping(value = "member/loginSuccess")
+    public String goLoginSuccess(){
+        return "member/LoginSuccess";
     }
 
-
+    @RequestMapping(value = "member/loginFormtest")
+    public String goLoginFormtest(){
+        return "member/LoginFormtest";
+    }
+    
     public String goRegForm(){
         return null;
     }
