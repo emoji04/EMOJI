@@ -27,26 +27,6 @@ public class membercontroller {
     public String goUpdateForm(){
         return null;
     }
-s
-
-<<<<<<< HEAD
-    public String goEdiFormteset(ewe){
-
-    public String goEdiFormtesttest(){dvfd
-
-=======
-<<<<<<< HEAD
-    public String goEdiFormtest(){
-=======
-    public String goEdiFormtesttest(){
-<<<<<<< HEAD
->>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴㄴs' of https://github.com/emoji04/EMOJI.git
->>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
-=======
->>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴdfㄴs' of https://github.com/emoji04/EMOJI.git
->>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
-        return null;
-    }
 
     public String regster(Model model){
         return null;
