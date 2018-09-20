@@ -28,7 +28,7 @@ public class membercontroller {
         return null;
     }
 
-    public String goEdiForm(){
+    public String goEdiFormtesttest(){
         return null;
     }
 
