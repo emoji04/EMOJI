@@ -103,7 +103,7 @@
 						</tr>
 						<tr>
 							<td>해시태그</td>
-							<td><input type="text" id="deliciousMapTag" name="deliciousMapTag"></td>
+							<td><input type="text" id="deliciousMapTag" name="deliciousMapTag" placeholder="5개까지 입력 가능합니다."></td>
 						</tr>
 						<tr>
 							<td>상세설명</td>
@@ -142,9 +142,9 @@
 		$('textarea').keyup(function() {
 			var text = $(this).val();
 			var textlength = text.length;
-	
+
 			var remain = 20 - textlength;
-			
+		
 			if(remain < 0) {
 				var newText = text.substr(0,20);
 				$(this).val(newText);
@@ -153,11 +153,11 @@
 			else
 				$('#textCnt').text(remain);
 		});
-		
+	
 		$('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
 		$('.tab_content:first').show();
-		
+	
 		$('ul.tab li').click(function(){
 			$('ul.tab li').removeClass('active');
 			$(this).addClass('active');
@@ -167,40 +167,15 @@
 			$(activeTab).fadeIn();
 		});
 	});
-	
-	var mapContainer = document.getElementById('map')   //지도 담을 영역
-	
-	//HTML5의 GeoLocation으로 사용할 수 있는지 확인
-	if(navigator.geolocation) {
-		//GeoLocation을 이용해 접속 위치 얻어오기
-		navigator.geolocation.getCurrentPosition(function(position) {
-			var lat = position.coords.latitude; //위도
-			var lon = position.coords.longtitude;  //경도
-			
-			var locPosition = new daum.maps.LatLng(lat, lon);
-			
-			//지도 생성 시, 필요한 기본 옵션
-			var mapOptions = { 
-				center: locPosition, //지도 중심좌표
-				level: 3   //지도 레벨(확대, 축소)
-			};
 
-			var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
-		});
-	}
-	
-	//HTML5의 GeoLocation을 사용할 수 없을 때
-	else {
-		var locPosition = new daum.maps.Map(37.5706073, 126.9853092);
-		
+	var mapContainer = document.getElementById('map'),   //지도 담을 영역
 		//지도 생성 시, 필요한 기본 옵션
-		var mapOptions = { 
-			center: locPosition, //지도 중심좌표
+		mapOptions = { 
+			center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
 			level: 3   //지도 레벨(확대, 축소)
 		};
 
-		var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
-	}
+	var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
 </script>
 </body>
 
