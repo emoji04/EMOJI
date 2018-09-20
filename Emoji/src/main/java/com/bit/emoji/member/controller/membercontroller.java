@@ -32,7 +32,7 @@ public class membercontroller {
     public String goEdiFormtest(){
 =======
     public String goEdiFormtesttest(){
->>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
+>>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴㄴs' of https://github.com/emoji04/EMOJI.git
         return null;
     }
 
