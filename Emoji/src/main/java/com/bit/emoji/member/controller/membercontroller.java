@@ -27,12 +27,12 @@ public class membercontroller {
     public String goUpdateForm(){
         return null;
     }
+s
 
-<<<<<<< HEAD
-    public String goEdiFormtest(){
-=======
-    public String goEdiFormtesttest(){
->>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
+    public String goEdiFormteset(ewe){
+
+    public String goEdiFormtesttest(){dvfd
+
         return null;
     }
 
