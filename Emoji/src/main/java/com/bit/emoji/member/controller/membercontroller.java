@@ -39,7 +39,11 @@ s
     public String goEdiFormtest(){
 =======
     public String goEdiFormtesttest(){
+<<<<<<< HEAD
 >>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴㄴs' of https://github.com/emoji04/EMOJI.git
+>>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
+=======
+>>>>>>> branch 'nillㄴㄴㄴㄴㄴㄴㄴㄴdfㄴs' of https://github.com/emoji04/EMOJI.git
 >>>>>>> branch 'nills' of https://github.com/emoji04/EMOJI.git
         return null;
     }
