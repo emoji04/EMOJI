@@ -47,16 +47,8 @@ public class MapController {
 	//맛집지도 등록하고 보여주기
 	@RequestMapping("/deliciousMapInsert")
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
-		deliciousMapVO.setDeliciousMapNum(5);
+		deliciousMapVO.setDeliciousMapNum(6);
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
-		
-/*		System.out.println(deliciousMapVO.getDeliciousMapCreateDate());
-		System.out.println(deliciousMapVO.getDeliciousMapDetail());
-		System.out.println(deliciousMapVO.getDeliciousMapName());
-		System.out.println(deliciousMapVO.getDeliciousMapNum());
-		System.out.println(deliciousMapVO.getDeliciousMapOpen());
-		System.out.println(deliciousMapVO.getDeliciousMapTag());
-		System.out.println(deliciousMapVO.getMemberNum());*/
 		
 		int cnt = mapService.insertMap(deliciousMapVO);
 		
@@ -65,13 +57,6 @@ public class MapController {
 		
 		return "/delicious/deliciousMap";
 	}
-	
-/*	//맛집지도 보여주기
-	public String selectMap(DeliciousMapVO deliciousMapVO, Model model) {
-		model.addAttribute("deliciousMapList", mapService.selectMapAll());
-		
-		return "/delicious/deliciousMap";
-	}*/
 	
 	public String insertPin(DeliciousPinVO deliciousPinVO, Model model) {
 		return "";

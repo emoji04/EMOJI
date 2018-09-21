@@ -135,14 +135,12 @@
 							<input type="hidden" name="memberNum">
 						</c:forEach>
 					</table>
-					
-					<input type="image" src="resources/img/saveBtn.png" style="float:right;">
 				</form>
 				
-				<div id="searchMap">
+				<div id="makePin">
 					<form>
-						<input type="text" id="address" placeholder="주소검색"><br>
-						<input type="text" placeholder="상호명"><br>
+						<input type="text" id="address" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
+						<input type="text" id="restaurantName" placeholder="상호명"><br>
 						<input type="text" placeholder="핀이름"><br>
 		
 						<select id="category">
@@ -162,6 +160,10 @@
 					</form>
 					
 				</div>
+			</div>
+			
+			<div id="searchMap" class="tab_content" style="display: none;">
+				<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
 			</div>
 			<input type="submit" value="최종 저장">
 		</div>
@@ -213,93 +215,92 @@
 
 	var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
 	
+	var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
+		imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
+		
+	var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
+		//markerPosition = new daum.maps.LatLng(latlng);
+		
+	//지도에 클릭한 위치에 표출할 마커 생성
+	var marker = new daum.maps.Marker({
+		//position: markerPosition,
+		image: markerImg     //마커 이미지 설정
+	}); 
+		
+	marker.setMap(map);   //지도에 마커 표시
+		
+	var markers = [];   //지도에 표시한 마커 객체를 가지고 있을 배열
+	
 	var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
+	
+ 	$('#address').keyup(function() {
+		var address = $('#address').val();
+		
+ 		//주소로 좌표 검색
+		geocoder.addressSearch(address, function(result, status) {
+			
+			//정상적으로 검색이 완료됐으면
+			if(status == daum.maps.services.Status.OK) {
+				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+				
+/*  				//결과값으로 받은 위치 마커 표시
+ 				var marker = new daum.maps.Marker({
+					map: map,
+					position: coords
+				}); */
+ 				
+ 				//지도의 중심을 결과값으로 받은 위치로 이동
+				map.setCenter(coords);
+				marker.setPosition(coords);
+			}
+		}); 
+	}); 
 	
 	//지도에 클릭 이벤트 등록
 	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-		var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
-		imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
-		
-		var latlng = mouseEvent.latLng;  //클릭한 위도, 경도 정보 가져오기
-		
-		var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize),
-			markerPosition = new daum.maps.LatLng(latlng);
-		
-		//지도에 클릭한 위치에 표출할 마커 생성
-		var marker = new daum.maps.Marker({
-			position: markerPosition,
-			image: markerImg     //마커 이미지 설정
-		}); 
-		
-		var infowindow = new daum.maps.InfoWindow({zindex:1});    //주소 표시할 인포윈도우 생성
-		
-		var markers = [];   //지도에 표시한 마커 객체를 가지고 있을 배열
-		
-		$('#address').mouseenter(function() {
-			//윈도우 창 크기
-			var width = 500;
-			var height = 600;
-			
-			daum.postcode.load(function() {
-				new daum.Postcode({
-					oncomplete: function(data) {
-						$('#address').val(data.address);
-						
-						var address = $('#address').val(data.address);
-					}
-				}).open({
-					left: (window.screen.width/2)-(width/2),
-					top: (window.screen.height/2)-(height/2)
-				});
-			});
-			
-			//주소로 좌표 검색
-			geocoder.addressSearch(address, function(result, status) {
-				//정상적으로 검색이 완료됐으면
-				if(status == daum.maps.services.Status.OK) {
-					var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-					
-					//결과값으로 받은 위치 마커 표시
-					var marker = new daum.maps.Marker({
-						map: map,
-						position: coords
-					});
-					
-					//지도의 중심을 결과값으로 받은 위치로 이동
-					map.setCenter(coords);
-				}
-			});
-		});
-	
+		var latlng = mouseEvent.latLng;    //클릭한 위도, 경도 정보 가져오기
+
 		//지도를 클릭했을 때, 클릭 위치 좌표에 대한 주소 정보 표시
 		searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 			//정상적으로 검색이 완료됐으면
 			if(status == daum.maps.services.Status.OK) {
 				var detailAddr = result[0].address.address_name;
 				
-				var content = '<div class="bAddr">' + '<span class="title">법정동 주소정보</span>' + detailAddr + '</div>';
-				
 				marker.setPosition(latlng);    //마커 위치를 클릭한 위치로 이동
-				marker.setMap(map);   //지도에 마커 표시
-				markers.push(marker);
+				//marker.setMap(map);   
 				
-				//인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보 표시
-				//infowindow.setContent(content);
-				//infowindow.open(map, marker);
 				$('#address').val(detailAddr);
 			}
 		});
 	});
 	
+	
+	//좌표로 행정동 주소 정보 요청
 	function searchAddrFromCoords(coords, callback) {
-		//좌표로 행정동 주소 정보 요청
 		geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
 	}
 	
+	//좌표로 법정동 상세 주소 정보 요청
 	function searchDetailAddrFromCoords(coords, callback) {
-		//좌표로 법정동 상세 주소 정보 요청
 		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	}	
+	
+	function searchAddr() {
+		//윈도우 창 크기
+		var width = 500;
+		var height = 600;
+		
+		daum.postcode.load(function() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					$('#address').val(data.address);
+				}
+			}).open({
+				left: (window.screen.width/2)-(width/2),
+				top: (window.screen.height/2)-(height/2)
+			});
+		});
+	}
 	
 	//지도에서 마커 삭제
 	function hideMarkers() {
