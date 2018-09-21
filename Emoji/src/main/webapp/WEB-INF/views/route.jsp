@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!DOCTYPE html>
         <html>
 
@@ -50,27 +50,58 @@
 
                 #righttop {
                     /*         	border-bottom:1px solid #eee; */
+                    width: 1090px;
                     border-bottom: 1px solid;
                     height: 500px;
                 }
+                
+               #rightbottom {
+					width: 1090px;
+					height:1000px;
+					overflow:hidden;
+                }
 
-                #smallleft {
+                #smallLeft {
                     width: 400px;
-                    height: 400px;
+                    height: 1000px;
                     border-right: 1px solid;
+                    float:left;
+                    overflow:hidden;
                 }
 
                 #smallright {
-                    width: 400px;
-                    height: 600px;
-                    border-right: 1px solid;
+                    width: 687px;
+                    height: 1000px;
+                    float:right;
+                    
                 }
-
                 #container {
                     display: block;
                     width: 400px;
                     height: 200px;
                     margin: 0 auto;
+                }
+                #smallLeftLeft{
+                	width: 50px;
+                	height: 1000px;
+                	border-right: 1px solid;
+                	float:left;
+                }
+                
+                #smallLeftRight{
+                	width: 348px;
+                	height: 1000px;
+                	float:right;
+                }
+                
+                .deliciousList{
+                	height:50px;
+                	line-height: 50px;
+                	text-align: center;
+                }
+                .delicious{
+                	height:50px;
+
                 }
 
                 ul.tabs {
@@ -181,11 +212,11 @@
                             <!-- #tab1 -->
                             <div id="tab2" class="tab_content">
                                 <div>
-                                    <label><input type="radio" name="searchPool"
+                                    <label><input type="radio" name="searchPool" id="kakaoDelicious"
 								class="searchPool" />맛집 검색하기</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name="searchPool"
+                                    <label><input type="radio" name="searchPool" id="myDelicious"
 								class="searchPool" />내 맛집 지도로 경로 만들기</label>
                                 </div>
                                 <div>
@@ -199,7 +230,7 @@
                         <!-- .tab_container -->
 
                     </div>
-                    <div id="searched" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div id="searched" ondragover="allowDrop(event)"></div>
 
                     <!-- #container -->
                 </div>
@@ -208,7 +239,14 @@
                         <div id="map"></div>
                     </div>
                     <div id="rightbottom">
-                        <div id="smallleft" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div id="smallLeft" >
+                        	<div id="smallLeftLeft">
+<%--                         	<c:forEach var="i" begin="1" end="20">
+                        	<div class='deliciousList ListOrder'>${i}</div>
+                        	</c:forEach> --%>
+                        	</div>
+                        	<div id="smallLeftRight" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </div>
                         <div id="smallright">
                             <table>
                                 <tr></tr>
@@ -220,7 +258,10 @@
         </body>
         <c:url var="search1" value="/search"></c:url>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
-        <script>
+        <script>        
+        //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
+        var addresses=new Array();
+    	var order=1;   
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = {
                     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -230,34 +271,72 @@
 
             //지도를 생성합니다    
             var map = new daum.maps.Map(mapContainer, mapOption);
+		
+         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+            var zoomControl = new daum.maps.ZoomControl();
+            map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+         if (navigator.geolocation) {
+             
+             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+             navigator.geolocation.getCurrentPosition(function(position) {
+                 
+                 var lat = position.coords.latitude, // 위도
+                     lon = position.coords.longitude; // 경도
+                 
+                 var locPosition = new daum.maps.LatLng(lat, lon) // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다	
+                 
+                 map.setCenter(locPosition); 	                     
+               });             
+         }                 
+            
 
             //드래그앤 드롭
             function drag(drag) {    
             	//드래그 된 타겟의 아이디를 delicious라는 이름으로 저장해 놓음
                 drag.dataTransfer.setData("delicious", drag.target.id);
-            }
-            
-            
-            //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
-            var addresses=new Array();
+            }      
+
             
             function drop(drop) {
-                drop.preventDefault();
+            	var cnt=0;
                 //delicious로 저장된 데이터를 가지고옴
-                var data = drop.dataTransfer.getData("delicious");
+                var data = drop.dataTransfer.getData("delicious");                
+                drop.preventDefault();    
+				
+                //이미 경로에 있는 맛집의 경우
+				//순서바꾸기 해야함
+                if(data.substring(0,13)=='deliciousCopy'){ 
+               		for (var k = 0; k < addresses.length; k++) {			
+    					if(addresses[k]!=$('input[name='+data.chatAt(14)+']').val()){
+    						cnt++;
+                		}
+                	}       				
+       			}else{
+               		for (var k = 0; k < addresses.length; k++) {			
+    					if(addresses[k]!=$('input[name='+data+']').val()){
+    						cnt++;
+                		}
+                	}
+       			}   
+
+                if(cnt==addresses.length){
                 //해당 데이터의 노드를 카피해서 복사되서 움직일 수 있도록 함
                 var copy=document.getElementById(data).cloneNode(true);
                 //새로 만든 노드의 아이디는 달라야함
-                copy.id="deliciousCopy";
+                copy.id="deliciousCopy"+data+"";
                 //복사해서 지정해놓은 곳으로 저장해놓음
-                drop.target.appendChild(copy);                
-                //data의 값은 1부터 들어가도록 설정해놓았기 때문에 배열안에는 -1을 해서 값을 넣는다.
-                addresses[data-1]= $('input[name='+data+']').val();                 
+                drop.target.appendChild(copy);
                 
+                $('#smallLeftLeft').append("<div class='deliciousList listOrder'>"+order+"</div>")
+
+                //data의 값은 1부터 들어가도록 설정해놓았기 때문에 배열안에는 -1을 해서 값을 넣는다.
+                addresses[order-1]= $('input[name='+data+']').val();
                 //주소-좌표 변환 객체를 생성합니다
                 var geocoder = new daum.maps.services.Geocoder();
                 //주소를 좌표로 변환합니다
-                geocoder.addressSearch(addresses[data-1],function(result, status) {
+                geocoder.addressSearch(addresses[order-1],function(result, status) {
                             // 정상적으로 검색이 완료됐으면 
                             if (status === daum.maps.services.Status.OK) {
 
@@ -269,18 +348,18 @@
                                     map: map,
                                     position: coords
                                 });
-                                map.setCenter(coords);  
+                                map.panTo(coords); 
+                                
                             }
                             
                             console.log(addresses);
-                            
                             //그 바로 직전의 주소를 변환하기 시작
-                            if(data-2>=0){
-                            geocoder.addressSearch(addresses[data-2],function(result2, status2) {
+                            if(order-2>=0){                            	
+                            geocoder.addressSearch(addresses[order-2],function(result2, status2) {
                                 // 정상적으로 검색이 완료됐으면 
                                 if (status2 === daum.maps.services.Status.OK) {
                                     var coords2 = new daum.maps.LatLng(result2[0].y,
-                                    		result2[0].x);									
+                                    		result2[0].x);		
                                 }
                                 
                              // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
@@ -297,30 +376,83 @@
                                     strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                                     strokeStyle: 'solid' // 선의 스타일입니다
                                 });
-
                                 // 지도에 선을 표시합니다 
-                                polyline.setMap(map);  
+                                polyline.setMap(map);
                             });  
                         }
-                        });                
+                            order++;
+                        }); 
+            
+            }
             }
 
             function allowDrop(data) {
                 data.preventDefault();
             }
+            
+            function orderChg(drop){
+            	drop.preventDefault();
+            }
+            
 
             function search() {
+            	$("#searched").text("");
+            	//검색된 맛집 데이터의 이름과 상세정보를 저장할 배열 두개
+                var name = new Array();
+                var detail = new Array();
+                //id를 다르게 하기 위한 변수를 선언
+                var i=1;
+            	if($("#kakaoDelicious").prop('checked')==true){
+            		var places = new daum.maps.services.Places();
+					var keyword=$('input[name=search]').val();
+            		var callback = function(result, status,pagination) {
+            		    if (status === daum.maps.services.Status.OK) {
+							$.each(result,function(key,value){								
+								name=value.place_name;
+								detail=value.category_group_name;
+	                            $('#searched')
+                                .append(
+                                    "<div class='delicious' id='"+i+"' draggable='true' ondragstart='drag(event)' ondrop='orderChg(event)' ><div>"+
+                                    name +
+                                    "</div>" +
+                                    "<div>" +
+                                    detail +
+                                    "</div></div>" +
+                                    "<input name='"+i+"' type='hidden' value='" + value.address_name + "' />");
+	                            if(i%15==0 && pagination.hasNextPage==true){
+	                            	  $('#searched').append("<button class='nextButton'>다음</button>");
+	                            }
+	                            $('.nextButton').click(function(){
+	                            	// 속성 값으로 다음 페이지가 있는지 확인하고
+	                    			if (pagination.hasNextPage) {
+	                    				// 있으면 다음 페이지를 검색한다.
+	                    				pagination.nextPage();
+	                    				$(this).remove();
+	                    			}
+	                            })
+                            i++;                        
+							});
+            		    }
+            		};
+
+            		places.keywordSearch(keyword, callback);
+            		
+            	}else{
+            		//내 맛집지도 불러오기부터 시작해야함
+            		
+            		
+            		
+            		
+            		
+            		
+            		
             	//검색을 눌렀을 때 비동기 시작
+            	
                 $.ajax({
                     type: "get",
                     url: "${search1}",
                     dataType: "json", //json형태로 데이터를 받아옴
                     success: function(data) {
-                    	//검색된 맛집 데이터의 이름과 상세정보를 저장할 배열 두개
-                        var name = new Array();
-                        var detail = new Array();
-                        //id를 다르게 하기 위한 변수를 선언
-                        var i = 1;
                     	//검색된 맛집이 여러개 일 수 있으므로
                         $.each(data, function(key, value) {
 							//데이터 가져오기
@@ -329,7 +461,7 @@
                             //검색 결과 영역에 각각 div 형태로 붙여넣기
                             $('#searched')
                                 .append(
-                                    "<div id='"+i+"' draggable='true' ondragstart='drag(event)'><div >" +i+
+                                    "<div class='delicious' id='"+i+"' draggable='true' ondragstart='drag(event)' ondrop='orderChg(event)'><div>"+
                                     name +
                                     "</div>" +
                                     "<div>" +
@@ -340,6 +472,7 @@
                         });
                     }
                 });
+            }
             }
 
         </script>
@@ -352,9 +485,10 @@
                     $("ul.tabs li").removeClass("active").css("color", "#333");
                     //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
                     $(this).addClass("active").css("color", "darkred");
-                    $(".tab_content").hide()
+                    $(".tab_content").hide();
                     var activeTab = $(this).attr("rel");
-                    $("#" + activeTab).fadeIn()
+                    $("#" + activeTab).fadeIn();
+                    $("#searched").text("");
 
                 });
             });
