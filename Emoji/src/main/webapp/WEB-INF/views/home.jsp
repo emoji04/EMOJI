@@ -22,7 +22,6 @@
 	Hello world!  
 </h1>
 
-<<<<<<< HEAD
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 
