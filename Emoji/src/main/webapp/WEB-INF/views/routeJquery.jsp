@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!DOCTYPE html>
         <html>
-
         <head>
-            <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-            <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+  <script src = "//code.jquery.com/jquery-1.9.1.js"> </script>
+  <script src = "//code.jquery.com/ui/1.10.4/jquery-ui.js"> </script>	
+
             <style>
                 body {
                     margin: 3px;
@@ -105,7 +105,6 @@
                 }
                 .delicious{
                 	height:50px;
-
                 }
 
                 ul.tabs {
@@ -204,11 +203,11 @@
                         <div class="tab_container">
                             <div id="tab1" class="tab_content">
                                 <div>
-                                    <label><input type="date" / name="searchDateFrom"></label>~
-                                    <label><input type="date" / name="searchDateTo"></label>
+                                    <label><input type="date" name="searchDateFrom"></label>~
+                                    <label><input type="date"  name="searchDateTo"></label>
                                 </div>
                                 <div>
-                                    <label><input type="text" / placeholder="맛집이름,카테고리,상세정보">
+                                    <label><input type="text" placeholder="맛집이름,카테고리,상세정보">
 								<button onclick="search()">검색</button></label>
                                 </div>
 
@@ -234,7 +233,11 @@
                         <!-- .tab_container -->
 
                     </div>
-                    <div id="searched" ondragover="allowDrop(event)"></div>
+                    <div id="searched" >
+                    	
+                    
+                    
+                    </div>
 
                     <!-- #container -->
                 </div>
@@ -249,7 +252,7 @@
                         	<div class='deliciousList ListOrder'>${i}</div>
                         	</c:forEach> --%>
                         	</div>
-                        	<div id="smallLeftRight" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        	<div id="smallLeftRight"></div>
                         </div>
                         <div id="smallright">
                             <table>
@@ -262,8 +265,15 @@
         </body>
         <c:url var="search1" value="/search"></c:url>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
+        
         <script>        
         //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
+                $(function() {        	
+            $('#smallLeftRight').sortable();   
+            $(".delicious").draggable();
+                })
+        
+        
         var addresses=new Array();
     	var order=1;   
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -293,107 +303,7 @@
                  
                  map.setCenter(locPosition); 	                     
                });             
-         }                 
-            
-
-            //드래그앤 드롭
-            function drag(drag) {    
-            	//드래그 된 타겟의 아이디를 delicious라는 이름으로 저장해 놓음
-                drag.dataTransfer.setData("delicious", drag.target.id);
-            }      
-
-            
-            function drop(drop) {
-            	var cnt=0;
-                //delicious로 저장된 데이터를 가지고옴
-                var data = drop.dataTransfer.getData("delicious");                
-                drop.preventDefault();                   
-                
-                //중복으로 옮겨지지 않도록 방지
-				//이미 옮겨져 있는 맛집과 비교
-				//이미 옮겨져 있는 맛집의 경우 순서가 바뀌도록 할것
-                if(data.substring(0,13)=='deliciousCopy'){ 
-               		for (var k = 0; k < addresses.length; k++) {			
-    					if(addresses[k]!=$('input[name='+data.chatAt(14)+']').val()){
-    						cnt++;
-                		}
-                	}       				
-       			}else{ //검색되어있는 맛집과 비교
-               		for (var k = 0; k < addresses.length; k++) {			
-    					if(addresses[k]!=$('input[name='+data+']').val()){
-    						cnt++;
-                		}
-                	}
-       			}   
-
-                if(cnt==addresses.length){
-                //해당 데이터의 노드를 카피해서 복사되서 움직일 수 있도록 함
-                var copy=document.getElementById(data).cloneNode(true);
-                //새로 만든 노드의 아이디는 달라야함
-                copy.id="deliciousCopy"+data+"";
-                //복사해서 지정해놓은 곳으로 저장해놓음
-                drop.target.appendChild(copy);
-                
-                $('#smallLeftLeft').append("<div class='deliciousList listOrder'>"+order+"</div>")
-
-                //data의 값은 1부터 들어가도록 설정해놓았기 때문에 배열안에는 -1을 해서 값을 넣는다.
-                addresses[order-1]= $('input[name='+data+']').val();
-                //주소-좌표 변환 객체를 생성합니다
-                var geocoder = new daum.maps.services.Geocoder();
-                //주소를 좌표로 변환합니다
-                geocoder.addressSearch(addresses[order-1],function(result, status) {
-                            // 정상적으로 검색이 완료됐으면 
-                            if (status === daum.maps.services.Status.OK) {
-
-                                var coords = new daum.maps.LatLng(result[0].y,
-                                    result[0].x);
-
-                                // 결과값으로 받은 위치를 마커로 표시합니다
-                                var marker = new daum.maps.Marker({
-                                    map: map,
-                                    position: coords
-                                });
-                                map.panTo(coords);
-                                
-                            }
-                            //그 바로 직전의 주소를 변환하기 시작
-                            if(order-2>=0){                            	
-                            geocoder.addressSearch(addresses[order-2],function(result2, status2) {
-                                // 정상적으로 검색이 완료됐으면 
-                                if (status2 === daum.maps.services.Status.OK) {
-                                    var coords2 = new daum.maps.LatLng(result2[0].y,
-                                    		result2[0].x);		
-                                }
-                                
-                             // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
-                                var linePath = [
-                                	coords2,
-                                	coords	                                        
-                                ];
-
-                                // 지도에 표시할 선을 생성합니다
-                                var polyline = new daum.maps.Polyline({
-                                    path: linePath, // 선을 구성하는 좌표배열 입니다
-                                    strokeWeight: 5, // 선의 두께 입니다
-                                    strokeColor: '#FFAE00', // 선의 색깔입니다
-                                    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-                                    strokeStyle: 'solid' // 선의 스타일입니다
-                                });
-                                // 지도에 선을 표시합니다 
-                                polyline.setMap(map);
-                            });  
-                        }
-                            order++;
-                            reorder();
-                        }); 
-            
-            }
-            }
-
-            function allowDrop(data) {
-                data.preventDefault();
-            }
-            
+         }               
 
             function search() {
             	$("#searched").text("");
@@ -412,13 +322,13 @@
 								detail=value.category_group_name;
 	                            $('#searched')
                                 .append(
-                                    "<div class='delicious' id='"+i+"' draggable='true' ondragstart='drag(event)'><div>"+
+                                    "<div class='delicious' id='"+i+"'><div>"+
                                     name +
                                     "</div>" +
                                     "<div>" +
                                     detail +
-                     "</div><input name='"+i+"'  type='hidden' value='"+value.address_name +"' /></div>");
-
+                                    "</div></div>" +
+                                    "<input name='"+i+"' type='hidden' value='" + value.address_name + "' />");
 	                            if(i%15==0 && pagination.hasNextPage==true){
 	                            	  $('#searched').append("<button class='nextButton'>다음</button>");
 	                            }
@@ -430,6 +340,101 @@
 	                    				$(this).remove();
 	                    			}
 	                            })
+	                            //드래그 가능할수 있도록 
+	                             $('.delicious:not(.ui-draggable)').draggable({
+	                       	      connectToSortable: "#smallLeftRight",
+	                    	      helper: "clone",
+	                    	      revert: "invalid",
+	                    	      stop: function(event,ui){
+	                    	    	  
+	                    	    	  var cnt=0;
+	                                  //delicious로 저장된 데이터를 가지고옴
+									  var data=0;           
+                
+	                                  
+	                                  //중복으로 옮겨지지 않도록 방지
+	                  				//이미 옮겨져 있는 맛집과 비교
+	                  				//이미 옮겨져 있는 맛집의 경우 순서가 바뀌도록 할것
+	                                  if(data.substring(0,13)=='deliciousCopy'){ 
+	                                 		for (var k = 0; k < addresses.length; k++) {			
+	                      					if(addresses[k]!=$('input[name='+data.chatAt(14)+']').val()){
+	                      						cnt++;
+	                                  		}
+	                                  	}       				
+	                         			}else{ //검색되어있는 맛집과 비교
+	                                 		for (var k = 0; k < addresses.length; k++) {			
+	                      					if(addresses[k]!=$('input[name='+data+']').val()){
+	                      						cnt++;
+	                                  		}
+	                                  	}
+	                         			}   
+
+	                                  if(cnt==addresses.length){
+	                                  //해당 데이터의 노드를 카피해서 복사되서 움직일 수 있도록 함
+	                                  var copy=document.getElementById(data).cloneNode(true);
+	                                  //새로 만든 노드의 아이디는 달라야함
+	                                  copy.id="deliciousCopy"+data+"";
+	                                  //복사해서 지정해놓은 곳으로 저장해놓음
+	                                  drop.target.appendChild(copy);
+	                                  
+	                                  $('#smallLeftLeft').append("<div class='deliciousList listOrder'>"+order+"</div>")
+
+	                                  //data의 값은 1부터 들어가도록 설정해놓았기 때문에 배열안에는 -1을 해서 값을 넣는다.
+	                                  addresses[order-1]= $('input[name='+data+']').val();
+	                                  //주소-좌표 변환 객체를 생성합니다
+	                                  var geocoder = new daum.maps.services.Geocoder();
+	                                  //주소를 좌표로 변환합니다
+	                                  geocoder.addressSearch(addresses[order-1],function(result, status) {
+	                                              // 정상적으로 검색이 완료됐으면 
+	                                              if (status === daum.maps.services.Status.OK) {
+
+	                                                  var coords = new daum.maps.LatLng(result[0].y,
+	                                                      result[0].x);
+
+	                                                  // 결과값으로 받은 위치를 마커로 표시합니다
+	                                                  var marker = new daum.maps.Marker({
+	                                                      map: map,
+	                                                      position: coords
+	                                                  });
+	                                                  map.panTo(coords);
+	                                                  
+	                                              }
+	                                              
+	                                              console.log(addresses);
+	                                              //그 바로 직전의 주소를 변환하기 시작
+	                                              if(order-2>=0){                            	
+	                                              geocoder.addressSearch(addresses[order-2],function(result2, status2) {
+	                                                  // 정상적으로 검색이 완료됐으면 
+	                                                  if (status2 === daum.maps.services.Status.OK) {
+	                                                      var coords2 = new daum.maps.LatLng(result2[0].y,
+	                                                      		result2[0].x);		
+	                                                  }
+	                                                  
+	                                               // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+	                                                  var linePath = [
+	                                                  	coords2,
+	                                                  	coords	                                        
+	                                                  ];
+
+	                                                  // 지도에 표시할 선을 생성합니다
+	                                                  var polyline = new daum.maps.Polyline({
+	                                                      path: linePath, // 선을 구성하는 좌표배열 입니다
+	                                                      strokeWeight: 5, // 선의 두께 입니다
+	                                                      strokeColor: '#FFAE00', // 선의 색깔입니다
+	                                                      strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+	                                                      strokeStyle: 'solid' // 선의 스타일입니다
+	                                                  });
+	                                                  // 지도에 선을 표시합니다 
+	                                                  polyline.setMap(map);
+	                                              });  
+	                                          }
+	                                              order++;
+	                                          }); 
+	                              
+	                              }
+	                    	    	  
+	                    	      }
+	                        });            
                             i++;                        
 							});
             		    }
@@ -439,13 +444,7 @@
             		
             	}else{
             		//내 맛집지도 불러오기부터 시작해야함
-            		
-            		
-            		
-            		
-            		
-            		
-            		
+
             	//검색을 눌렀을 때 비동기 시작            	
                 $.ajax({
                     type: "get",
@@ -458,78 +457,51 @@
                             name = value.deliciousPinName;
                             detail = value.deliciousPinDetail;
                             //검색 결과 영역에 각각 div 형태로 붙여넣기
-	                            $('#searched')
+                            $('#searched')
                                 .append(
-                                    "<div class='delicious' id='"+i+"' draggable='true' ondragstart='drag(event)'><div>"+
+                                    "<div class='delicious' id='"+i+"'><div>"+
                                     name +
                                     "</div>" +
                                     "<div>" +
                                     detail +
-                     				"</div><input name='"+i+"'  type='hidden' value='"+value.deliciousPinAddress+"' /></div>");
+                                    "</div></div>" +
+                                    "<input name='"+i+"' type='hidden' value='" + value.deliciousPinAddress + "' />");
+                            $('.delicious:not(.ui-draggable)').draggable({
+                      	      connectToSortable: "#smallLeftRight",
+                    	      helper: "clone",
+                    	      revert: "invalid"
+                        });
+                            
                             i++;
                         });
                     }
                 });
             }
-            }
+            }          
+            
 
         </script>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
-        <script>
-            //탭메뉴 만들기
-            $(function() {
+		<script>
+        //탭메뉴 만들기
+        $(function() {        	
+              
+            $(".tab_content").hide();
+            $(".tab_content:first").show();
+            $("ul.tabs li").click(function() {
+                $("ul.tabs li").removeClass("active").css("color", "#333");
+                //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+                $(this).addClass("active").css("color", "darkred");
                 $(".tab_content").hide();
-                $(".tab_content:first").show();
-                $("ul.tabs li").click(function() {
-                    $("ul.tabs li").removeClass("active").css("color", "#333");
-                    //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
-                    $(this).addClass("active").css("color", "darkred");
-                    $(".tab_content").hide();
-                    var activeTab = $(this).attr("rel");
-                    $("#" + activeTab).fadeIn();
-                    $("#searched").text("");
-
-                });
-                
-                $('#smallLeftRight').sortable({
-                    start: function(event, ui) {
-                        ui.item.data('start', ui.item.index());
-                    },
-
-                    stop: function(event, ui) {
-                        var spos = ui.item.data('start');
-                        var epos = ui.item.index();
-            	    reorder();
-                    }
-                }); 
+                var activeTab = $(this).attr("rel");
+                $("#" + activeTab).fadeIn();
+                $("#searched").text("");
             });
-			
-            function reorder(){         	
-            	
-				$('#smallLeftRight').children().each(function(index){
-					$(this).attr('id','deliciousCopy'+index+'');
-					$(this).find('input[type=hidden]').attr('name',index);
-				})
-				
-				for(var i=0;i<addresses.length;i++){
-					addresses[i]=$("input[name="+i+"]").val();
-				}
-                //주소-좌표 변환 객체를 생성합니다
-                var geocoder = new daum.maps.services.Geocoder();
-				
-				geocoder.addressSearch(addresses[0],function(result, status) {
-                    // 정상적으로 검색이 완료됐으면 
-                    if (status === daum.maps.services.Status.OK) {
-
-                        var coords = new daum.maps.LatLng(result[0].y,
-                            result[0].x);
-                        map.panTo(coords);
-                        console.log(addresses);
-                    }                    
-                }); 	
-            }
             
-            
-        </script>
+            $('#smallLeftRight').sortable();   
+            $('.delicious:not(.ui-draggable)').draggable();   
 
+            
+        });
+		</script>
+        
         </html>

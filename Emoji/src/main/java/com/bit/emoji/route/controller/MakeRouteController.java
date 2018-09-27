@@ -30,7 +30,6 @@ public class MakeRouteController {
 	@RequestMapping("search")
 	public List<DeliciousPinVO> searchDelicious(@RequestParam(value="search", defaultValue="떡볶이") String search, Model model) {
 		return makeRouteService.selectDelicious(search);
-
 	}
 	
 	/*	public String getMyMap(HttpSession session, Model model) {
