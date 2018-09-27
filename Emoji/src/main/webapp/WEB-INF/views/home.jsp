@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,7 +11,6 @@
 <a href="<c:url value='/deliciousForm' />">맛집지도</a>
 </body>
 </html>
-=======
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
@@ -27,7 +25,6 @@
 <<<<<<< HEAD
 <P>  The time on the server is ${serverTime}. </P>
 </body>
-=======
 
 <html lang="en">
   <head>
@@ -126,6 +123,4 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
->>>>>>> branch 'delicious' of https://github.com/emoji04/EMOJI.git
 </html>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git

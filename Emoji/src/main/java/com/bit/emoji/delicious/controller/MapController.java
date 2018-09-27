@@ -1,109 +1,109 @@
-package com.bit.emoji.delicious.controller;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.bit.emoji.delicious.service.DeliciousReviewService;
-import com.bit.emoji.delicious.service.MapService;
-import com.bit.emoji.delicious.service.MapService.PinService;
-import com.bit.emoji.model.DeliciousMapVO;
-import com.bit.emoji.model.DeliciousPinVO;
-import com.bit.emoji.model.DeliciousReviewVO;
-
-@Controller
-public class MapController {
-	@Autowired
-	MapService mapService;    //맛집지도 CRUD
-	
-	PinService pinService;
-	
-	DeliciousReviewService deliciousReviewService;
-	
-	//맛집지도 메인 페이지
-	@RequestMapping("/deliciousForm")
-	public String deliciousForm() {
-		return "/delicious/deliciousForm";
-	}
-	
-	public String deliciousEditForm(int num, Model model) {
-		return "";
-	}
-	
-	public String deliciousReviewForm() {
-		return "";
-	}
-	
-	public String delete(int num, Model model) {
-		return "";
-	}
-	
-	//맛집지도 등록하고 보여주기
-	@RequestMapping("/deliciousMapInsert")
-	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
-		deliciousMapVO.setDeliciousMapNum(5);
-		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
-		
-/*		System.out.println(deliciousMapVO.getDeliciousMapCreateDate());
-		System.out.println(deliciousMapVO.getDeliciousMapDetail());
-		System.out.println(deliciousMapVO.getDeliciousMapName());
-		System.out.println(deliciousMapVO.getDeliciousMapNum());
-		System.out.println(deliciousMapVO.getDeliciousMapOpen());
-		System.out.println(deliciousMapVO.getDeliciousMapTag());
-		System.out.println(deliciousMapVO.getMemberNum());*/
-		
-		int cnt = mapService.insertMap(deliciousMapVO);
-		
-		model.addAttribute("cnt", cnt);
-		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapVO.getDeliciousMapNum()));
-		
-		return "/delicious/deliciousMap";
-	}
-	
-/*	//맛집지도 보여주기
-	public String selectMap(DeliciousMapVO deliciousMapVO, Model model) {
-		model.addAttribute("deliciousMapList", mapService.selectMapAll());
-		
-		return "/delicious/deliciousMap";
-	}*/
-	
-	public String insertPin(DeliciousPinVO deliciousPinVO, Model model) {
-		return "";
-	}
-	
-	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
-		return "";
-	}
-	
-	public String updateMap(HttpSession session, DeliciousMapVO deliciousMapVO, Model model) {
-		return "";
-	}
-	
-	public String updatePin(DeliciousPinVO deliciousPinVO, Model model) {
-		return "";
-	}
-	
-	public String updateReview(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
-		return "";
-	}
-	
-
-	
-	public String selectPin(int num, Model model) {
-		return "";
-	}
-	
-	public String selectReview(int num, Model model) {
-		return "";
-	}
-	
-	public String exception(Exception e, Model model) {
-		return "";
-	}
-}
+//package com.bit.emoji.delicious.controller;
+//
+//import java.util.List;
+//
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpSession;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//
+//import com.bit.emoji.delicious.service.DeliciousReviewService;
+//import com.bit.emoji.delicious.service.MapService;
+//import com.bit.emoji.delicious.service.MapService.PinService;
+//import com.bit.emoji.model.DeliciousMapVO;
+//import com.bit.emoji.model.DeliciousPinVO;
+//import com.bit.emoji.model.DeliciousReviewVO;
+//
+//@Controller
+//public class MapController {
+//	@Autowired
+//	MapService mapService;    //맛집지도 CRUD
+//	
+//	PinService pinService;
+//	
+//	DeliciousReviewService deliciousReviewService;
+//	
+//	//맛집지도 메인 페이지
+//	@RequestMapping("/deliciousForm")
+//	public String deliciousForm() {
+//		return "/delicious/deliciousForm";
+//	}
+//	
+//	public String deliciousEditForm(int num, Model model) {
+//		return "";
+//	}
+//	
+//	public String deliciousReviewForm() {
+//		return "";
+//	}
+//	
+//	public String delete(int num, Model model) {
+//		return "";
+//	}
+//	
+//	//맛집지도 등록하고 보여주기
+//	@RequestMapping("/deliciousMapInsert")
+//	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
+//		deliciousMapVO.setDeliciousMapNum(5);
+//		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
+//		
+///*		System.out.println(deliciousMapVO.getDeliciousMapCreateDate());
+//		System.out.println(deliciousMapVO.getDeliciousMapDetail());
+//		System.out.println(deliciousMapVO.getDeliciousMapName());
+//		System.out.println(deliciousMapVO.getDeliciousMapNum());
+//		System.out.println(deliciousMapVO.getDeliciousMapOpen());
+//		System.out.println(deliciousMapVO.getDeliciousMapTag());
+//		System.out.println(deliciousMapVO.getMemberNum());*/
+//		
+//		int cnt = mapService.insertMap(deliciousMapVO);
+//		
+//		model.addAttribute("cnt", cnt);
+//		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapVO.getDeliciousMapNum()));
+//		
+//		return "/delicious/deliciousMap";
+//	}
+//	
+///*	//맛집지도 보여주기
+//	public String selectMap(DeliciousMapVO deliciousMapVO, Model model) {
+//		model.addAttribute("deliciousMapList", mapService.selectMapAll());
+//		
+//		return "/delicious/deliciousMap";
+//	}*/
+//	
+//	public String insertPin(DeliciousPinVO deliciousPinVO, Model model) {
+//		return "";
+//	}
+//	
+//	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
+//		return "";
+//	}
+//	
+//	public String updateMap(HttpSession session, DeliciousMapVO deliciousMapVO, Model model) {
+//		return "";
+//	}
+//	
+//	public String updatePin(DeliciousPinVO deliciousPinVO, Model model) {
+//		return "";
+//	}
+//	
+//	public String updateReview(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
+//		return "";
+//	}
+//	
+//
+//	
+//	public String selectPin(int num, Model model) {
+//		return "";
+//	}
+//	
+//	public String selectReview(int num, Model model) {
+//		return "";
+//	}
+//	
+//	public String exception(Exception e, Model model) {
+//		return "";
+//	}
+//}
