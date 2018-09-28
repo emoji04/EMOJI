@@ -4,6 +4,12 @@
 
 <select id="selectDelicious" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="String">
 select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
+</select>
+
+
+
+
+</mapper>
 
 <!-- <trim prefix="%" suffix="%" prefixOverrides="'" suffixOverrides="'">
 #{search}  like '%' || '${search}' || '%'
@@ -13,9 +19,3 @@ select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
      where deliciousPinDetail     like '%' || #{search} || '%'
   </if> 
 </trim> -->
-</select>
-
-
-
-
-</mapper>

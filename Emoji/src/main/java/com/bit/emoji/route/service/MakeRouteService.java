@@ -14,7 +14,6 @@ import com.bit.emoji.route.mapper.SqlSession;
 @Repository
 public class MakeRouteService extends SqlSession {	
 	public List<DeliciousPinVO> selectDelicious(String search) {
-		System.out.println(search);
 		return sqlSession.selectList(RouteMapper.MAKEROUTE+".selectDelicious", search);
 	}
 	

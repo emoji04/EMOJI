@@ -265,27 +265,26 @@
         <script>        
         //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
         var addresses=new Array();
-    	var order=1;   
+    	var order=1; 
+    	
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = {
                     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                     level: 3
                     // 지도의 확대 레벨
                 };
-
             //지도를 생성합니다    
             var map = new daum.maps.Map(mapContainer, mapOption);
 		
-         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+         	// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
             var zoomControl = new daum.maps.ZoomControl();
             map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
-         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-         if (navigator.geolocation) {
+         	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+         	if (navigator.geolocation) {
              
              // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-             navigator.geolocation.getCurrentPosition(function(position) {
-                 
+             navigator.geolocation.getCurrentPosition(function(position) {                 
                  var lat = position.coords.latitude, // 위도
                      lon = position.coords.longitude; // 경도
                  
@@ -347,14 +346,12 @@
 
                                 var coords = new daum.maps.LatLng(result[0].y,
                                     result[0].x);
-
                                 // 결과값으로 받은 위치를 마커로 표시합니다
                                 var marker = new daum.maps.Marker({
                                     map: map,
                                     position: coords
                                 });
-                                map.panTo(coords);
-                                
+                                map.panTo(coords);                                
                             }
                             //그 바로 직전의 주소를 변환하기 시작
                             if(order-2>=0){                            	
@@ -376,7 +373,8 @@
                                     path: linePath, // 선을 구성하는 좌표배열 입니다
                                     strokeWeight: 5, // 선의 두께 입니다
                                     strokeColor: '#FFAE00', // 선의 색깔입니다
-                                    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                                    strokeOpacity: 0.7, 
+                                    // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                                     strokeStyle: 'solid' // 선의 스타일입니다
                                 });
                                 // 지도에 선을 표시합니다 
@@ -434,18 +432,11 @@
 							});
             		    }
             		};
-
             		places.keywordSearch(keyword, callback);
             		
             	}else{
-            		//내 맛집지도 불러오기부터 시작해야함
-            		
-            		
-            		
-            		
-            		
-            		
-            		
+            		//내 맛집지도 불러오기       		
+
             	//검색을 눌렀을 때 비동기 시작            	
                 $.ajax({
                     type: "get",
@@ -504,13 +495,11 @@
                 }); 
             });
 			
-            function reorder(){         	
-            	
+            function reorder(){       	
 				$('#smallLeftRight').children().each(function(index){
 					$(this).attr('id','deliciousCopy'+index+'');
 					$(this).find('input[type=hidden]').attr('name',index);
-				})
-				
+				})				
 				for(var i=0;i<addresses.length;i++){
 					addresses[i]=$("input[name="+i+"]").val();
 				}
