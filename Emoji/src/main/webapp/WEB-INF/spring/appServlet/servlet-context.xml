@@ -53,7 +53,7 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 		<beans:property name="mapperLocations"
-			value="classpath:com/bit/emoji/route/mapper/*.xml"></beans:property>
+			value="classpath:com/bit/emoji/*/mapper/*.xml"></beans:property>
 	</beans:bean>
 
 	<!-- SessionTemplate 클래스 등록 -->
@@ -85,5 +85,9 @@
 	<!-- 서비스 등록 -->
 	<beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean>
 	<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean>
+	
+	<beans:bean class="com.bit.emoji.SHA256" id="sha"/>
+	<beans:bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
+		
 	
 </beans:beans>

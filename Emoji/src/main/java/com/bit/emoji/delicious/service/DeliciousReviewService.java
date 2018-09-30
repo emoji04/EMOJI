@@ -3,7 +3,7 @@ package com.bit.emoji.delicious.service;
 import com.bit.emoji.model.DeliciousReviewVO;
 
 public class DeliciousReviewService {
-	SqlSession sqlSession;
+	//SqlSession sqlSession;
 	
 	public int writeReview(int memeberNum, int deliciousPinNum, DeliciousReviewVO delciousReviewVO) {
 		return 1;

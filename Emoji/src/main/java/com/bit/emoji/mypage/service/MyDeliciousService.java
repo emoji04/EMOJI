@@ -1,9 +1,9 @@
-/*package com.bit.emoji.mypage.service;
+package com.bit.emoji.mypage.service;
 
 import com.bit.emoji.model.DeliciousMapVO;
 
 public class MyDeliciousService {
-	public DeliciousMapVO loadMadeDelicious(String memberEmail) {
+/*	public DeliciousMapVO loadMadeDelicious(String memberEmail) {
 		return null;
 	}
 	
@@ -33,6 +33,5 @@ public class MyDeliciousService {
 	
 	public DeliciousMapVO selectDeleteScrapDelicious(int deliciousMapNum) {
 		return null;
-	}
+	}*/
 }
-*/

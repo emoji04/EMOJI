@@ -1,19 +1,23 @@
 package com.bit.emoji.member.service;
 import javax.servlet.http.HttpSession;
 
-import com.bit.emoji.SHA256;
-import com.bit.emoji.model.MemberVO;
+import org.springframework.stereotype.Repository;
 
-public class MemberService {
-    private SqlSession sqlSession;
+import com.bit.emoji.SHA256;
+import com.bit.emoji.mapper.MapperName;
+import com.bit.emoji.model.MemberVO;
+import com.bit.emoji.service.ServiceDao;
+
+@Repository
+public class MemberService extends ServiceDao{
     private SHA256 SHA;
 
-    public int register(MemberVO membervo){
-        return 0;
+    public int insertMember(MemberVO memberVO){
+        return sqlSession.insert(MapperName.MEMBER + ".insertMember", memberVO);
     }
 
-    public boolean login(String mEmail, String mPw){
-        return false;
+    public String login(String memberEmail){
+    	return sqlSession.selectOne(MapperName.MEMBER + ".selectMemberByMemberEmail", memberEmail);
     }
 
     public void edit(MemberVO membervo, HttpSession session){
