@@ -68,7 +68,7 @@
 
 					<li><a href="<c:url value='/deliciousForm' />">맛집지도 <span
 							class="sr-only">(current) </span></a></li>
-					<li><a href="rtjhlkf">식신원정대</a></li>
+					<li><a href="<c:url value='goRoute' />">식신원정대</a></li>
 					<li class="dropdown" style="margin-right: 10px;"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-haspopup="true" aria-expanded="false">마이페이지 <span
