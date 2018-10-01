@@ -38,6 +38,9 @@
 	
 	<!-- MapService 등록 -->
 	<bean id="mapService" class="com.bit.emoji.delicious.service.MapService" />
+	
+	<!-- PinService 등록 -->
+	<bean id="pinService" class="com.bit.emoji.delicious.service.MapService.PinService" />
 
 	<context:component-scan base-package="com.bit.emoji.mapper" />
 		

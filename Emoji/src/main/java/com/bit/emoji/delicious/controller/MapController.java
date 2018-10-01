@@ -1,5 +1,6 @@
 package com.bit.emoji.delicious.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.delicious.service.DeliciousReviewService;
 import com.bit.emoji.delicious.service.MapService;
@@ -22,7 +24,8 @@ public class MapController {
 	@Autowired
 	MapService mapService;    //맛집지도 CRUD
 	
-	PinService pinService;
+	@Autowired
+	PinService pinService;    //맛집지도 내의 핀 CRUD
 	
 	DeliciousReviewService deliciousReviewService;
 	
@@ -45,7 +48,7 @@ public class MapController {
 	}
 	
 	//맛집지도 등록하고 보여주기
-	@RequestMapping("/deliciousMapInsert")
+	@RequestMapping("/deliciousMapInfo")
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
 		deliciousMapVO.setDeliciousMapNum(6);
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
@@ -58,8 +61,87 @@ public class MapController {
 		return "/delicious/deliciousMap";
 	}
 	
-	public String insertPin(DeliciousPinVO deliciousPinVO, Model model) {
-		return "";
+/*	//핀 정보 등록하고 보여주기
+	@RequestMapping("/deliciousPinInfo.json")
+	@ResponseBody
+	public List<DeliciousPinVO> insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
+		deliciousPinVO.setDeliciousPinNum(3);
+		//deliciousPinVO.setDeliciousMapNum(Integer.parseInt(request.getParameter("deliciousMapNum")));
+		
+		System.out.println(deliciousPinVO.getDeliciousMapNum());
+		System.out.println(deliciousPinVO.getDeliciousPinAddress());
+		System.out.println(deliciousPinVO.getDeliciousPinCategory());
+		System.out.println(deliciousPinVO.getDeliciousPinDetail());
+		System.out.println(deliciousPinVO.getDeliciousPinGrade());
+		System.out.println(deliciousPinVO.getDeliciousPinImg());
+		System.out.println(deliciousPinVO.getDeliciousPinName());
+		System.out.println(deliciousPinVO.getDeliciousPinNum());
+		System.out.println(deliciousPinVO.getDeliciousPinPhone());
+		System.out.println(deliciousPinVO.getDeliciousPinRestaurant());
+		
+		//저장용 파일 이름
+		String deliciousPinImgName = "";
+		
+		//저장 경로 설정
+		String uploadUri = "/uploadFile/delieciousPinPhoto";
+		
+		//시스템의 물리적인 경로
+		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+		
+		//사용자의 업로드 파일 물리적으로 저장
+		if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
+			deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
+			
+			//저장
+			deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
+			
+			//DB에 저장할 파일 이름
+			deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
+		}
+		
+		int cnt = pinService.insertPin(deliciousPinVO);
+		
+		List<DeliciousPinVO> deliciousPinInfo = pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum());
+		
+		return deliciousPinInfo;
+	}*/
+	
+	//핀 정보 등록하고 보여주기
+	@RequestMapping("/deliciousPinInfo.json")
+	public void insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
+		deliciousPinVO.setDeliciousPinNum(3);
+		//deliciousPinVO.setDeliciousMapNum(Integer.parseInt(request.getParameter("deliciousMapNum")));
+		
+/*		//저장용 파일 이름
+		String deliciousPinImgName = "";
+		
+		//저장 경로 설정
+		String uploadUri = "/uploadFile/delieciousPinPhoto";
+		
+		//시스템의 물리적인 경로
+		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+		
+		//사용자의 업로드 파일 물리적으로 저장
+		if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
+			deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
+			
+			//저장
+			deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
+			
+			//DB에 저장할 파일 이름
+			deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
+		}*/
+		
+		System.out.println(deliciousPinVO.getDeliciousMapNum());
+		System.out.println(deliciousPinVO.getDeliciousPinAddress());
+		System.out.println(deliciousPinVO.getDeliciousPinCategory());
+		System.out.println(deliciousPinVO.getDeliciousPinDetail());
+		System.out.println(deliciousPinVO.getDeliciousPinGrade());
+		System.out.println(deliciousPinVO.getDeliciousPinImg());
+		System.out.println(deliciousPinVO.getDeliciousPinName());
+		System.out.println(deliciousPinVO.getDeliciousPinNum());
+		System.out.println(deliciousPinVO.getDeliciousPinPhone());
+		System.out.println(deliciousPinVO.getDeliciousPinRestaurant());
 	}
 	
 	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
@@ -75,12 +157,6 @@ public class MapController {
 	}
 	
 	public String updateReview(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
-		return "";
-	}
-	
-
-	
-	public String selectPin(int num, Model model) {
 		return "";
 	}
 	

@@ -11,4 +11,14 @@
 		select * from dMap
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
+	
+	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousPinVO">
+		insert into delicious
+		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciouPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg}, #{deliciousMapNum}, #{deliciousPinRestaurant})
+	</insert>
+	
+	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="int">
+		select * from delicious
+		where deliciousMapNum=#{deliciousMapNum}
+	</select>
 </mapper>

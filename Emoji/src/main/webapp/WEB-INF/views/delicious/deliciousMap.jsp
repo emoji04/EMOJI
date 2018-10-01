@@ -108,7 +108,6 @@
 		
 		<div class="tab_container">
 			<div id="makeMap" class="tab_content" style="display: block;">
-				<form method="post">
 					<table>
 						<c:forEach var="deliciousMapList" items="${ deliciousMapList }">
 							<tr>
@@ -128,38 +127,36 @@
 							</tr>
 						
 							<input type="hidden" name="deliciousMapOpen">
-					
 							<jsp:useBean id="now" class="java.util.Date" />
 							<input type="hidden" name="deliciousMapCreateDate">
-					
 							<input type="hidden" name="memberNum">
 						</c:forEach>
 					</table>
-				</form>
 				
 				<div id="makePin">
-					<form>
-						<input type="text" id="address" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
-						<input type="text" id="restaurantName" placeholder="상호명"><br>
-						<input type="text" placeholder="핀이름"><br>
+					<form action="<c:url value='/deliciousPinInfo.json' />" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="deliciousMapNum" value="6">
+					
+						<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
+						<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
+						<input type="text" name="deliciousPinName" placeholder="핀이름"><br>
 		
-						<select id="category">
-							<option>한식</option>
-							<option>중식</option>
-							<option>일식</option>
-							<option>양식</option>
+						<select id="deliciousPinCategory" name="deliciousPinCategory">
+							<option value="한식">한식</option>
+							<option value="중식">중식</option>
+							<option value="일식">일식</option>
+							<option value="양식">양식</option>
 						</select><br>
 		
-						<input type="text" placeholder="평점"><br>
-						<input type="text" placeholder="전화번호"><br>
-						<input type="text" placeholder="상세설명"><br>
-						<input type="file">
+						<input type="text" name="deliciousPinGrade" placeholder="평점"><br>
+						<input type="text" name="deliciousPinPhone" placeholder="전화번호"><br>
+						<input type="text" name="deliciousPinDetail" placeholder="상세설명"><br>
+						<input type="file" name="delciousPinFile">
 						
-						<input type="image" src="resources/img/saveBtn.png" style="float:right;">
-					
+						<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
 					</form>
-					
 				</div>
+
 			</div>
 			
 			<div id="searchMap" class="tab_content" style="display: none;">
@@ -177,6 +174,21 @@
 
 <script>
 	$(document).ready(function(){
+		//만들기, 검색 탭 이동
+		$('.tab_content').hide();
+		$('ul.tab li:first').addClass('active').show();
+		$('.tab_content:first').show();
+		
+		$('ul.tab li').click(function(){
+			$('ul.tab li').removeClass('active');
+			$(this).addClass('active');
+			$('.tab_content').hide();
+			
+			var activeTab = $(this).find('a').attr('href');
+			$(activeTab).fadeIn();
+		});
+		
+		//지도 만들기 상세설명 입력크기 지정
 		$('textarea').keyup(function() {
 			var text = $(this).val();
 			var textlength = text.length;
@@ -192,18 +204,25 @@
 				$('#textCnt').text(remain);
 		});
 		
-		$('.tab_content').hide();
-		$('ul.tab li:first').addClass('active').show();
-		$('.tab_content:first').show();
-		
-		$('ul.tab li').click(function(){
-			$('ul.tab li').removeClass('active');
-			$(this).addClass('active');
-			$('.tab_content').hide();
-			
-			var activeTab = $(this).find('a').attr('href');
-			$(activeTab).fadeIn();
-		});
+/* 		$('#pinSave').click(function() {
+			$.ajax({
+				type: 'POST',
+				url: '<c:url value='/deliciousPinInfo.json' />',
+				dataType: 'json',
+				
+				success: function(data) {
+					//var deliciousPinInfo = data.deliciousPinInfo;
+					
+					$.each(data, function(idx, val) {
+						console.log(idx + " " + val.deliciousPinAddress);
+					});
+				},
+				
+				error: function(request, status) {
+					alert('처리 실패!' + request.status);
+				}
+			});
+		}); */
 	});
 	
 	var mapContainer = document.getElementById('map'),   //지도 담을 영역
@@ -219,11 +238,9 @@
 		imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
 		
 	var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
-		//markerPosition = new daum.maps.LatLng(latlng);
 		
 	//지도에 클릭한 위치에 표출할 마커 생성
 	var marker = new daum.maps.Marker({
-		//position: markerPosition,
 		image: markerImg     //마커 이미지 설정
 	}); 
 		
@@ -233,8 +250,8 @@
 	
 	var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 	
- 	$('#address').keyup(function() {
-		var address = $('#address').val();
+ 	$('#deliciousPinAddress').keyup(function() {
+		var address = $('#deliciousPinAddress').val();
 		
  		//주소로 좌표 검색
 		geocoder.addressSearch(address, function(result, status) {
@@ -242,12 +259,6 @@
 			//정상적으로 검색이 완료됐으면
 			if(status == daum.maps.services.Status.OK) {
 				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-				
-/*  				//결과값으로 받은 위치 마커 표시
- 				var marker = new daum.maps.Marker({
-					map: map,
-					position: coords
-				}); */
  				
  				//지도의 중심을 결과값으로 받은 위치로 이동
 				map.setCenter(coords);
@@ -267,14 +278,12 @@
 				var detailAddr = result[0].address.address_name;
 				
 				marker.setPosition(latlng);    //마커 위치를 클릭한 위치로 이동
-				//marker.setMap(map);   
 				
-				$('#address').val(detailAddr);
+				$('#deliciousPinAddress').val(detailAddr);
 			}
 		});
 	});
-	
-	
+		
 	//좌표로 행정동 주소 정보 요청
 	function searchAddrFromCoords(coords, callback) {
 		geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
@@ -292,8 +301,24 @@
 		
 		daum.postcode.load(function() {
 			new daum.Postcode({
+				//주소 검색이 완료됐으면
 				oncomplete: function(data) {
-					$('#address').val(data.address);
+					$('#deliciousPinAddress').val(data.address);
+					
+					var address = $('#deliciousPinAddress').val();
+					
+			 		//주소로 좌표 검색
+					geocoder.addressSearch(address, function(result, status) {
+						
+						//정상적으로 검색이 완료됐으면
+						if(status == daum.maps.services.Status.OK) {
+							var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+			 				
+			 				//지도의 중심을 결과값으로 받은 위치로 이동
+							map.setCenter(coords);
+							marker.setPosition(coords);
+						}
+					}); 
 				}
 			}).open({
 				left: (window.screen.width/2)-(width/2),
@@ -313,12 +338,6 @@
 			markers[i].setMap(map);
 		}
 	}
-/* 		var latlng = mouseEvent.latLng;  //클릭한 위도, 경도 정보 가져오기
-				
-		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ', 경도는 ' + latlng.getLng() + '입니다.'; 
-		
-		var resultDiv = document.getElementById('clickLatlng');
-		resultDiv.innerHTML = message; */
 </script>
 </body>
 

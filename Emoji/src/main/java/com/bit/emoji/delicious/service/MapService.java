@@ -12,10 +12,12 @@ import com.bit.emoji.service.ServiceDao;
 
 @Repository
 public class MapService extends ServiceDao {
+	//지도 생성하기
 	public int insertMap(DeliciousMapVO deliciousMapVO) {
 		return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertMap", deliciousMapVO);
 	}
 	
+	//지도 번호에 따른 정보 가져오기
 	public List<DeliciousMapVO> selectMapByDeliciousMapNum(int deliciousMapNum) {
 		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
 	}
@@ -41,8 +43,14 @@ public class MapService extends ServiceDao {
 	}
 	
 	public class PinService {
-		public int insertPin(int deliciousMapNum, DeliciousPinVO deliciousPinVO) {
-			return 1;
+		//핀 생성하기
+		public int insertPin(DeliciousPinVO deliciousPinVO) {
+			return sqlSession.insert(MapperName.DELICIOUS + ".insertPin", deliciousPinVO);
+		}
+		
+		//지도 번호에 따른 핀 정보 가져오기
+		public List<DeliciousPinVO> selectPinListBydeliciousMapNum(int deliciousMapNum) {
+			return sqlSession.selectList(MapperName.DELICIOUS + ".selectPinListBydeliciousMapNum", deliciousMapNum);
 		}
 		
 		public int updatePin(int deliciousMapNum, DeliciousPinVO deliciousPinVO) {
@@ -51,12 +59,6 @@ public class MapService extends ServiceDao {
 		
 		public int deletePin(int deliciousPinNum) {
 			return 1;
-		}
-		
-		public List<DeliciousPinVO> selectPinListBydeliciousMapNum(int deliciousMapNum) {
-			List<DeliciousPinVO> deliciousPinVO = new ArrayList<DeliciousPinVO>();
-			
-			return deliciousPinVO;
 		}
 	}
 }

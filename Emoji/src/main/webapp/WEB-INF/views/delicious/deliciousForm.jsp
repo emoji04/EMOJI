@@ -95,7 +95,7 @@
 		
 		<div class="tab_container">
 			<div id="makeMap" class="tab_content" style="display: block;">
-				<form action="<c:url value='/deliciousMapInsert' />" method="post">
+				<form action="<c:url value='/deliciousMapInfo' />" method="post">
 					<table>
 						<tr>
 							<td>지도이름</td>
@@ -139,25 +139,11 @@
 
 <script>
 	$(document).ready(function(){
-		$('textarea').keyup(function() {
-			var text = $(this).val();
-			var textlength = text.length;
-
-			var remain = 20 - textlength;
-		
-			if(remain < 0) {
-				var newText = text.substr(0,20);
-				$(this).val(newText);
-			}
-
-			else
-				$('#textCnt').text(remain);
-		});
-	
+		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
 		$('.tab_content:first').show();
-	
+		
 		$('ul.tab li').click(function(){
 			$('ul.tab li').removeClass('active');
 			$(this).addClass('active');
@@ -165,6 +151,22 @@
 			
 			var activeTab = $(this).find('a').attr('href');
 			$(activeTab).fadeIn();
+		});
+		
+		//지도 만들기 상세설명 입력크기 지정
+		$('textarea').keyup(function() {
+			var text = $(this).val();
+			var textlength = text.length;
+	
+			var remain = 20 - textlength;
+			
+			if(remain < 0) {
+				var newText = text.substr(0,20);
+				$(this).val(newText);
+			}
+
+			else
+				$('#textCnt').text(remain);
 		});
 	});
 
