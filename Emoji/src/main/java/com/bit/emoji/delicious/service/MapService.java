@@ -1,7 +1,11 @@
 package com.bit.emoji.delicious.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +48,27 @@ public class MapService extends ServiceDao {
 	
 	public class PinService {
 		//핀 생성하기
-		public int insertPin(DeliciousPinVO deliciousPinVO) {
+		public int insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO) throws Exception {
+			//저장용 파일 이름
+			String deliciousPinImgName = "";
+			
+			//저장 경로 설정
+			String uploadUri = "/uploadFile/delieciousPinPhoto";
+			
+			//시스템의 물리적인 경로
+			String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+			
+			//사용자의 업로드 파일 물리적으로 저장
+			if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
+				deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
+				
+				//저장
+				deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
+				
+				//DB에 저장할 파일 이름
+				deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
+			}
+			
 			return sqlSession.insert(MapperName.DELICIOUS + ".insertPin", deliciousPinVO);
 		}
 		

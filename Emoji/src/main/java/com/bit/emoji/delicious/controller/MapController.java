@@ -61,87 +61,17 @@ public class MapController {
 		return "/delicious/deliciousMap";
 	}
 	
-/*	//핀 정보 등록하고 보여주기
+	//핀 정보 등록하고 보여주기
 	@RequestMapping("/deliciousPinInfo.json")
 	@ResponseBody
 	public List<DeliciousPinVO> insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
 		deliciousPinVO.setDeliciousPinNum(3);
-		//deliciousPinVO.setDeliciousMapNum(Integer.parseInt(request.getParameter("deliciousMapNum")));
-		
-		System.out.println(deliciousPinVO.getDeliciousMapNum());
-		System.out.println(deliciousPinVO.getDeliciousPinAddress());
-		System.out.println(deliciousPinVO.getDeliciousPinCategory());
-		System.out.println(deliciousPinVO.getDeliciousPinDetail());
-		System.out.println(deliciousPinVO.getDeliciousPinGrade());
-		System.out.println(deliciousPinVO.getDeliciousPinImg());
-		System.out.println(deliciousPinVO.getDeliciousPinName());
-		System.out.println(deliciousPinVO.getDeliciousPinNum());
-		System.out.println(deliciousPinVO.getDeliciousPinPhone());
-		System.out.println(deliciousPinVO.getDeliciousPinRestaurant());
-		
-		//저장용 파일 이름
-		String deliciousPinImgName = "";
-		
-		//저장 경로 설정
-		String uploadUri = "/uploadFile/delieciousPinPhoto";
-		
-		//시스템의 물리적인 경로
-		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-		
-		//사용자의 업로드 파일 물리적으로 저장
-		if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
-			deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
-			
-			//저장
-			deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
-			
-			//DB에 저장할 파일 이름
-			deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
-		}
-		
-		int cnt = pinService.insertPin(deliciousPinVO);
+
+		int cnt = pinService.insertPin(request, deliciousPinVO);
 		
 		List<DeliciousPinVO> deliciousPinInfo = pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum());
 		
 		return deliciousPinInfo;
-	}*/
-	
-	//핀 정보 등록하고 보여주기
-	@RequestMapping("/deliciousPinInfo.json")
-	public void insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
-		deliciousPinVO.setDeliciousPinNum(3);
-		//deliciousPinVO.setDeliciousMapNum(Integer.parseInt(request.getParameter("deliciousMapNum")));
-		
-/*		//저장용 파일 이름
-		String deliciousPinImgName = "";
-		
-		//저장 경로 설정
-		String uploadUri = "/uploadFile/delieciousPinPhoto";
-		
-		//시스템의 물리적인 경로
-		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-		
-		//사용자의 업로드 파일 물리적으로 저장
-		if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
-			deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
-			
-			//저장
-			deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
-			
-			//DB에 저장할 파일 이름
-			deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
-		}*/
-		
-		System.out.println(deliciousPinVO.getDeliciousMapNum());
-		System.out.println(deliciousPinVO.getDeliciousPinAddress());
-		System.out.println(deliciousPinVO.getDeliciousPinCategory());
-		System.out.println(deliciousPinVO.getDeliciousPinDetail());
-		System.out.println(deliciousPinVO.getDeliciousPinGrade());
-		System.out.println(deliciousPinVO.getDeliciousPinImg());
-		System.out.println(deliciousPinVO.getDeliciousPinName());
-		System.out.println(deliciousPinVO.getDeliciousPinNum());
-		System.out.println(deliciousPinVO.getDeliciousPinPhone());
-		System.out.println(deliciousPinVO.getDeliciousPinRestaurant());
 	}
 	
 	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
