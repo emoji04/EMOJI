@@ -1,7 +1,11 @@
 package com.bit.emoji.delicious.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +19,9 @@ import com.bit.emoji.model.DeliciousReviewVO;
 
 @Controller
 public class MapController {
-	MapService mapService;
+	@Autowired
+	MapService mapService;    //留쏆쭛吏��룄 CRUD
+	
 	PinService pinService;
 	DeliciousReviewService deliciousReviewService;
 	
@@ -36,8 +42,18 @@ public class MapController {
 		return "";
 	}
 	
-	public String insertMap(HttpSession session, DeliciousMapVO deliciousMapVO, Model model) {
-		return "";
+	//留쏆쭛吏��룄 �벑濡앺븯怨� 蹂댁뿬二쇨린
+	@RequestMapping("/deliciousMapInsert")
+	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
+		deliciousMapVO.setDeliciousMapNum(6);
+		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
+		
+		int cnt = mapService.insertMap(deliciousMapVO);
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapVO.getDeliciousMapNum()));
+		
+		return "/delicious/deliciousMap";
 	}
 	
 	public String insertPin(DeliciousPinVO deliciousPinVO, Model model) {
@@ -60,9 +76,7 @@ public class MapController {
 		return "";
 	}
 	
-	public String selectMap(HttpSession session, String deliciousMapTag, Model model) {
-		return "";
-	}
+
 	
 	public String selectPin(int num, Model model) {
 		return "";

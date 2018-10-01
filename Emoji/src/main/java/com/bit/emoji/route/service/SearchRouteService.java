@@ -5,7 +5,7 @@ import com.bit.emoji.route.mapper.SqlSession;
 
 
 public class SearchRouteService extends SqlSession {
-	public RouteVO searchRoute(String search, String searchDate) {
+/*	public RouteVO searchRoute(String search, String searchDate) {
 	
 	}
 	
@@ -27,5 +27,5 @@ public class SearchRouteService extends SqlSession {
 	
 	public int deleteJoin(int memberNum, int routeNum) {
 	
-	}
+	}*/
 }

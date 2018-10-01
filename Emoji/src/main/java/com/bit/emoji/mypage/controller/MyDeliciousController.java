@@ -6,7 +6,7 @@ import com.bit.emoji.mypage.service.MyDeliciousService;
 public class MyDeliciousController {
 	public MyDeliciousService myDeliciousService;
 	
-	public DeliciousMapVO loadMadeDelicious(String memberEmail) {
+/*	public DeliciousMapVO loadMadeDelicious(String memberEmail) {
 		return null;
 	
 	}
@@ -43,5 +43,5 @@ public class MyDeliciousController {
 	public DeliciousMapVO selectDeleteScrapDelicious(int deliciousMapNum) {
 		return null;
 	
-	}
+	}*/
 }

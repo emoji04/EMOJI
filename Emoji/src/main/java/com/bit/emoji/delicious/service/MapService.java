@@ -3,14 +3,21 @@ package com.bit.emoji.delicious.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
+import com.bit.emoji.service.ServiceDao;
 
-public class MapService {
-	SqlSession sqlsession;
+@Repository
+public class MapService extends ServiceDao {
+	public int insertMap(DeliciousMapVO deliciousMapVO) {
+		return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertMap", deliciousMapVO);
+	}
 	
-	public int insertMap(int memberNum, DeliciousMapVO deliciousMapVO) {
-		return 1;
+	public List<DeliciousMapVO> selectMapByDeliciousMapNum(int deliciousMapNum) {
+		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
 	}
 	
 	public int updateMap(int memberNum, DeliciousMapVO deliciousMapVO) {
