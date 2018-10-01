@@ -82,8 +82,8 @@
 		</beans:property>
 	</beans:bean> -->
 	
-	<!-- 서비스 등록 -->
-	<beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean>
-	<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean>
+ 	<!-- 서비스 등록 -->
+<!-- 	<beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean>
+	<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean>  -->
 	
 </beans:beans>
