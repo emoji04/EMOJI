@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원정보 상세조회 -->
 	<select id="listAll" resultType="com.bit.emoji.model.MemberVO" parameterType="String">
 	select
-		memberEmail, memberName, memberGender
+		memberEmail, memberName, memberPassword, memberGender, memberPhoneNum, MemberJoinGrade, MemberCapGrade
 		from
 		member
         where memberEmail = #{memberEmail}

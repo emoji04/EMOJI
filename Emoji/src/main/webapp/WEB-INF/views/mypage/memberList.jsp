@@ -1,64 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿øÁ¤º¸»ó¼¼º¸±â</title>
+<meta http-equiv="Content-Type" content="text/html">
+<title>íšŒì›ì •ë³´ìƒì„¸ë³´ê¸°</title>
+<style>
+#table {
+		margin : 30%;
+	}
+
+</style>
 </head>
 <body>
-	<h1>È¸¿øÁ¤º¸»ó¼¼º¸±â</h1>
+<div id="all">
+<%@ include file="../commons/top_bar.jsp"%>
+<div id = "table">
+	<h1>íšŒì›ì •ë³´ìƒì„¸ë³´ê¸°</h1>
 
-	·Î±×ÀÎ ID : ${memberEmail }
+	ë¡œê·¸ì¸ ID : ${memberEmail }
 
 	<table>
 		<thead> <c:forEach items="${memberList }" var="MemberVO">
 			<tr>
-				<th>¾ÆÀÌµð</th>
+				<th>ì•„ì´ë””</th>
 				<th><input name="memberEmail" value="${MemberVO.memberEmail}"
 					readonly="readyonly"></th>
 			</tr>
 			<tr>
-				<th>ÀÌ¸§</th>
+				<th>ì´ë¦„</th>
 				<th><input name="memberName" value="${MemberVO.memberName }"
 					readonly="readyonly"></th>
 			</tr>
 			
 			<tr>
-				<th>ºñ¹Ð¹øÈ£</th>
-				<th><input name="memberPassword"
+				<th>ë¹„ë°€ë²ˆí˜¸</th>
+				<th><input name="memberPassword" value="${MemberVO.memberName }"
 					value=""></th>
 			</tr>
 			<tr>
-				<th>ºñ¹Ð¹øÈ£ È®ÀÎ</th>
+				<th>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</th>
 				<th><input name=""
 					value=" "></th>
 			</tr>
 			<tr>
-				<th>¼ºº°</th>
+				<th>ì„±ë³„</th>
 				<th><input name="memberGender"
 					value="${MemberVO.memberGender }" readonly="readyonly"></th>
 			</tr>
 			<tr>
-				<th>ÇÚµåÆù</th>
-				<th><input name="memeberPhone"
-					value=""></th>
+				<th>í•¸ë“œí°</th>
+				<th><input name="memeberPhone"value="${MemberVO.memberPhoneNum }"
+					></th>
 			</tr>
 			<tr>
-				<th>Âü¿©ÀÚÆòÁ¡</th>
+				<th>ì°¸ì—¬ìží‰ì </th>
 				<th><input name="memberJoinGrade"
-					value="" readonly="readonly"></th>
+					value="${MemberVO.memberJoinGrade}" readonly="readonly"></th>
 			</tr>
 			<tr>
 
-				<th>¿øÁ¤´ëÀå ÆòÁ¡</th>
+				<th>ì›ì •ëŒ€ìž¥ í‰ì </th>
 				<th><input name="memberCapGrade"
-					value="" readonly="readonly"></th>
+					value="${MemberVO.memberCapGrade }" readonly="readonly"></th>
 			</tr>
 		</c:forEach> </thead>
 	</table>
-	<input type="button" value="¼öÁ¤" id="btnUpdate">
+	<input type="button" value="ìˆ˜ì •" id="btnUpdate">
+	</div>
+	</div>
 </body>
 </html>
 <!-- <script>
