@@ -134,8 +134,8 @@
 					</table>
 				
 				<div id="makePin">
-					<form action="<c:url value='/deliciousPinInfo.json' />" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="deliciousMapNum" value="6">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInfo.json' />" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="deliciousMapNum" value="7">
 					
 						<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
 						<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
@@ -151,7 +151,7 @@
 						<input type="text" name="deliciousPinGrade" placeholder="평점"><br>
 						<input type="text" name="deliciousPinPhone" placeholder="전화번호"><br>
 						<input type="text" name="deliciousPinDetail" placeholder="상세설명"><br>
-						<input type="file" name="delciousPinFile">
+						<input type="file" name="deliciousPinFile">
 						
 						<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
 					</form>
@@ -174,6 +174,30 @@
 
 <script>
 	$(document).ready(function(){
+		var mapContainer = document.getElementById('map'),   //지도 담을 영역
+		//지도 생성 시, 필요한 기본 옵션
+		mapOptions = { 
+			center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
+			level: 3   //지도 레벨(확대, 축소)
+		};
+		
+		var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
+		
+		var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
+			imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
+	
+		var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
+			
+		//지도에 클릭한 위치에 표출할 마커 생성
+		var marker = new daum.maps.Marker({
+			image: markerImg     //마커 이미지 설정
+		}); 
+		
+		marker.setMap(map);   //지도에 마커 표시
+		
+		var markers = [];   //지도에 표시한 마커 객체를 가지고 있을 배열
+		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
+
 		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
@@ -204,51 +228,36 @@
 				$('#textCnt').text(remain);
 		});
 		
-/* 		$('#pinSave').click(function() {
+ 		$('#pinSave').click(function() {
+ 			var formData = new FormData($('#pinInfo')[0]);
+ 			
 			$.ajax({
 				type: 'POST',
 				url: '<c:url value='/deliciousPinInfo.json' />',
+				data: formData,
 				dataType: 'json',
-				
 				success: function(data) {
-					//var deliciousPinInfo = data.deliciousPinInfo;
-					
-					$.each(data, function(idx, val) {
-						console.log(idx + " " + val.deliciousPinAddress);
-					});
+					var deliciousPinAddress = data.deliciousPinInfo.deliciousPinAddress;
+					alert(data);
+			 		//주소로 좌표 검색
+					geocoder.addressSearch(deliciousPinAddress, function(result, status) {
+						
+						//정상적으로 검색이 완료됐으면
+						if(status == daum.maps.services.Status.OK) {
+							var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+			 				
+			 				//지도의 중심을 결과값으로 받은 위치로 이동
+							map.setCenter(coords);
+							marker.setPosition(coords);
+						}
+					}); 
 				},
-				
 				error: function(request, status) {
 					alert('처리 실패!' + request.status);
 				}
 			});
-		}); */
+		}); 
 	});
-	
-	var mapContainer = document.getElementById('map'),   //지도 담을 영역
-			//지도 생성 시, 필요한 기본 옵션
-			mapOptions = { 
-				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
-				level: 3   //지도 레벨(확대, 축소)
-			};
-
-	var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
-	
-	var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
-		imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
-		
-	var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
-		
-	//지도에 클릭한 위치에 표출할 마커 생성
-	var marker = new daum.maps.Marker({
-		image: markerImg     //마커 이미지 설정
-	}); 
-		
-	marker.setMap(map);   //지도에 마커 표시
-		
-	var markers = [];   //지도에 표시한 마커 객체를 가지고 있을 배열
-	
-	var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 	
  	$('#deliciousPinAddress').keyup(function() {
 		var address = $('#deliciousPinAddress').val();

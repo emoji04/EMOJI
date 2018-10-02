@@ -1,7 +1,6 @@
 package com.bit.emoji.delicious.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class MapService extends ServiceDao {
 		
 		return deliciousMapVO;
 	}
-	
+
 	public class PinService {
 		//핀 생성하기
 		public int insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO) throws Exception {
@@ -53,28 +52,28 @@ public class MapService extends ServiceDao {
 			String deliciousPinImgName = "";
 			
 			//저장 경로 설정
-			String uploadUri = "/uploadFile/delieciousPinPhoto";
+			String uploadUri = "/uploadFile/deliciousPinPhoto";
 			
 			//시스템의 물리적인 경로
 			String dir = request.getSession().getServletContext().getRealPath(uploadUri);
 			
 			//사용자의 업로드 파일 물리적으로 저장
-			if(!deliciousPinVO.getDelciousPinFile().isEmpty()) {
-				deliciousPinImgName = deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDelciousPinFile().getOriginalFilename();
+			if(!deliciousPinVO.getDeliciousPinFile().isEmpty()) {
+				deliciousPinImgName = "dm_" + deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDeliciousPinFile().getOriginalFilename();
 				
 				//저장
-				deliciousPinVO.getDelciousPinFile().transferTo(new File(dir, deliciousPinImgName));
+				deliciousPinVO.getDeliciousPinFile().transferTo(new File(dir, deliciousPinImgName));
 				
 				//DB에 저장할 파일 이름
 				deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
-			}
 			
-			return sqlSession.insert(MapperName.DELICIOUS + ".insertPin", deliciousPinVO);
+			}
+			return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertPin", deliciousPinVO);
 		}
 		
 		//지도 번호에 따른 핀 정보 가져오기
 		public List<DeliciousPinVO> selectPinListBydeliciousMapNum(int deliciousMapNum) {
-			return sqlSession.selectList(MapperName.DELICIOUS + ".selectPinListBydeliciousMapNum", deliciousMapNum);
+			return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectPinListBydeliciousMapNum", deliciousMapNum);
 		}
 		
 		public int updatePin(int deliciousMapNum, DeliciousPinVO deliciousPinVO) {

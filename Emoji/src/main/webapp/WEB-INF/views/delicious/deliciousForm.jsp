@@ -119,7 +119,7 @@
 					<jsp:useBean id="now" class="java.util.Date" />
 					<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
 					
-					<input type="hidden" name="memberNum" value="2">
+					<input type="hidden" name="memberNum" value="3">
 					
 					<input type="image" src="resources/img/saveBtn.png" style="float:right;">
 				</form>

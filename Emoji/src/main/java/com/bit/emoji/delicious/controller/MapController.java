@@ -1,8 +1,5 @@
 package com.bit.emoji.delicious.controller;
 
-import java.io.File;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +13,7 @@ import com.bit.emoji.delicious.service.DeliciousReviewService;
 import com.bit.emoji.delicious.service.MapService;
 import com.bit.emoji.delicious.service.MapService.PinService;
 import com.bit.emoji.model.DeliciousMapVO;
+import com.bit.emoji.model.DeliciousPinInfo;
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.DeliciousReviewVO;
 
@@ -50,7 +48,7 @@ public class MapController {
 	//맛집지도 등록하고 보여주기
 	@RequestMapping("/deliciousMapInfo")
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
-		deliciousMapVO.setDeliciousMapNum(6);
+		deliciousMapVO.setDeliciousMapNum(7);
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
 		
 		int cnt = mapService.insertMap(deliciousMapVO);
@@ -64,14 +62,12 @@ public class MapController {
 	//핀 정보 등록하고 보여주기
 	@RequestMapping("/deliciousPinInfo.json")
 	@ResponseBody
-	public List<DeliciousPinVO> insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
-		deliciousPinVO.setDeliciousPinNum(3);
+	public DeliciousPinInfo insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
+		deliciousPinVO.setDeliciousPinNum(4);
 
 		int cnt = pinService.insertPin(request, deliciousPinVO);
 		
-		List<DeliciousPinVO> deliciousPinInfo = pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum());
-		
-		return deliciousPinInfo;
+		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
 	}
 	
 	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {

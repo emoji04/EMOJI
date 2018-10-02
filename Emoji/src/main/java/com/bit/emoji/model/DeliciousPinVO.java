@@ -1,5 +1,7 @@
 package com.bit.emoji.model;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class DeliciousPinVO {
@@ -12,7 +14,7 @@ public class DeliciousPinVO {
 	private double deliciousPinGrade;
 	private String deliciousPinDetail;
 	private String deliciousPinImg;
-	private MultipartFile delciousPinFile;
+	private MultipartFile deliciousPinFile;
 	private int deliciousMapNum;
 /*	private boolean deliciousPinDeleted;
 	private int deliciousPinOrder;
@@ -90,12 +92,12 @@ public class DeliciousPinVO {
 		this.deliciousPinImg = deliciousPinImg;
 	}
 	
-	public MultipartFile getDelciousPinFile() {
-		return delciousPinFile;
+	public MultipartFile getDeliciousPinFile() {
+		return deliciousPinFile;
 	}
 	
-	public void setDelciousPinFile(MultipartFile delciousPinFile) {
-		this.delciousPinFile = delciousPinFile;
+	public void setDeliciousPinFile(MultipartFile deliciousPinFile) {
+		this.deliciousPinFile = deliciousPinFile;
 	}
 
 	public int getDeliciousMapNum() {
@@ -112,7 +114,7 @@ public class DeliciousPinVO {
 				+ ", deliciousPinRestaurant=" + deliciousPinRestaurant + ", deliciousPinAddress=" + deliciousPinAddress
 				+ ", deliciousPinPhone=" + deliciousPinPhone + ", deliciousPinCategory=" + deliciousPinCategory
 				+ ", deliciousPinGrade=" + deliciousPinGrade + ", deliciousPinDetail=" + deliciousPinDetail
-				+ ", deliciousPinImg=" + deliciousPinImg + ", delciousPinFile=" + delciousPinFile + ", deliciousMapNum="
+				+ ", deliciousPinImg=" + deliciousPinImg + ", deliciousPinFile=" + deliciousPinFile + ", deliciousMapNum="
 				+ deliciousMapNum + "]";
 	}
 }

@@ -14,7 +14,7 @@
 	
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousPinVO">
 		insert into delicious
-		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciouPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg}, #{deliciousMapNum}, #{deliciousPinRestaurant})
+		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciousPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg}, #{deliciousMapNum}, #{deliciousPinRestaurant})
 	</insert>
 	
 	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="int">
