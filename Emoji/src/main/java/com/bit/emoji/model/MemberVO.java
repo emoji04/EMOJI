@@ -1,109 +1,75 @@
 package com.bit.emoji.model;
 public class MemberVO {
-    private int memeberNum;
-    private String memeberEmail;
-    private String memeberName;
-    private String memeberPassword;
-    private String memeberGender;
-    private String memeberPhoneNum;
-    private String memeberRegDate;
-    private double memeberJoinGrade;
-    private double memeberCapGrade;
-    
-	public MemberVO() { }  
-    
-	public MemberVO(int memeberNum, String memeberEmail, String memeberName, String memeberPassword,
-			String memeberGender, String memeberPhoneNum, String memeberRegDate, double memeberJoinGrade,
-			double memeberCapGrade) {
-		super();
-		this.memeberNum = memeberNum;
-		this.memeberEmail = memeberEmail;
-		this.memeberName = memeberName;
-		this.memeberPassword = memeberPassword;
-		this.memeberGender = memeberGender;
-		this.memeberPhoneNum = memeberPhoneNum;
-		this.memeberRegDate = memeberRegDate;
-		this.memeberJoinGrade = memeberJoinGrade;
-		this.memeberCapGrade = memeberCapGrade;
+    private int memberNum;
+    private String memberEmail;
+    private String memberName;
+    private String memberPassword;
+    private String memberGender;
+    private String memberPhoneNum;
+    private String memberRegDate;
+    private double memberJoinGrade;
+    private double memberCapGrade;
+	public int getMemberNum() {
+		return memberNum;
 	}
-
-	public int getMemeberNum() {
-		return memeberNum;
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
 	}
-	
-	public void setMemeberNum(int memeberNum) {
-		this.memeberNum = memeberNum;
+	public String getMemberEmail() {
+		return memberEmail;
 	}
-	
-	public String getMemeberEmail() {
-		return memeberEmail;
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
-	
-	public void setMemeberEmail(String memeberEmail) {
-		this.memeberEmail = memeberEmail;
+	public String getMemberName() {
+		return memberName;
 	}
-	
-	public String getMemeberName() {
-		return memeberName;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-	
-	public void setMemeberName(String memeberName) {
-		this.memeberName = memeberName;
+	public String getMemberPassword() {
+		return memberPassword;
 	}
-	
-	public String getMemeberPassword() {
-		return memeberPassword;
+	public void setMemberPassword(String memberPassword) {
+		this.memberPassword = memberPassword;
 	}
-	
-	public void setMemeberPassword(String memeberPassword) {
-		this.memeberPassword = memeberPassword;
+	public String getMemberGender() {
+		return memberGender;
 	}
-	
-	public String getMemeberGender() {
-		return memeberGender;
+	public void setMemberGender(String memberGender) {
+		this.memberGender = memberGender;
 	}
-	
-	public void setMemeberGender(String memeberGender) {
-		this.memeberGender = memeberGender;
+	public String getMemberPhoneNum() {
+		return memberPhoneNum;
 	}
-	
-	public String getMemeberPhoneNum() {
-		return memeberPhoneNum;
+	public void setMemberPhoneNum(String memberPhoneNum) {
+		this.memberPhoneNum = memberPhoneNum;
 	}
-	
-	public void setMemeberPhoneNum(String memeberPhoneNum) {
-		this.memeberPhoneNum = memeberPhoneNum;
+	public String getMemberRegDate() {
+		return memberRegDate;
 	}
-	
-	public String getMemeberRegDate() {
-		return memeberRegDate;
+	public void setMemberRegDate(String memberRegDate) {
+		this.memberRegDate = memberRegDate;
 	}
-	
-	public void setMemeberRegDate(String memeberRegDate) {
-		this.memeberRegDate = memeberRegDate;
+	public double getMemberJoinGrade() {
+		return memberJoinGrade;
 	}
-	
-	public double getMemeberJoinGrade() {
-		return memeberJoinGrade;
+	public void setMemberJoinGrade(double memberJoinGrade) {
+		this.memberJoinGrade = memberJoinGrade;
 	}
-	
-	public void setMemeberJoinGrade(double memeberJoinGrade) {
-		this.memeberJoinGrade = memeberJoinGrade;
+	public double getMemberCapGrade() {
+		return memberCapGrade;
 	}
-	
-	public double getMemeberCapGrade() {
-		return memeberCapGrade;
+	public void setMemberCapGrade(double memberCapGrade) {
+		this.memberCapGrade = memberCapGrade;
 	}
-	
-	public void setMemeberCapGrade(double memeberCapGrade) {
-		this.memeberCapGrade = memeberCapGrade;
-	}
-
 	@Override
 	public String toString() {
-		return "MemberVO [memeberNum=" + memeberNum + ", memeberEmail=" + memeberEmail + ", memeberName=" + memeberName
-				+ ", memeberPassword=" + memeberPassword + ", memeberGender=" + memeberGender + ", memeberPhoneNum="
-				+ memeberPhoneNum + ", memeberRegDate=" + memeberRegDate + ", memeberJoinGrade=" + memeberJoinGrade
-				+ ", memeberCapGrade=" + memeberCapGrade + "]";
+		return "MemberVO [memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", memberName=" + memberName
+				+ ", memberPassword=" + memberPassword + ", memberGender=" + memberGender + ", memberPhoneNum="
+				+ memberPhoneNum + ", memberRegDate=" + memberRegDate + ", memberJoinGrade=" + memberJoinGrade
+				+ ", memberCapGrade=" + memberCapGrade + "]";
 	}
+    
+    
 }
