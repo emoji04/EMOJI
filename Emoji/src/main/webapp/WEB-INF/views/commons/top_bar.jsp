@@ -23,17 +23,14 @@
 #imaginary_container {
 	margin-top: 80%; /* Don't copy this */
 }
-
 .stylish-input-group .input-group-addon {
 	background: white !important;
 }
-
 .stylish-input-group .form-control {
 	box-shadow: 0 0 0;
 	border: solid 0px black;
 	border-right: 0;
 }
-
 .stylish-input-group button {
 	border: 0;
 	background: transparent;
@@ -74,7 +71,7 @@
 						aria-haspopup="true" aria-expanded="false">마이페이지 <span
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">개인정보 수정</a></li>
+							<li><a href='<c:url value="/mypage/memberList" />'>개인정보 수정</a></li>
 							<li><a href="#">나의 맛집지도</a></li>
 							<li><a href="#">나의 식신원정대</a></li>
 							<li role="separator" class="divider"></li>
