@@ -266,7 +266,7 @@
         //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
         var addresses=new Array();
     	var order=1; 
-    	
+    	var markers = [];
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = {
                     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -299,13 +299,16 @@
             function drag(drag) {    
             	//드래그 된 타겟의 아이디를 delicious라는 이름으로 저장해 놓음
                 drag.dataTransfer.setData("delicious", drag.target.id);
+            	drag.dataTransfer.setData("info",drag.target.innerHTML); 
+            	
             }      
 
             
             function drop(drop) {
             	var cnt=0;
                 //delicious로 저장된 데이터를 가지고옴
-                var data = drop.dataTransfer.getData("delicious");                
+                var data = drop.dataTransfer.getData("delicious");
+                var info= drop.dataTransfer.getData("info");
                 drop.preventDefault();                   
                 
                 //중복으로 옮겨지지 않도록 방지
@@ -347,11 +350,19 @@
                                 var coords = new daum.maps.LatLng(result[0].y,
                                     result[0].x);
                                 // 결과값으로 받은 위치를 마커로 표시합니다
+                                var imageSrc = '${pageContext.request.contextPath}/resources/img/orderedPin/marker'+order+'.png', // 마커이미지의 주소입니다    
+    								imageSize = new daum.maps.Size(30, 35); // 마커이미지의 크기입니다
+    								
+    							var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+    								
                                 var marker = new daum.maps.Marker({
                                     map: map,
-                                    position: coords
+                                    position: coords,
+                                    image: markerImage
                                 });
-                                map.panTo(coords);                                
+                                markers.push(marker);
+                                map.panTo(coords); 
+                               
                             }
                             //그 바로 직전의 주소를 변환하기 시작
                             if(order-2>=0){                            	
@@ -381,9 +392,8 @@
                                 polyline.setMap(map);
                             });  
                         }
-                            order++;
-                            reorder();
-                        }); 
+                            order++;                         
+                  }); 
             
             }
             }
@@ -435,7 +445,7 @@
             		places.keywordSearch(keyword, callback);
             		
             	}else{
-            		//내 맛집지도 불러오기       		
+            		//내 맛집지도 불러오기      		
 
             	//검색을 눌렀을 때 비동기 시작            	
                 $.ajax({
@@ -468,6 +478,7 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
         <script>
             //탭메뉴 만들기
+            
             $(function() {
                 $(".tab_content").hide();
                 $(".tab_content:first").show();
@@ -490,12 +501,15 @@
                     stop: function(event, ui) {
                         var spos = ui.item.data('start');
                         var epos = ui.item.index();
-            	    reorder();
+                    	//1.marker를 먼저 지우고 나서 
+                    	setMarkers(null); 
+            	    reorder(spos,epos);
                     }
                 }); 
             });
 			
-            function reorder(){       	
+            function reorder(spos,epos){            	
+               	
 				$('#smallLeftRight').children().each(function(index){
 					$(this).attr('id','deliciousCopy'+index+'');
 					$(this).find('input[type=hidden]').attr('name',index);
@@ -504,20 +518,46 @@
 					addresses[i]=$("input[name="+i+"]").val();
 				}
                 //주소-좌표 변환 객체를 생성합니다
-                var geocoder = new daum.maps.services.Geocoder();
-				
+                var geocoder = new daum.maps.services.Geocoder();			
+
+                //선을 지웟다가 다시 그리기                
 				geocoder.addressSearch(addresses[0],function(result, status) {
                     // 정상적으로 검색이 완료됐으면 
-                    if (status === daum.maps.services.Status.OK) {
-
+                    if (status === daum.maps.services.Status.OK) {                 	
                         var coords = new daum.maps.LatLng(result[0].y,
-                            result[0].x);
-                        map.panTo(coords);
-                        console.log(addresses);
+                            result[0].x);                        
+                        chgMarkers();
+                        
+                       	//3.다시 그리기                       	
+                        map.panTo(coords);                     
                     }                    
-                }); 	
+                });
+				 setNewMarkers(map);                
             }
             
+            function setMarkers(map) {
+                for (var i = 0; i < markers.length; i++) {                	
+                	markers[i].setMap(map);
+                }                 
+            }
+            
+            function setNewMarkers(map) {
+            	var newMarkers=markers.slice(0); 
+                console.log(newMarkers===markers);
+                for (var i = 0; i < newMarkers.length; i++) {                	
+                	newMarkers[i].setMap(map);
+                }                 
+            }
+            
+            function chgMarkers(){				
+                //2.markers 배열을 자리를 바꿈 
+               	var tmp=[];
+               	tmp.push(markers[0]);
+       			markers.splice(0,1,markers[1]);
+       			markers.splice(1,1,tmp[0]); 
+       			 
+            }
+
             
         </script>
 

@@ -4,5 +4,29 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+
+
+	
+	<!-- ExService 등록 -->
+	<bean id="exService" class="com.bit.emoji.service.ExService" />
+	
+	<!-- MapService 등록 -->
+	<bean id="mapService" class="com.bit.emoji.delicious.service.MapService" />
+
+	<bean id="memberService"
+		class="com.bit.emoji.member.service.MemberService" />
+
+
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+<!-- 	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	  <constructor-arg value="587972593169-bsf5ncac9kqbvgc5s5sreoku1ui6cb36.apps.googleusercontent.com" />
+	  <constructor-arg value="4cDuZi9nyqly57hJK3XsLOk3" />
+	</bean> -->
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+<!-- 	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+	  <property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+ 	  <property name="redirectUri" value="http://localhost:8080/emoji/user/googleSignInCallback" /> 
+	</bean> -->
+	
 </beans>
