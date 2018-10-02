@@ -238,7 +238,7 @@
 				dataType: 'json',
 				success: function(data) {
 					var deliciousPinAddress = data.deliciousPinInfo.deliciousPinAddress;
-					alert(data);
+					
 			 		//주소로 좌표 검색
 					geocoder.addressSearch(deliciousPinAddress, function(result, status) {
 						
