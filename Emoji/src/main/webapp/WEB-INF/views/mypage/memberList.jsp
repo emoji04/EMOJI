@@ -28,7 +28,7 @@
 			<tr>
 				<th>비밀번호</th>
 				<th><input name="memberPassword"
-					value=""></th>
+					value="${MemberVO.memberPassword }"></th>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
@@ -42,19 +42,19 @@
 			</tr>
 			<tr>
 				<th>핸드폰</th>
-				<th><input name="memeberPhone"
-					value=""></th>
+				<th><input name="memeberPhoneNum"
+					value="${MemberVO.memberPhoneNum }"></th>
 			</tr>
 			<tr>
 				<th>참여자평점</th>
 				<th><input name="memberJoinGrade"
-					value="" readonly="readonly"></th>
+					value="${MemberVO.memberJoinGrade }" readonly="readonly"></th>
 			</tr>
 			<tr>
 
 				<th>원정대장 평점</th>
 				<th><input name="memberCapGrade"
-					value="" readonly="readonly"></th>
+					value="${MemberVO.memberCapGrade }" readonly="readonly"></th>
 			</tr>
 		</c:forEach> </thead>
 	</table>
