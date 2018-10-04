@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-<<<<<<< HEAD
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
@@ -12,20 +11,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
-=======
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<<<<<<< HEAD
 	
 	<!-- DataSource 등록 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
@@ -39,13 +25,22 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/bit/emoji/delicious/mapper/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:com/bit/emoji/*/mapper/*Mapper.xml" />
 	</bean>
 	
 	<!-- SqlSessionTemplate 클래스 등록 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService" />
+	<bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService" />
+	
+	<!-- SHA 암호화 서비스 등록 -->
+	<bean class="com.bit.emoji.SHA256" id="sha"/>
+	
+	<!-- MemberService 등록 -->
+	<bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
 	
 	<!-- ExService 등록 -->
 	<bean id="exService" class="com.bit.emoji.service.ExService" />
@@ -59,33 +54,3 @@
 	<context:component-scan base-package="com.bit.emoji.mapper" />
 		
 </beans>
-=======
-
-
-
-
-
-	<!-- ExService 등록 -->
-	<bean id="exService" class="com.bit.emoji.service.ExService" />
-
-	<!-- MapService 등록 -->
-	<bean id="mapService"
-		class="com.bit.emoji.delicious.service.MapService" />
-
-	<bean id="memberService"
-		class="com.bit.emoji.member.service.MemberService" />
-
-
-	<!-- google Class Bean설정 추가 -->
-	<!-- 클라이언트ID와 보안비밀 세팅 -->
-	<!-- <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory"> 
-		<constructor-arg value="587972593169-bsf5ncac9kqbvgc5s5sreoku1ui6cb36.apps.googleusercontent.com" 
-		/> <constructor-arg value="4cDuZi9nyqly57hJK3XsLOk3" /> </bean> -->
-	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
-	<!-- <bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters"> 
-		<property name="scope" value="https://www.googleapis.com/auth/plus.login" 
-		/> <property name="redirectUri" value="http://localhost:8080/emoji/user/googleSignInCallback" 
-		/> </bean> -->
-
-</beans>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git

@@ -4,11 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
@@ -18,18 +15,12 @@ import com.bit.emoji.service.ServiceDao;
 
 @Repository
 public class MapService extends ServiceDao {
-<<<<<<< HEAD
 	//지도 생성하기
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	public int insertMap(DeliciousMapVO deliciousMapVO) {
 		return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertMap", deliciousMapVO);
 	}
 	
-<<<<<<< HEAD
 	//지도 번호에 따른 정보 가져오기
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	public List<DeliciousMapVO> selectMapByDeliciousMapNum(int deliciousMapNum) {
 		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
 	}

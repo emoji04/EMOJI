@@ -18,37 +18,5 @@ import com.bit.emoji.route.service.MakeRouteService;
 
 @Controller
 public class MakeRouteController {
-<<<<<<< HEAD
-/*	
-	@Autowired
-=======
-	
-	@Inject
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-	MakeRouteService makeRouteService;
-	
-	@RequestMapping("goRoute")
-	public String goMakeRoute() {
-		return "route";
-	}	
-	@ResponseBody
-	@RequestMapping("search")
-	public List<DeliciousPinVO> searchDelicious(@RequestParam(value="search", defaultValue="떡볶이") String search, Model model) {
-		return makeRouteService.selectDelicious(search);
-	}
-	
-	/*	public String getMyMap(HttpSession session, Model model) {
-	}
-	
-	public String searchMyDelicious(String search, List<DeliciousMapVO> myMaps, Model model) {
-	
-	}
-	
-	public String makeRoute(RouteVO route, Model model) {
-	
-	}
-	
-	public String updateRoute(RouteVO route, Model model) {
-	
-	}*/
+
 }

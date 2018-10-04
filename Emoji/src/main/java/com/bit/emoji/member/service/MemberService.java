@@ -9,7 +9,7 @@ import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.ServiceDao;
 
 @Repository
-public class MemberService extends ServiceDao{
+public class MemberService extends ServiceDao {
     private SHA256 SHA;
 
     public int insertMember(MemberVO memberVO){
@@ -22,5 +22,4 @@ public class MemberService extends ServiceDao{
 
     public void edit(MemberVO membervo, HttpSession session){
     }
-
 }

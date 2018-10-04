@@ -11,30 +11,4 @@ import com.bit.emoji.route.service.SearchRouteService;
 
 @Controller
 public class SearchRouteController {
-<<<<<<< HEAD
-/*	@Autowired
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-	SearchRouteService searchRouteService;
-	
-	@RequestMapping("goSearchRoute")
-	public String goSearchRoute() {
-		return "searchRoute";
-	}
-	
-/*	public String searchRoute(String search, String searchDate, Model model) {
-	
-	}
-	
-	public RouteVO clickRoute(int routeNum) {
-	
-	}
-	
-	public String clicksScrap(HttpSession session, int routeNum, String state) {
-	
-	}
-	
-	public String clickJoin(HttpSession session, int routeNum, String state) {
-	
-	}*/
 }
