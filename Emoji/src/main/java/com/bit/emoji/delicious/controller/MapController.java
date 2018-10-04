@@ -1,5 +1,10 @@
 package com.bit.emoji.delicious.controller;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,11 +25,17 @@ import com.bit.emoji.model.DeliciousReviewVO;
 @Controller
 public class MapController {
 	@Autowired
+<<<<<<< HEAD
 	MapService mapService;    //맛집지도 CRUD
 	
 	@Autowired
 	PinService pinService;    //맛집지도 내의 핀 CRUD
 	
+=======
+	MapService mapService;    //留쏆쭛吏��룄 CRUD
+	
+	PinService pinService;
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	DeliciousReviewService deliciousReviewService;
 	
 	//맛집지도 메인 페이지
@@ -45,10 +56,17 @@ public class MapController {
 		return "";
 	}
 	
+<<<<<<< HEAD
 	//맛집지도 등록하고 보여주기
 	@RequestMapping("/deliciousMapInfo")
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
 		deliciousMapVO.setDeliciousMapNum(7);
+=======
+	//留쏆쭛吏��룄 �벑濡앺븯怨� 蹂댁뿬二쇨린
+	@RequestMapping("/deliciousMapInsert")
+	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
+		deliciousMapVO.setDeliciousMapNum(6);
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
 		
 		int cnt = mapService.insertMap(deliciousMapVO);
@@ -86,6 +104,15 @@ public class MapController {
 		return "";
 	}
 	
+<<<<<<< HEAD
+=======
+
+	
+	public String selectPin(int num, Model model) {
+		return "";
+	}
+	
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	public String selectReview(int num, Model model) {
 		return "";
 	}

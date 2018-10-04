@@ -11,6 +11,7 @@
 		select * from dMap
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
+<<<<<<< HEAD
 	
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousPinVO">
 		insert into delicious
@@ -21,4 +22,6 @@
 		select * from delicious
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 </mapper>

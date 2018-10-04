@@ -11,7 +11,10 @@ import com.bit.emoji.route.service.SearchRouteService;
 
 @Controller
 public class SearchRouteController {
+<<<<<<< HEAD
 /*	@Autowired
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	SearchRouteService searchRouteService;
 	
 	@RequestMapping("goSearchRoute")
@@ -19,7 +22,7 @@ public class SearchRouteController {
 		return "searchRoute";
 	}
 	
-	public String searchRoute(String search, String searchDate, Model model) {
+/*	public String searchRoute(String search, String searchDate, Model model) {
 	
 	}
 	
