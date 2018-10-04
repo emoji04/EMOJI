@@ -102,75 +102,66 @@
 <div id="left">
 	<div id="container">
 		<ul class="tab">
-			<li class="active"><a href="#makeMap">맛집지도 만들기</a></li>
+			<li class="active"><a href="#makePin">맛집지도 만들기</a></li>
 			<li><a href="#searchMap">맛집지도 검색</a></li>
 		</ul>
 		
 		<div class="tab_container">
-			<div id="makeMap" class="tab_content" style="display: block;">
-					<table>
-						<c:forEach var="deliciousMapList" items="${ deliciousMapList }">
-							<tr>
-								<td>지도이름</td>
-								<td><input type="text" id="deliciousMapName" name="deliciousMapName" value="${ deliciousMapList.deliciousMapName }"></td>
-							</tr>
-							<tr>
-								<td>해시태그</td>
-								<td><input type="text" id="deliciousMapTag" name="deliciousMapTag" value="${ deliciousMapList.deliciousMapTag }"></td>
-							</tr>
-							<tr>
-								<td>상세설명</td>
-								<td>
-									<textarea rows="5" id="deliciousMapDetail" name="deliciousMapDetail">${ deliciousMapList.deliciousMapDetail }</textarea>
-									<span id="textCnt">0</span>/20
-								</td>
-							</tr>
-						
-							<input type="hidden" name="deliciousMapOpen">
-							<jsp:useBean id="now" class="java.util.Date" />
-							<input type="hidden" name="deliciousMapCreateDate">
-							<input type="hidden" name="memberNum">
-						</c:forEach>
-					</table>
-				
-				<div id="makePin">
-					<form id="pinInfo" action="<c:url value='/deliciousPinInfo.json' />" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="deliciousMapNum" value="7">
+			<div id="makePin" class="tab_content" style="display: block;">
+				<form id="pinInfo" action="<c:url value='/deliciousPinInfo.json' />" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="deliciousMapNum" value="7">
+					<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
+					<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
+					<input type="text" name="deliciousPinName" placeholder="핀이름"><br>
 					
-						<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
-						<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
-						<input type="text" name="deliciousPinName" placeholder="핀이름"><br>
-		
-						<select id="deliciousPinCategory" name="deliciousPinCategory">
-							<option value="한식">한식</option>
-							<option value="중식">중식</option>
-							<option value="일식">일식</option>
-							<option value="양식">양식</option>
-						</select><br>
-		
-						<input type="text" name="deliciousPinGrade" placeholder="평점"><br>
-						<input type="text" name="deliciousPinPhone" placeholder="전화번호"><br>
-						<input type="text" name="deliciousPinDetail" placeholder="상세설명"><br>
-						<input type="file" name="deliciousPinFile">
-						
-						<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
-					</form>
-				</div>
-
+					<select id="deliciousPinCategory" name="deliciousPinCategory">
+						<option value="한식">한식</option>
+						<option value="중식">중식</option>
+						<option value="일식">일식</option>
+						<option value="양식">양식</option>
+					</select><br>
+					
+					<input type="text" name="deliciousPinGrade" placeholder="평점"><br>
+					<input type="text" name="deliciousPinPhone" placeholder="전화번호"><br>
+					<input type="text" name="deliciousPinDetail" placeholder="상세설명"><br>
+					<input type="file" name="deliciousPinFile">
+					
+					<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
+				</form>
 			</div>
 			
 			<div id="searchMap" class="tab_content" style="display: none;">
-				<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
+				<div class="input-group stylish-input-group">
+					<input type="text" id="search" class="form-control" placeholder="맛집이름, 맛집지도이름, 해시태그">
+	                    <span class="input-group-addon">
+	                        <button type="submit">
+	                            <span class="glyphicon glyphicon-search"></span>
+	                        </button>  
+	                    </span>
+	            </div>
 			</div>
-			<input type="submit" value="최종 저장">
 		</div>
-	</div>
+ 	</div>
+ 	
+	<input type="submit" value="최종 저장">
 </div>
 
 <div id="right">
+	<c:forEach var="deliciousMapList" items="${ deliciousMapList }">
+		<h2>${ deliciousMapList.deliciousMapName }</h2>
+		<h3>${ deliciousMapList.deliciousMapTag }</h3>
+		
+		<input type="hidden" name="deliciousMapDetail" value="${ deliciousMapList.deliciousMapDetail }">
+		<input type="hidden" name="deliciousMapOpen">
+		<jsp:useBean id="now" class="java.util.Date" />
+		<input type="hidden" name="deliciousMapCreateDate">
+		<input type="hidden" name="memberNum">
+	</c:forEach>
+	
 	<div id="map"></div>
 	<div id="clickLatlng"></div>
 </div>
+
 
 <script>
 	$(document).ready(function(){
