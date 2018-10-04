@@ -15,4 +15,9 @@ public class MypageService extends SqlSession  {
 		
 		return sqlSession.selectList(BaseMapper.MypageMapper + ".listAll", memberEmail);
 	}
+	
+	public int updateMember(MemberVO vo) throws Exception{
+		
+		return sqlSession.update(BaseMapper.MypageMapper + ".updateMember", vo);
+	}
 }

@@ -1,12 +1,10 @@
 package com.bit.emoji.mypage.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +21,18 @@ public class MypageController {
 	@Inject
 	private MypageService mypageService;
 
-	@RequestMapping(value="/mypage/memberList", method= RequestMethod.GET)
-	public void listAll(Model model) throws Exception{
-		logger.info("SHOW ME THE MONEY777............................");
+	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.GET)
+	public void listAll(Model model, HttpSession session) throws Exception {
+
+		session.setAttribute("memberEmail", "91@naver.com");
+		logger.info("............................GET");
+		model.addAttribute("memberList", mypageService.selectMember("91@naver.com"));
+	}
+
+	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.POST)
+	public void update(Model model, MemberVO vo) throws Exception {
+		logger.info("...............POST");
+		model.addAttribute("updateMember", mypageService.updateMember(vo));
 		model.addAttribute("memberList", mypageService.selectMember("91@naver.com"));
 	}
 }

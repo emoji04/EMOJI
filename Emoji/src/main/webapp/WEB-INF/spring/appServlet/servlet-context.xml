@@ -86,7 +86,6 @@
 	<beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean>
 	<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean>
 	
-	<beans:bean class="com.bit.emoji.SHA256" id="sha"/>
 	<beans:bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
 		
 	
