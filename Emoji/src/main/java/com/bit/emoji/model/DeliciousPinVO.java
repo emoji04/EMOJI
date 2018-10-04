@@ -15,6 +15,7 @@ public class DeliciousPinVO {
 	private boolean deliciousPinDeleted;
 	private int deliciousPinOrder;
 	private int deliciousMapNum;
+	
 	public DeliciousPinVO() {
 		super();
 		// TODO Auto-generated constructor stub

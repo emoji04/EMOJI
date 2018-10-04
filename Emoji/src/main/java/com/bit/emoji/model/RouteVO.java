@@ -5,13 +5,13 @@ import java.util.List;
 public class RouteVO {
 	private int routeNum;
 	private int memberNum;
-	private String routName;
+	private String routeName;
 	private int possibleNum;
 	private String startDate;
 	private String spendTime;
 	private int budget;
 	private String rule;
-	private String routeTage;
+	private String routeTag;
 	private int encore;
 	private String routeCreateDate;
 	private double routeGrade;
@@ -23,19 +23,19 @@ public class RouteVO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public RouteVO(int routeNum, int memberNum, String routName, int possibleNum, String startDate, String spendTime,
-			int budget, String rule, String routeTage, int encore, String routeCreateDate, double routeGrade,
+	public RouteVO(int routeNum, int memberNum, String routeName, int possibleNum, String startDate, String spendTime,
+			int budget, String rule, String routeTag, int encore, String routeCreateDate, double routeGrade,
 			List<DeliciousPinVO> deliciousList, List<JoinVO> joinList) {
 		super();
 		this.routeNum = routeNum;
 		this.memberNum = memberNum;
-		this.routName = routName;
+		this.routeName = routeName;
 		this.possibleNum = possibleNum;
 		this.startDate = startDate;
 		this.spendTime = spendTime;
 		this.budget = budget;
 		this.rule = rule;
-		this.routeTage = routeTage;
+		this.routeTag = routeTag;
 		this.encore = encore;
 		this.routeCreateDate = routeCreateDate;
 		this.routeGrade = routeGrade;
@@ -55,11 +55,11 @@ public class RouteVO {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public String getRoutName() {
-		return routName;
+	public String getRouteName() {
+		return routeName;
 	}
-	public void setRoutName(String routName) {
-		this.routName = routName;
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
 	}
 	public int getPossibleNum() {
 		return possibleNum;
@@ -91,11 +91,11 @@ public class RouteVO {
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
-	public String getRouteTage() {
-		return routeTage;
+	public String getRouteTag() {
+		return routeTag;
 	}
-	public void setRouteTage(String routeTage) {
-		this.routeTage = routeTage;
+	public void setRouteTag(String routeTag) {
+		this.routeTag = routeTag;
 	}
 	public int getEncore() {
 		return encore;
@@ -130,9 +130,9 @@ public class RouteVO {
 
 	@Override
 	public String toString() {
-		return "RouteVO [routeNum=" + routeNum + ", memberNum=" + memberNum + ", routName=" + routName
+		return "RouteVO [routeNum=" + routeNum + ", memberNum=" + memberNum + ", routeName=" + routeName
 				+ ", possibleNum=" + possibleNum + ", startDate=" + startDate + ", spendTime=" + spendTime + ", budget="
-				+ budget + ", rule=" + rule + ", routeTage=" + routeTage + ", encore=" + encore + ", routeCreateDate="
+				+ budget + ", rule=" + rule + ", routeTag=" + routeTag + ", encore=" + encore + ", routeCreateDate="
 				+ routeCreateDate + ", routeGrade=" + routeGrade + ", deliciousList=" + deliciousList + ", joinList="
 				+ joinList + "]";
 	}
