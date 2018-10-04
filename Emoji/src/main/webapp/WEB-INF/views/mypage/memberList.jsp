@@ -12,6 +12,9 @@
 	}
 
 </style>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>회원정보상세</title>
 </head>
 <body>
 <div id="all">
@@ -60,59 +63,78 @@
 					value="${MemberVO.memberJoinGrade}" readonly="readonly"></th>
 			</tr>
 			<tr>
+		<thead>
+			<c:forEach items="${memberList }" var="MemberVO">
+				<tr>
+					<th>이메일</th>
+					<th><input name="memberEmail" value="${MemberVO.memberEmail}"
+						readonly="readyonly"></th>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<th><input name="memberName" value="${MemberVO.memberName }"
+						readonly="readyonly"></th>
+				</tr>
 
 				<th>원정대장 평점</th>
 				<th><input name="memberCapGrade"
 					value="${MemberVO.memberCapGrade }" readonly="readonly"></th>
 			</tr>
 		</c:forEach> </thead>
+				<tr>
+					<th>비밀번호</th>
+					<th><input name="memberPassword"
+						value="${MemberVO.memberPassword }"></th>
+				</tr>
+				<tr>
+					<th>비밀번호확인</th>
+					<th><input name="memberPassword2" value=" "></th>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<th><input name="memberGender"
+						value="${MemberVO.memberGender }" readonly="readyonly"></th>
+				</tr>
+				<tr>
+					<th>휴대전화</th>
+					<th><input name="memeberPhoneNum"
+						value="${MemberVO.memberPhoneNum }" readonly="readonly"></th>
+				</tr>
+				<tr>
+					<th>참여자평점</th>
+					<th><input name="memberJoinGrade"
+						value="${MemberVO.memberJoinGrade }" readonly="readonly"></th>
+				</tr>
+				<tr>
+
+					<th>원정대장평점</th>
+					<th><input name="memberCapGrade"
+						value="${MemberVO.memberCapGrade }" readonly="readonly"></th>
+				</tr>
+			</c:forEach>
+		</thead>
 	</table>
 	<input type="button" value="수정" id="btnUpdate">
 	</div>
 	</div>
 </body>
 </html>
-<!-- <script>
-window.onload = function(){
+<script>
+	/* ajax ȸ������ ����ó�� */
+	function btnUpdate() {
+		alert("�����Ͻðڽ��ϱ�?");
+		var memberPassword = $("#memberPassword").val();
+	}
 	$.ajax({
-		type:"POST",
-		url:"${memberList}",
-		/* data :"", */
-		dataType:"json",
-		cache : false,
-		  
-		success:function(data){
-			  $.each(data, function(key, value) {
-			console.log(data);
-			
-			$("#memberEmail").val(value.memberEmail);
-			$("#memberName").val(value.memberName);
-			$("#memberPassword").val(value.memberPassword);
-			$("#memberGender").val(value.memberGender);
-			$("#memberPhoneNum").val(value.memberPhoneNum);
-			$("#memberJoinGrade").val(value.memberJoinGrade);
-			$("#memberCapGrade").val(value.memberCapGrade);
-			
-		});
+		type : "GET",
+		url : "memberList.jsp",
+		data : {//�÷����ӿ� �Է��� �� ��
+			"memberPassword" : memeberPassword
 		},
-	    error:function(request,status,error){
-
-	          alert("code:"+request.status+"\n"+"message:"
-
-	            +request.responseText+"\n"+"error:"+error);
-
-	   }
+		dateType : "JSON",
+		success : function(data) {
+			console.log(data);
+			alert('�����Ǿ����ϴ�');
+		}
 	});
-	
-	$(document).ready(function(){
-		$("#btnUpdate").click(function(){
-			document.forml.action ="${path}/mypage/memberList";
-			document.forml.sunmit();
-		});
-	});
-	
-
-} 
-
-
-</script> -->
+</script>

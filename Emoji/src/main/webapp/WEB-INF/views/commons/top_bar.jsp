@@ -23,17 +23,14 @@
 #imaginary_container {
 	margin-top: 80%; /* Don't copy this */
 }
-
 .stylish-input-group .input-group-addon {
 	background: white !important;
 }
-
 .stylish-input-group .form-control {
 	box-shadow: 0 0 0;
 	border: solid 0px black;
 	border-right: 0;
 }
-
 .stylish-input-group button {
 	border: 0;
 	background: transparent;
