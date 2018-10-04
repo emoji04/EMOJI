@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.mypage.service.MypageService;
 
 @Controller
@@ -20,15 +21,18 @@ public class MypageController {
 	@Inject
 	private MypageService mypageService;
 
-	@RequestMapping(value="/mypage/memberList", method= RequestMethod.GET)
-	public void listAll(Model model, HttpSession session) throws Exception{
-		
+	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.GET)
+	public void listAll(Model model, HttpSession session) throws Exception {
+
 		session.setAttribute("memberEmail", "91@naver.com");
-		logger.info("SHOW ME THE MONEY777............................");
+		logger.info("............................GET");
+		model.addAttribute("memberList", mypageService.selectMember("91@naver.com"));
+	}
+
+	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.POST)
+	public void update(Model model, MemberVO vo) throws Exception {
+		logger.info("...............POST");
+		model.addAttribute("updateMember", mypageService.updateMember(vo));
 		model.addAttribute("memberList", mypageService.selectMember("91@naver.com"));
 	}
 }
-
-
-
-

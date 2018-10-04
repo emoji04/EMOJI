@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.emoji.SHA256;
 import com.bit.emoji.member.service.MailSendService;
 import com.bit.emoji.member.service.MemberService;
 import com.bit.emoji.model.MemberVO;
@@ -37,8 +36,6 @@ public class Membercontroller {
     @Autowired
     MemberService memberService;
     
-	@Autowired
-	SHA256 sha ;
     
     /*private GoogleConnectionFactory googleConnectionFactory;
     private OAuth2Parameters googleOAuth2Parameters;
@@ -123,13 +120,11 @@ public class Membercontroller {
 		
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
-    	String memberPassword = sha.encrypt(pw);
     	
-    	System.out.println(memberPassword);
     	System.out.println(memberService.login(memberEmail));
     	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail)))
     	{session.setAttribute("loginInfo", memberEmail);
-		System.out.println("·Î±×ÀÎ ¼º°ø");
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		return "home";}
     	
         
@@ -139,7 +134,7 @@ public class Membercontroller {
     @RequestMapping(value = "/naver_login.json")
     @ResponseBody
     public String naverlogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String test){
-    	System.out.println("µé¾î¿È?");
+    	System.out.println("ï¿½ï¿½ï¿½ï¿½?");
 		HttpSession session = request.getSession(false);
 		session.setAttribute("loginInfo", test);
     	System.out.println(test);
