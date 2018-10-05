@@ -12,7 +12,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <style>
-	ul.tab {
+ 	ul.tab {
 		margin: 0;
 		padding: 0;
 		float: left;
@@ -57,7 +57,7 @@
 	
 	#container {
 		border: 1px solid #999;
-		border-top: none;
+/* 		border-top: none; */
 		overflow: hidden;
 		clear: both;
 		float: left;
@@ -70,8 +70,23 @@
 	}
 	
  	#left {
- 	 	padding-left: 2%;
+ 		margin-top: 150px;
+ 	 	padding-left: 50px;
  		width:30%;
+ 	}
+ 	
+ 	#pinContent {
+	 	margin-top: 30px;
+ 	}
+ 	
+ 	.textBox {
+	 	padding-left: 5px; 
+	 	margin-bottom: 20px;
+	 }
+ 	
+ 	input[type=text], select, #makePinBtn {
+ 		width: 100%;
+ 		padding-left: 5px;
  	}
  	
  	 #right {
@@ -83,15 +98,13 @@
  	#map {
  		width: 100%;
  		height: 500px;
- 	}
- 	
- 	.title {
- 		font-weight: bold;
- 		display: block;
+ 		margin-top: 7px;
  	}
 </style>
 </head>
 <body>
+<%@ include file="../commons/top_bar.jsp"%>
+	
 <div id="left">
 	<div id="container">
 		<ul class="tab">
@@ -100,42 +113,75 @@
 		</ul>
 		
 		<div class="tab_container">
+			<!-- 지도만들기 탭 -->
 			<div id="makePin" class="tab_content" style="display: block;">
-				<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
-					<input type="hidden" name="deliciousMapNum" value="8">
-					<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
-					<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
-					<input type="text" name="deliciousPinName" placeholder="핀이름"><br>
-					
-					<select id="deliciousPinCategory" name="deliciousPinCategory">
-						<option value="한식">한식</option>
-						<option value="중식">중식</option>
-						<option value="일식">일식</option>
-						<option value="양식">양식</option>
-					</select><br>
-					
-					<input type="text" name="deliciousPinGrade" placeholder="평점"><br>
-					<input type="text" name="deliciousPinPhone" placeholder="전화번호"><br>
-					<input type="text" name="deliciousPinDetail" placeholder="상세설명"><br>
-					<input type="file" name="deliciousPinFile">
-					
-					<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
-					<input type="hidden" id="markers" name="pinInfo">
- 					<input type="button" value="확인" id="check">
-				</form>
-			</div>
-			
-			<div id="searchMap" class="tab_content" style="display: none;">
-				<div id="imaginary_container"> 
-					<div class="input-group stylish-input-group">
-						<input type="text" id="search" class="form-control" placeholder="맛집이름, 맛집지도이름, 해시태그">
-						<span class="input-group-addon">
-	                        <button type="submit">
-	                            <span class="glyphicon glyphicon-search"></span>
-	                        </button>  
-	                    </span>
-	                </div>
-	            </div>
+				<div id="pinContent">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
+						<input type="hidden" name="deliciousMapNum" value="8">
+						
+						<label>주소</label>
+							<div class="textBox">
+    							<input type="text" id="deliciousPinAddress" name="deliciousPinAddress">
+    							<input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()" style="margin-top: 5px;">
+    						</div>
+    						
+    					<label>상호명</label>
+							<div class="textBox">
+    							<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant">
+    						</div>
+    						
+    					<label>핀이름</label>
+							<div class="textBox">
+    							<input type="text" name="deliciousPinName">
+    						</div>
+    						
+    					<label>카테고리</label>
+    						<div class="textBox">
+    							<select id="deliciousPinCategory" name="deliciousPinCategory">
+									<option value="한식">한식</option>
+									<option value="중식">중식</option>
+									<option value="일식">일식</option>
+									<option value="양식">양식</option>
+								</select><br>
+    						</div>
+    						
+    					<label>평점</label>
+    						<div class="textBox">
+    							<input type="text" name="deliciousPinGrade">
+    						</div>
+    						
+    					<label>전화번호</label>
+    						<div class="textBox">
+    							<input type="text" name="deliciousPinPhone">
+    						</div>
+    						
+    					<label>상세설명</label>
+    						<div class="textBox">
+    						    <input type="text" id="deliciousPinDetail" name="deliciousPinDetail">
+								<span id="textCnt">0</span>/20
+							</div>
+							
+						<label>사진첨부</label>
+    						<div class="textBox">
+    							<input type="file" name="deliciousPinFile">
+							</div>
+							
+<!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
+						<input type="button" id="makePinBtn" value="핀 생성">
+
+						<input type="hidden" id="markers" name="pinInfo">
+<!--  						<input type="button" value="확인" id="check"> -->
+					</form>
+    			</div>
+    		</div>
+    		
+    		<!-- 지도검색 탭 -->
+    		<div id="searchMap" class="tab_content" style="display: none;">
+				<div id="mapContent">
+					<div class="textBox">
+    					<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
+    				</div>
+    			</div>
 			</div>
 		</div>
  	</div>
@@ -143,8 +189,8 @@
 
 <div id="right">
 	<c:forEach var="deliciousMapList" items="${ deliciousMapList }">
-		<span>${ deliciousMapList.deliciousMapName }</span>
-		<span>${ deliciousMapList.deliciousMapTag }</span>
+		<span class="title" style="font-size: 24px;">${ deliciousMapList.deliciousMapName }</span><br>
+		<span class="title" style="font-size: 16px;">${ deliciousMapList.deliciousMapTag }</span><br>
 		
 		<input type="hidden" name="deliciousMapDetail" value="${ deliciousMapList.deliciousMapDetail }">
 		<input type="hidden" name="deliciousMapOpen">
@@ -156,7 +202,6 @@
 	<div id="map"></div>
 	<div id="clickLatlng"></div>
 </div>
-
 
 <script>
 	$(document).ready(function(){
@@ -188,9 +233,6 @@
 		var markers = [];  //지도에 표시한 마커 객체를 가지고 있을 배열
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 		
-
-
-		
 		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
@@ -205,8 +247,8 @@
 			$(activeTab).fadeIn();
 		});
 		
-		//지도 만들기 상세설명 입력크기 지정
-		$('textarea').keyup(function() {
+		//핀 만들기 상세설명 입력크기 지정
+		$('#deliciousPinDetail').keyup(function() {
 			var text = $(this).val();
 			var textlength = text.length;
 	

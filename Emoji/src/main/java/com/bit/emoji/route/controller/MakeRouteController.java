@@ -18,5 +18,8 @@ import com.bit.emoji.route.service.MakeRouteService;
 
 @Controller
 public class MakeRouteController {
-
+	@RequestMapping("/goRoute")
+	public String routeFrom() {
+		return "route";
+	}
 }

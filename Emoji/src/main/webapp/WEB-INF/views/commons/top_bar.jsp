@@ -45,7 +45,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="div2" href="#" style="font-size: 25px;">
+			<a class="navbar-brand" id="div2" href="<c:url value='/deliciousForm' />" style="font-size: 25px;">
 			<img alt="" src="/resources/img/Logo.jpg" style="width: 55px; border-radius: 5px;" style="padding-right: 120px;">모두의지도 </a>
 		</div>
 		<div style="width: 100px"></div>
