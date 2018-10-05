@@ -39,9 +39,6 @@
 	<!-- SearchRouteService 등록 -->
 	<bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService" />
 	
-	<!-- SHA 암호화 서비스 등록 -->
-	<bean class="com.bit.emoji.SHA256" id="sha"/>
-	
 	<!-- MemberService 등록 -->
 	<bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
 	
