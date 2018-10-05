@@ -51,7 +51,7 @@ public class MapController {
 	//맛집지도 등록하고 보여주기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
-		deliciousMapVO.setDeliciousMapNum(7);
+		deliciousMapVO.setDeliciousMapNum(8);
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
 		
 		int cnt = mapService.insertMap(deliciousMapVO);
@@ -75,11 +75,11 @@ public class MapController {
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
 	}*/
 	
-	//핀 정보 등록하고 보여주기
+/*	//핀 정보 등록하고 보여주기
 	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody
-	public String insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO) throws Exception {
-		deliciousPinVO.setDeliciousPinNum(4);
+	public String insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
+		deliciousPinVO.setDeliciousPinNum(5);
 		System.out.println(deliciousPinVO);
 
 		int cnt = pinService.insertPin(request, deliciousPinVO);
@@ -90,6 +90,18 @@ public class MapController {
 			return "실패";
 		else
 			return deliciousPinVO.getDeliciousPinAddress();
+		model.addAttribute("data", request.getParameter("pinInfo"));
+		return "/delicious/test";
+	}*/
+	
+	//핀 정보 등록하고 보여주기
+	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST)
+	@ResponseBody
+	public String insertPin(HttpServletRequest request) throws Exception {
+		if(request.getParameter("pinInfo") != null)
+			return "성공";
+		else
+			return "실패";
 	}
 	
 	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {

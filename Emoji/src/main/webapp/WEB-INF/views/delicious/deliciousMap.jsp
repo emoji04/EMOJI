@@ -102,7 +102,7 @@
 		<div class="tab_container">
 			<div id="makePin" class="tab_content" style="display: block;">
 				<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
-					<input type="hidden" name="deliciousMapNum" value="7">
+					<input type="hidden" name="deliciousMapNum" value="8">
 					<input type="text" id="deliciousPinAddress" name="deliciousPinAddress" placeholder="주소"><input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()"><br>
 					<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant" placeholder="상호명"><br>
 					<input type="text" name="deliciousPinName" placeholder="핀이름"><br>
@@ -120,6 +120,8 @@
 					<input type="file" name="deliciousPinFile">
 					
 					<input type="image" id="pinSave" src="resources/img/saveBtn.png" style="float:right;">
+					<input type="hidden" id="markers" name="pinInfo">
+ 					<input type="button" value="확인" id="check">
 				</form>
 			</div>
 			
@@ -137,9 +139,6 @@
 			</div>
 		</div>
  	</div>
- 	
-	<input type="submit" value="최종 저장">
-	<input type="hidden" id="markers">
 </div>
 
 <div id="right">
@@ -161,45 +160,9 @@
 
 <script>
 	$(document).ready(function(){
-		function save(e) {
- 			//var formData = $('#pinInfo').serialize();
- 			var formData = new FormData($('#pinInfo')[0]);
- 			/*var formData = new FormData($('#pinInfo')[0]);
- 			markers.push(formData);
- 			
- 			for(var i=0; i<markers.length; i++) 
- 				console.log(makers.formData[i]);*/
- 			
-  			$.ajax({
-  				type: 'POST',
-  				url: '<c:url value='/deliciousPinInfo' />',
-				data: formData,
-				processData: false,
-				contentType: false,
-				dataType: 'text',
-				success: function(data) {
- 					makers.push(data);
- 					
- 					$.each(makers, function(index, item) {
- 			 			//주소로 좌표 검색
- 			 			geocoder.addressSearch(item, function(result, status) {
- 						
- 							//정상적으로 검색이 완료됐으면
- 							if(status == daum.maps.services.Status.OK) {
- 								var coords = new daum.maps.LatLng(result[0].y, result[0].x);
- 			 				
- 			 					//지도의 중심을 결과값으로 받은 위치로 이동
- 								map.setCenter(coords);
- 								marker.setPosition(coords);
- 							}
- 						}); 
- 					})
-				},
-				error: function(request, status) {
-					alert('처리 실패!' + request.status);
-				}
-			}); 
-		}
+		$('#check').click(function(){
+			alert($('#markers').val());
+		});
 		
 		var mapContainer = document.getElementById('map'),   //지도 담을 영역
 		//지도 생성 시, 필요한 기본 옵션
@@ -224,6 +187,9 @@
 		
 		var markers = [];  //지도에 표시한 마커 객체를 가지고 있을 배열
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
+		
+
+
 		
 		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
@@ -341,6 +307,50 @@
 		for(var i=0; i<markers.length; i++) 
 			markers[i].setMap(map);
 	}
+	
+	function save(e) {
+		$('#markers').val(pinInfo);
+		return false;
+		
+		//var formData = $('#pinInfo').serialize();
+		
+/* 		var formData = new FormData($('#pinInfo')[0]);
+		
+		$.ajax({
+			type: 'POST',
+			url: '<c:url value='/deliciousPinInfo' />',
+			data: formData,
+			processData: false,
+			contentType: false,
+			dataType: 'text',
+			success: function(data) {
+				makers.push(data);
+				
+				$.each(makers, function(index, item) {
+					//주소로 좌표 검색
+					geocoder.addressSearch(item, function(result, status) {
+						
+						//정상적으로 검색이 완료됐으면
+						if(status == daum.maps.services.Status.OK) {
+							var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+							
+							//지도에 클릭한 위치에 표출할 마커 생성
+							var marker = new daum.maps.Marker({
+								image: markerImg     //마커 이미지 설정
+							}); 
+							
+							//지도의 중심을 결과값으로 받은 위치로 이동
+							map.setCenter(coords);
+							marker.setPosition(coords);
+						}
+					}); 
+				})
+			},
+			error: function(request, status) {
+				alert('처리 실패!' + request.status);
+			}
+		}); */
+	}		
 </script>
 </body>
 
