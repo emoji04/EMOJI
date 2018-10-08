@@ -1,0 +1,357 @@
+* {
+    margin: 0;
+    list-style: none;
+}
+
+body {
+    background-color: #F5F6F7;
+}
+
+.main {
+
+    margin: auto;
+    width: 780px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.mid {}
+
+.langoption {
+    position: relative;
+    left: 330px;
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    border: 0.5 solid #CCCCCC;
+}
+
+.naverbanner {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 65px;
+    color: #2DB400;
+}
+
+.ck_all_area {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox + label {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 17px;
+    padding-left: 32px;
+    background: url('beforecheck.PNG') no-repeat;
+}
+
+.checkbox:checked + label {
+
+    background: url('aftercheck.PNG')no-repeat;
+
+}
+
+.textareaframe {
+    overflow: auto;
+    overflow-y: scroll;
+    position: relative;
+    margin-bottom: 20px;
+    left: 150px;
+    width: 475px;
+    height: 100px;
+    background-color: white;
+    border: solid #A9A9A9 1px;
+    color: #666666;
+    font-size: 13px;
+}
+.welcome{
+    padding-top: 10px;
+    display: block;
+    
+    
+}
+.allowtext {}
+
+.seconline {
+    position: relative;
+    left: -32px;
+}
+
+.na_allow_main {}
+
+.na_allow_top {
+    position: relative;
+    left: -130px;
+}
+
+.check_label {
+    width: 450px;
+    height: 35px;
+}
+
+.should {
+    font-size: 12px;
+    color: #08A600;
+}
+
+.optional {
+    font-size: 12px;
+    color: #666666;
+}
+
+textarea {
+    margin-bottom: 20px;
+    color: #666666;
+}
+
+.indivi_label {
+    width: 450px;
+    height: 40px;
+}
+
+.na_indivi_top {
+    position: relative;
+    left: -82px;
+}
+
+.na_loca_top {
+    position: relative;
+    left: -122px;
+}
+
+.na_event_top {
+    position: relative;
+    left: -82px;
+}
+
+.button_agree > input {
+    margin-top: 20px;
+    margin-left: 7px;
+    width: 230px;
+    height: 60px;
+}
+
+#agree_submit {
+    border: none;
+    background-color: #08A600;
+    color: white;
+    font-size: 20px;
+}
+
+#disagree_submit {
+    border: none;
+    background-color: #8E8E8E;
+    color: white;
+    font-size: 20px;
+
+}
+
+.groupid {
+    margin: 10px;
+    font-size: 13px;
+    color: #666666;
+}
+
+a {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+li {
+    float: left;
+    font-size: 12px;
+    position: relative;
+    left: 120px;
+    border-right: solid 0.5px #666666;
+    margin-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.corp {
+    position: relative;
+    top: 40px;
+    left: -250px;
+    font-size: 12px;
+    color: #666666;
+}
+
+li > a {
+    text-decoration: none;
+    color: #666666;
+}
+
+.mid2 {
+    margin: auto;
+    width: 450px;
+}
+
+.naverbanner2 {
+    position: relative;
+    top: 70px;
+    left: 110px;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 65px;
+    color: black;
+}
+
+
+.mainarea {
+    position: relative;
+    top: 90px;
+}
+
+.maintext {
+    padding-bottom: 10px;
+}
+
+.boxarea {
+    border: 0.1px solid #DADADA;
+    margin-bottom: 18px;
+    padding: 10px;
+    background-color: white;
+}
+
+#idtext {
+    width: 320px;
+    height: 30px;
+    margin-left: 3px;
+    border: none;
+}
+
+#naadress {
+    color: #8E8E8E;
+}
+
+.passwordarea {
+    width: 320px;
+    height: 30px;
+    margin-left: 3px;
+    border: none;
+    font-size: 18px;
+}
+
+.widthtext {
+    width: 100%;
+    height: 30px;
+    border: none;
+}
+
+.birthinput > * {
+    width: 139px;
+    height: 44px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border: 0.1px solid #DADADA;
+    font-size: 15px;
+}
+
+select {
+    margin-right: 1px;
+}
+
+.genderchk {
+    padding: 16px 96px;
+    margin-bottom: 18px;
+    border: 0.1px solid #DADADA;
+    background-color: white;
+    float: left;
+    color: #8E8E8E;
+}
+
+.genderarea > input {
+    display: none;
+}
+
+.genderchkbox:checked + label {
+    border: 0.1px solid #08A600;
+    color: #08A600;
+}
+
+#internum {
+    width: 100%;
+    height: 45px;
+    border: 0.1px solid #DADADA;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.phonenum {
+    height: 30px;
+    border: none;
+}
+
+#getnumtext {
+    border: 0.1px solid #DADADA;
+    margin-bottom: 10px;
+    margin-right: 4px;
+    padding: 10px;
+    width: 319px;
+    height: 30px;
+    background-color: white;
+    display: inline-block;
+}
+
+.getnum {
+    width: 100px;
+    height: 44px;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.doregi {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+.ul2 > li {
+    font-size: 12px;
+    position: relative;
+    left: -15px;
+    border-right: solid 0.5px #666666;
+    margin-top: 10px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.corp2 {
+    position: relative;
+    top: 20px;
+    left: 180px;
+    font-size: 12px;
+    color: #666666;
+}
+#notallow{
+    font-weight: 600;
+}
+.divchk{
+    font-weight: 600;
+    position: relative;
+    top: -10px;
+    left: 10px;
+    font-size: 15px;
+}
+.midlogin{
+    margin: auto;
+    width: 450px;
+}
+.keepid{
+    position: relative;
+    right: 180px;
+    top: 3px;
+    color: #666666;
+}
+

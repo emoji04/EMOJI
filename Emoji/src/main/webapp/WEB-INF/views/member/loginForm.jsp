@@ -152,7 +152,9 @@
 	
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-			<form class="login100-form validate-form" action="<c:url value='/login' />">
+		<a href="<c:url value='/home'/>">
+			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 200px; border-radius: 5px;" style="padding-left:120px;"></a>
+			<form class="login100-form validate-form" action="<c:url value='/login' />" method="post">
 				<span class="login100-form-title p-b-37">
 					Sign In
 				</span>
@@ -175,6 +177,10 @@
 
 				<div class="text-center p-t-57 p-b-20">
 					<span class="txt1">
+							<a href="<c:url value='/registerForm' />">회원가입</a>
+					</span><br>
+					<hr/>
+					<span class="txt1">
 						Or login with
 					</span>
 				</div>
@@ -195,9 +201,9 @@
 					
 					
 					<!-- 구글 로그인 추가 -->
-<div id="googleLogin" align="center">                                                    
-    <div class="g-signin2" data-onsuccess="onSuccess" data-theme="dark"></div>
-</div>
+					<div id="googleLogin" align="center">                                                    
+					    <div class="g-signin2" data-onsuccess="onSuccess" data-theme="dark"></div>
+					</div>
 					
 					<div id="firebaseui-auth-container"></div>
 					<div id="loader">Loading...</div>
@@ -280,7 +286,8 @@ FB.getLoginStatus(function(response) {
         expiresIn:'...',
         signedRequest:'...',
         userID:'...'
-
+    }
+}
 </script> 
 	<!-- facebook2 -->
 	<script>
