@@ -162,8 +162,8 @@ public class Membercontroller {
 	    	return memberEmail;
     	}else {
     		long time = System.currentTimeMillis(); 
-    		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd");
-    		String str = dayTime.format(new Date(time));
+    		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+    		String regidate = dayTime.format(new Date(time));
     		System.out.println(memberName+"-->네이버 이름");
     		MemberVO naverVO = new MemberVO();
     		naverVO.setMemberEmail(memberEmail);
@@ -171,11 +171,11 @@ public class Membercontroller {
     		naverVO.setMemberPassword("0000");
     		naverVO.setMemberGender("M");
     		naverVO.setMemberPhoneNum("0000");
-    		naverVO.setMemberRegDate("2018-10-08");
+    		naverVO.setMemberRegDate(regidate);
     		int a = memberService.insertMember(naverVO);
     		int e = naverVO.getMemberNum();
 			session.setAttribute("loginInfo", e);
-	    	System.out.println(memberEmail);
+	    	System.out.println(memberEmail+"-->네이버 db등록하고 나서");
 	    	return memberEmail;
     	}
 		

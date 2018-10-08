@@ -152,6 +152,8 @@
 	
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+		<a href="<c:url value='/home'/>">
+			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 200px; border-radius: 5px;" style="padding-left:120px;"></a>
 			<form class="login100-form validate-form" action="<c:url value='/login' />" method="post">
 				<span class="login100-form-title p-b-37">
 					Sign In
