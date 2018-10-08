@@ -21,7 +21,7 @@
 		<div id="table">
 			<h1>회원정보상세보기</h1>
 
-			로그인 ID : ${memberEmail }
+			로그인 ID : ${loginInfo }
 
 			<form id = "form" action="../mypage/memberList" method = "POST">
 			
@@ -41,11 +41,11 @@
 
 							<tr>
 								<th>비밀번호</th>
-								<th><input name="memberPassword" value="" value=""></th>
+								<th><input type="text" id ="memberPassword"name="memberPassword" value="" value=""></th>
 							</tr>
 							<tr>
 								<th>비밀번호 확인</th>
-								<th><input name="" value=""></th>
+								<th><input type="text" id = "memberPasswordCh" name="memberPasswordCh" value=""></th>
 							</tr>
 							<tr>
 								<th>성별</th>
@@ -78,9 +78,18 @@
 </body>
 </html>
 <script>
+
+pw = $('#memberPassword').val();
+pwch = $('#memberPasswordCh').val();
 	$(document).ready(function() {
 		$("#btnUpdate").click(function() {
-			$("#form").submit();
+			if(pw == pwch){
+				alert($('#memberPassword').val())
+				alert($('#memberPasswordCh').val())
+				 $("#form").submit(); 
+			} else {
+				alert('비밀번호가 일치하지 않습니다');
+			}
 		});
 	});
 </script>
