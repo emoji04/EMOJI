@@ -3,14 +3,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 
-import com.bit.emoji.SHA256;
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.ServiceDao;
 
 @Repository
 public class MemberService extends ServiceDao{
-    private SHA256 SHA;
 
     public int insertMember(MemberVO memberVO){
         return sqlSession.insert(MapperName.MEMBER + ".insertMember", memberVO);

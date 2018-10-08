@@ -10,9 +10,14 @@ import com.bit.emoji.mypage.mapper.SqlSession;
 @Repository
 public class MypageService extends SqlSession  {
 
-	public List<MemberVO> selectMember(String memberEmail) throws Exception {
+	public List<MemberVO> selectMember(String loginInfo) throws Exception {
 		
 		
-		return sqlSession.selectList(BaseMapper.MypageMapper + ".listAll", memberEmail);
+		return sqlSession.selectList(BaseMapper.MypageMapper + ".listAll", loginInfo);
+	}
+	
+	public int updateMember(MemberVO vo) throws Exception{
+		
+		return sqlSession.update(BaseMapper.MypageMapper + ".updateMember", vo);
 	}
 }

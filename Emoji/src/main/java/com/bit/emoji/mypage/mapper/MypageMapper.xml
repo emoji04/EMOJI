@@ -5,20 +5,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="MypageMapper">
 	<!-- 회원정보 상세조회 -->
-	<select id="listAll" resultType="com.bit.emoji.model.MemberVO" parameterType="String">
-	select
-		memberEmail, memberName, memberGender
+	<select id="listAll" resultType="com.bit.emoji.model.MemberVO"
+		parameterType="String">
+		select
+		memberEmail, memberName, memberPassword, memberGender, memberPhoneNum,
+		memberJoinGrade, memberCapGrade
 		from
 		member
-        where memberEmail = #{memberEmail}
+		where memberEmail = #{memberEmail}
 
 	</select>
+	
 	<!-- 회원정보수정 -->
-	<select id="update" resultType="com.bit.emoji.model.MemberVO">
-		UPDATE emoji.member SET
-		memberPassword=#{memberPassword},
-		WHERE memberEmail=#{memberEmail}
+	<update id="updateMember" parameterType="com.bit.emoji.model.MemberVO">
+		UPDATE member SET
+		memberEmail =#{memberEmail},
+		memberName= #{memberName},
+		memberPassword = #{memberPassword},
+		memberGender = #{memberGender},
+		memberPhoneNum = #{memberPhoneNum},
+		memberJoinGrade =
+		#{memberJoinGrade},
+		memberCapGrade = #{memberCapGrade}
+		WHERE
+		memberEmail = #{memberEmail}
 
-	</select>
+	</update>
 
 </mapper>

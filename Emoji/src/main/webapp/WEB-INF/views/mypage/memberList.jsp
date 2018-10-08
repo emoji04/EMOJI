@@ -1,107 +1,95 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html">
+<title>íšŒì›ì •ë³´ìƒì„¸ë³´ê¸°</title>
+<style>
+#table {
+	margin: 30%;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿øÁ¤º¸»ó¼¼º¸±â</title>
+<title>íšŒì›ì •ë³´ìƒì„¸</title>
 </head>
 <body>
-	<h1>È¸¿øÁ¤º¸»ó¼¼º¸±â</h1>
+	<div id="all">
+		<%@ include file="../commons/top_bar.jsp"%>
+		<div id="table">
+			<h1>íšŒì›ì •ë³´ìƒì„¸ë³´ê¸°</h1>
 
-	·Î±×ÀÎ ID : ${memberEmail }
+			ë¡œê·¸ì¸ ID : ${loginInfo }
 
-	<table>
-		<thead> <c:forEach items="${memberList }" var="MemberVO">
-			<tr>
-				<th>¾ÆÀÌµğ</th>
-				<th><input name="memberEmail" value="${MemberVO.memberEmail}"
-					readonly="readyonly"></th>
-			</tr>
-			<tr>
-				<th>ÀÌ¸§</th>
-				<th><input name="memberName" value="${MemberVO.memberName }"
-					readonly="readyonly"></th>
-			</tr>
+			<form id = "form" action="../mypage/memberList" method = "POST">
 			
-			<tr>
-				<th>ºñ¹Ğ¹øÈ£</th>
-				<th><input name="memberPassword"
-					value=""></th>
-			</tr>
-			<tr>
-				<th>ºñ¹Ğ¹øÈ£ È®ÀÎ</th>
-				<th><input name=""
-					value=" "></th>
-			</tr>
-			<tr>
-				<th>¼ºº°</th>
-				<th><input name="memberGender"
-					value="${MemberVO.memberGender }" readonly="readyonly"></th>
-			</tr>
-			<tr>
-				<th>ÇÚµåÆù</th>
-				<th><input name="memeberPhone"
-					value=""></th>
-			</tr>
-			<tr>
-				<th>Âü¿©ÀÚÆòÁ¡</th>
-				<th><input name="memberJoinGrade"
-					value="" readonly="readonly"></th>
-			</tr>
-			<tr>
+				<table>
+					<thead>
+						<c:forEach items="${memberList }" var="MemberVO">
+							<tr>
+								<th>ì•„ì´ë””</th>
+								<th><input name="memberEmail"
+									value="${MemberVO.memberEmail}" readonly="readyonly"></th>
+							</tr>
+							<tr>
+								<th>ì´ë¦„</th>
+								<th><input name="memberName"
+									value="${MemberVO.memberName }" readonly="readyonly"></th>
+							</tr>
 
-				<th>¿øÁ¤´ëÀå ÆòÁ¡</th>
-				<th><input name="memberCapGrade"
-					value="" readonly="readonly"></th>
-			</tr>
-		</c:forEach> </thead>
-	</table>
-	<input type="button" value="¼öÁ¤" id="btnUpdate">
+							<tr>
+								<th>ë¹„ë°€ë²ˆí˜¸</th>
+								<th><input type="text" id ="memberPassword"name="memberPassword" value="" value=""></th>
+							</tr>
+							<tr>
+								<th>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</th>
+								<th><input type="text" id = "memberPasswordCh" name="memberPasswordCh" value=""></th>
+							</tr>
+							<tr>
+								<th>ì„±ë³„</th>
+								<th><input name="memberGender"
+									value="${MemberVO.memberGender }" readonly="readyonly"></th>
+							</tr>
+							<tr>
+								<th>í•¸ë“œí°</th>
+								<th><input name="memberPhoneNum"
+									value="${MemberVO.memberPhoneNum }"></th>
+							</tr>
+							<tr>
+								<th>ì°¸ì—¬ìí‰ì </th>
+								<th><input name="memberJoinGrade"
+									value="${MemberVO.memberJoinGrade}" readonly="readonly"></th>
+							</tr>
+							<tr>
+								<th>ì›ì •ëŒ€ì¥í‰ì </th>
+								<th><input name="memberCapGrade"
+									value="${MemberVO.memberCapGrade}" readonly="readonly"></th>
+							</tr>
+						</c:forEach>
+					</thead>
+				</table>
+
+				<input type="button" value="ìˆ˜ì •" id="btnUpdate">
+			</form>
+		</div>
+	</div>
 </body>
 </html>
-<!-- <script>
-window.onload = function(){
-	$.ajax({
-		type:"POST",
-		url:"${memberList}",
-		/* data :"", */
-		dataType:"json",
-		cache : false,
-		  
-		success:function(data){
-			  $.each(data, function(key, value) {
-			console.log(data);
-			
-			$("#memberEmail").val(value.memberEmail);
-			$("#memberName").val(value.memberName);
-			$("#memberPassword").val(value.memberPassword);
-			$("#memberGender").val(value.memberGender);
-			$("#memberPhoneNum").val(value.memberPhoneNum);
-			$("#memberJoinGrade").val(value.memberJoinGrade);
-			$("#memberCapGrade").val(value.memberCapGrade);
-			
-		});
-		},
-	    error:function(request,status,error){
+<script>
 
-	          alert("code:"+request.status+"\n"+"message:"
-
-	            +request.responseText+"\n"+"error:"+error);
-
-	   }
-	});
-	
-	$(document).ready(function(){
-		$("#btnUpdate").click(function(){
-			document.forml.action ="${path}/mypage/memberList";
-			document.forml.sunmit();
+pw = $('#memberPassword').val();
+pwch = $('#memberPasswordCh').val();
+	$(document).ready(function() {
+		$("#btnUpdate").click(function() {
+			if(pw == pwch){
+				alert($('#memberPassword').val())
+				alert($('#memberPasswordCh').val())
+				 $("#form").submit(); 
+			} else {
+				alert('ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤');
+			}
 		});
 	});
-	
-
-} 
-
-
-</script> -->
+</script>
