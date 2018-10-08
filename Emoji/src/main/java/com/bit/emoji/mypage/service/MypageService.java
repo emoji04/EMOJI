@@ -12,7 +12,7 @@ import com.bit.emoji.mypage.mapper.SqlSession;
 @Repository
 public class MypageService extends SqlSession {
 
-	public List<MemberVO> selectMember(String loginInfo) throws Exception {
+	public List<MemberVO> selectMember(int loginInfo) throws Exception {
 
 		return sqlSession.selectList(BaseMapper.MypageMapper + ".listAll", loginInfo);
 	}
@@ -22,7 +22,7 @@ public class MypageService extends SqlSession {
 		return sqlSession.update(BaseMapper.MypageMapper + ".updateMember", vo);
 	}
 
-	public List<DeliciousMapVO> myDmlist(String loginInfo) throws Exception {
+	public List<DeliciousMapVO> myDmListAll(int loginInfo) throws Exception {
 
 		return sqlSession.selectList(BaseMapper.MypageMapper + ".myDmList", loginInfo);
 	}
