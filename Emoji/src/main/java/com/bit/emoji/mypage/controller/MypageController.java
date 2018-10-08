@@ -21,18 +21,18 @@ public class MypageController {
 	@Inject
 	private MypageService mypageService;
 
-	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/memberUpdateForm", method = RequestMethod.GET)
 	public void listAll(Model model, HttpSession session) throws Exception {
 
 		String loginInfo = (String) session.getAttribute("loginInfo");
 		logger.info("............................GET");
-		model.addAttribute("memberList", mypageService.selectMember(loginInfo));
+		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
 	}
 
-	@RequestMapping(value = "/mypage/memberList", method = RequestMethod.POST)
+	@RequestMapping(value = "/mypage/memberUpdateForm", method = RequestMethod.POST)
 	public void update(Model model, MemberVO vo) throws Exception {
 		logger.info("...............POST");
 		model.addAttribute("updateMember", mypageService.updateMember(vo));
-		model.addAttribute("memberList", mypageService.selectMember("loginInfo"));
+		model.addAttribute("memberUpdateForm", mypageService.selectMember("loginInfo"));
 	}
 }

@@ -124,7 +124,6 @@ public class Membercontroller {
     	System.out.println(memberService.login(memberEmail));
     	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail)))
     	{session.setAttribute("loginInfo", memberEmail);
-		System.out.println("�α��� ����");
 		return "home";}
     	
         
@@ -134,7 +133,6 @@ public class Membercontroller {
     @RequestMapping(value = "/naver_login.json")
     @ResponseBody
     public String naverlogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String test){
-    	System.out.println("����?");
 		HttpSession session = request.getSession(false);
 		session.setAttribute("loginInfo", test);
     	System.out.println(test);
