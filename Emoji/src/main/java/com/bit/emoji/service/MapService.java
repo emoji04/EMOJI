@@ -1,4 +1,4 @@
-package com.bit.emoji.delicious.service;
+package com.bit.emoji.service;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
-import com.bit.emoji.service.ServiceDao;
 
 @Repository
 public class MapService extends ServiceDao {

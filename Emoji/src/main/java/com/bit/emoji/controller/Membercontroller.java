@@ -1,4 +1,4 @@
-package com.bit.emoji.member.controller;
+package com.bit.emoji.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.emoji.SHA256;
-import com.bit.emoji.member.service.MailSendService;
-import com.bit.emoji.member.service.MemberService;
 import com.bit.emoji.model.MemberVO;
+import com.bit.emoji.service.MailSendService;
+import com.bit.emoji.service.MemberService;
 
 @Controller
 public class Membercontroller {

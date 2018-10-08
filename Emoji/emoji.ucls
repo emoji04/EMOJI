@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
   associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="com.bit.emoji.delicious.service.MapService" project="Emoji" 
-    file="/Emoji/src/main/java/com/bit/emoji/delicious/service/MapService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="com.bit.emoji.service.MapService" project="Emoji" 
+    file="/Emoji/src/main/java/com/bit/emoji/service/MapService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="945" y="396"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.bit.emoji.delicious.service.MapService.PinService" project="Emoji" 
-    file="/Emoji/src/main/java/com/bit/emoji/delicious/service/MapService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="com.bit.emoji.service.MapService.PinService" project="Emoji" 
+    file="/Emoji/src/main/java/com/bit/emoji/service/MapService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="940" y="698"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -56,9 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.bit.emoji.delicious.controller.MapController" project="Emoji" 
-    file="/Emoji/src/main/java/com/bit/emoji/delicious/controller/MapController.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="com.bit.emoji.controller.MapController" project="Emoji" 
+    file="/Emoji/src/main/java/com/bit/emoji/controller/MapController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="560" y="430"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -66,78 +65,68 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="com.bit.emoji.delicious.service.DeliciousMapper" project="Emoji" 
-    file="/Emoji/src/main/java/com/bit/emoji/delicious/service/DeliciousMapper.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1236" y="204"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <dependency id="9">    
+  <dependency id="8">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <association id="11">    
+  <association id="9">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="12" name="pinService">        
-        <position height="0" width="0" x="9" y="-4"/>      
-      </attribute>      
-      <multiplicity id="13" minimum="0" maximum="1">        
-        <position height="0" width="0" x="9" y="-4"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="14">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </nesting>  
-  <association id="15">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="16" name="mapService">        
+      <attribute id="10" name="mapService">        
         <position height="0" width="0" x="-41" y="-5"/>      
       </attribute>      
-      <multiplicity id="17" minimum="0" maximum="1">        
+      <multiplicity id="11" minimum="0" maximum="1">        
         <position height="0" width="0" x="-41" y="-5"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="18">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="20">    
+  <dependency id="12">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <dependency id="21">    
+  <nesting id="13">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </nesting>  
+  <dependency id="14">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <association id="22">    
+  <dependency id="15">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="17">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="23" name="deliciousReviewService">        
+      <attribute id="18" name="deliciousReviewService">        
         <position height="0" width="0" x="-32" y="11"/>      
       </attribute>      
-      <multiplicity id="24" minimum="0" maximum="1">        
+      <multiplicity id="19" minimum="0" maximum="1">        
         <position height="0" width="0" x="-32" y="11"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="21">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="22" name="pinService">        
+        <position height="0" width="0" x="9" y="-4"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="9" y="-4"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

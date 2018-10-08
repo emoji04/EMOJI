@@ -1,4 +1,4 @@
-package com.bit.emoji;
+package com.bit.emoji.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -25,7 +25,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/bit/emoji/*/mapper/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:com/bit/emoji/mapper/*Mapper.xml" />
 	</bean>
 	
 	<!-- SqlSessionTemplate 클래스 등록 -->
@@ -33,23 +33,23 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService" />
-	<bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService" />
-	
 	<!-- SHA 암호화 서비스 등록 -->
-	<bean class="com.bit.emoji.SHA256" id="sha"/>
+	<bean class="com.bit.emoji.controller.SHA256" id="sha"/>
 	
 	<!-- MemberService 등록 -->
-	<bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
+	<bean id="memberService" class="com.bit.emoji.service.MemberService" />
 	
 	<!-- ExService 등록 -->
 	<bean id="exService" class="com.bit.emoji.service.ExService" />
 	
 	<!-- MapService 등록 -->
-	<bean id="mapService" class="com.bit.emoji.delicious.service.MapService" />
+	<bean id="mapService" class="com.bit.emoji.service.MapService" />
 	
 	<!-- PinService 등록 -->
-	<bean id="pinService" class="com.bit.emoji.delicious.service.MapService$PinService" />
+	<bean id="pinService" class="com.bit.emoji.service.MapService$PinService" />
+	
+	<!-- MypageService 등록 -->
+	<bean id="mypageService" class="com.bit.emoji.service.MypageService" />
 
 	<context:component-scan base-package="com.bit.emoji.mapper" />
 		

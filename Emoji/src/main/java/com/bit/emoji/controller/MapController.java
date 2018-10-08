@@ -1,6 +1,4 @@
-package com.bit.emoji.delicious.controller;
-
-import java.util.List;
+package com.bit.emoji.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.emoji.delicious.service.DeliciousReviewService;
-import com.bit.emoji.delicious.service.MapService;
-import com.bit.emoji.delicious.service.MapService.PinService;
 import com.bit.emoji.model.DeliciousMapVO;
+import com.bit.emoji.model.DeliciousPinInfo;
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.DeliciousReviewVO;
+import com.bit.emoji.service.MapService;
+import com.bit.emoji.service.MapService.PinService;
 
 @Controller
 public class MapController {
@@ -28,10 +26,10 @@ public class MapController {
 	@Autowired
 	PinService pinService;    //맛집지도 내의 핀 CRUD
 	
-	DeliciousReviewService deliciousReviewService;
+	//DeliciousReviewService deliciousReviewService;
 	
 	//맛집지도 메인 페이지
-	@RequestMapping("/deliciousForm")
+	@RequestMapping(value="/deliciousForm")
 	public String deliciousForm() {
 		return "/delicious/deliciousForm";
 	}
@@ -63,19 +61,20 @@ public class MapController {
 	}
 	
 /*	//핀 정보 등록하고 보여주기
-	@RequestMapping(value="/deliciousPinInfo.json", method=RequestMethod.POST)
+	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody
 	public DeliciousPinInfo insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
-		deliciousPinVO.setDeliciousPinNum(4);
+		deliciousPinVO.setDeliciousPinNum(5);
 		System.out.println(deliciousPinVO);
 
 		int cnt = pinService.insertPin(request, deliciousPinVO);
 		System.out.println(cnt);
 		System.out.println(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
+		
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
 	}*/
 	
-/*	//핀 정보 등록하고 보여주기
+	//핀 정보 등록하고 보여주기
 	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody
 	public String insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
@@ -90,11 +89,9 @@ public class MapController {
 			return "실패";
 		else
 			return deliciousPinVO.getDeliciousPinAddress();
-		model.addAttribute("data", request.getParameter("pinInfo"));
-		return "/delicious/test";
-	}*/
+	}
 	
-	//핀 정보 등록하고 보여주기
+/*	//핀 정보 등록하고 보여주기
 	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public String insertPin(HttpServletRequest request) throws Exception {
@@ -102,7 +99,7 @@ public class MapController {
 			return "성공";
 		else
 			return "실패";
-	}
+	}*/
 	
 	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
 		return "";

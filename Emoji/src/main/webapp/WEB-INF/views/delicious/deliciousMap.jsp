@@ -55,6 +55,14 @@
 		border-bottom: 1px solid #fff;
 	}
 	
+	.active{
+		cursor: pointer;
+	}
+	
+	.click {
+		font-weight: bold;
+	}
+	
 	#container {
 		border: 1px solid #999;
 /* 		border-top: none; */
@@ -108,15 +116,15 @@
 <div id="left">
 	<div id="container">
 		<ul class="tab">
-			<li class="active"><a href="#makePin">맛집지도 만들기</a></li>
-			<li><a href="#searchMap">맛집지도 검색</a></li>
+			<li class="active click" id="makePin_li" onclick="viewMake()">핀 만들기</li>
+			<li class="active" id="checkPinList_li" onclick="viewCheck()">핀 리스트 확인</li>
 		</ul>
 		
 		<div class="tab_container">
-			<!-- 지도만들기 탭 -->
+			<!-- 핀 만들기 탭 -->
 			<div id="makePin" class="tab_content" style="display: block;">
 				<div id="pinContent">
-					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="deliciousMapNum" value="8">
 						
 						<label>주소</label>
@@ -169,14 +177,14 @@
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
 						<input type="button" id="makePinBtn" value="핀 생성">
 
-						<input type="hidden" id="markers" name="pinInfo">
+						<input type="hidden" id="markers">
 <!--  						<input type="button" value="확인" id="check"> -->
 					</form>
     			</div>
     		</div>
     		
-    		<!-- 지도검색 탭 -->
-    		<div id="searchMap" class="tab_content" style="display: none;">
+    		<!-- 핀 리스트 확인 탭 -->
+    		<div id="checkPinList" class="tab_content" style="display: none;">
 				<div id="mapContent">
 					<div class="textBox">
     					<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
@@ -204,12 +212,27 @@
 </div>
 
 <script>
-	$(document).ready(function(){
-		$('#check').click(function(){
-			alert($('#markers').val());
-		});
+	//핀 만들기 클릭시
+	function viewMake(){
+		$('#makePin').show();
+		$('#checkPinList').hide();
+	
+		$('#makePin_li').addClass('click');
+		$('#checkPinList_li').removeClass('click');
+	}
+
+	//핀 리스트 확인 클릭시
+	function viewCheck(){
+		$('#makePin').hide();
+		$('#checkPinList').show();
 		
+		$('#checkPinList_li').addClass('click');
+		$('#makePin_li').removeClass('click');
+	}
+
+	$(document).ready(function(){
 		var mapContainer = document.getElementById('map'),   //지도 담을 영역
+		
 		//지도 생성 시, 필요한 기본 옵션
 		mapOptions = { 
 			center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
@@ -233,7 +256,7 @@
 		var markers = [];  //지도에 표시한 마커 객체를 가지고 있을 배열
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 		
-		//만들기, 검색 탭 이동
+/* 		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
 		$('.tab_content:first').show();
@@ -245,7 +268,7 @@
 			
 			var activeTab = $(this).find('a').attr('href');
 			$(activeTab).fadeIn();
-		});
+		}); */
 		
 		//핀 만들기 상세설명 입력크기 지정
 		$('#deliciousPinDetail').keyup(function() {
@@ -262,6 +285,8 @@
 				$('#textCnt').text(remain);
 		});
  		
+		
+		//핀 만들기 주소검색
  		$('#deliciousPinAddress').keyup(function() {
  			var address = $('#deliciousPinAddress').val();
  			
@@ -294,7 +319,29 @@
  				}
  			});
  		});
-	});
+ 		
+ 		//핀 생성 버튼 클릭 시
+ 		$('#makePinBtn').click(function() {
+ 			//$('#pinInfo').submit();
+  	 		var formData = new FormData($('#pinInfo')[0]);
+ 	 		
+ 	 		$.ajax({
+ 				type: 'POST',
+ 				url: '<c:url value='/deliciousPinInfo' />',
+ 				data: formData,
+ 	 			processData: false,
+ 				contentType: false,
+ 				dataType: 'text', 
+ 				success: function(data) {
+ 					alert(data);
+ 				},
+ 				error: function(request, status) {
+ 					alert('처리 실패!' + request.status);
+ 				}
+ 			}); 
+ 		});
+
+	}); 
 		
 	//좌표로 행정동 주소 정보 요청
 	function searchAddrFromCoords(coords, callback) {
@@ -306,6 +353,7 @@
 		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	}	
 	
+	//주소검색 창 open
 	function searchAddr() {
 		//윈도우 창 크기
 		var width = 500;
@@ -351,8 +399,8 @@
 	}
 	
 	function save(e) {
-		$('#markers').val(pinInfo);
-		return false;
+		//$('#markers').val(pinInfo);
+		//return false;
 		
 		//var formData = $('#pinInfo').serialize();
 		
@@ -395,5 +443,4 @@
 	}		
 </script>
 </body>
-
 </html>

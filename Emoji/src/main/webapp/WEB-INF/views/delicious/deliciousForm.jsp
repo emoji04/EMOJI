@@ -58,6 +58,10 @@
 		cursor: pointer;
 	}
 	
+	.click {
+		font-weight: bold;
+	}
+	
 	#container {
 		border: 1px solid #999;
 		/* border-top: none; */
@@ -114,12 +118,11 @@
 <div id="left">
 	<div id="container">
 		<ul class="tab">
-			 <li class="active" id="makeMap_li" onclick="view()">맛집지도 만들기</li>
-         <li class="active" id="searchMap_li" onclick="viewSerach()">맛집지도 검색</li>
-
+			<li class="active click" id="makeMap_li" onclick="viewMake()">맛집지도 만들기</li>
+			<li class="active" id="searchMap_li" onclick="viewSearch()">맛집지도 검색</li>
 		</ul>
 		
-		<div class="tab_container"  id="map_li">
+		<div class="tab_container">
 			<div id="makeMap" class="tab_content" style="display: block;">
 				<div id="mapContent">
 					<form action="<c:url value='/deliciousMapInfo' />" method="post" id="deliciousMap">
@@ -173,27 +176,24 @@
 </div>
 
 <script>
-//맛집지도 만들기 클릭시
-function view(){
-   
-   $('#map_li').show();
-   $('#searchMap').hide();
-   
-   $('#makeMap_li').css('color','red');
-   $('#searchMap_li').css('color','black');
-   
-}
-
-//맛집지도 검색 클릭시
-function viewSerach(){
-   
-   $('#map_li').hide();
-   $('#searchMap').show();
-   
-   
-   $('#makeMap_li').css('color','black');
-   $('#searchMap_li').css('color','red');
-}
+	//맛집지도 만들기 클릭시
+	function viewMake(){
+		$('#makeMap').show();
+		$('#searchMap').hide();
+		
+		$('#makeMap_li').addClass('click');
+		$('#searchMap_li').removeClass('click');
+	}
+	
+	//맛집지도 검색 클릭시
+	function viewSearch(){
+		$('#makeMap').hide();
+		$('#searchMap').show();
+		
+		$('#makeMap_li').removeClass('click');
+		$('#searchMap_li').addClass('click');
+	}
+	
 	$(document).ready(function(){
 /*  		//만들기, 검색 탭 이동
 		$('.tab_content').hide();
@@ -228,6 +228,9 @@ function viewSerach(){
 				$('#textCnt').text(remain);
 		});
 		
+		/* textbox 유효성 검사 */
+		
+		//1. textbox에서 마우스를 뗐을 때
 		$('#deliciousMapName').focusout(function() {
 			var name = $(this).val();
 			
@@ -239,7 +242,7 @@ function viewSerach(){
 		
 		$('#deliciousMapTag').focusout(function() {
 			var tag = $(this).val();
-			var count = (tag.match(/#/g) || []).length;
+			var count = (tag.match(/#/g) || []).length;  //#의 갯수 추출
 			
 			if(tag.length > 0) {
 				$('#tag_output').empty().removeClass('focus');
@@ -260,6 +263,7 @@ function viewSerach(){
 				$('#detail_output').text('필수 정보입니다.').addClass('focus');
 		});
 		
+		//2. 지도 생성 버튼을 클릭했을 때
 		$('#makeMapBtn').click(function() {
 			var name = $('#deliciousMapName').val();
 			var tag = $('#deliciousMapTag').val();

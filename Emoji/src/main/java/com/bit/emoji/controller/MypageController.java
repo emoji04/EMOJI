@@ -1,24 +1,24 @@
-package com.bit.emoji.mypage.controller;
+package com.bit.emoji.controller;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bit.emoji.mypage.service.MypageService;
+import com.bit.emoji.service.MypageService;
 
 @Controller
 public class MypageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
-	@Inject
-	private MypageService mypageService;
+	@Autowired
+	MypageService mypageService;
 
 	@RequestMapping(value="/mypage/memberList", method= RequestMethod.GET)
 	public void listAll(Model model, HttpSession session) throws Exception{
@@ -28,7 +28,3 @@ public class MypageController {
 		model.addAttribute("memberList", mypageService.selectMember("91@naver.com"));
 	}
 }
-
-
-
-

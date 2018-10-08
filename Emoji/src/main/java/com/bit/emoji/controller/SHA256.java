@@ -1,4 +1,4 @@
-package com.bit.emoji;
+package com.bit.emoji.controller;
 
 import java.security.MessageDigest;
 

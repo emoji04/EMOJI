@@ -1,7 +1,10 @@
 package com.bit.emoji.mapper;
 
 public interface MapperName {
-	static final String NAMESPACE="exMapper";
-	static final String DELICIOUS_MAP="DeliciousMap";
-	static final String MEMBER="Member";
+	public static final String NAMESPACE="exMapper";
+	public static final String DELICIOUS_MAP="DeliciousMap";
+	public static final String MEMBER="Member";
+	public static final String MYPAGE="Mypage";
+	public static final String SEARCHROUTE = "SearchRoute";
+	public static final String MAKEROUTE="MakeRoute";
 }
