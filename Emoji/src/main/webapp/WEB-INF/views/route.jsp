@@ -317,7 +317,7 @@ input[type=text] {
 </body>
 <c:url var="search1" value="/search"></c:url>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services,drawing"></script>
 <script>        
 //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
 var addresses = new Array();
@@ -398,6 +398,7 @@ function drop(drop) {
 
         //data의 값은 1부터 들어가도록 설정해놓았기 때문에 배열안에는 -1을 해서 값을 넣는다.
         addresses[order - 1] = $('input[name=' + data + ']').val();
+        console.log(addresses[order - 1]);
         //주소-좌표 변환 객체를 생성합니다
         var geocoder = new daum.maps.services.Geocoder();
         //주소를 좌표로 변환합니다
@@ -450,7 +451,7 @@ function drop(drop) {
                     polyline.setMap(map);
                 });
             }
-            order++;            
+            order++; 
         });
 
     }
@@ -524,7 +525,7 @@ function search() {
                             "</div>" +
                             "<div>" +
                             detail +
-                            "</div><input name='" + i + "'  type='hidden' value='" + value.deliciousPinAddress + "' /><input name='pinNumber'  type='hidden' value='" + value.deliciousPinNum + "' /></div>");
+                            "</div><input class='address' name='" + i + "'  type='hidden' value='" + value.deliciousPinAddress + "' /><input name='pinNumber'  type='hidden' value='" + value.deliciousPinNum + "' /></div>");
                     i++;
                 });
             }
@@ -557,77 +558,87 @@ $(function() {
         stop: function(event, ui) {
             var spos = ui.item.data('start');
             var epos = ui.item.index();
-            reorder(spos, epos);
+            reorder();
             
         }
     });
 });
 
-function reorder(spos, epos) {	
-    //편의를 위해 이미지파일의 이름과 맞추기위해서 숫자에 0이 나오지 않도록 함
+function reorder() {	
+	//순서대로 정렬 해보기
+/*     //편의를 위해 이미지파일의 이름과 맞추기위해서 숫자에 0이 나오지 않도록 함
     spos++;
-    epos++;
-    //새로운마커를 저장할 배열
-    var newMarkers = new Array();
+    epos++; */
     //원래 있던 마커를 삭제
     setMarkers(null);
+    //마커배열을 초기화 한후 정렬되며 생성되는 마커를 넣기
+    markers.splice(0,markers.length);
+	
+    var options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
+    	    map: map
+    	};
+    
+     //원래 있던 선지우기
+    var manager = new daum.maps.Drawing.DrawingManager(options);
+    
+    var overlays = manager.getOverlays();
 
-    //전체적으로 새로운 아이디 부여
+    overlays['polyline'].forEach(function(polyline) {
+    	alert(polyline);
+        manager.remove(polyline);  
+    	
+    });
+    
+	
+    //전체적으로 새로운 이름 및 아이디 부여
     $('#smallLeftRight').children().each(function(index) {
         $(this).attr('id', 'deliciousCopy' + index + '');
-        $(this).find('input[type=hidden]').attr('name', index);
+        $(this).find('.address').attr('name', 'addressOrder'+index);
+        $(this).find('input[name=pinNumber]').attr('name','orderedPinNumber');
+    });
+	
+    //children 함수로 바꿔보기
+    $.each(addresses,function(i){
+        addresses[i] = $("input[name=addressOrder" + i + "]").val();  
     });
 
-     //전체적으로 새로운 주소 부여
-    for (var i = 0; i < addresses.length; i++) {
-        addresses[i] = $("input[name=" + i + "]").val();
-    } 
-	
+    
  	//다 지우고 다시 만들기
 	//재정렬된 주소로 새로운 선 만들어내기 및 순서대로 새로운 마커 배열 만들어내기
  	//주소-좌표 변환 객체를 생성합니다
- 	for(k=0;k<addresses.length;k++){
- 		alert("첫번째"+k);
+	$.each(addresses,function(index){	
 	var geocoder = new daum.maps.services.Geocoder();
-    geocoder.addressSearch(addresses[k], function(result, status) {
-    	alert("두번째" + k);    	
-    	alert(addresses[k]);
-    	alert("세번째"+k);
-    	
+    geocoder.addressSearch(addresses[index], function(result, status) {	
     	// 정상적으로 검색이 완료됐으면
         if (status === daum.maps.services.Status.OK) {        	
             var coords = new daum.maps.LatLng(result[0].y,
                 result[0].x);
 
-            var imageSrc = '${pageContext.request.contextPath}/resources/img/orderedPin/marker' + (k + 1) + '.png', // 마커이미지의 주소입니다
+            var imageSrc = '${pageContext.request.contextPath}/resources/img/orderedPin/marker' + (index + 1) + '.png', // 마커이미지의 주소입니다
                 imageSize = new daum.maps.Size(30, 35); // 마커이미지의 크기입니다
 
             var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
 
             var marker = new daum.maps.Marker({
+            	map:map,
                 position: coords,
                 image: markerImage
             });
-            
-            //marker.setMap(map);
-			//새로운 마커배열에 새로 저장
-            newMarkers.push(marker);
-			console.log(newMarkers);
-			//새로 선을 만들기
-            if (k - 1 >= 0) {
-                geocoder.addressSearch(addresses[k - 1], function(result2, status2) {
+            markers.push(marker);
+
+            if (index - 1 >= 0) {
+                geocoder.addressSearch(addresses[index-1], function(result2, status2) {
                     // 정상적으로 검색이 완료됐으면
                     if (status2 === daum.maps.services.Status.OK) {
                         var coords2 = new daum.maps.LatLng(result2[0].y,
                             result2[0].x);
                     }
-
+                    
                     // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
                     var linePath = [
                         coords2,
                         coords
                     ];
-
                     // 지도에 표시할 선을 생성합니다
                     var polyline = new daum.maps.Polyline({
                         path: linePath, // 선을 구성하는 좌표배열 입니다
@@ -638,29 +649,18 @@ function reorder(spos, epos) {
                         strokeStyle: 'solid' // 선의 스타일입니다
                     });
                     	// 지도에 선을 표시합니다
-                    polyline.setPath(linePath);
+                    //polyline.setPath(linePath);
                 });
             }
-			
-
             //좌표 중심을 마지막 마커로 설정
-            if (k == (addresses.length - 1)) {
+            if (index == (addresses.length - 1)) {
                 map.panTo(coords);
-            }
-			
-            //기존 배열을 새로운 마커배열로 바꾸기
-/*             for (var i = 0; i <= newMarkers.length; i++) {
-                markers.splice(i, 1, newMarkers[i]);
-            } */
+            }			
         }
     });
-
-
- 	}
     
-    
+	});
 }
-
 
 function setMarkers(map) {
     for (var i = 0; i < markers.length; i++) {
