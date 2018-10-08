@@ -89,6 +89,7 @@ public class MapController {
 			return "실패";
 		else
 			return deliciousPinVO.getDeliciousPinAddress();
+		//return "/delicious/deliciousMap";
 	}
 	
 /*	//핀 정보 등록하고 보여주기

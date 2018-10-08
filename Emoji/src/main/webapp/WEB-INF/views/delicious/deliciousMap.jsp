@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <style>
@@ -124,7 +124,7 @@
 			<!-- 핀 만들기 탭 -->
 			<div id="makePin" class="tab_content" style="display: block;">
 				<div id="pinContent">
-					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
 						<input type="hidden" name="deliciousMapNum" value="8">
 						
 						<label>주소</label>
@@ -177,7 +177,7 @@
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
 						<input type="button" id="makePinBtn" value="핀 생성">
 
-						<input type="hidden" id="markers">
+						<input type="hidden" id="pinDatas" name="">
 <!--  						<input type="button" value="확인" id="check"> -->
 					</form>
     			</div>
@@ -253,7 +253,7 @@
 		
 		marker.setMap(map);   //지도에 마커 표시
 		
-		var markers = [];  //지도에 표시한 마커 객체를 가지고 있을 배열
+		var markers = [];  //지도에 표시할 마커 객체를 가지고 있을 배열
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 		
 /* 		//만들기, 검색 탭 이동
@@ -320,26 +320,31 @@
  			});
  		});
  		
- 		//핀 생성 버튼 클릭 시
+  		//핀 생성 버튼 클릭 시
  		$('#makePinBtn').click(function() {
+ 			//주소값 배열에 저장
+ 			markers.push($('#deliciousPinAddress').val());
+ 			
  			//$('#pinInfo').submit();
-  	 		var formData = new FormData($('#pinInfo')[0]);
+  	 		//var formData = new FormData($('#pinInfo')[0]);
+  	 		//var formData = $('#pinInfo').serialize();
  	 		
- 	 		$.ajax({
+/*  	 		$.ajax({
  				type: 'POST',
  				url: '<c:url value='/deliciousPinInfo' />',
  				data: formData,
- 	 			processData: false,
- 				contentType: false,
+  	 			processData: false,
+ 				contentType: false, 
  				dataType: 'text', 
  				success: function(data) {
+ 					
  					alert(data);
  				},
  				error: function(request, status) {
  					alert('처리 실패!' + request.status);
  				}
- 			}); 
- 		});
+ 			}); */
+ 		}); 
 
 	}); 
 		
@@ -399,6 +404,7 @@
 	}
 	
 	function save(e) {
+		$().val();
 		//$('#markers').val(pinInfo);
 		//return false;
 		
