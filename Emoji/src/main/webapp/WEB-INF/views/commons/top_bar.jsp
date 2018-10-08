@@ -71,8 +71,8 @@
 						aria-haspopup="true" aria-expanded="false">마이페이지 <span
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href='<c:url value="/mypage/memberList" />'>개인정보 수정</a></li>
-							<li><a href="#">나의 맛집지도</a></li>
+							<li><a href='<c:url value="/mypage/memberUpdateForm" />'>개인정보 수정</a></li>
+							<li><a href='<c:url value="/mypage/MydmForm" />'>나의 맛집지도</a></li>
 							<li><a href="#">나의 식신원정대</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="#">Separated</a></li>
