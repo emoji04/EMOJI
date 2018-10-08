@@ -16,9 +16,11 @@ public class MemberService extends ServiceDao{
         return sqlSession.insert(MapperName.MEMBER + ".insertMember", memberVO);
     }
 
-    public String login(String memberEmail){
+    public MemberVO login(String memberEmail){
     	return sqlSession.selectOne(MapperName.MEMBER + ".selectMemberByMemberEmail", memberEmail);
     }
+    
+    
 
     public void edit(MemberVO membervo, HttpSession session){
     }

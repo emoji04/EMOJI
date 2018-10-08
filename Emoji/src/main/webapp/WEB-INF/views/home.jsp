@@ -15,7 +15,7 @@
 	        <div class="col-sm-6 col-sm-offset-3">
 	            <div id="imaginary_container"> 
 	                <div class="input-group stylish-input-group" style="border: solid 2px black; border-radius: 5px">
-	                    <input type="text" class="form-control"  placeholder="Search" >
+	                    <input type="text" class="form-control"  placeholder="Search" value="${loginInfo}">
 	                    <span class="input-group-addon">
 	                        <button type="submit">
 	                            <span class="glyphicon glyphicon-search"></span>

@@ -1,5 +1,10 @@
 package com.bit.emoji.member.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -105,6 +110,11 @@ public class Membercontroller {
         return "member/loginForm";
     }
     
+    @RequestMapping(value = "/registerForm")
+    public String goRegisterForm(){
+        return "member/registerForm";
+    }
+    
     public String goRegForm(){
         return null;
     }
@@ -118,18 +128,23 @@ public class Membercontroller {
     }
 
     @RequestMapping(value = "/login")
-    public String login(HttpServletRequest request, HttpServletResponse response, Model model){
+    public String login(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession(false);
 		
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
     	String memberPassword = sha.encrypt(pw);
+    	MemberVO memberVO = memberService.login(memberEmail);
     	
     	System.out.println(memberPassword);
-    	System.out.println(memberService.login(memberEmail));
-    	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail)))
-    	{session.setAttribute("loginInfo", memberEmail);
-		System.out.println("∑Œ±◊¿Œ º∫∞¯");
+		System.out.println(memberService.login(memberEmail));
+		System.out.println(memberVO.getMemberPassword());
+//		System.out.println(memberService.login(memberService.login(memberEmail).getMemberPassword()));
+//    	System.out.println(memberService.login(memberPassword));
+    	if(memberService.login(memberEmail) != null && pw.equals(memberVO.getMemberPassword())){
+    		
+    		session.setAttribute("loginInfo", memberVO.getMemberNum());
+    		System.out.println(session.getAttribute("loginInfo"));
 		return "home";}
     	
         
@@ -138,19 +153,37 @@ public class Membercontroller {
     
     @RequestMapping(value = "/naver_login.json")
     @ResponseBody
-    public String naverlogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String test){
-    	System.out.println("µÈæÓø»?");
+    public String naverlogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String memberEmail, @RequestParam("name") String memberName){
 		HttpSession session = request.getSession(false);
-		session.setAttribute("loginInfo", test);
-    	System.out.println(test);
-		return test;
+		if(memberService.login(memberEmail) != null) {
+			MemberVO memberVO = memberService.login(memberEmail);
+			session.setAttribute("loginInfo", memberVO.getMemberNum());
+	    	System.out.println(memberEmail);
+	    	return memberEmail;
+    	}else {
+    		long time = System.currentTimeMillis(); 
+    		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd");
+    		String str = dayTime.format(new Date(time));
+    		System.out.println(memberName+"-->ÎÑ§Ïù¥Î≤Ñ Ïù¥Î¶Ñ");
+    		MemberVO naverVO = new MemberVO();
+    		naverVO.setMemberEmail(memberEmail);
+    		naverVO.setMemberName(memberName);
+    		naverVO.setMemberPassword("0000");
+    		naverVO.setMemberGender("M");
+    		naverVO.setMemberPhoneNum("0000");
+    		naverVO.setMemberRegDate("2018-10-08");
+    		int a = memberService.insertMember(naverVO);
+    		int e = naverVO.getMemberNum();
+			session.setAttribute("loginInfo", e);
+	    	System.out.println(memberEmail);
+	    	return memberEmail;
+    	}
+		
+		
     }
     
     @RequestMapping(value = "/naverSuccess")
     public String naverSuccess(HttpServletRequest request){
-    	String a = "/resources/css";
-    	String b = request.getSession().getServletContext().getRealPath(a);
-    	System.out.println(b);
         return "home";
     }
     
@@ -162,9 +195,19 @@ public class Membercontroller {
         return "home";
     }
     
-
-    public String logout(Model model){
-        return null;
+    
+    @RequestMapping(value = "/regicheck.json")
+    @ResponseBody
+    public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
+    	System.out.println(email);
+		MemberVO memberVO = memberService.login(email);
+		System.out.println(memberVO);
+		
+		if(memberVO != null) {
+			return "b";			
+		}else {
+			return "a";			
+		}
     }
 
     public String edit(Model model, HttpSession session){

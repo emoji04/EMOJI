@@ -52,8 +52,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="div2" href="#" style="font-size: 25px;">
-			<img alt="" src="/resources/img/Logo.jpg" style="width: 55px; border-radius: 5px;" style="padding-right: 120px;">모두의지도 </a>
+			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>" style="font-size: 25px;">
+			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 100px; border-radius: 5px;" style="padding-right: 120px;">모두의지도 </a>
 		</div>
 		<div style="width: 100px"></div>
 
@@ -63,8 +63,13 @@
 				style="margin-top: 10px; margin-left: 5px">
 				<ul class="nav navbar-nav ">
 
-					<li><a href="<c:url value='/deliciousForm' />">맛집지도 <span
+					<%-- <li><a href="<c:url value='/deliciousForm' />">맛집지도 <span
+							class="sr-only">(current) </span></a></li> --%>
+					
+					<li><a href="${pageContext.request.contextPath}/delicious/deliciousForm">맛집지도 <span
 							class="sr-only">(current) </span></a></li>
+					
+							
 					<li><a href="<c:url value='goRoute' />">식신원정대</a></li>
 					<li class="dropdown" style="margin-right: 10px;"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -81,8 +86,14 @@
 						</ul>
 					</li>
 				</ul>
-				<li style="font-size: 17px; margin-right: 0px;"><a
-					href="<c:url value='/loginForm' />">SIGN-IN</a></li>
+				<li style="font-size: 17px; margin-right: 0px;">
+					<c:if test="${loginInfo eq null }">
+						<a href="<c:url value='/loginForm' />">LOGIN</a>
+					</c:if>
+					<c:if test="${loginInfo ne null }">
+						<a href="<c:url value='/logOut' />">LOGOUT</a>
+					</c:if>
+				</li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

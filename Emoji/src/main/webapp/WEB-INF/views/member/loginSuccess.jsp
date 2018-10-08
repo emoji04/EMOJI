@@ -21,18 +21,22 @@
   function naverSignInCallback() {
    /*  alert(naver_id_login.getProfileData('email'));
     alert(naver_id_login.getProfileData('nickname')); */
-    var test = naver_id_login.getProfileData('email');
+    var memberEmail = naver_id_login.getProfileData('email');
+    var memberName = naver_id_login.getProfileData('name');
+    var memberGender = naver_id_login.getProfileData('gender');
+    console.log(memberEmail + memberName + memberGender);
+    
     var con = confirm(naver_id_login.getProfileData('email')+"로 로그인 하시겠습니까?");
     if(con == true){
     	//$('#check').val(naver_id_login.getProfileData('email'));
     	//document.getElementById('ee').submit();
     	$.ajax({
-    		type : 'GET',
-    		data : 'email='+ test ,
-    		dataType : 'text',
+    		type : 'post',
+    		data : {email: memberEmail, name: memberName, gender: memberGender},
+    		dataType : 'json',
     		url : '<c:url value='/naver_login.json'/>',
     		success : function(data){
-    			alert(data+"님 환영합니다.");
+    			alert(memberEmail+"님 환영합니다.");
     			window.opener.top.location.href="<c:url value='/naverSuccess'/>"; 
     	    	setTimeout('window.close()',500);
     		},error: function(request, status){
@@ -63,13 +67,5 @@
 </script>
 <!-- naver_id_login.getProfileData('email') -->
 
-<button onclick="yes()">yes</button>
-<button onclick="no()">no</button>
-아무것도 안됨??
-<h1>dddddd</h1>
-<button onclick="naverSignInCallback()">이거 클릭해봐</button>
-<form action="<c:url value='/naver_login'/>" id="ee">
-<input type="hidden" id="check" name="check">
-</form> 
 </body>
 </html>
