@@ -1,4 +1,4 @@
-package com.bit.emoji.member.service;
+package com.bit.emoji.service;
 public interface MemberMapper {
 
     public String SELECT_MEMBER();

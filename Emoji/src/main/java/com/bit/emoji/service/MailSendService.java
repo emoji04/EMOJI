@@ -1,4 +1,4 @@
-package com.bit.emoji.member.service;
+package com.bit.emoji.service;
 
 public class MailSendService {
 /*    private JavaMailSender mailSender;

@@ -1,4 +1,4 @@
-package com.bit.emoji.mypage.mapper;
+package com.bit.emoji.mapper;
 
 import javax.inject.Inject;
 import org.springframework.stereotype.Repository;

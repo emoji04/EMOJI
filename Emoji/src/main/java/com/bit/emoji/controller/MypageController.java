@@ -1,4 +1,4 @@
-package com.bit.emoji.mypage.controller;
+package com.bit.emoji.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bit.emoji.model.MemberVO;
-import com.bit.emoji.mypage.service.MypageService;
+import com.bit.emoji.service.MypageService;
 
 @Controller
 public class MypageController {

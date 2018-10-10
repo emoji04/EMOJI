@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+package com.bit.emoji.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bit.emoji.route.service.SearchRouteService;
+import com.bit.emoji.service.SearchRouteService;
 
 @Controller
 public class SearchRouteController {

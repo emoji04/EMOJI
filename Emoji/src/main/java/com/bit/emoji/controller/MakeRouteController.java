@@ -1,4 +1,4 @@
-package com.bit.emoji.route.controller;
+package com.bit.emoji.controller;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.RouteVO;
-import com.bit.emoji.route.service.MakeRouteService;
+import com.bit.emoji.service.MakeRouteService;
 
 @Controller
 public class MakeRouteController {

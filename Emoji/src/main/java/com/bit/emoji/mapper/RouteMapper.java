@@ -1,4 +1,4 @@
-package com.bit.emoji.route.mapper;
+package com.bit.emoji.mapper;
 
 public class RouteMapper {
 	public static final String SEARCHROUTE = "SearchRoute";

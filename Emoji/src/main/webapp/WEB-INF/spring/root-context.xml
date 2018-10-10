@@ -26,7 +26,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/bit/emoji/*/mapper/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:com/bit/emoji/mapper/*Mapper.xml" />
 	</bean>
 	
 	<!-- SqlSessionTemplate 클래스 등록 -->
@@ -35,22 +35,16 @@
 	</bean>
 	
 	<!-- MakeRouteService 등록 -->
-	<bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService" />
+	<bean id="MakeRouteService" class="com.bit.emoji.service.MakeRouteService" />
 	
 	<!-- SearchRouteService 등록 -->
-	<bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService" />
+	<bean id="SearchRouteService" class="com.bit.emoji.service.SearchRouteService" />
 	
 	<!-- MemberService 등록 -->
-	<bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
+	<bean id="memberService" class="com.bit.emoji.service.MemberService" />
 	
 	<!-- ExService 등록 -->
 	<bean id="exService" class="com.bit.emoji.service.ExService" />
-	
-	<!-- MapService 등록 -->
-	<bean id="mapService" class="com.bit.emoji.delicious.service.MapService" />
-	
-	<!-- PinService 등록 -->
-	<bean id="pinService" class="com.bit.emoji.delicious.service.MapService$PinService" />
 	
 		<!-- google Class Bean설정 추가 -->
 	<!-- 클라이언트ID와 보안비밀 세팅 -->

@@ -1,7 +1,7 @@
-package com.bit.emoji.route.service;
+package com.bit.emoji.service;
 
+import com.bit.emoji.mapper.SqlSession;
 import com.bit.emoji.model.RouteVO;
-import com.bit.emoji.route.mapper.SqlSession;
 
 
 public class SearchRouteService extends SqlSession {

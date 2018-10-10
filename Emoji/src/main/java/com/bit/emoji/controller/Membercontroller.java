@@ -1,4 +1,4 @@
-package com.bit.emoji.member.controller;
+package com.bit.emoji.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.emoji.member.service.MailSendService;
-import com.bit.emoji.member.service.MemberService;
 import com.bit.emoji.model.MemberVO;
+import com.bit.emoji.service.MailSendService;
+import com.bit.emoji.service.MemberService;
 import com.mysql.jdbc.Connection;
 
 import javafx.scene.control.Alert;

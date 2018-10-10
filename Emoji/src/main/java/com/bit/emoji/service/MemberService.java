@@ -1,11 +1,10 @@
-package com.bit.emoji.member.service;
+package com.bit.emoji.service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.MemberVO;
-import com.bit.emoji.service.ServiceDao;
 
 @Repository
 public class MemberService extends ServiceDao{
