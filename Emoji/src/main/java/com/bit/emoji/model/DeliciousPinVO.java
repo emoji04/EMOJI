@@ -17,6 +17,7 @@ public class DeliciousPinVO {
 	private String deliciousPinImg;
 	private MultipartFile deliciousPinFile;
 	private int deliciousMapNum;
+
 /*	private boolean deliciousPinDeleted;
 	private int deliciousPinOrder;
 	private int deliciousMapNum;*/

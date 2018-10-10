@@ -1,4 +1,5 @@
 package com.bit.emoji.model;
+
 public class MemberVO {
     private int memberNum;
     private String memberEmail;

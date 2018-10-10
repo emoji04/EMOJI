@@ -33,4 +33,56 @@
 		</beans:property>
 	</beans:bean>
 
+<<<<<<< HEAD
+=======
+	<!-- jdbcTemplate 빈 등록 - DAO에 주입 -->
+	<beans:bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<!-- p:dataSource-ref="dataSource"> -->
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+		<!-- mybatis - spring 연동 설정 -->
+	<beans:bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations"
+			value="classpath:com/bit/emoji/*/mapper/*.xml"></beans:property>
+	</beans:bean>
+
+	<!-- SessionTemplate 클래스 등록 -->
+	<beans:bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.bit.emoji" />
+	
+<!-- 		<beans:bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" />465 or 25
+		<beans:property name="username"
+			value="misu00282@gmail.com" />
+		<beans:property name="password" value="0258aeae" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean> -->
+	
+ 	<!-- 서비스 등록 -->
+<!-- 	<beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean>
+	<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean>  -->
+	
+	<beans:bean class="com.bit.emoji.SHA256" id="sha"/>
+	<beans:bean id="memberService" class="com.bit.emoji.member.service.MemberService" />
+		
+	
+>>>>>>> branch 'route' of https://github.com/emoji04/EMOJI.git
 </beans:beans>
