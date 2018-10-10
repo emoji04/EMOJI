@@ -66,7 +66,7 @@
 					<%-- <li><a href="<c:url value='/deliciousForm' />">맛집지도 <span
 							class="sr-only">(current) </span></a></li> --%>
 					
-					<li><a href="${pageContext.request.contextPath}/delicious/deliciousForm">맛집지도 <span
+					<li><a href="<c:url value='deliciousForm' /> ">맛집지도 <span
 							class="sr-only">(current) </span></a></li>
 					
 							
