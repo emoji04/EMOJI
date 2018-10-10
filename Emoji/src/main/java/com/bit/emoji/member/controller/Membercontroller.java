@@ -140,6 +140,7 @@ public class Membercontroller {
     		session.setAttribute("loginInfo", memberVO.getMemberNum());
     		System.out.println(session.getAttribute("loginInfo"));
     	System.out.println(memberService.login(memberEmail));
+
 		return "home";}
     	
         
@@ -149,7 +150,6 @@ public class Membercontroller {
     @RequestMapping(value = "/naver_login.json")
     @ResponseBody
     public String naverlogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String memberEmail, @RequestParam("name") String memberName){
-
 		HttpSession session = request.getSession(false);
 		if(memberService.login(memberEmail) != null) {
 			MemberVO memberVO = memberService.login(memberEmail);

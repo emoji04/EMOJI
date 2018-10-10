@@ -6,18 +6,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="MypageMapper">
 	<!-- 회원정보 상세조회 -->
 	<select id="listAll" resultType="com.bit.emoji.model.MemberVO"
-		parameterType="String">
+		parameterType="int">
 		select
-		memberEmail, memberName, memberPassword, memberGender, memberPhoneNum,
+		memberEmail, memberName, memberPassword,
+		memberGender, memberPhoneNum,
 		memberJoinGrade, memberCapGrade
 		from
 		member
-		where memberEmail = #{memberEmail}
+		where memberNum = #{memberNum}
 
 	</select>
-	
+
 	<!-- 회원정보수정 -->
-	<update id="updateMember" parameterType="com.bit.emoji.model.MemberVO">
+	<update id="updateMember"
+		parameterType="com.bit.emoji.model.MemberVO">
 		UPDATE member SET
 		memberEmail =#{memberEmail},
 		memberName= #{memberName},
@@ -28,8 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{memberJoinGrade},
 		memberCapGrade = #{memberCapGrade}
 		WHERE
-		memberEmail = #{memberEmail}
+		memberNum = #{memberNum}
 
 	</update>
 
+	<!-- 내가 만든 지도 목록 조회 -->
+	<select id="myDmList"
+		resultType="com.bit.emoji.model.DeliciousMapVO" parameterType="int">
+		select
+		deliciousMapNum, deliciousMapName, deliciousMapTag, deliciousMapDetail, deliciousMapOpen,
+		deliciousMapCreateDate, memberNum
+		from dMap
+		where memberNum = #{memberNum}
+	</select>
 </mapper>

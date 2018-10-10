@@ -23,11 +23,11 @@
 
 			로그인 ID : ${loginInfo }
 
-			<form id = "form" action="../mypage/memberList" method = "POST">
+			<form id = "form" action="../mypage/memberUpdateForm" method = "POST">
 			
 				<table>
 					<thead>
-						<c:forEach items="${memberList }" var="MemberVO">
+						<c:forEach items="${memberUpdateForm }" var="MemberVO">
 							<tr>
 								<th>아이디</th>
 								<th><input name="memberEmail"
