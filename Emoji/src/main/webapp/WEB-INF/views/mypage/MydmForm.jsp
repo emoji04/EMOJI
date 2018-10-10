@@ -17,9 +17,8 @@
 	width: 250px;
 	margin: 300px auto 0 auto;
 	color: black;
-	box-shadow: 
-		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
-		0 0 200px 1px rgba(255, 255, 255, 0.5);
+	box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6), 0 0 200px 1px
+		rgba(255, 255, 255, 0.5);
 }
 
 /* 메뉴 스타일 */
@@ -35,7 +34,6 @@
 #accordian h3:hover {
 	text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
 }
-
 
 /* 서브메뉴 스타일 */
 #accordian ul ul li a {
@@ -60,39 +58,39 @@
 #accordian ul ul {
 	display: none;
 }
+
 #accordian li.active ul {
 	display: block;
 }
-			
-
 </style>
 </head>
 
 <body>
-	 <div id="all">
+	<div id="all">
 		<%@ include file="../commons/top_bar.jsp"%>
 		<div id="accordian">
-			<c:forEach items="${myDmList}" var="deliciousMapVO">
+			<c:forEach items="${myDmList}" var="deliciousMapVO"
+				varStatus="status">
 				<ul>
 					<li>
-						<h3>
+						<h3 class="${status.index}" onclick="test(${status.index})">
 							<input name="deliciousMapName"
 								value="${deliciousMapVO.deliciousMapName}">
 						</h3>
-						<ul>
+						<ul class="${status.index}">
 							<input name="deliciousMapTag"
 								value="${deliciousMapVO.deliciousMapTag}" readonly="readyonly">
 						</ul>
-						<ul>
+						<ul class="${status.index}">
 							<input name="deliciousMapDetail"
 								value="${deliciousMapVO.deliciousMapDetail}"
 								readonly="readyonly">
 						</ul>
-						<ul>
+						<ul class="${status.index}">
 							<input name="deliciousMapOpen"
 								value="${deliciousMapVO.deliciousMapOpen}" readonly="readyonly">
 						</ul>
-						<ul>
+						<ul class="${status.index}">
 							<input name="deliciousMapCreateDate"
 								value="${deliciousMapVO.deliciousMapCreateDate}"
 								readonly="readyonly">
@@ -100,13 +98,13 @@
 					</li>
 				</ul>
 			</c:forEach>
-		</div> 
+		</div>
 
 
 
 
 
-	<%-- 	<!-- 내등록지도 불러오기  -->
+		<%-- 	<!-- 내등록지도 불러오기  -->
 
 			<div id="table">
 			<h1>내등록지도</h1>
@@ -156,20 +154,7 @@
 </body>
 </html>
 <script>
-	$(document).ready(function() {
-		$("#accordian h3").click(function() {
-			/* $("#accordian ul ul").slideUp();
-			if (!$(this).next().is(":visible")) {
-				$(this).next().slideDown();
-			} */
-			$("#accordian ul ul").slideDown();
-		});
-		$("#accordian h3").click(function() {
-			/* $("#accordian ul ul").slideUp();
-			if (!$(this).next().is(":visible")) {
-				$(this).next().slideDown();
-			} */
-			$("#accordian ul ul").slidUp();
-		});
-	})
+	function test(value) {
+		$("#accordian ul ul." + value).slideToggle();
+	}
 </script>
