@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>s
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,150 +11,70 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원정보상세</title>
-<style type="text/css">
-#accordian {
-	background: #333333;
-	width: 250px;
-	margin: 300px auto 0 auto;
-	color: black;
-	box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6), 0 0 200px 1px
-		rgba(255, 255, 255, 0.5);
+<style>
+/*전체 테두리*/
+#all {
+	margin: 30%;
+}
+/*탭 스타일*/
+.tap {
+	display: inline-block;
+	border: 1px solid black;
+	width: 100px;
+}
+/*테이블 스타일*/
+#table {
+	border: 1px solid black;
 }
 
-/* 메뉴 스타일 */
-#accordian h3 {
-	font-size: 12px;
-	line-height: 34px;
-	padding: 0 10px;
-	cursor: pointer;
-	background: #064461;
-	background: linear-gradient(#003040, #002535);
+#sub {
+	text-align: left;
 }
 
-#accordian h3:hover {
-	text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
-}
-
-/* 서브메뉴 스타일 */
-#accordian ul ul li a {
-	text-decoration: none;
-	font-size: 11px;
-	line-height: 27px;
-	display: block;
-	padding: 0 15px;
-	-webkit-transition: all 0.15s;
-	-moz-transition: all 0.15s;
-	-o-transition: all 0.15s;
-	-ms-transition: all 0.15s;
-	transition: all 0.15s;
-}
-
-#accordian ul ul li a:hover {
-	background: #003545;
-	border-left: 5px solid #09c;
-}
-
-/* active 클래스 외에 것은 보이지 않게 하기 */
-#accordian ul ul {
+#sub {
 	display: none;
 }
 
-#accordian li.active ul {
+#sub.active sub {
 	display: block;
-}
+} 
 </style>
 </head>
 
 <body>
-	<div id="all">
-		<%@ include file="../commons/top_bar.jsp"%>
-		<div id="accordian">
-			<c:forEach items="${myDmList}" var="deliciousMapVO"
-				varStatus="status">
-				<ul>
-					<li>
-						<h3 class="${status.index}" onclick="test(${status.index})">
-							<input name="deliciousMapName"
-								value="${deliciousMapVO.deliciousMapName}">
-						</h3>
-						<ul class="${status.index}">
-							<input name="deliciousMapTag"
-								value="${deliciousMapVO.deliciousMapTag}" readonly="readyonly">
-						</ul>
-						<ul class="${status.index}">
-							<input name="deliciousMapDetail"
-								value="${deliciousMapVO.deliciousMapDetail}"
-								readonly="readyonly">
-						</ul>
-						<ul class="${status.index}">
-							<input name="deliciousMapOpen"
-								value="${deliciousMapVO.deliciousMapOpen}" readonly="readyonly">
-						</ul>
-						<ul class="${status.index}">
-							<input name="deliciousMapCreateDate"
-								value="${deliciousMapVO.deliciousMapCreateDate}"
-								readonly="readyonly">
-						</ul>
-					</li>
-				</ul>
-			</c:forEach>
-		</div>
+<div id="all">
+    <div>
+        <div id="tap_1" class="tap"><a href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a></div>
+        <div id="tap_2" class="tap"><a href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a></div>
+        
+            <c:forEach items="${myDmList}" var="deliciousMapVO" varStatus="status">
 
+                <table id="table">
+                    <tr >
+                        <th>
+                            <input type='checkbox'>
+                            <input id="accordian"  class="${status.index}" name="deliciousMapName" value="${deliciousMapVO.deliciousMapName}" onclick="test(${status.index})" readonly="readyonly">
+                            <span><input type="button" value="공개"></span>
+                            <span><input type="button" value="수정"></span>
+                            <span><input type="button" value="삭제"></span>
+                        </th>
+                    </tr>
 
-
-
-
-		<%-- 	<!-- 내등록지도 불러오기  -->
-
-			<div id="table">
-			<h1>내등록지도</h1>
-
-			<!-- 맛집 지도 목록 출력 폼  -->
-			<!-- 체크박스 출력해줘야함 -->
-			로그인 ID : ${loginInfo }
-
-			<table id="MyDmList">
-
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>이름</th>
-						<th>태그</th>
-						<th>세부정보</th>
-						<th>공개여부</th>
-						<th>생성날짜</th>
-					</tr>
-				</thead>
-				<c:forEach items="${myDmList}" var="deliciousMapVO">
-
-					<tr>
-						<th><input name="deliciousMapNum"
-							value="${deliciousMapVO.deliciousMapNum}"></th>
-						<!-- 제목을 클릭하면 해당 정보를 뿌려줌 -->
-						<th id="title"><input type="button" name="deliciousMapName"
-							value="${deliciousMapVO.deliciousMapName}"></th>
-						<th><input name="deliciousMapTag"
-							value="${deliciousMapVO.deliciousMapTag}" readonly="readyonly"></th>
-						<th><input name="deliciousMapDetail"
-							value="${deliciousMapVO.deliciousMapDetail}" readonly="readyonly"></th>
-						<th><input name="deliciousMapOpen"
-							value="${deliciousMapVO.deliciousMapOpen}" readonly="readyonly"></th>
-						<th><input name="deliciousMapCreateDate"
-							value="${deliciousMapVO.deliciousMapCreateDate}"
-							readonly="readyonly"></th>
-					</tr>
-				</c:forEach>
-
-			</table>
-
-			<input type="button" value="수정" id="btnUpdate">
-			</form>
-		</div>  --%>
-	</div>
+                    <tr>
+                        <th id="sub"  class="sub${status.index}">
+                            <input name="deliciousMapTag" value="${deliciousMapVO.deliciousMapTag}" readonly="readyonly"> <br>
+                            <input name="deliciousMapOpen" value="${deliciousMapVO.deliciousMapOpen}" readonly="readyonly"><br>
+                            <input name="deliciousMapCreateDate" value="${deliciousMapVO.deliciousMapCreateDate}" readonly="readyonly">
+                        </th>
+                    </tr>
+                </table>
+            </c:forEach>
+        </div>
 </body>
+
 </html>
 <script>
 	function test(value) {
-		$("#accordian ul ul." + value).slideToggle();
+		$(".sub" + value).slideToggle();
 	}
 </script>

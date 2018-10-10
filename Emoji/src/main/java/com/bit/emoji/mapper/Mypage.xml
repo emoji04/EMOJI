@@ -38,9 +38,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="myDmList"
 		resultType="com.bit.emoji.model.DeliciousMapVO" parameterType="int">
 		select
-		deliciousMapNum, deliciousMapName, deliciousMapTag, deliciousMapDetail, deliciousMapOpen,
+		deliciousMapNum, deliciousMapName, deliciousMapTag,
+		deliciousMapDetail, deliciousMapOpen,
 		deliciousMapCreateDate, memberNum
 		from dMap
 		where memberNum = #{memberNum}
 	</select>
+
+	<!-- 지도 목록 리뷰 조회 -->
+	<select id="myDmReview"
+		resultType="com.bit.emoji.model.DeliciousReviewVO" parameterType="int">
+		SELECT
+		deliciousMapReviewNum, deliciousMapTitle,
+		deliciousMapContent, deliciousMapWriteDate,
+		deliciousMapImg, deliciousMapGrade,
+		memberNum, deliciousMapNum
+		FROM emoji.dmReview
+		where deliciousMapNum = ${deliciousMapNum};
+	</select>
+
 </mapper>

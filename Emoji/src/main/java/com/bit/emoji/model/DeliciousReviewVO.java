@@ -8,29 +8,10 @@ public class DeliciousReviewVO {
 	private String deliciousReviewContent;
 	private String deliciousReviewWriteDate;
 	private String deliciousReviewImg;
-	private MultipartFile deliciousReviewFile;
-	private double deliciousReviewGrade;
-	private int deliciousPinNum;
+	private double deliciousMapGrade;
 	private int memberNum;
+	private int deliciousMapNum;
 	
-	public DeliciousReviewVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public DeliciousReviewVO(int deliciousReviewNum, String deliciousReviewTitle, String deliciousReviewContent,
-			String deliciousReviewWriteDate, String deliciousReviewImg, MultipartFile deliciousReviewFile,
-			double deliciousReviewGrade, int deliciousPinNum, int memberNum) {
-		super();
-		this.deliciousReviewNum = deliciousReviewNum;
-		this.deliciousReviewTitle = deliciousReviewTitle;
-		this.deliciousReviewContent = deliciousReviewContent;
-		this.deliciousReviewWriteDate = deliciousReviewWriteDate;
-		this.deliciousReviewImg = deliciousReviewImg;
-		this.deliciousReviewFile = deliciousReviewFile;
-		this.deliciousReviewGrade = deliciousReviewGrade;
-		this.deliciousPinNum = deliciousPinNum;
-		this.memberNum = memberNum;
-	}
 	public int getDeliciousReviewNum() {
 		return deliciousReviewNum;
 	}
@@ -61,23 +42,11 @@ public class DeliciousReviewVO {
 	public void setDeliciousReviewImg(String deliciousReviewImg) {
 		this.deliciousReviewImg = deliciousReviewImg;
 	}
-	public MultipartFile getDeliciousReviewFile() {
-		return deliciousReviewFile;
+	public double getDeliciousMapGrade() {
+		return deliciousMapGrade;
 	}
-	public void setDeliciousReviewFile(MultipartFile deliciousReviewFile) {
-		this.deliciousReviewFile = deliciousReviewFile;
-	}
-	public double getDeliciousReviewGrade() {
-		return deliciousReviewGrade;
-	}
-	public void setDeliciousReviewGrade(double deliciousReviewGrade) {
-		this.deliciousReviewGrade = deliciousReviewGrade;
-	}
-	public int getDeliciousPinNum() {
-		return deliciousPinNum;
-	}
-	public void setDeliciousPinNum(int deliciousPinNum) {
-		this.deliciousPinNum = deliciousPinNum;
+	public void setDeliciousMapGrade(double deliciousMapGrade) {
+		this.deliciousMapGrade = deliciousMapGrade;
 	}
 	public int getMemberNum() {
 		return memberNum;
@@ -85,17 +54,19 @@ public class DeliciousReviewVO {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
+	public int getDeliciousMapNum() {
+		return deliciousMapNum;
+	}
+	public void setDeliciousMapNum(int deliciousMapNum) {
+		this.deliciousMapNum = deliciousMapNum;
+	}
 	@Override
 	public String toString() {
 		return "DeliciousReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", deliciousReviewTitle="
 				+ deliciousReviewTitle + ", deliciousReviewContent=" + deliciousReviewContent
 				+ ", deliciousReviewWriteDate=" + deliciousReviewWriteDate + ", deliciousReviewImg="
-				+ deliciousReviewImg + ", deliciousReviewFile=" + deliciousReviewFile + ", deliciousReviewGrade="
-				+ deliciousReviewGrade + ", deliciousPinNum=" + deliciousPinNum + ", memberNum=" + memberNum + "]";
+				+ deliciousReviewImg + ", deliciousMapGrade=" + deliciousMapGrade + ", memberNum=" + memberNum
+				+ ", deliciousMapNum=" + deliciousMapNum + "]";
 	}
-	
-	
-	
-	
 	
 }
