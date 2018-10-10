@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <style>
@@ -124,8 +124,8 @@
 			<!-- 핀 만들기 탭 -->
 			<div id="makePin" class="tab_content" style="display: block;">
 				<div id="pinContent">
-					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
-						<input type="hidden" name="deliciousMapNum" value="8">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInsert' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
+						<input type="hidden" id="deliciousMapNum" name="deliciousMapNum" value="8">
 						
 						<label>주소</label>
 							<div class="textBox">
@@ -175,7 +175,7 @@
 							</div>
 							
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
-						<input type="button" id="makePinBtn" value="핀 생성">
+						<input type="submit" id="makePinBtn" value="핀 생성">
 
 						<input type="hidden" id="pinDatas" name="">
 <!--  						<input type="button" value="확인" id="check"> -->
@@ -185,11 +185,7 @@
     		
     		<!-- 핀 리스트 확인 탭 -->
     		<div id="checkPinList" class="tab_content" style="display: none;">
-				<div id="mapContent">
-					<div class="textBox">
-    					<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
-    				</div>
-    			</div>
+				<div id="pinContent"></div>
 			</div>
 		</div>
  	</div>
@@ -224,7 +220,32 @@
 	//핀 리스트 확인 클릭시
 	function viewCheck(){
 		$('#makePin').hide();
-		$('#checkPinList').show();
+		//$('#checkPinList').show();
+		var deliciousMapNum = $('#deliciousMapNum').val();
+		alert(deliciousMapNum);
+		
+			$.ajax({
+				type: 'GET',
+				url: '<c:url value='/deliciousPinSelect' />',
+				data: 'deliciousMapNum=' + deliciousMapNum,
+				dataType: 'json', 
+				success: function(data) {
+					alert(JSON.stringify(data));
+					$('#pinContent').empty();
+					
+					var pinContent = document.getElementById("pinContent");
+					pinContent.innerHTML = '';
+					
+					var str = '';
+					
+					for(var i=0; i<data.length; i++) {
+						pinContent.innerHTML += '<h3>[' + i + '] ' + data.deliciousPinName + '</h3>';
+					}
+				},
+				error: function(request, status) {
+					alert('처리 실패!' + request.status);
+				}
+	 		});
 		
 		$('#checkPinList_li').addClass('click');
 		$('#makePin_li').removeClass('click');
@@ -320,7 +341,7 @@
  			});
  		});
  		
-  		//핀 생성 버튼 클릭 시
+/*   		//핀 생성 버튼 클릭 시
  		$('#makePinBtn').click(function() {
  			//주소값 배열에 저장
  			markers.push($('#deliciousPinAddress').val());
@@ -329,7 +350,7 @@
   	 		//var formData = new FormData($('#pinInfo')[0]);
   	 		//var formData = $('#pinInfo').serialize();
  	 		
-/*  	 		$.ajax({
+  	 		$.ajax({
  				type: 'POST',
  				url: '<c:url value='/deliciousPinInfo' />',
  				data: formData,
@@ -343,9 +364,8 @@
  				error: function(request, status) {
  					alert('처리 실패!' + request.status);
  				}
- 			}); */
- 		}); 
-
+ 			});
+ 		});  */
 	}); 
 		
 	//좌표로 행정동 주소 정보 요청
