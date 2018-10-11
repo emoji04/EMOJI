@@ -53,8 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		deliciousMapContent, deliciousMapWriteDate,
 		deliciousMapImg, deliciousMapGrade,
 		memberNum, deliciousMapNum
-		FROM emoji.dmReview
-		where deliciousMapNum = ${deliciousMapNum};
+		FROM dmReview
+		where deliciousMapNum = #{deliciousMapNum}
 	</select>
 
 </mapper>

@@ -1,5 +1,7 @@
 package com.bit.emoji.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousReviewVO;
@@ -49,10 +52,12 @@ public class MypageController {
 		
 	}
 	@ResponseBody
-	@RequestMapping(value="myDmReview")
-	public void myDmReviewList(DeliciousReviewVO vo, Model model, HttpSession session) throws Exception {
-		int dMapNum = (int) session.getAttribute("deliciousMapNum"); //ajax에서 dMapNum을 받아옴 
+	@RequestMapping(value="/myDmReview")
+	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+		logger.info(deliciousMapNum);
 		logger.info("........myDmReview GET ...");
-		model.addAttribute("myDmReview", mypageService.myDmReview(dMapNum));
+		List<DeliciousReviewVO> test = mypageService.myDmReview(Integer.parseInt(deliciousMapNum));
+		System.out.println(test);
+		return test;
 	}
 }

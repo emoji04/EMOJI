@@ -9,6 +9,7 @@
 <!-- <script src="https://code.jquery.com/jquery-1.11.3.js"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원정보상세</title>
 <style>
@@ -25,56 +26,122 @@
 /*테이블 스타일*/
 #table {
 	border: 1px solid black;
+	width: 760px;
+	text-align: left;
 }
 
 #sub {
 	text-align: left;
 }
 
+/* 테이블 하위항목 정렬 */
+#table {
+	
+}
+
+/* 하위항목숨김처리 */
 #sub {
 	display: none;
 }
 
 #sub.active sub {
 	display: block;
-} 
+}
 </style>
 </head>
 
 <body>
-<div id="all">
-    <div>
-        <div id="tap_1" class="tap"><a href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a></div>
-        <div id="tap_2" class="tap"><a href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a></div>
-        
-            <c:forEach items="${myDmList}" var="deliciousMapVO" varStatus="status">
+	<div id="all">
+		<div>
+			<div id="tap_1" class="tap">
+				<a href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a>
+			</div>
+			<div id="tap_2" class="tap">
+				<a href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a>
+			</div>
 
-                <table id="table">
-                    <tr >
-                        <th>
-                            <input type='checkbox'>
-                            <input id="accordian"  class="${status.index}" name="deliciousMapName" value="${deliciousMapVO.deliciousMapName}" onclick="test(${status.index})" readonly="readyonly">
-                            <span><input type="button" value="공개"></span>
-                            <span><input type="button" value="수정"></span>
-                            <span><input type="button" value="삭제"></span>
-                        </th>
-                    </tr>
+			<c:forEach items="${myDmList}" var="DeliciousMapVO"
+				varStatus="status">
 
-                    <tr>
-                        <th id="sub"  class="sub${status.index}">
-                            <input name="deliciousMapTag" value="${deliciousMapVO.deliciousMapTag}" readonly="readyonly"> <br>
-                            <input name="deliciousMapOpen" value="${deliciousMapVO.deliciousMapOpen}" readonly="readyonly"><br>
-                            <input name="deliciousMapCreateDate" value="${deliciousMapVO.deliciousMapCreateDate}" readonly="readyonly">
-                        </th>
-                    </tr>
-                </table>
-            </c:forEach>
-        </div>
+
+				<table id="table">
+					<tr>
+						<th> <input id="accordian"
+							class="${status.count}" name="DeliciousMapName"
+							value="${DeliciousMapVO.deliciousMapName}"
+							onclick="test(${status.count})" readonly="readyonly"> 
+							<!-- <span>
+								<input type="button" value="공개">
+						</span> <span> <input type="button" value="수정"></span> <span>
+								<input type="button" value="삭제">
+						</span> --></th>
+					</tr>
+
+					<tr id="sub" class="sub${status.count}">
+						<th><input name="DeliciousMapTag"
+							value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
+							<br> <input name="DeliciousMapOpen"
+							value="${DeliciousMapVO.deliciousMapOpen}" readonly="readyonly">
+							<br> <input name="DeliciousMapCreateDate"
+							value="${DeliciousMapVO.deliciousMapCreateDate}"
+							readonly="readyonly"> <br></th>
+							
+						<th id="deliciousMapTitle${status.count}" class="sub"></th>
+						<th id="deliciousMapContent${status.count}" class="sub"></th>
+						<th id="deliciousMapWriteDate${status.count}" class="sub"></th>
+						<th id="deliciousMapImg${status.count}" class="sub"></th>
+						<th id="deliciousMapGrade${status.count}" class="sub"></th>
+						<th id="memberNum${status.count}" class="sub"></th>
+						<th id="deliciousMapNum${status.count}" class="sub"></th>
+				</table>
+				</tr>
+
+			</c:forEach>
+
+		</div>
 </body>
 
-</html>
+
 <script>
 	function test(value) {
 		$(".sub" + value).slideToggle();
+		$.ajax({
+			type : "GET",
+			url : "<c:url value='/myDmReview'/>",
+			data: "deliciousMapNum=" + value,
+			dataType:"JSON",
+			success: function(data){
+				console.log(data);
+				$.each(data, function(i,DeliciousReviewVO){
+					console.log(DeliciousReviewVO.deliciousMapContent); 
+					document.getElementById("deliciousMapTitle"+ value).innerHTML += DeliciousReviewVO.deliciousMapTitle;
+					document.getElementById("deliciousMapContent" + value).innerHTML += DeliciousReviewVO.deliciousMapContent;
+					document.getElementById("deliciousMapWriteDate"+ value).innerHTML += DeliciousReviewVO.deliciousMapWriteDate;
+					document.getElementById("deliciousMapImg" + value).innerHTML += DeliciousReviewVO.deliciousMapImg;
+					document.getElementById("deliciousMapGrade" + value).innerHTML += DeliciousReviewVO.deliciousMapGrade;
+					document.getElementById("memberNum" + value).innerHTML += DeliciousReviewVO.memberNum;
+					document.getElementById("deliciousMapNum" + value).innerHTML += DeliciousReviewVO.deliciousMapNum;
+
+				});
+				$(".sub").attr("onclick", "test_delete("+value+")");
+				 },	
+			error : function(xhr, status, error){
+				alert("에러발생");
+			}
+		});
+	}
+	
+	function test_delete(value){
+		$(".sub" + value).slideToggle();
+		document.getElementById("deliciousMapTitle" + value).innerHTML = '';
+		document.getElementById("deliciousMapContent" + value).innerHTML = '';
+		document.getElementById("deliciousMapWriteDate" + value).innerHTML = '';
+		document.getElementById("deliciousMapImg" + value).innerHTML = '';
+		document.getElementById("deliciousMapGrade" + value).innerHTML = '';
+		document.getElementById("memberNum" + value).innerHTML = '';
+		document.getElementById("deliciousMapNum" + value).innerHTML = '';
+		
+		$(".sub").attr("onclick", "test("+value+")");
 	}
 </script>
+</html>
