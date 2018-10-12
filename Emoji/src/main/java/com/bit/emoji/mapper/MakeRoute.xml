@@ -6,7 +6,13 @@
 select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
 </select>
 
+<insert id="routeInsert">
 
+</insert>
+
+<select id="selectRouteNum" resultType="int">
+	select max(routeNum) from emoji.route
+</select>
 
 
 </mapper>

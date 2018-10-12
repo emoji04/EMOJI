@@ -16,6 +16,9 @@ public class MakeRouteService extends SqlSession {
 	public List<DeliciousPinVO> selectDelicious(String search) {
 		return sqlSession.selectList(RouteMapper.MAKEROUTE+".selectDelicious", search);
 	}
+	public String selectRouteNum() {
+		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".selectRouteNum");
+	}
 	
 	/*	public List<DeliciousMapVO> selectDeliciousMapbyId(int memberNum) {
 	}

@@ -272,40 +272,40 @@ input[type=text] {
 						<table border=1>
 							<tr>
 								<td>원정대이름</td>
-								<td><input type="text" name="routeName" /></td>
+								<td><input type="text" name="routeName" value="떡볶이 맛집"/></td>
 							</tr>
 							<tr>
 								<td>주최자</td>
-								<td><input type="text" name="memeberName" /></td>
+								<td><input type="text" name="memeberName" value="이미연" /></td>
 							</tr>
 							<tr>
-								<td>참여인원</td>
-								<td><input type="text" name="possibleNum" /></td>
+								<td>참여가능인원</td>
+								<td><input type="text" name="possibleNum" value="7"/></td>
 							</tr>
 							<tr>
 								<td>시작시간</td>
-								<td><input type="text" name="startDate" /></td>
+								<td><input type="text" name="startDate" value="2018/07/11"/></td>
 							</tr>
 							<tr>
 								<td>예상 소요시간</td>
-								<td><input type="text" name="spendTime" /></td>
+								<td><input type="text" name="spendTime" value="3시간"/></td>
 							</tr>
 							<tr>
 								<td>예상 금액</td>
-								<td><input type="text" name="budget" /></td>
+								<td><input type="text" name="budget" value="50000"/></td>
 							</tr>
 							<tr>
 								<td>제한 사항</td>
-								<td><input type="text" name="rule" /></td>
+								<td><input type="text" name="rule" value="없음"/></td>
 							</tr>
 							<tr>
 								<td>해시 태그</td>
-								<td><input type="text" name="routeTag" /></td>
+								<td><input type="text" name="routeTag" value="#떡볶이, #종로"/></td>
 							</tr>
 							<tr>
 								<td><button>원정대 만들기</button>
 									<button>취소</button></td>
-								<td><input type="hidden" id="add" name="addresses" /></td>
+								<td><input type="hidden" id="add" name="order" /></td>
 							</tr>
 						</table>
 
@@ -321,6 +321,7 @@ input[type=text] {
 <script>        
 //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
 var addresses = new Array();
+var orderedPins=[];
 var order = 1;
 var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -452,8 +453,9 @@ function drop(drop) {
                 });
             }
             order++; 
+            
         });
-
+        reorder();
     }
 }
 
@@ -570,25 +572,7 @@ function reorder() {
     spos++;
     epos++; */
     //원래 있던 마커를 삭제
-    setMarkers(null);
-    //마커배열을 초기화 한후 정렬되며 생성되는 마커를 넣기
-    markers.splice(0,markers.length);
-	
-    var options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
-    	    map: map
-    	};
-    
-     //원래 있던 선지우기
-    var manager = new daum.maps.Drawing.DrawingManager(options);
-    
-    var overlays = manager.getOverlays();
-
-    overlays['polyline'].forEach(function(polyline) {
-    	alert(polyline);
-        manager.remove(polyline);  
-    	
-    });
-    
+    setMarkers(null);    
 	
     //전체적으로 새로운 이름 및 아이디 부여
     $('#smallLeftRight').children().each(function(index) {
@@ -632,13 +616,13 @@ function reorder() {
                     if (status2 === daum.maps.services.Status.OK) {
                         var coords2 = new daum.maps.LatLng(result2[0].y,
                             result2[0].x);
-                    }
-                    
+                    }                    
                     // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
                     var linePath = [
                         coords2,
                         coords
                     ];
+                    
                     // 지도에 표시할 선을 생성합니다
                     var polyline = new daum.maps.Polyline({
                         path: linePath, // 선을 구성하는 좌표배열 입니다
@@ -658,7 +642,6 @@ function reorder() {
             }			
         }
     });
-    
 	});
 }
 
@@ -669,8 +652,13 @@ function setMarkers(map) {
 }
 
 function save(e) {
-    $('#add').val(addresses);
-    return false;
+    /* $('#add').val(addresses); */
+    var size=document.getElementsByName("orderedPinNumber").length;
+ 	for(var i=0;i<size;i++){
+		orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
+	} 	
+ 	$('#add').val(orderedPins);
+
 }
         </script>
 
