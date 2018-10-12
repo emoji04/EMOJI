@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body style="background-image: url('https://notefolio.net/data/img/63/60/6360b31b39437d1341547bc56f14886f363a16008d284ab4e1e8eb4a67d15452_v1.jpg'); background-size: 100%">
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- /////////// 상단바  //////////// -->
 <%@ include file="commons/top_bar.jsp"%>
 

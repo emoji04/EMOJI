@@ -47,6 +47,18 @@
 #sub.active sub {
 	display: block;
 }
+/* 서브버튼 */ 
+
+#subButton {
+right : 50px; 
+display: inline-block;
+
+	
+}
+
+#accordian {
+margin-right : 30%;
+}
 </style>
 </head>
 
@@ -65,16 +77,15 @@
 
 
 				<table id="table">
-					<tr>
-						<th> <input id="accordian"
-							class="${status.count}" name="DeliciousMapName"
-							value="${DeliciousMapVO.deliciousMapName}"
-							onclick="test(${status.count})" readonly="readyonly"> 
-							<!-- <span>
-								<input type="button" value="공개">
-						</span> <span> <input type="button" value="수정"></span> <span>
-								<input type="button" value="삭제">
-						</span> --></th>
+					<tr><div id="test">
+						<th><input id="accordian" class="${status.count}"
+							name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="test(${status.count})"
+							 readonly="readyonly">
+						
+								<input type="button" value="공개"> <input type="button"
+									value="수정"> <input type="button" value="삭제">
+						
+							</div>
 					</tr>
 
 					<tr id="sub" class="sub${status.count}">
@@ -85,7 +96,7 @@
 							<br> <input name="DeliciousMapCreateDate"
 							value="${DeliciousMapVO.deliciousMapCreateDate}"
 							readonly="readyonly"> <br></th>
-							
+
 						<th id="deliciousMapTitle${status.count}" class="sub"></th>
 						<th id="deliciousMapContent${status.count}" class="sub"></th>
 						<th id="deliciousMapWriteDate${status.count}" class="sub"></th>
@@ -104,6 +115,7 @@
 
 <script>
 	function test(value) {
+	
 		$(".sub" + value).slideToggle();
 		$.ajax({
 			type : "GET",
@@ -111,7 +123,21 @@
 			data: "deliciousMapNum=" + value,
 			dataType:"JSON",
 			success: function(data){
+				
+				status = true;
 				console.log(data);
+
+				//앞전 데이터 삭제
+					document.getElementById("deliciousMapTitle" + value).innerHTML = '';
+		document.getElementById("deliciousMapContent" + value).innerHTML = '';
+		document.getElementById("deliciousMapWriteDate" + value).innerHTML = '';
+		document.getElementById("deliciousMapImg" + value).innerHTML = '';
+		document.getElementById("deliciousMapGrade" + value).innerHTML = '';
+		document.getElementById("memberNum" + value).innerHTML = '';
+		document.getElementById("deliciousMapNum" + value).innerHTML = '';
+				
+		//데이터 삽입
+				
 				$.each(data, function(i,DeliciousReviewVO){
 					console.log(DeliciousReviewVO.deliciousMapContent); 
 					document.getElementById("deliciousMapTitle"+ value).innerHTML += DeliciousReviewVO.deliciousMapTitle;
@@ -126,22 +152,13 @@
 				$(".sub").attr("onclick", "test_delete("+value+")");
 				 },	
 			error : function(xhr, status, error){
+				status = true;
 				alert("에러발생");
 			}
 		});
-	}
-	
-	function test_delete(value){
-		$(".sub" + value).slideToggle();
-		document.getElementById("deliciousMapTitle" + value).innerHTML = '';
-		document.getElementById("deliciousMapContent" + value).innerHTML = '';
-		document.getElementById("deliciousMapWriteDate" + value).innerHTML = '';
-		document.getElementById("deliciousMapImg" + value).innerHTML = '';
-		document.getElementById("deliciousMapGrade" + value).innerHTML = '';
-		document.getElementById("memberNum" + value).innerHTML = '';
-		document.getElementById("deliciousMapNum" + value).innerHTML = '';
 		
-		$(".sub").attr("onclick", "test("+value+")");
-	}
+		
+		}
+	
 </script>
 </html>
