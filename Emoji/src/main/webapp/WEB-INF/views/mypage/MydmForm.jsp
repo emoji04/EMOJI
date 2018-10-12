@@ -34,9 +34,12 @@
 
 /* 하위항목숨김처리 */
 .subClass {
-	display: none;
+	display: none 
+}
+#subClass .active subClass{
 	display: block;
 }
+		
 </style>
 </head>
 
@@ -63,7 +66,7 @@
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
 				<div>
-					<!-- 내 등록 지도 제목 List -->
+					<!-- 내 등록 지도 List -->
 
 					<input type="checkbox"> <input type="text" id="accordian"
 						class="${status.count}" name="DeliciousMapName"
@@ -73,14 +76,15 @@
 						value="${DeliciousMapVO.deliciousMapCreateDate}"
 						readonly="readyonly"> <input type="button" value="비공개">
 					<input type="button" value="수정"> <input type="button"
-						value="삭제"> <br> <input class="subClass"
-						name="DeliciousMapTag" value="${DeliciousMapVO.deliciousMapTag}">
-					<input class="subClass" id="map"
-						style="width: 500px; height: 400px;">
+						value="삭제">
+						 <br>
+						 <div class="subClass">
+					 <input name="DeliciousMapTag" value="${DeliciousMapVO.deliciousMapTag}">
+					<input id="map" style="width: 500px; height: 400px;">
 						<table>
 					<tr>
 						<!-- 리뷰 상세목록 -->
-						<td id="deliciousMapTitle${status.count}"></td>
+						<td id="deliciousMapTitle${status.count}"></div>
 						<td id="deliciousMapContent${status.count}"></td>
 						<td id="deliciousMapWriteDate${status.count}"></td>
 						<td id="deliciousMapImg${status.count}"></td>
@@ -89,6 +93,7 @@
 						<td id="deliciousMapNum${status.count}"></td>
 					</tr>
 				</table>
+				</div>
 				</div>
 			</c:forEach>
 
