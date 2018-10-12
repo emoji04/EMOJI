@@ -24,6 +24,11 @@ public class MapService extends ServiceDao {
 		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
 	}
 	
+
+/*	public int selectMapByMemberNum(int memberNum) {
+		return sqlSession.selectOne(MapperName.DELICIOUS_MAP + ".selectMapByMemberNum", memberNum);
+	}*/
+	
 	public int updateMap(int memberNum, DeliciousMapVO deliciousMapVO) {
 		return 1;
 	}
@@ -32,10 +37,9 @@ public class MapService extends ServiceDao {
 		return 1;
 	}
 	
-	public List<DeliciousMapVO> selectMapListBySearch(String deliciousMapTag) {
-		List<DeliciousMapVO> deliciousMapVO = new ArrayList<DeliciousMapVO>();
-		
-		return deliciousMapVO;
+	//회원 번호에 따른 지도 번호 가져오기
+	public List<DeliciousMapVO> selectMapByMemberNum(int memberNum) {
+		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByMemberNum", memberNum);
 	}
 	
 	public List<DeliciousMapVO> selectMapListBymemberNum(int memberNum) {

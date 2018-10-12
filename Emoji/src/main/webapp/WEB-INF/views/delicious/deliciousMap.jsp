@@ -108,6 +108,12 @@
  		height: 500px;
  		margin-top: 7px;
  	}
+ 	
+ 	#pinCheck {
+ 		border: 1px solid red;
+ 		margin-top: 10px;
+ 		height: 50px;
+ 	}
 </style>
 </head>
 <body>
@@ -117,15 +123,15 @@
 	<div id="container">
 		<ul class="tab">
 			<li class="active click" id="makePin_li">핀 만들기</li>
-			<li class="active" id="checkPinList_li">핀 리스트 확인</li>
+<!-- 			<li class="active" id="checkPinList_li">핀 리스트 확인</li> -->
 		</ul>
 		
 		<div class="tab_container">
 			<!-- 핀 만들기 탭 -->
 			<div id="makePin" class="tab_content" style="display: block;">
 				<div id="pinContent">
-					<form id="pinInfo" action="<c:url value='/deliciousPinInsert' />" method="post" enctype="multipart/form-data" onsubmit="return save($(this));">
-						<input type="hidden" id="deliciousMapNum" name="deliciousMapNum" value="8">
+					<form id="pinInfo" action="<c:url value='/deliciousPinInfo' />" method="post" enctype="multipart/form-data">
+						<input type="hidden" id="deliciousMapNum" name="deliciousMapNum" value="9">
 						
 						<label>주소</label>
 							<div class="textBox">
@@ -175,7 +181,7 @@
 							</div>
 							
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
-						<input type="submit" id="makePinBtn" value="핀 생성">
+						<input type="button" id="makePinBtn" value="핀 생성">
 
 						<input type="hidden" id="pinDatas" name="">
 <!--  						<input type="button" value="확인" id="check"> -->
@@ -204,7 +210,7 @@
 	</c:forEach>
 	
 	<div id="map"></div>
-	<div id="clickLatlng"></div>
+	<div id="pinCheck"></div>
 </div>
 
 <script>
@@ -265,8 +271,7 @@ $(document).ready(function(){
 			else
 				$('#textCnt').text(remain);
 		});
- 		
-		
+ 			
 		//핀 만들기 주소검색
  		$('#deliciousPinAddress').keyup(function() {
  			var address = $('#deliciousPinAddress').val();
@@ -327,30 +332,97 @@ $(document).ready(function(){
  			});
  		});  */
  		
+ 		$('#makePinBtn').click(function() {
+ 			var deliciousMapNum = $('#deliciousMapNum').val();
+ 			var formData = new FormData($('#pinInfo')[0]);
+ 			
+	 			$.ajax({
+	 				type: 'POST',
+	 				url: '<c:url value='/deliciousPinInfo' />',
+	 				data: formData,
+	  	 			processData: false,
+	 				contentType: false, 
+	 				dataType: 'json', 
+	 				success: function(data) {
+	 					//alert(JSON.stringify(data));
+	 					
+	 					var deliciousPinList = data.deliciousPinInfo;
+	 					var addressList = [];				
+	 					var pinRestaurantList = [];
+	 					var pinListContent = document.getElementById('pinListContent');
+	 					
+	 					$(deliciousPinList).each(function(index, deliciousPin) {
+	 						addressList.push(deliciousPin.deliciousPinAddress);
+	 						pinRestaurantList.push(deliciousPin.deliciousPinRestaurant);
+	 						
+	 						//pinListContent.innerHTML += '[' + index + '] ' + deliciousPin.deliciousPinName + ' ' + deliciousPin.deliciousPinRestaurant + '<br>';
+	 	 				});
+	 					
+	 					addressList.forEach(function(address, index) {
+	 						//주소로 좌표 검색
+	 						geocoder.addressSearch(address, function(result, status) {
+	 							//정상적으로 검색이 완료됐으면
+	 							if(status == daum.maps.services.Status.OK) {
+	 								var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	 								
+	 								//지도의 중심을 결과값으로 받은 위치로 이동
+	 								map.setCenter(coords);
+	 								
+	 								//지도에 클릭한 위치에 표출할 마커 생성
+	 								var marker = new daum.maps.Marker({
+	 									//map: map,
+	 									image: markerImg,     //마커 이미지 설정
+	 									position: coords
+	 								}); 
+	 								
+	 								marker.setMap(map);   //지도에 마커 표시 
+	 									 								
+	 								var iwContent = '<div style="width: 150px; text-align: center; padding: 6px 0; font-weight: bold;">' + pinRestaurantList[index]  + '</div>',
+	 									iwPosition = coords;  //인포윈도우 표시
+	 	 	 	 					
+	 	 	 	 					//인포 윈도우 생성
+	 	 	 	 					var infowindow = new daum.maps.InfoWindow({
+	 	 	 							position: iwPosition,
+	 	 	 							content: iwContent
+	 	 	 						});
+	 	 	 						
+	 								//마커 위에 인포윈도우 표시
+	 	 	 						infowindow.open(map, marker); 
+	 							}
+	 						});
+	 					});
+	 					
+	 					$('#pinInfo')[0].reset();
+	 				},
+	 				error: function(request, status) {
+	 					alert('처리 실패!' + request.status);
+	 				}
+	 			});
+ 			
+ 		});
  		
+ 		var markers = [];
+ 		 		
  		//핀 만들기 클릭시
  		$('#makePin_li').click(function() {
  			$('#makePin').show();
  			$('#checkPinList').hide();
  			
- 			checkPinListToggle = true;
- 			
-  			if(makePinToggle) {
- 				map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
- 				marker.setMap(map);   //지도에 마커 표시
- 			} 
- 		
+ 			//checkPinListToggle = true;
+ 			//marker.setMap(null);
+ 			//map.setCenter(new daum.maps.LatLng(37.5706073, 126.9853092));
+ 		 
  			$('#makePin_li').addClass('click');
  			$('#checkPinList_li').removeClass('click');
  		});
 
  		//핀 리스트 확인 클릭시
- 		$('#checkPinList_li').click(function(){
+  		$('#checkPinList_li').click(function() {
  			$('#makePin').hide();
  			
  			makePinToggle = true;
  			
- 			var deliciousMapNum = $('#deliciousMapNum').val();
+ 			/* var deliciousMapNum = $('#deliciousMapNum').val();
  			
  	 			$.ajax({
  	 				type: 'GET',
@@ -361,15 +433,15 @@ $(document).ready(function(){
  	 					//alert(JSON.stringify(data));
  	 					
  	 					var deliciousPinList = data.deliciousPinInfo;
- 	 					var addressList = [];
- 	 					var pinNameList = []; 					
- 	 					var pinListContent = document.getElementById("pinListContent");
+ 	 					var addressList = [];				
+ 	 					var pinRestaurantList = [];
+ 	 					var pinListContent = document.getElementById('pinListContent');
  	 					
- 	 					$(deliciousPinList).each(function(index, deliciousPin){
+ 	 					$(deliciousPinList).each(function(index, deliciousPin) {
  	 						addressList.push(deliciousPin.deliciousPinAddress);
- 	 						pinNameList.push(deliciousPin.deliciousPinName);
+ 	 						pinRestaurantList.push(deliciousPin.deliciousPinRestaurant);
  	 						
- 	 						pinListContent.innerHTML += '[' + index + '] ' + deliciousPin.deliciousPinName + ' ' + deliciousPin.deliciousPinRestaurant + '<br>';
+ 	 						//pinListContent.innerHTML += '[' + index + '] ' + deliciousPin.deliciousPinName + ' ' + deliciousPin.deliciousPinRestaurant + '<br>';
  	 	 				});
  	 					
  	 					addressList.forEach(function(address, index) {
@@ -384,14 +456,16 @@ $(document).ready(function(){
  	 								
  	 								//지도에 클릭한 위치에 표출할 마커 생성
  	 								var marker = new daum.maps.Marker({
- 	 									map: map,
+ 	 									//map: map,
  	 									image: markerImg,     //마커 이미지 설정
  	 									position: coords
  	 								}); 
  	 								
- 	 								marker.setPosition(coords);
+ 	 								markers.push(marker);
  	 								
- 	 								var iwContent = '<div style="padding:5px;">[' + index + ']' + pinNameList[index] + '</div>',
+ 	 								marker.setMap(map);   //지도에 마커 표시 
+ 	 									 								
+  	 								var iwContent = '<div style="width: 150px; text-align: center; padding: 6px 0; font-weight: bold;">' + pinRestaurantList[index]  + '</div>',
  	 									iwPosition = coords;  //인포윈도우 표시
  	 	 	 	 					
  	 	 	 	 					//인포 윈도우 생성
@@ -401,7 +475,7 @@ $(document).ready(function(){
  	 	 	 						});
  	 	 	 						
  	 								//마커 위에 인포윈도우 표시
- 	 	 	 						infowindow.open(map, marker);
+ 	 	 	 						infowindow.open(map, marker); 
  	 							}
  	 						});
  	 					});
@@ -409,14 +483,13 @@ $(document).ready(function(){
  	 				error: function(request, status) {
  	 					alert('처리 실패!' + request.status);
  	 				}
- 	 			});
- 			
+ 	 			}); */
  			
  			$('#checkPinList').show();
  			
  			$('#checkPinList_li').addClass('click');
  			$('#makePin_li').removeClass('click');
- 		}); 
+ 		});  
 });
 
 //좌표로 행정동 주소 정보 요청
