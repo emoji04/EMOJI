@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
-import com.bit.emoji.model.DeliciousPinVO;
+import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.model.RouteVO;
 import com.bit.emoji.service.MakeRouteService;
 
@@ -31,7 +31,7 @@ public class MakeRouteController {
 	}	
 	@ResponseBody
 	@RequestMapping("search")
-	public List<DeliciousPinVO> searchDelicious(@RequestParam(value="search", defaultValue="떡볶이") String search, Model model) {
+	public List<DeliciousVO> searchDelicious(@RequestParam(value="search", defaultValue="떡볶이") String search, Model model) {
 		System.out.println(search);
 		return makeRouteService.selectDelicious(search);
 	}

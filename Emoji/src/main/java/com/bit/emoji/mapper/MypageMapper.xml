@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="MypageMapper">
+<mapper namespace="Mypage">
 	<!-- 회원정보 상세조회 -->
 	<select id="listAll" resultType="com.bit.emoji.model.MemberVO"
 		parameterType="int">
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		deliciousMapNum, deliciousMapName, deliciousMapTag,
 		deliciousMapDetail, deliciousMapOpen,
 		deliciousMapCreateDate, memberNum
-		from dMap
+		from deliciousMap
 		where memberNum = #{memberNum}
 	</select>
 
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		deliciousMapContent, deliciousMapWriteDate,
 		deliciousMapImg, deliciousMapGrade,
 		memberNum, deliciousMapNum
-		FROM dmReview
+		FROM deliciousReview
 		where deliciousMapNum = #{deliciousMapNum}
 	</select>
 

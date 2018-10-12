@@ -3,32 +3,32 @@
 
 <mapper namespace="DeliciousMap">
 	<insert id="insertMap" parameterType="com.bit.emoji.model.DeliciousMapVO">
-		insert into dMap 
+		insert into deliciousMap
 		values (#{deliciousMapNum}, #{deliciousMapName}, #{deliciousMapTag}, #{deliciousMapDetail}, #{deliciousMapOpen}, #{deliciousMapCreateDate}, #{memberNum})
 	</insert>
 	
 	<select id="selectMapByDeliciousMapNum" resultType="com.bit.emoji.model.DeliciousMapVO" parameterType="int">
-		select * from dMap
+		select * from deliciousMap
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
 	
 	<select id="selectMapByMemberNum" resultType="com.bit.emoji.model.DeliciousMapVO" parameterType="int">
-		select * from dMap
+		select * from deliciousMap
 		where memberNum=#{memberNum}
 	</select>
 	
-	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousPinVO">
+	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO">
 		insert into delicious
-		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciousPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg}, #{deliciousMapNum}, #{deliciousPinRestaurant})
+		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciousPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg})
 	</insert>
 	
-	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="int">
+	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousVO" parameterType="int">
 		select * from delicious
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
 	
-	<insert id="insertdmDelicious" parameterType="com.bit.emoji.model.DmDeliciousVO">
-		insert into dmDelicious
-		values (#{deliciousPinNum}, #{deliciousMapNum})
+	<insert id="insertInfo" parameterType="com.bit.emoji.model.DeliciousPinVO">
+		insert into deliciousPin
+		values (#{deliciousNum}, #{deliciousMapNum})
 	</insert>
 </mapper>

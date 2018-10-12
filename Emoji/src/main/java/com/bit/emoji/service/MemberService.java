@@ -8,7 +8,6 @@ import com.bit.emoji.model.MemberVO;
 
 @Repository
 public class MemberService extends ServiceDao{
-
     public int insertMember(MemberVO memberVO){
         return sqlSession.insert(MapperName.MEMBER + ".insertMember", memberVO);
     }
@@ -17,9 +16,6 @@ public class MemberService extends ServiceDao{
     	return sqlSession.selectOne(MapperName.MEMBER + ".selectMemberByMemberEmail", memberEmail);
     }
     
-    
-
     public void edit(MemberVO membervo, HttpSession session){
     }
-
 }

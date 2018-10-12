@@ -2,11 +2,11 @@ package com.bit.emoji.controller;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +23,8 @@ public class MypageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
-	
-	
-	@Inject
-	private MypageService mypageService;
+	@Autowired
+	MypageService mypageService;
 
 	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.GET)
 	public void listAll(Model model, HttpSession session) throws Exception {

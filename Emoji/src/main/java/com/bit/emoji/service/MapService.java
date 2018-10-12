@@ -10,18 +10,18 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapVO;
-import com.bit.emoji.model.DeliciousPinVO;
+import com.bit.emoji.model.DeliciousVO;
 
 @Repository
 public class MapService extends ServiceDao {
 	//지도 생성하기
 	public int insertMap(DeliciousMapVO deliciousMapVO) {
-		return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertMap", deliciousMapVO);
+		return sqlSession.insert(MapperName.DELICIOUSMAP + ".insertMap", deliciousMapVO);
 	}
 	
 	//지도 번호에 따른 정보 가져오기
 	public List<DeliciousMapVO> selectMapByDeliciousMapNum(int deliciousMapNum) {
-		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
+		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
 	}
 	
 
@@ -39,7 +39,7 @@ public class MapService extends ServiceDao {
 	
 	//회원 번호에 따른 지도 번호 가져오기
 	public List<DeliciousMapVO> selectMapByMemberNum(int memberNum) {
-		return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectMapByMemberNum", memberNum);
+		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByMemberNum", memberNum);
 	}
 	
 	public List<DeliciousMapVO> selectMapListBymemberNum(int memberNum) {
@@ -50,9 +50,9 @@ public class MapService extends ServiceDao {
 
 	public class PinService {
 		//핀 생성하기
-		public int insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO) throws Exception {
+		public int insertPin(HttpServletRequest request, DeliciousVO deliciousVO) throws Exception {
 			//저장용 파일 이름
-			String deliciousPinImgName = "";
+			String deliciousImgName = "";
 			
 			//저장 경로 설정
 			String uploadUri = "/uploadFile/deliciousPinPhoto";
@@ -61,25 +61,25 @@ public class MapService extends ServiceDao {
 			String dir = request.getSession().getServletContext().getRealPath(uploadUri);
 			
 			//사용자의 업로드 파일 물리적으로 저장
-			if(!deliciousPinVO.getDeliciousPinFile().isEmpty()) {
-				deliciousPinImgName = "dm_" + deliciousPinVO.getDeliciousPinNum() + "_" + deliciousPinVO.getDeliciousPinFile().getOriginalFilename();
+			if(!deliciousVO.getDeliciousPinFile().isEmpty()) {
+				deliciousImgName = "dm_" + deliciousVO.getDeliciousNum() + "_" + deliciousVO.getDeliciousPinFile().getOriginalFilename();
 				
 				//저장
-				deliciousPinVO.getDeliciousPinFile().transferTo(new File(dir, deliciousPinImgName));
+				deliciousVO.getDeliciousPinFile().transferTo(new File(dir, deliciousImgName));
 				
 				//DB에 저장할 파일 이름
-				deliciousPinVO.setDeliciousPinImg(deliciousPinImgName);
+				deliciousVO.setDeliciousImg(deliciousImgName);
 			
 			}
-			return sqlSession.insert(MapperName.DELICIOUS_MAP + ".insertPin", deliciousPinVO);
+			return sqlSession.insert(MapperName.DELICIOUSMAP + ".insertPin", deliciousVO);
 		}
 		
 		//지도 번호에 따른 핀 정보 가져오기
-		public List<DeliciousPinVO> selectPinListBydeliciousMapNum(int deliciousMapNum) {
-			return sqlSession.selectList(MapperName.DELICIOUS_MAP + ".selectPinListBydeliciousMapNum", deliciousMapNum);
+		public List<DeliciousVO> selectPinListBydeliciousMapNum(int deliciousMapNum) {
+			return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectPinListBydeliciousMapNum", deliciousMapNum);
 		}
 		
-		public int updatePin(int deliciousMapNum, DeliciousPinVO deliciousPinVO) {
+		public int updatePin(int deliciousMapNum, DeliciousVO deliciousPinVO) {
 			return 1;
 		}
 		

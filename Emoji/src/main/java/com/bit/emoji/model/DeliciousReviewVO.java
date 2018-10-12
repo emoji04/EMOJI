@@ -3,70 +3,85 @@ package com.bit.emoji.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class DeliciousReviewVO {
-	private int deliciousMapReviewNum;
-	private String deliciousMapTitle;
-	private String deliciousMapContent;
-	private String deliciousMapWriteDate;
-	private String deliciousMapImg;
-	private double deliciousMapGrade;
+	private int deliciousReviewNum;
+	private String deliciousReviewTitle;
+	private String deliciousReviewContent;
+	private String deliciousReviewWriteDate;
+	private String deliciousReviewImg;
+	private double deliciousReviewGrade;
 	private int memberNum;
-	private int deliciousMapNum;
-	public int getDeliciousMapReviewNum() {
-		return deliciousMapReviewNum;
+	private int deliciousNum;
+
+	public int getDeliciousReviewNum() {
+		return deliciousReviewNum;
 	}
-	public void setDeliciousMapReviewNum(int deliciousMapReviewNum) {
-		this.deliciousMapReviewNum = deliciousMapReviewNum;
+
+	public void setDeliciousReviewNum(int deliciousReviewNum) {
+		this.deliciousReviewNum = deliciousReviewNum;
 	}
-	public String getDeliciousMapTitle() {
-		return deliciousMapTitle;
+
+	public String getDeliciousReviewTitle() {
+		return deliciousReviewTitle;
 	}
-	public void setDeliciousMapTitle(String deliciousMapTitle) {
-		this.deliciousMapTitle = deliciousMapTitle;
+
+	public void setDeliciousReviewTitle(String deliciousReviewTitle) {
+		this.deliciousReviewTitle = deliciousReviewTitle;
 	}
-	public String getDeliciousMapContent() {
-		return deliciousMapContent;
+
+	public String getDeliciousReviewContent() {
+		return deliciousReviewContent;
 	}
-	public void setDeliciousMapContent(String deliciousMapContent) {
-		this.deliciousMapContent = deliciousMapContent;
+
+	public void setDeliciousReviewContent(String deliciousReviewContent) {
+		this.deliciousReviewContent = deliciousReviewContent;
 	}
-	public String getDeliciousMapWriteDate() {
-		return deliciousMapWriteDate;
+
+	public String getDeliciousReviewWriteDate() {
+		return deliciousReviewWriteDate;
 	}
-	public void setDeliciousMapWriteDate(String deliciousMapWriteDate) {
-		this.deliciousMapWriteDate = deliciousMapWriteDate;
+
+	public void setDeliciousReviewWriteDate(String deliciousReviewWriteDate) {
+		this.deliciousReviewWriteDate = deliciousReviewWriteDate;
 	}
-	public String getDeliciousMapImg() {
-		return deliciousMapImg;
+
+	public String getDeliciousReviewImg() {
+		return deliciousReviewImg;
 	}
-	public void setDeliciousMapImg(String deliciousMapImg) {
-		this.deliciousMapImg = deliciousMapImg;
+
+	public void setDeliciousReviewImg(String deliciousReviewImg) {
+		this.deliciousReviewImg = deliciousReviewImg;
 	}
-	public double getDeliciousMapGrade() {
-		return deliciousMapGrade;
+
+	public double getDeliciousReviewGrade() {
+		return deliciousReviewGrade;
 	}
-	public void setDeliciousMapGrade(double deliciousMapGrade) {
-		this.deliciousMapGrade = deliciousMapGrade;
+
+	public void setDeliciousReviewGrade(double deliciousReviewGrade) {
+		this.deliciousReviewGrade = deliciousReviewGrade;
 	}
+
 	public int getMemberNum() {
 		return memberNum;
 	}
+
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public int getDeliciousMapNum() {
-		return deliciousMapNum;
+
+	public int getDeliciousNum() {
+		return deliciousNum;
 	}
-	public void setDeliciousMapNum(int deliciousMapNum) {
-		this.deliciousMapNum = deliciousMapNum;
+
+	public void setDeliciousNum(int deliciousNum) {
+		this.deliciousNum = deliciousNum;
 	}
+
 	@Override
 	public String toString() {
-		return "DeliciousReviewVO [deliciousMapReviewNum=" + deliciousMapReviewNum + ", deliciousMapTitle="
-				+ deliciousMapTitle + ", deliciousMapContent=" + deliciousMapContent + ", deliciousMapWriteDate="
-				+ deliciousMapWriteDate + ", deliciousMapImg=" + deliciousMapImg + ", deliciousMapGrade="
-				+ deliciousMapGrade + ", memberNum=" + memberNum + ", deliciousMapNum=" + deliciousMapNum + "]";
+		return "DeliciousReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", deliciousReviewTitle="
+				+ deliciousReviewTitle + ", deliciousReviewContent=" + deliciousReviewContent
+				+ ", deliciousReviewWriteDate=" + deliciousReviewWriteDate + ", deliciousReviewImg="
+				+ deliciousReviewImg + ", deliciousReviewGrade=" + deliciousReviewGrade + ", memberNum=" + memberNum
+				+ ", deliciousNum=" + deliciousNum + "]";
 	}
-	
-	
-	
 }
