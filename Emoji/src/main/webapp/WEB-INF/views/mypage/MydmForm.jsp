@@ -10,6 +10,8 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원정보상세</title>
 <style>
@@ -23,100 +25,101 @@
 	border: 1px solid black;
 	width: 100px;
 }
-/*테이블 스타일*/
-#table {
+/*상세정보 전체 창*/
+#myDmBox {
 	border: 1px solid black;
-	width: 760px;
-	text-align: left;
-}
-
-#sub {
-	text-align: left;
-}
-
-/* 테이블 하위항목 정렬 */
-#table {
-	
+	width: 900px;
+	height: auto;
 }
 
 /* 하위항목숨김처리 */
-#sub {
+.subClass {
 	display: none;
-}
-
-#sub.active sub {
 	display: block;
-}
-/* 서브버튼 */ 
-
-#subButton {
-right : 50px; 
-display: inline-block;
-
-	
-}
-
-#accordian {
-margin-right : 30%;
 }
 </style>
 </head>
 
 <body>
-	<div id="all">
-		<div>
-			<div id="tap_1" class="tap">
-				<a href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a>
-			</div>
-			<div id="tap_2" class="tap">
-				<a href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a>
-			</div>
+	<%@ include file="../commons/top_bar.jsp"%>
 
+
+	<div id="all">
+		<!-- 전체를 묶는 Div 위 아래 여백  -->
+		<div>
+			<!-- <내 등록지도/ 내 관심지도 tap> -->
+			<span id="tap_1" class="tap"><a
+				href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a></span> <span
+				id="tap_2" class="tap"><a
+				href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a></span>
+		</div>
+		<div id="myDmBox">
+			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
+			<div>
+				<!-- 내 등록 지도 (전체선택란) -->
+				<input type="checkbox">전체선택<input type="button" value="선택공개"><input
+					type="button" value="선택삭제">
+			</div>
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
+				<div>
+					<!-- 내 등록 지도 제목 List -->
 
-
-				<table id="table">
-					<tr><div id="test">
-						<th><input id="accordian" class="${status.count}"
-							name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="test(${status.count})"
-							 readonly="readyonly">
-						
-								<input type="button" value="공개"> <input type="button"
-									value="수정"> <input type="button" value="삭제">
-						
-							</div>
+					<input type="checkbox"> <input type="text" id="accordian"
+						class="${status.count}" name="DeliciousMapName"
+						value="${DeliciousMapVO.deliciousMapName}"
+						onclick="CallmyDmList(${status.count})"> <input
+						name="DeliciousMapCreateDate"
+						value="${DeliciousMapVO.deliciousMapCreateDate}"
+						readonly="readyonly"> <input type="button" value="비공개">
+					<input type="button" value="수정"> <input type="button"
+						value="삭제"> <br> <input class="subClass"
+						name="DeliciousMapTag" value="${DeliciousMapVO.deliciousMapTag}">
+					<input class="subClass" id="map"
+						style="width: 500px; height: 400px;">
+						<table>
+					<tr>
+						<!-- 리뷰 상세목록 -->
+						<td id="deliciousMapTitle${status.count}"></td>
+						<td id="deliciousMapContent${status.count}"></td>
+						<td id="deliciousMapWriteDate${status.count}"></td>
+						<td id="deliciousMapImg${status.count}"></td>
+						<td id="deliciousMapGrade${status.count}"></td>
+						<td id="memberNum${status.count}"></td>
+						<td id="deliciousMapNum${status.count}"></td>
 					</tr>
-
-					<tr id="sub" class="sub${status.count}">
-						<th><input name="DeliciousMapTag"
-							value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
-							<br> <input name="DeliciousMapOpen"
-							value="${DeliciousMapVO.deliciousMapOpen}" readonly="readyonly">
-							<br> <input name="DeliciousMapCreateDate"
-							value="${DeliciousMapVO.deliciousMapCreateDate}"
-							readonly="readyonly"> <br></th>
-
-						<th id="deliciousMapTitle${status.count}" class="sub"></th>
-						<th id="deliciousMapContent${status.count}" class="sub"></th>
-						<th id="deliciousMapWriteDate${status.count}" class="sub"></th>
-						<th id="deliciousMapImg${status.count}" class="sub"></th>
-						<th id="deliciousMapGrade${status.count}" class="sub"></th>
-						<th id="memberNum${status.count}" class="sub"></th>
-						<th id="deliciousMapNum${status.count}" class="sub"></th>
 				</table>
-				</tr>
-
+				</div>
 			</c:forEach>
 
+
 		</div>
+	</div>
+
+
+
 </body>
 
 
 <script>
-	function test(value) {
-	
-		$(".sub" + value).slideToggle();
+//지도 
+
+var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new daum.maps.Map(container, options);
+		
+	function CallmyDmList(value) {
+		//현재 열려있는 항목 모두 닫음
+		$(".subClass").slideUp(); 
+		
+		//선택항목 열림 
+		$("#sub" + value).slideToggle();
+
+		//Ajax 통신 
 		$.ajax({
 			type : "GET",
 			url : "<c:url value='/myDmReview'/>",
@@ -124,35 +127,32 @@ margin-right : 30%;
 			dataType:"JSON",
 			success: function(data){
 				
-				status = true;
 				console.log(data);
 
 				//앞전 데이터 삭제
-					document.getElementById("deliciousMapTitle" + value).innerHTML = '';
-		document.getElementById("deliciousMapContent" + value).innerHTML = '';
-		document.getElementById("deliciousMapWriteDate" + value).innerHTML = '';
-		document.getElementById("deliciousMapImg" + value).innerHTML = '';
-		document.getElementById("deliciousMapGrade" + value).innerHTML = '';
-		document.getElementById("memberNum" + value).innerHTML = '';
-		document.getElementById("deliciousMapNum" + value).innerHTML = '';
+				document.getElementById("deliciousMapTitle" + value).innerHTML = '';
+				document.getElementById("deliciousMapContent" + value).innerHTML = '';
+				document.getElementById("deliciousMapWriteDate" + value).innerHTML = '';
+				document.getElementById("deliciousMapImg" + value).innerHTML = '';
+				document.getElementById("deliciousMapGrade" + value).innerHTML = '';
+				document.getElementById("memberNum" + value).innerHTML = '';
+				document.getElementById("deliciousMapNum" + value).innerHTML = '';
 				
-		//데이터 삽입
+				//데이터 삽입
 				
 				$.each(data, function(i,DeliciousReviewVO){
-					console.log(DeliciousReviewVO.deliciousMapContent); 
-					document.getElementById("deliciousMapTitle"+ value).innerHTML += DeliciousReviewVO.deliciousMapTitle;
-					document.getElementById("deliciousMapContent" + value).innerHTML += DeliciousReviewVO.deliciousMapContent;
-					document.getElementById("deliciousMapWriteDate"+ value).innerHTML += DeliciousReviewVO.deliciousMapWriteDate;
-					document.getElementById("deliciousMapImg" + value).innerHTML += DeliciousReviewVO.deliciousMapImg;
-					document.getElementById("deliciousMapGrade" + value).innerHTML += DeliciousReviewVO.deliciousMapGrade;
-					document.getElementById("memberNum" + value).innerHTML += DeliciousReviewVO.memberNum;
-					document.getElementById("deliciousMapNum" + value).innerHTML += DeliciousReviewVO.deliciousMapNum;
+				console.log(DeliciousReviewVO.deliciousMapContent); 
+				document.getElementById("deliciousMapTitle"+ value).innerHTML += "<th>" + DeliciousReviewVO.deliciousMapTitle+ "<br>" + "</th>";
+				document.getElementById("deliciousMapContent" + value).innerHTML += "<td>" +DeliciousReviewVO.deliciousMapContent+ "<br>"+"</td>";
+				document.getElementById("deliciousMapWriteDate"+ value).innerHTML += "<td>" +DeliciousReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value).innerHTML +="<td>" + DeliciousReviewVO.deliciousMapImg+ "<br>"+"</td>";
+				document.getElementById("deliciousMapGrade" + value).innerHTML += "<td>" +DeliciousReviewVO.deliciousMapGrade+ "<br>"+"</td>";
+				document.getElementById("memberNum" + value).innerHTML += "<td>" +DeliciousReviewVO.memberNum+ "<br>"+"</td>";
+				document.getElementById("deliciousMapNum" + value).innerHTML +="<td>" + DeliciousReviewVO.deliciousMapNum+ "<br>"+"</td>";
 
 				});
-				$(".sub").attr("onclick", "test_delete("+value+")");
 				 },	
 			error : function(xhr, status, error){
-				status = true;
 				alert("에러발생");
 			}
 		});
