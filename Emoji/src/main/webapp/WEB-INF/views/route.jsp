@@ -571,10 +571,10 @@ function reorder() {
     epos++; */
     //원래 있던 마커를 삭제
     setMarkers(null);
-    //마커배열을 초기화 한후 정렬되며 생성되는 마커를 넣기
-    markers.splice(0,markers.length);
 	
-    var options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
+    polyline.setMap(null);
+	
+/*     var options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
     	    map: map
     	};
     
@@ -586,8 +586,9 @@ function reorder() {
     overlays['polyline'].forEach(function(polyline) {
     	alert(polyline);
         manager.remove(polyline);  
+        
     	
-    });
+    }); */
     
 	
     //전체적으로 새로운 이름 및 아이디 부여
