@@ -103,7 +103,6 @@ public class Membercontroller {
 		
 		return "redirect:/";
 	}*/
-
     
     @RequestMapping(value = "/member/loginSuccess")
     public String goLoginSuccess(){
@@ -144,6 +143,7 @@ public class Membercontroller {
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
     	MemberVO memberVO = memberService.login(memberEmail);
+    	
 		System.out.println(memberService.login(memberEmail));
 		System.out.println(memberVO.getMemberPassword());
 //		System.out.println(memberService.login(memberService.login(memberEmail).getMemberPassword()));
@@ -186,7 +186,7 @@ public class Membercontroller {
 			session.setAttribute("loginInfo", e);
 	    	System.out.println(memberEmail+"-->네이버 db등록하고 나서");
 	    	return memberEmail;
-    	}
+    	}	
     }
     
     
@@ -196,14 +196,12 @@ public class Membercontroller {
         return "home";
     }
     
-
     @RequestMapping(value = "/logOut")
     public String logOut(HttpServletRequest request){
     	HttpSession session = request.getSession(false);
     	session.invalidate();
         return "home";
     }
-    
     
     @RequestMapping(value = "/regicheck.json")
     @ResponseBody

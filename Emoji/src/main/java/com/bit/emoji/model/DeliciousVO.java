@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class DeliciousVO {
 	private int deliciousNum;
+	private int deliciousMapNum;
 	private String deliciousName;
 	private String deliciousAddress;
 	private String deliciousPhone;
@@ -11,14 +12,22 @@ public class DeliciousVO {
 	private double deliciousGrade;
 	private String deliciousDetail;
 	private String deliciousImg;
-	private MultipartFile deliciousPinFile;
-
+	private MultipartFile deliciousFile;
+	
 	public int getDeliciousNum() {
 		return deliciousNum;
 	}
 	
 	public void setDeliciousNum(int deliciousNum) {
 		this.deliciousNum = deliciousNum;
+	}
+	
+	public int getDeliciousMapNum() {
+		return deliciousMapNum;
+	}
+	
+	public void setDeliciousMapNum(int deliciousMapNum) {
+		this.deliciousMapNum = deliciousMapNum;
 	}
 	
 	public String getDeliciousName() {
@@ -77,20 +86,20 @@ public class DeliciousVO {
 		this.deliciousImg = deliciousImg;
 	}
 	
-	public MultipartFile getDeliciousPinFile() {
-		return deliciousPinFile;
+	public MultipartFile getDeliciousFile() {
+		return deliciousFile;
 	}
 	
-	public void setDeliciousPinFile(MultipartFile deliciousPinFile) {
-		this.deliciousPinFile = deliciousPinFile;
+	public void setDeliciousFile(MultipartFile deliciousFile) {
+		this.deliciousFile = deliciousFile;
 	}
 
 	@Override
 	public String toString() {
-		return "DeliciousPinVO [deliciousNum=" + deliciousNum + ", deliciousName=" + deliciousName
-				+ ", deliciousAddress=" + deliciousAddress + ", deliciousPhone=" + deliciousPhone
+		return "DeliciousVO [deliciousNum=" + deliciousNum + ", deliciousMapNum=" + deliciousMapNum + ", deliciousName="
+				+ deliciousName + ", deliciousAddress=" + deliciousAddress + ", deliciousPhone=" + deliciousPhone
 				+ ", deliciousCategory=" + deliciousCategory + ", deliciousGrade=" + deliciousGrade
-				+ ", deliciousDetail=" + deliciousDetail + ", deliciousImg=" + deliciousImg + ", deliciousPinFile="
-				+ deliciousPinFile + "]";
+				+ ", deliciousDetail=" + deliciousDetail + ", deliciousImg=" + deliciousImg + ", deliciousFile="
+				+ deliciousFile + "]";
 	}
 }
