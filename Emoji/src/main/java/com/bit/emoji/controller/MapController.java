@@ -1,9 +1,6 @@
 package com.bit.emoji.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,25 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinInfo;
 import com.bit.emoji.model.DeliciousVO;
-import com.bit.emoji.model.DeliciousReviewVO;
 import com.bit.emoji.service.MapService;
+import com.bit.emoji.service.MemberService;
 import com.bit.emoji.service.MapService.PinService;
 
 @Controller
 public class MapController {
+    @Autowired
+    MemberService memberService;  //회원정보 CRUD
+    
 	@Autowired
-	MapService mapService;    //맛집지도 CRUD
+	MapService mapService;    //맛집지도 CR(U)D
 	
 	@Autowired
-	PinService pinService;    //맛집지도 내의 핀 CRUD
-	
-	//DeliciousReviewService deliciousReviewService;
+	PinService pinService;    //맛집지도 내의 핀 CR(U)D
 	
 	//맛집지도 메인 페이지
 	@RequestMapping(value="/deliciousForm")
@@ -37,28 +34,23 @@ public class MapController {
 		return "/delicious/deliciousForm";
 	}
 	
-	public String deliciousEditForm(int num, Model model) {
-		return "";
-	}
-	
-	public String deliciousReviewForm() {
-		return "";
-	}
-	
 	public String delete(int num, Model model) {
 		return "";
 	}
 	
-	//맛집지도 등록하고 보여주기
+	//맛집지도 등록하기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)
-	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) {
-		deliciousMapVO.setDeliciousMapNum(10);
+	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) throws Exception {
+		//deliciousMapVO.setDeliciousMapNum(10);
+		
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
 		
-		int cnt = mapService.insertMap(deliciousMapVO);
+		mapService.insertMap(deliciousMapVO);
+		int deliciousMapNum = mapService.selectMapByMemberNum(deliciousMapVO.getMemberNum());
 		
-		model.addAttribute("cnt", cnt);
-		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapVO.getDeliciousMapNum()));
+		//model.addAttribute("cnt", cnt);
+		model.addAttribute("deliciousMapNum", deliciousMapNum);
+		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapNum));
 		
 		return "/delicious/deliciousMap";
 	}
@@ -67,20 +59,16 @@ public class MapController {
 	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST/*, produces="application/text; charset=utf8"*/)
 	@ResponseBody
 	public DeliciousPinInfo insertPin(HttpServletRequest request, DeliciousVO deliciousVO, Model model) throws Exception {
-		deliciousVO.setDeliciousNum(9);
+		//deliciousVO.setDeliciousNum(9);
 
-		int cnt = pinService.insertPin(request, deliciousVO);
-		
-		List<DeliciousMapVO> deliciousMap = mapService.selectMapByMemberNum(4);
-		System.out.println(deliciousMap.get(0));
-		System.out.println(deliciousMap.get(1));
+		pinService.insertPin(request, deliciousVO);
 		
 		//System.out.println(deliciousMap);
 		//deliciousMap.get(index)
 
 		//System.out.println(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
 		
-		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(1));
+		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousVO.getDeliciousMapNum()));
 	}
 	
 /*	//핀 정보 등록하고 보여주기
@@ -107,26 +95,7 @@ public class MapController {
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousMapNum));
 	}*/
 	
-	public String writeReivew(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
-		return "";
-	}
-	
-	public String updateMap(HttpSession session, DeliciousMapVO deliciousMapVO, Model model) {
-		return "";
-	}
-	
-	public String updatePin(DeliciousVO deliciousPinVO, Model model) {
-		return "";
-	}
-	
-	public String updateReview(HttpSession session, DeliciousReviewVO deliciousReviewVO, Model model) {
-		return "";
-	}
-	
-	public String selectReview(int num, Model model) {
-		return "";
-	}
-	
+	//예외 발생 시
 	@ExceptionHandler(Exception.class)
 	public String exception(Exception e, Model model) {
 		model.addAttribute("error", e.getMessage());

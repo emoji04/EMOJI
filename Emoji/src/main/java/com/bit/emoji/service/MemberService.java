@@ -7,7 +7,7 @@ import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.MemberVO;
 
 @Repository
-public class MemberService extends ServiceDao{
+public class MemberService extends ServiceDao {
     public int insertMember(MemberVO memberVO){
         return sqlSession.insert(MapperName.MEMBER + ".insertMember", memberVO);
     }

@@ -20,7 +20,6 @@ import com.bit.emoji.service.MypageService;
 
 @Controller
 public class MypageController {
-
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	@Autowired
@@ -46,9 +45,8 @@ public class MypageController {
 		int loginInfo = (int) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("........myDmList GET ...");
 		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
-	
-		
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="/myDmReview")
 	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {

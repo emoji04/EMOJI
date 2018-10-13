@@ -22,30 +22,15 @@ public class MapService extends ServiceDao {
 	//지도 번호에 따른 정보 가져오기
 	public List<DeliciousMapVO> selectMapByDeliciousMapNum(int deliciousMapNum) {
 		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByDeliciousMapNum", deliciousMapNum);
-	}
+	}	
 	
-
-/*	public int selectMapByMemberNum(int memberNum) {
-		return sqlSession.selectOne(MapperName.DELICIOUS_MAP + ".selectMapByMemberNum", memberNum);
-	}*/
-	
-	public int updateMap(int memberNum, DeliciousMapVO deliciousMapVO) {
-		return 1;
+	//회원 번호에 따른 지도 번호 가져오기
+	public int selectMapByMemberNum(int memberNum) {
+		return sqlSession.selectOne(MapperName.DELICIOUSMAP + ".selectMapByMemberNum", memberNum);
 	}
 	
 	public int deleteMap(int deliciousMapNum) {
 		return 1;
-	}
-	
-	//회원 번호에 따른 지도 번호 가져오기
-	public List<DeliciousMapVO> selectMapByMemberNum(int memberNum) {
-		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByMemberNum", memberNum);
-	}
-	
-	public List<DeliciousMapVO> selectMapListBymemberNum(int memberNum) {
-		List<DeliciousMapVO> deliciousMapVO = new ArrayList<DeliciousMapVO>();
-		
-		return deliciousMapVO;
 	}
 
 	public class PinService {
@@ -61,16 +46,16 @@ public class MapService extends ServiceDao {
 			String dir = request.getSession().getServletContext().getRealPath(uploadUri);
 			
 			//사용자의 업로드 파일 물리적으로 저장
-			if(!deliciousVO.getDeliciousPinFile().isEmpty()) {
-				deliciousImgName = "dm_" + deliciousVO.getDeliciousNum() + "_" + deliciousVO.getDeliciousPinFile().getOriginalFilename();
+			if(!deliciousVO.getDeliciousFile().isEmpty()) {
+				deliciousImgName = "dm_" + deliciousVO.getDeliciousNum() + "_" + deliciousVO.getDeliciousFile().getOriginalFilename();
 				
 				//저장
-				deliciousVO.getDeliciousPinFile().transferTo(new File(dir, deliciousImgName));
+				deliciousVO.getDeliciousFile().transferTo(new File(dir, deliciousImgName));
 				
 				//DB에 저장할 파일 이름
 				deliciousVO.setDeliciousImg(deliciousImgName);
-			
 			}
+			
 			return sqlSession.insert(MapperName.DELICIOUSMAP + ".insertPin", deliciousVO);
 		}
 		

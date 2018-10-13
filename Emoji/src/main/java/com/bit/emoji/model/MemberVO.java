@@ -3,8 +3,8 @@ package com.bit.emoji.model;
 public class MemberVO {
     private int memberNum;
     private String memberEmail;
-    private String memberName;
     private String memberPassword;
+    private String memberName;
     private String memberGender;
     private String memberPhoneNum;
     private String memberRegDate;
@@ -27,20 +27,20 @@ public class MemberVO {
 		this.memberEmail = memberEmail;
 	}
 	
-	public String getMemberName() {
-		return memberName;
-	}
-	
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-	
 	public String getMemberPassword() {
 		return memberPassword;
 	}
 	
 	public void setMemberPassword(String memberPassword) {
 		this.memberPassword = memberPassword;
+	}
+	
+	public String getMemberName() {
+		return memberName;
+	}
+	
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	
 	public String getMemberGender() {
@@ -82,11 +82,11 @@ public class MemberVO {
 	public void setMemberCapGrade(double memberCapGrade) {
 		this.memberCapGrade = memberCapGrade;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "MemberVO [memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", memberName=" + memberName
-				+ ", memberPassword=" + memberPassword + ", memberGender=" + memberGender + ", memberPhoneNum="
+		return "MemberVO [memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", memberPassword="
+				+ memberPassword + ", memberName=" + memberName + ", memberGender=" + memberGender + ", memberPhoneNum="
 				+ memberPhoneNum + ", memberRegDate=" + memberRegDate + ", memberJoinGrade=" + memberJoinGrade
 				+ ", memberCapGrade=" + memberCapGrade + "]";
 	}

@@ -3,13 +3,11 @@
 
 <mapper namespace="Member">
 	<insert id="insertMember" parameterType="com.bit.emoji.model.MemberVO"  useGeneratedKeys="true" keyProperty="id">
-		insert into member (memberNum, memberEmail, memberName, memberPassword, memberGender, memberPhoneNum, memberRegDate)
-		values ( (select *from (select max(memberNum)+1 from member) next), #{memberEmail}, #{memberName}, #{memberPassword}, #{memberGender}, #{memberPhoneNum}, #{memberRegDate})
+		insert into member (memberNum, memberEmail, memberPassword, memberName, memberGender, memberPhoneNum, memberRegDate)
+		values ( (select *from (select max(memberNum)+1 from member) next), #{memberEmail}, #{memberPassword}, #{memberName}, #{memberGender}, #{memberPhoneNum}, #{memberRegDate})
 	</insert>
 	
 	<select id="selectMemberByMemberEmail" parameterType="String" resultType="com.bit.emoji.model.MemberVO">
 		select * from member where memberEmail=#{memberEmail}
 	</select>
-	
-	
 </mapper>

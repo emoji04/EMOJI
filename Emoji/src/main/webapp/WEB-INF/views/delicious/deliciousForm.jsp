@@ -150,8 +150,8 @@
 						<jsp:useBean id="now" class="java.util.Date" />
 						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
 					
-						<input type="hidden" name="memberNum" value="4">
-						
+<%-- 						<input type="hidden" name="memberNum" value="${ loginInfo }"> --%>
+						<input type="hidden" name="memberNum" value="1">
 						<input type="button" id="makeMapBtn" value="지도 생성">
 					
 						<!-- <input type="image" src="resources/img/saveBtn.png" id="save" onclick="submit(); return false;" style="float:right; margin-bottom:3%;"> -->
@@ -163,7 +163,7 @@
 		<div id="searchMap" class="tab_content" style="display: none;">
 			<div id="mapContent">
 				<div class="textBox">
-    				<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 해시태그"><br>
+    				<input type="text" id="search" placeholder="맛집이름, 맛집지도이름, 상세설명"><br>
     			</div>
     		</div>
 		</div>
