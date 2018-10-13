@@ -11,5 +11,16 @@
 		select * from member where memberEmail=#{memberEmail}
 	</select>
 	
+	<insert id="insertEmailKey" parameterType="com.bit.emoji.model.EmailKeyVO">
+		insert into emailKey
+		values (#{email}, #{emailKey}, now())
+	</insert>
+	
+	<select id="selectMemberByAllowedEmail" parameterType="String" resultType="com.bit.emoji.model.EmailKeyVO">
+		<![CDATA[
+		select * from emailKey where email = #{email} and ( checkDate > date_add(now(), interval -1 hour)) order by checkDate DESC limit 1
+		]]>
+	</select>
+	
 	
 </mapper>

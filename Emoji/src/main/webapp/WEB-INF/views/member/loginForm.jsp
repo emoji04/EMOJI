@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V9</title>
+	<title>EMOJI - 로그인</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -153,7 +153,7 @@
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
 		<a href="<c:url value='/home'/>">
-			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 200px; border-radius: 5px;" style="padding-left:120px;"></a>
+			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
 			<form class="login100-form validate-form" action="<c:url value='/login' />" method="post">
 				<span class="login100-form-title p-b-37">
 					Sign In
@@ -177,7 +177,7 @@
 
 				<div class="text-center p-t-57 p-b-20">
 					<span class="txt1">
-							<a href="<c:url value='/registerForm' />">회원가입</a>
+							<a href="<c:url value='/emailcheck' />">회원가입</a>
 					</span><br>
 					<hr/>
 					<span class="txt1">

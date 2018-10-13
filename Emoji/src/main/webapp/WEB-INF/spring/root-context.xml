@@ -55,6 +55,13 @@
 	<!-- MypageService 등록 -->
 	<bean id="mypageService" class="com.bit.emoji.service.MypageService" />
 	
+	<!-- sha 등록 -->
+	<bean id="sha" class="com.bit.emoji.service.Sha256" />
+	
+	<!-- MailService 등록 -->
+	<bean id="mailSendService" class="com.bit.emoji.service.MailSendService" />
+	
+	
 		<!-- google Class Bean설정 추가 -->
 	<!-- 클라이언트ID와 보안비밀 세팅 -->
 	<!-- <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory"> 
@@ -67,5 +74,21 @@
 		/> </bean> -->
 
 	<context:component-scan base-package="com.bit.emoji.mapper" />
+	
+		<!-- 메일보내기 -->
+	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="emojiproject3@gmail.com" />
+      <property name="password" value="mojimoji3#" />
+      <property name="javaMailProperties">
+         <props>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+    </bean>
 		
 </beans>

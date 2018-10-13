@@ -1,5 +1,8 @@
 package com.bit.emoji.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,25 +25,34 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.emoji.model.EmailKeyVO;
 import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.MailSendService;
 import com.bit.emoji.service.MemberService;
+import com.bit.emoji.service.Sha256;
+import com.bit.emoji.service.MailSendService;
 import com.mysql.jdbc.Connection;
 
 import javafx.scene.control.Alert;
 
 @Controller
 public class Membercontroller {
+	
+	@Autowired
     MailSendService mailSendService;
     
     @Autowired
     MemberService memberService;
     
+	@Autowired
+	Sha256 sha ;
     
     /*private GoogleConnectionFactory googleConnectionFactory;
     private OAuth2Parameters googleOAuth2Parameters;
@@ -112,10 +124,11 @@ public class Membercontroller {
         return "member/registerForm";
     }
     
-    public String goRegForm(){
-        return null;
+    @RequestMapping(value = "/emailcheck")
+    public String goEmailcheck(){
+        return "member/emailchk";
     }
-
+    
     public String goUpdateForm(){
         return null;
     }
@@ -174,9 +187,9 @@ public class Membercontroller {
 	    	System.out.println(memberEmail+"-->네이버 db등록하고 나서");
 	    	return memberEmail;
     	}
-		
-		
     }
+    
+    
     
     @RequestMapping(value = "/naverSuccess")
     public String naverSuccess(HttpServletRequest request){
@@ -200,14 +213,64 @@ public class Membercontroller {
 		System.out.println(memberVO);
 		
 		if(memberVO != null) {
-			return "b";			
+			return "alreadyExist";			
 		}else {
-			return "a";			
+			return "possibleRegi";			
 		}
     }
 
     public String edit(Model model, HttpSession session){
         return null;
     }
+    
+    
+    @RequestMapping("/emailsend")
+	public ModelAndView htmlSendMail(HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email) {
+    	System.out.println("이메일 보낼 이메일ㅋ"+ email);
+		// 메일 발송
+		mailSendService.htmlMailSend(email);
+		String viewName = "member/emailSend";
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("email", email);
+		modelAndView.setViewName(viewName);
+		return modelAndView;
+	}
+    
+    
+    @RequestMapping(value="/registe", method = RequestMethod.POST)
+	public ModelAndView processLogin(MemberVO member, HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email, @RequestParam("emailKey") String emailKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
+/*		String a = member.getMemberPassword();
+		
+		String b = sha.encrypt(a);
+		System.out.println("암호화 후 비밀번호 : " + b);*/
+    	long time = System.currentTimeMillis(); 
+    	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String regidate = dayTime.format(new Date(time));
+		String viewName = "member/regiSuccess";
+		String viewName2 = "member/registerForm";
 
+		EmailKeyVO emailAllowed = memberService.allowedEmail(email);
+		System.out.println(emailAllowed);
+		if(emailAllowed != null && emailKey.equals(emailAllowed.getKey())) {
+			System.out.println(emailAllowed);
+			System.out.println(emailKey);
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("memberRegDate", regidate);
+			modelAndView.setViewName(viewName);
+			System.out.println(regidate);
+			member.setMemberRegDate(regidate);
+	
+			
+			int insertCnt = memberService.insertMember(member);
+	
+			modelAndView.addObject("insertMember", insertCnt);
+			
+			return modelAndView;
+		}else {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName(viewName2);
+			return modelAndView;
+		}
+    }
 }
+
