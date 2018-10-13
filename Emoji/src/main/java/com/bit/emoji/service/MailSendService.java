@@ -72,13 +72,13 @@ public class MailSendService {
 							"\n" + 
 							"				<tr><td>\n" + 
 							"						<div style=\"background-color:#17212e\">\n" + 
-							"<form action=\"http://localhost:8088/emoji/registerForm \"    method=\"post\" >"
+							"<form action=\"http://localhost:8080/emoji/registerForm \"    method=\"post\" >"
 							+ "<input type=\"hidden\" name=\"allowedEmail\" value=\""+ memberEmail + "\">"
 							+ "<input type=\"hidden\" name=\"emailKey\" value=\""+ key + "\">"
 							+ "<input type=\"submit\" value=\"인증완료\" >"
 							+ "</form>"
 							+
-							"							<span style=\"font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold; \">9RMMP</span>\n" +
+							"							<span style=\"font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold; \"></span>\n" +
 							"						</div>\n" + 
 							"					</td></tr>\n" + 
 							"\n" + 
