@@ -90,12 +90,20 @@
  	.textBox {
 	 	padding-left: 5px; 
 	 	margin-bottom: 20px;
-	 }
+	}
+	 
+	.boxSize {
+ 		width: 100%;
+ 		height: calc(2.25rem + 2px);
+ 		padding-left: 5px;
+ 		border: 1px solid #ced4da;
+   		border-radius: 0.25rem;
+ 	}
  	
- 	input[type=text], select, #makePinBtn {
+/*  	input[type=text], select, #makePinBtn {
  		width: 100%;
  		padding-left: 5px;
- 	}
+ 	} */
  	
  	 #right {
  	 	padding-left: 2%;
@@ -139,8 +147,8 @@
 						
 						<label>주소</label>
 							<div class="textBox">
-    							<input type="text" id="deliciousAddress" name="deliciousAddress">
-    							<input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()" style="margin-top: 5px;">
+    							<input type="text" id="deliciousAddress" name="deliciousAddress" class="boxSize">
+    							<input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()" style="margin-top: 5px; border: 1px solid #ced4da; border-radius: 0.25rem;">
     							<div id="address_output"></div>
     						</div>
     						
@@ -151,12 +159,12 @@
     						
     					<label>상호명</label>
 							<div class="textBox">
-    							<input type="text" id="deliciousName" name="deliciousName">
+    							<input type="text" id="deliciousName" name="deliciousName" class="boxSize">
     						</div>
     						
     					<label>카테고리</label>
     						<div class="textBox">
-    							<select id="deliciousCategory" name="deliciousCategory">
+    							<select id="deliciousCategory" name="deliciousCategory" class="boxSize">
 									<option value="한식">한식</option>
 									<option value="중식">중식</option>
 									<option value="일식">일식</option>
@@ -166,27 +174,27 @@
     						
     					<label>평점</label>
     						<div class="textBox">
-    							<input type="text" name="deliciousGrade">
+    							<input type="text" name="deliciousGrade" class="boxSize">
     						</div>
     						
     					<label>전화번호</label>
     						<div class="textBox">
-    							<input type="text" name="deliciousPhone">
+    							<input type="text" name="deliciousPhone" class="boxSize">
     						</div>
     						
     					<label>상세설명</label>
     						<div class="textBox">
-    						    <input type="text" id="deliciousDetail" name="deliciousDetail">
+    						    <input type="text" id="deliciousDetail" name="deliciousDetail" class="boxSize">
 								<span id="textCnt">0</span>/20
 							</div>
 							
 						<label>사진첨부</label>
     						<div class="textBox">
-    							<input type="file" name="deliciousFile">
+    							<input type="file" name="deliciousFile" class="boxSize">
 							</div>
 							
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->
-						<input type="button" id="makePinBtn" value="핀 생성">
+						<input type="button" id="makePinBtn" value="핀 생성" class="boxSize">
 
 <!--  						<input type="button" value="확인" id="check"> -->
 					</form>
@@ -218,30 +226,43 @@
 </div>
 
 <script>
-$(document).ready(function(){
-	var mapContainer = document.getElementById('map'),   //지도 담을 영역
+	$(document).ready(function(){
+		var mapContainer = document.getElementById('map'),   //지도 담을 영역
 		
-		//지도 생성 시, 필요한 기본 옵션
-		mapOptions = { 
-			center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
-			level: 3   //지도 레벨(확대, 축소)
-		};
-		
+			//지도 생성 시, 필요한 기본 옵션
+			mapOptions = { 
+				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
+				level: 3   //지도 레벨(확대, 축소)
+			};
+	
 		var map = new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
 		
+		//현재 위치 표시 - HTML5의 geolocation으로 사용할 수 있는지 확인
+		if(navigator.geolocation) {
+			//GeoLocation을 이용해 접속 위치 얻어오기
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var lat = position.coords.latitude,  //위도
+					lon = position.coords.longitude; //경도
+				
+				var locPosition = new daum.maps.LatLng(lat, lon);  //마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+
+				//지도의 중심을 결과값으로 받은 위치로 이동
+				map.setCenter(locPosition);
+			});
+		}
+	
 		var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
 			imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
 	
 		var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
-			
- 		//지도에 클릭한 위치에 표출할 마커 생성
+	
+		//지도에 클릭한 위치에 표출할 마커 생성
 		var marker = new daum.maps.Marker({
 			image: markerImg     //마커 이미지 설정
 		}); 
-		
+	
 		marker.setMap(map);   //지도에 마커 표시 
-		
-		//var markers = [];  
+	
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 		
 /* 		//만들기, 검색 탭 이동
@@ -259,46 +280,47 @@ $(document).ready(function(){
 		}); */
 		
 		//핀 만들기 주소검색
- 		$('#deliciousAddress').keyup(function() {
- 			var address = $('#deliciousAddress').val();
- 			
- 			//주소로 좌표 검색
- 			geocoder.addressSearch(address, function(result, status) {
-			
+		$('#deliciousAddress').keyup(function() {
+			var address = $('#deliciousAddress').val();
+		
+			//주소로 좌표 검색
+			geocoder.addressSearch(address, function(result, status) {
 				//정상적으로 검색이 완료됐으면
 				if(status == daum.maps.services.Status.OK) {
 					var coords = new daum.maps.LatLng(result[0].y, result[0].x);
  				
- 					//지도의 중심을 결과값으로 받은 위치로 이동
-					map.setCenter(coords);
+					//지도의 중심을 결과값으로 받은 위치로 이동
+					map.setCenter(coords);					
 					marker.setPosition(coords);
 				}
 			}); 
- 		}); 
- 		
- 		//지도에 클릭 이벤트 등록
- 		daum.maps.event.addListener(map, 'click', function(mouseEvent) {
- 			var latlng = mouseEvent.latLng;    //클릭한 위도, 경도 정보 가져오기
- 			
- 			//지도를 클릭했을 때, 클릭 위치 좌표에 대한 주소 정보 표시
- 			searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
- 				//정상적으로 검색이 완료됐으면
- 				if(status == daum.maps.services.Status.OK) {
- 					var detailAddr = result[0].address.address_name;
- 					marker.setPosition(latlng);    //마커 위치를 클릭한 위치로 이동
+ 		});
+		
+		//지도에 클릭 이벤트 등록
+		daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+			var latlng = mouseEvent.latLng;    //클릭한 위도, 경도 정보 가져오기
+		
+			//지도를 클릭했을 때, 클릭 위치 좌표에 대한 주소 정보 표시
+			searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+				//정상적으로 검색이 완료됐으면
+				if(status == daum.maps.services.Status.OK) {
+					var detailAddr = result[0].address.address_name;
+					
+					//마커 위치를 클릭한 위치로 이동
+					marker.setPosition(latlng);    
  					
  					$('#deliciousAddress').val(detailAddr);
  				}
  			});
  		});
-		
+	
 		//핀 만들기 상세설명 입력크기 지정
 		$('#deliciousDetail').keyup(function() {
 			var text = $(this).val();
 			var textlength = text.length;
-	
+		
 			var remain = 20 - textlength;
-			
+		
 			if(remain < 0) {
 				var newText = text.substr(0,20);
 				$(this).val(newText);
@@ -312,7 +334,7 @@ $(document).ready(function(){
 		//1. textbox에서 마우스를 뗐을 때
 		$('#deliciousAddress').focusout(function() {
 			var address = $(this).val();
-			
+		
 			if(address.length > 0)
 				$('#address_output').empty().removeClass('focus');
 			else 
@@ -329,18 +351,18 @@ $(document).ready(function(){
  			
  			else {
  				$.ajax({
-	 				type: 'POST',
-	 				url: '<c:url value='/deliciousPinInfo' />',
-	 				data: formData,
-	  	 			processData: false,
-	 				contentType: false, 
-	 				dataType: 'json', 
-	 				success: function(data) {
-	 					//alert(JSON.stringify(data));
-	 					
-	 					var deliciousPinList = data.deliciousPinInfo;  //select한 결과 데이터
-	 					var addressList = [];  //주소를 담기 위한 배열			
-	 					var pinNameList = [];  //핀 이름을 담기 위한 배열
+ 					type: 'POST',
+ 					url: '<c:url value='/deliciousPinInfo' />',
+ 					data: formData,
+ 					processData: false,
+ 					contentType: false,
+ 					dataType: 'json',
+ 					success: function(data) {
+ 						//alert(JSON.stringify(data));
+ 					
+ 						var deliciousPinList = data.deliciousPinInfo;  //select한 결과 데이터
+ 						var addressList = [];  //주소를 담기 위한 배열			
+ 						var pinNameList = [];  //핀 이름을 담기 위한 배열
 	 					
 	 					//주소와 핀 이름을 배열에 담기
 	 					$(deliciousPinList).each(function(index, deliciousPin) {
@@ -376,7 +398,10 @@ $(document).ready(function(){
 	 	 	 						});
 	 	 	 						
 	 								//마커 위에 인포윈도우 표시
-	 	 	 						infowindow.open(map, marker); 
+	 	 	 						infowindow.open(map, marker);
+	 								
+	 								$('#pinCheck').text('<button>핀 삭제</button>');
+	 								
 	 							}
 	 						});
 	 					});
@@ -408,61 +433,61 @@ $(document).ready(function(){
  			$('#checkPinList_li').addClass('click');
  			$('#makePin_li').removeClass('click');
  		});  
-});
-
-//좌표로 행정동 주소 정보 요청
-function searchAddrFromCoords(coords, callback) {
-	geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-}
-
-//좌표로 법정동 상세 주소 정보 요청
-function searchDetailAddrFromCoords(coords, callback) {
-	geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-}
-
-//주소검색 창 open
-function searchAddr() {
-	//윈도우 창 크기
-	var width = 500;
-	var height = 600;
-	
-	daum.postcode.load(function() {
-		new daum.Postcode({
-			//주소 검색이 완료됐으면
-			oncomplete: function(data) {
-				$('#deliciousAddress').val(data.address);
-				
-				var address = $('#deliciousAddress').val();
-				
-				//주소로 좌표 검색
-				geocoder.addressSearch(address, function(result, status) {
-					//정상적으로 검색이 완료됐으면
-					if(status == daum.maps.services.Status.OK) {
-						var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-						
-						//지도의 중심을 결과값으로 받은 위치로 이동
-						map.setCenter(coords);
-						marker.setPosition(coords);
-					}
-				});
-			}
-		}).open({
-			left: (window.screen.width/2)-(width/2),
-			top: (window.screen.height/2)-(height/2)
-		});
 	});
-}
 
-//지도에서 마커 삭제
-function hideMarkers() {
-	setMarkers(null);
-}
+	//좌표로 행정동 주소 정보 요청
+	function searchAddrFromCoords(coords, callback) {
+		geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+	}
 
-//배열에 추가된 마커 표시/삭제
-function setMarkers(map) {
-	for(var i=0; i<markers.length; i++) 
-		markers[i].setMap(map);
-}	
+	//좌표로 법정동 상세 주소 정보 요청
+	function searchDetailAddrFromCoords(coords, callback) {
+		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	}
+
+	//주소검색 창 open
+	function searchAddr() {
+		//윈도우 창 크기
+		var width = 500;
+		var height = 600;
+	
+		daum.postcode.load(function() {
+			new daum.Postcode({
+				//주소 검색이 완료됐으면
+				oncomplete: function(data) {
+					$('#deliciousAddress').val(data.address);
+				
+					var address = $('#deliciousAddress').val();
+				
+					//주소로 좌표 검색
+					geocoder.addressSearch(address, function(result, status) {
+						//정상적으로 검색이 완료됐으면
+						if(status == daum.maps.services.Status.OK) {
+							var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+						
+							//지도의 중심을 결과값으로 받은 위치로 이동
+							map.setCenter(coords);
+							marker.setPosition(coords);
+						}
+					});
+				}
+			}).open({
+				left: (window.screen.width/2)-(width/2),
+				top: (window.screen.height/2)-(height/2)
+			});
+		});
+	}
+
+	//지도에서 마커 삭제
+	function hideMarkers() {
+		setMarkers(null);
+	}
+
+	//배열에 추가된 마커 표시/삭제
+	function setMarkers(map) {
+		for(var i=0; i<markers.length; i++) 
+			markers[i].setMap(map);
+	}	
 </script>
 </body>
 </html>
