@@ -59,7 +59,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 					<b>이메일</b>
 				</div>
 				
-				<div class="boxarea disablecol">
+				<div class="boxarea" style="background-color: #EBEBE4;">
 					<input class="inputfocus" id="idtext" name="memberEmail2" value="<%=allowedEmail %>" style="width: 99%" type="text" disabled="disabled">
 				</div>
 				<input name="memberEmail" value="<%=allowedEmail %>" style="width: 99%" type="hidden" >
@@ -586,12 +586,12 @@ String allowedEmail = request.getParameter("allowedEmail");
 			if ($('#passchk2').text() != '비밀번호가 일치합니다.') {
 				return false;
 			};
-			if ($('#namechk').text() != text + '님 반갑습니다') {
+			if ($('#phoneindenti').text() != '휴대폰 인증이 완료되었습니다'){
 				return false;
 			};
-			if ($('#chkNum').val().length == 0){
+			if ($('#namechk').text() == '필수 입력사항입니다.') {
 				return false;
-			}
+			};
 		} 
 	</script>
 </body>

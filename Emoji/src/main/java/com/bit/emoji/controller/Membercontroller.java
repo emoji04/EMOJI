@@ -1,6 +1,9 @@
 package com.bit.emoji.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -137,27 +140,35 @@ public class Membercontroller {
     }
 
     @RequestMapping(value = "/login")
-    public String login(HttpServletRequest request, HttpServletResponse response){
+    public String login(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession(false);
 		
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
-    	MemberVO memberVO = memberService.login(memberEmail);
+//    	MemberVO memberVO = memberService.login(memberEmail);
     	
-		System.out.println(memberService.login(memberEmail));
-		System.out.println(memberVO.getMemberPassword());
+//		System.out.println(memberService.login(memberEmail));
+//		System.out.println(memberVO.getMemberPassword());
 //		System.out.println(memberService.login(memberService.login(memberEmail).getMemberPassword()));
 //    	System.out.println(memberService.login(memberPassword));
-    	if(memberService.login(memberEmail) != null && pw.equals(memberVO.getMemberPassword())){
+    	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail).getMemberPassword())){
     		
-    		session.setAttribute("loginInfo", memberVO.getMemberNum());
+    		session.setAttribute("loginInfo", memberService.login(memberEmail).getMemberNum());
     		System.out.println(session.getAttribute("loginInfo"));
     	System.out.println(memberService.login(memberEmail));
+    	InetAddress localHost = InetAddress.getLocalHost();
+        System.out.println("자신의 IP 정보");
+        System.out.println("localHost.getHostName() : " + localHost.getHostName());
+        System.out.println("localHost.getHostAddress() : " + localHost.getHostAddress());
 
-		return "home";}
+
+		return "home";}else {
     	
-        
-		return "member/loginForm";
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원정보가 올바르지 않습니다. 다시 로그인 해 주세요.'); </script>");
+        out.flush();
+		return "member/loginForm";}
     }
     
     @RequestMapping(value = "/naver_login.json")
@@ -245,7 +256,7 @@ public class Membercontroller {
     	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
 		String regidate = dayTime.format(new Date(time));
 		String viewName = "member/regiSuccess";
-		String viewName2 = "member/registerForm";
+		String viewName2 = "member/emailchk";
 
 		EmailKeyVO emailAllowed = memberService.allowedEmail(email);
 		System.out.println(emailAllowed);
@@ -265,6 +276,10 @@ public class Membercontroller {
 			
 			return modelAndView;
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('이메일 인증 후 한 시간이 지났거나 잘못된 접근입니다. 다시 이메일 인증을 해주세요'); </script>");
+	        out.flush();
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName(viewName2);
 			return modelAndView;

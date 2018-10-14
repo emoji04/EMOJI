@@ -34,7 +34,7 @@
 		<collection property="deliciousVO" resultMap="deliciousVO" />
 	</resultMap>
 
-	<select id="selectMapByKeyword" resultType="deliciousMapVO" parameterType="string">
+<!-- 	<select id="selectMapByKeyword" resultType="deliciousMapVO" parameterType="string">
 		select * from (select dm.deliciousMapNum, del.deliciousNum, dm.memberNum ,dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousAddress, del.deliciousName, del.deliciousImg
 						from deliciousMap dm 
 						right outer join delicious del 
@@ -42,7 +42,7 @@
 		where deliciousMapName regexp #{searchKeyword} 
 			or deliciousMapTag regexp #{searchKeyword} 
 			or deliciousName regexp #{searchKeyword};
-	</select>
+	</select> -->
 	
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO" useGeneratedKeys="true" keyProperty="deliciousNum">
 		insert into delicious

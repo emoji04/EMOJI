@@ -36,13 +36,13 @@
 </head>
 <body>
 	
-	
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
 		<a href="<c:url value='/home'/>">
-			<img alt="" src="<c:url value='/resources/img/Logo.png' />" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
+			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
 			<br><hr><br>
 			<h5> ${email} 로<br> 메일이 발송되었습니다.<br> 메일을 확인 해 주세요</h5>
+			<h6>*1시간 이내로 회원가입이 이루어 지지 않으면 다시 이메일 인증을 하셔야 합니다.</h6>
 		</div>
 	</div>
 
