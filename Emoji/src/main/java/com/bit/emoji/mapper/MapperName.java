@@ -7,4 +7,5 @@ public interface MapperName {
 	public static final String SEARCHROUTE = "SearchRoute";
 	public static final String MAKEROUTE = "MakeRoute";
 	public static final String MYPAGE = "Mypage";
+	public static final String SEARCH = "Search";
 }

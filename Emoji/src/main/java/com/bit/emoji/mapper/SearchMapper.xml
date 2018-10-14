@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Search">
+
+
+	<select id="getDmap" parameterType="String"
+		resultType="com.bit.emoji.model.DeliciousMapVO">
+
+		select deliciousMap.deliciousMapNum,
+		deliciousMap.deliciousMapName,
+		deliciousMap.deliciousMapDetail,
+		delicious.deliciousImg, deliciousMap.deliciousMapCreateDate,
+		member.memberEmail, member.memberNum
+		from member join (delicious right
+		outer join deliciousMap
+		on
+		deliciousMap.deliciousMapNum=delicious.deliciousMapNum) where
+		deliciousMapName like CONCAT('%',#{search},'%') or
+		deliciousMapDetail
+		like
+		CONCAT('%',#{search},'%')
+		group by
+		deliciousMapNum
+		order by
+		deliciousMapNum;
+
+
+	</select>
+
+	<select id="getRoute" parameterType="String"
+		resultType="com.bit.emoji.model.RouteVO">
+		select * from route join member on
+		route.memberNum=member.memberNum
+		where route.routeName like
+		CONCAT('%',#{search},'%')
+	</select>
+
+
+</mapper>

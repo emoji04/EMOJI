@@ -8,6 +8,8 @@ public class DeliciousMapVO {
 	private String deliciousMapOpen;
 	private String deliciousMapCreateDate;
 	private int memberNum;
+	private String memberEmail;
+	private String deliciousImg;
 	
 	public DeliciousMapVO() { }
 	
@@ -85,5 +87,21 @@ public class DeliciousMapVO {
 				+ ", deliciousMapTag=" + deliciousMapTag + ", deliciousMapDetail=" + deliciousMapDetail
 				+ ", deliciousMapOpen=" + deliciousMapOpen + ", deliciousMapCreateDate=" + deliciousMapCreateDate
 				+ ", memberNum=" + memberNum + "]";
+	}
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+
+	public String getDeliciousImg() {
+		return deliciousImg;
+	}
+
+	public void setDeliciousImg(String deliciousImg) {
+		this.deliciousImg = deliciousImg;
 	}
 }

@@ -17,6 +17,7 @@ public class RouteVO {
 	private double routeGrade;
 	private List<DeliciousVO> deliciousList;
 	private List<JoinVO> joinList;	
+	private String memberName;
 	
 	public RouteVO() {
 		super();
@@ -135,6 +136,14 @@ public class RouteVO {
 				+ budget + ", rule=" + rule + ", routeTag=" + routeTag + ", encore=" + encore + ", routeCreateDate="
 				+ routeCreateDate + ", routeGrade=" + routeGrade + ", deliciousList=" + deliciousList + ", joinList="
 				+ joinList + "]";
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	
 	

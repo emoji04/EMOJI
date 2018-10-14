@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
@@ -37,6 +38,15 @@ public class MapController {
 	public String delete(int num, Model model) {
 		return "";
 	}
+	
+	@RequestMapping("/deliciousDetail")
+	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum) {
+
+		model.addAttribute("dmDetail", mapService.selectMapByDeliciousMapNum(deliciousMapNum));
+
+		return "/delicious/deliciousDetail";
+	}
+
 	
 	//맛집지도 등록하기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)
