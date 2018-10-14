@@ -148,15 +148,10 @@
 						<label>주소</label>
 							<div class="textBox">
     							<input type="text" id="deliciousAddress" name="deliciousAddress" class="boxSize">
-    							<input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()" style="margin-top: 5px; border: 1px solid #ced4da; border-radius: 0.25rem;">
+    							<input type="button" id="addrSearchBtn" value="주소검색" onclick="searchAddr()" style="margin-top: 5px; height: calc(2.25rem + 2px); border: 1px solid #ced4da; border-radius: 0.25rem;">
     							<div id="address_output"></div>
     						</div>
-    						
-<!--     					<label>상호명</label>
-							<div class="textBox">
-    							<input type="text" id="deliciousPinRestaurant" name="deliciousPinRestaurant">
-    						</div> -->
-    						
+    						  						
     					<label>상호명</label>
 							<div class="textBox">
     							<input type="text" id="deliciousName" name="deliciousName" class="boxSize">
@@ -190,7 +185,7 @@
 							
 						<label>사진첨부</label>
     						<div class="textBox">
-    							<input type="file" name="deliciousFile" class="boxSize">
+    							<input type="file" name="deliciousFile">
 							</div>
 							
 <!-- 						<input type="image" src="resources/img/saveBtn.png" style="float:right; margin-bottom:3%;"> -->

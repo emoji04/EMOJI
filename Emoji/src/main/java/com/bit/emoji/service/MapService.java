@@ -29,6 +29,11 @@ public class MapService extends ServiceDao {
 		return sqlSession.selectOne(MapperName.DELICIOUSMAP + ".selectMapByMemberNum", memberNum);
 	}
 	
+	//
+	public List<DeliciousMapVO> selectMapByKeyword(String searchKeyword) {
+		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByKeyword", searchKeyword);
+	}
+	
 	public int deleteMap(int deliciousMapNum) {
 		return 1;
 	}

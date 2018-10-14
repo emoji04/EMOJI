@@ -19,6 +19,31 @@
 		limit 1
 	</select>
 	
+	<resultMap type="com.bit.emoji.model.DeliciousVO" id="deliciousVO">
+		<result column="deliciousNum" property="deliciousNum" />
+		<result column="deliciousAddress" property="deliciousAddress" />
+		<result column="deliciousName" property="deliciousName" />
+		<result column="deliciousImg" property="deliciousImg" />
+	</resultMap>
+	
+	<resultMap type="com.bit.emoji.model.DeliciousMapVO" id="deliciousMapVO">
+		<result column="deliciousMapNum" property="deliciousMapNum" />
+		<result column="memberNum" property="memberNum" />
+		<result column="deliciousMapName" property="deliciousMapName" />
+		<result column="deliciousMapDetail" property="deliciousMapDetail" />
+		<collection property="deliciousVO" resultMap="deliciousVO" />
+	</resultMap>
+
+	<select id="selectMapByKeyword" resultType="deliciousMapVO" parameterType="string">
+		select * from (select dm.deliciousMapNum, del.deliciousNum, dm.memberNum ,dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousAddress, del.deliciousName, del.deliciousImg
+						from deliciousMap dm 
+						right outer join delicious del 
+						on dm.deliciousMapNum=del.deliciousMapNum) delInfo
+		where deliciousMapName regexp #{searchKeyword} 
+			or deliciousMapTag regexp #{searchKeyword} 
+			or deliciousName regexp #{searchKeyword};
+	</select>
+	
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO" useGeneratedKeys="true" keyProperty="deliciousNum">
 		insert into delicious
 		values (#{deliciousNum}, #{deliciousMapNum}, #{deliciousName}, #{deliciousAddress}, #{deliciousCategory}, #{deliciousPhone}, #{deliciousGrade}, #{deliciousDetail}, #{deliciousImg})

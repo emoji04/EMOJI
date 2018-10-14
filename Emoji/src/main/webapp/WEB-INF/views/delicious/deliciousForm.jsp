@@ -172,7 +172,7 @@
 						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
 					
 <%-- 						<input type="hidden" name="memberNum" value="${ loginInfo }"> --%>
-						<input type="hidden" name="memberNum" value="1">
+						<input type="hidden" name="memberNum" value="2">
 						<input type="button" id="makeMapBtn" value="지도 생성" class="boxSize">
 					
 						<!-- <input type="image" src="resources/img/saveBtn.png" id="save" onclick="submit(); return false;" style="float:right; margin-bottom:3%;"> -->
@@ -362,7 +362,7 @@
 									+ 	'<div style="width: 30%; float:left; display: inline-table;">'
 									+		'<img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width=50 height=70>'
 									+ 	'</div>'
-									+	'<div style="width: 70%; padding-left:5%; float:left; display: inline-table;">'
+									+	'<div class="active" style="width: 70%; padding-left:5%; float:left; display: inline-table;">'
 									+ 		'<span class="title" style="font-size: 18px; font-weight: bold;">'
 									+ 		text 
 									+		'</span><br>'
