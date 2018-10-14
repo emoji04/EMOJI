@@ -184,7 +184,7 @@
 		<div id="searchMap" class="tab_content" style="display: none; overflow: hidden;">
 			<div> 
 				<div class="input-group stylish-input-group">
-					<input type="text" id="searchKeyword" class="form-search" placeholder="맛집지도이름">
+					<input type="text" id="searchKeyword" class="form-search" placeholder="맛집지도이름, 맛집이름, 해시태그">
 						<span class="input-group-addon">
 	                        <button id="searchBtn">
 	                            <span class="glyphicon glyphicon-search"></span>
@@ -358,7 +358,22 @@
 		$('#searchBtn').click(function() {
 			var text = $('#searchKeyword').val();
 			
-			$('#searchResult').text('<div style="color:red;">' + text + '</div>');
+			$('#searchResult').html('<div style="width: 100%; height: 75px; margin-top: 5%;">' 
+									+ 	'<div style="width: 30%; float:left; display: inline-table;">'
+									+		'<img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width=50 height=70>'
+									+ 	'</div>'
+									+	'<div style="width: 70%; padding-left:5%; float:left; display: inline-table;">'
+									+ 		'<span class="title" style="font-size: 18px; font-weight: bold;">'
+									+ 		text 
+									+		'</span><br>'
+									+ 		'<span>'
+									+ 		'#합정#홍대#연남동#맛집#핫플'
+									+		'</span><br>'
+									+ 		'<span>'
+									+ 		'연남동 맛집 리스트'
+									+		'</span><br>'
+									+ 	'</div>'
+									+'</div>');
 		});
 /* 	else {
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
