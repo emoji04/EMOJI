@@ -1,5 +1,11 @@
 package com.bit.emoji.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,25 +28,34 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.emoji.model.EmailKeyVO;
 import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.MailSendService;
 import com.bit.emoji.service.MemberService;
+import com.bit.emoji.service.Sha256;
+import com.bit.emoji.service.MailSendService;
 import com.mysql.jdbc.Connection;
 
 import javafx.scene.control.Alert;
 
 @Controller
 public class Membercontroller {
+	
+	@Autowired
     MailSendService mailSendService;
     
     @Autowired
     MemberService memberService;
     
+	@Autowired
+	Sha256 sha ;
     
     /*private GoogleConnectionFactory googleConnectionFactory;
     private OAuth2Parameters googleOAuth2Parameters;
@@ -91,7 +106,6 @@ public class Membercontroller {
 		
 		return "redirect:/";
 	}*/
-
     
     @RequestMapping(value = "/member/loginSuccess")
     public String goLoginSuccess(){
@@ -112,10 +126,11 @@ public class Membercontroller {
         return "member/registerForm";
     }
     
-    public String goRegForm(){
-        return null;
+    @RequestMapping(value = "/emailcheck")
+    public String goEmailcheck(){
+        return "member/emailchk";
     }
-
+    
     public String goUpdateForm(){
         return null;
     }
@@ -125,26 +140,35 @@ public class Membercontroller {
     }
 
     @RequestMapping(value = "/login")
-    public String login(HttpServletRequest request, HttpServletResponse response){
+    public String login(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession(false);
 		
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
-    	MemberVO memberVO = memberService.login(memberEmail);
-		System.out.println(memberService.login(memberEmail));
-		System.out.println(memberVO.getMemberPassword());
+//    	MemberVO memberVO = memberService.login(memberEmail);
+    	
+//		System.out.println(memberService.login(memberEmail));
+//		System.out.println(memberVO.getMemberPassword());
 //		System.out.println(memberService.login(memberService.login(memberEmail).getMemberPassword()));
 //    	System.out.println(memberService.login(memberPassword));
-    	if(memberService.login(memberEmail) != null && pw.equals(memberVO.getMemberPassword())){
+    	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail).getMemberPassword())){
     		
-    		session.setAttribute("loginInfo", memberVO.getMemberNum());
+    		session.setAttribute("loginInfo", memberService.login(memberEmail).getMemberNum());
     		System.out.println(session.getAttribute("loginInfo"));
     	System.out.println(memberService.login(memberEmail));
+    	InetAddress localHost = InetAddress.getLocalHost();
+        System.out.println("자신의 IP 정보");
+        System.out.println("localHost.getHostName() : " + localHost.getHostName());
+        System.out.println("localHost.getHostAddress() : " + localHost.getHostAddress());
 
-		return "home";}
+
+		return "home";}else {
     	
-        
-		return "member/loginForm";
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원정보가 올바르지 않습니다. 다시 로그인 해 주세요.'); </script>");
+        out.flush();
+		return "member/loginForm";}
     }
     
     @RequestMapping(value = "/naver_login.json")
@@ -173,24 +197,22 @@ public class Membercontroller {
 			session.setAttribute("loginInfo", e);
 	    	System.out.println(memberEmail+"-->네이버 db등록하고 나서");
 	    	return memberEmail;
-    	}
-		
-		
+    	}	
     }
+    
+    
     
     @RequestMapping(value = "/naverSuccess")
     public String naverSuccess(HttpServletRequest request){
         return "home";
     }
     
-
     @RequestMapping(value = "/logOut")
     public String logOut(HttpServletRequest request){
     	HttpSession session = request.getSession(false);
     	session.invalidate();
         return "home";
     }
-    
     
     @RequestMapping(value = "/regicheck.json")
     @ResponseBody
@@ -200,14 +222,68 @@ public class Membercontroller {
 		System.out.println(memberVO);
 		
 		if(memberVO != null) {
-			return "b";			
+			return "alreadyExist";			
 		}else {
-			return "a";			
+			return "possibleRegi";			
 		}
     }
 
     public String edit(Model model, HttpSession session){
         return null;
     }
+    
+    
+    @RequestMapping("/emailsend")
+	public ModelAndView htmlSendMail(HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email) {
+    	System.out.println("이메일 보낼 이메일ㅋ"+ email);
+		// 메일 발송
+		mailSendService.htmlMailSend(email);
+		String viewName = "member/emailSend";
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("email", email);
+		modelAndView.setViewName(viewName);
+		return modelAndView;
+	}
+    
+    
+    @RequestMapping(value="/registe", method = RequestMethod.POST)
+	public ModelAndView processLogin(MemberVO member, HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email, @RequestParam("emailKey") String emailKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
+/*		String a = member.getMemberPassword();
+		
+		String b = sha.encrypt(a);
+		System.out.println("암호화 후 비밀번호 : " + b);*/
+    	long time = System.currentTimeMillis(); 
+    	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String regidate = dayTime.format(new Date(time));
+		String viewName = "member/regiSuccess";
+		String viewName2 = "member/emailchk";
 
+		EmailKeyVO emailAllowed = memberService.allowedEmail(email);
+		System.out.println(emailAllowed);
+		if(emailAllowed != null && emailKey.equals(emailAllowed.getKey())) {
+			System.out.println(emailAllowed);
+			System.out.println(emailKey);
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("memberRegDate", regidate);
+			modelAndView.setViewName(viewName);
+			System.out.println(regidate);
+			member.setMemberRegDate(regidate);
+	
+			
+			int insertCnt = memberService.insertMember(member);
+	
+			modelAndView.addObject("insertMember", insertCnt);
+			
+			return modelAndView;
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('이메일 인증 후 한 시간이 지났거나 잘못된 접근입니다. 다시 이메일 인증을 해주세요'); </script>");
+	        out.flush();
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName(viewName2);
+			return modelAndView;
+		}
+    }
 }
+

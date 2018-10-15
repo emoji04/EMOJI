@@ -3,20 +3,20 @@ package com.bit.emoji.model;
 import java.util.List;
 
 public class DeliciousPinInfo {
-	private List<DeliciousPinVO> deliciousPinInfo;
+	private List<DeliciousVO> deliciousPinInfo;
 	
 	public DeliciousPinInfo() { }
 
-	public DeliciousPinInfo(List<DeliciousPinVO> deliciousPinInfo) {
+	public DeliciousPinInfo(List<DeliciousVO> deliciousPinInfo) {
 		super();
 		this.deliciousPinInfo = deliciousPinInfo;
 	}
 
-	public List<DeliciousPinVO> getDeliciousPinInfo() {
+	public List<DeliciousVO> getDeliciousPinInfo() {
 		return deliciousPinInfo;
 	}
 
-	public void setDeliciousPinInfo(List<DeliciousPinVO> deliciousPinInfo) {
+	public void setDeliciousPinInfo(List<DeliciousVO> deliciousPinInfo) {
 		this.deliciousPinInfo = deliciousPinInfo;
 	}
 }

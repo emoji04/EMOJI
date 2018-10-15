@@ -2,11 +2,11 @@ package com.bit.emoji.controller;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +20,10 @@ import com.bit.emoji.service.MypageService;
 
 @Controller
 public class MypageController {
-
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
-	
-	
-	@Inject
-	private MypageService mypageService;
+	@Autowired
+	MypageService mypageService;
 
 	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.GET)
 	public void listAll(Model model, HttpSession session) throws Exception {
@@ -48,9 +45,8 @@ public class MypageController {
 		int loginInfo = (int) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("........myDmList GET ...");
 		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
-	
-		
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="/myDmReview")
 	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {

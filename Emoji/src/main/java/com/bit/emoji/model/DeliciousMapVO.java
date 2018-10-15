@@ -8,11 +8,15 @@ public class DeliciousMapVO {
 	private String deliciousMapOpen;
 	private String deliciousMapCreateDate;
 	private int memberNum;
+	private String memberEmail;
+	private String deliciousImg;
+	private DeliciousVO deliciousVO;
 	
 	public DeliciousMapVO() { }
-	
+
 	public DeliciousMapVO(int deliciousMapNum, String deliciousMapName, String deliciousMapTag,
-			String deliciousMapDetail, String deliciousMapOpen, String deliciousMapCreateDate, int memberNum) {
+			String deliciousMapDetail, String deliciousMapOpen, String deliciousMapCreateDate, int memberNum,
+			String memberEmail, String deliciousImg, DeliciousVO deliciousVO) {
 		super();
 		this.deliciousMapNum = deliciousMapNum;
 		this.deliciousMapName = deliciousMapName;
@@ -21,6 +25,9 @@ public class DeliciousMapVO {
 		this.deliciousMapOpen = deliciousMapOpen;
 		this.deliciousMapCreateDate = deliciousMapCreateDate;
 		this.memberNum = memberNum;
+		this.memberEmail = memberEmail;
+		this.deliciousImg = deliciousImg;
+		this.deliciousVO = deliciousVO;
 	}
 
 	public int getDeliciousMapNum() {
@@ -79,11 +86,36 @@ public class DeliciousMapVO {
 		this.memberNum = memberNum;
 	}
 
+	public DeliciousVO getDeliciousVO() {
+		return deliciousVO;
+	}
+
+	public void setDeliciousVO(DeliciousVO deliciousVO) {
+		this.deliciousVO = deliciousVO;
+	}
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+
+	public String getDeliciousImg() {
+		return deliciousImg;
+	}
+
+	public void setDeliciousImg(String deliciousImg) {
+		this.deliciousImg = deliciousImg;
+	}
+
 	@Override
 	public String toString() {
 		return "DeliciousMapVO [deliciousMapNum=" + deliciousMapNum + ", deliciousMapName=" + deliciousMapName
 				+ ", deliciousMapTag=" + deliciousMapTag + ", deliciousMapDetail=" + deliciousMapDetail
 				+ ", deliciousMapOpen=" + deliciousMapOpen + ", deliciousMapCreateDate=" + deliciousMapCreateDate
-				+ ", memberNum=" + memberNum + "]";
+				+ ", memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", deliciousImg=" + deliciousImg
+				+ ", deliciousVO=" + deliciousVO + "]";
 	}
 }

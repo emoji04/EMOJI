@@ -2,22 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="DeliciousMap">
-	<insert id="insertMap" parameterType="com.bit.emoji.model.DeliciousMapVO">
-		insert into dMap 
-		values (#{deliciousMapNum}, #{deliciousMapName}, #{deliciousMapTag}, #{deliciousMapDetail}, #{deliciousMapOpen}, #{deliciousMapCreateDate}, #{memberNum})
+	<insert id="insertMap" parameterType="com.bit.emoji.model.DeliciousMapVO" useGeneratedKeys="true" keyProperty="deliciousMapNum">
+		insert into deliciousMap
+		values (#{deliciousMapNum}, #{memberNum}, #{deliciousMapName}, #{deliciousMapTag}, #{deliciousMapDetail}, #{deliciousMapOpen}, #{deliciousMapCreateDate})
 	</insert>
 	
 	<select id="selectMapByDeliciousMapNum" resultType="com.bit.emoji.model.DeliciousMapVO" parameterType="int">
-		select * from dMap
+		select * from deliciousMap
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>
 	
-	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousPinVO">
+	<select id="selectMapByMemberNum" resultType="int" parameterType="int">
+		select deliciousMapNum from deliciousMap
+		where memberNum=#{memberNum}
+		order by deliciousMapCreateDate desc
+		limit 1
+	</select>
+	
+	<resultMap type="com.bit.emoji.model.DeliciousVO" id="deliciousVO">
+		<result column="deliciousNum" property="deliciousNum" />
+		<result column="deliciousAddress" property="deliciousAddress" />
+		<result column="deliciousName" property="deliciousName" />
+		<result column="deliciousImg" property="deliciousImg" />
+	</resultMap>
+	
+	<resultMap type="com.bit.emoji.model.DeliciousMapVO" id="deliciousMapVO">
+		<result column="deliciousMapNum" property="deliciousMapNum" />
+		<result column="memberNum" property="memberNum" />
+		<result column="deliciousMapName" property="deliciousMapName" />
+		<result column="deliciousMapDetail" property="deliciousMapDetail" />
+		<collection property="deliciousVO" resultMap="deliciousVO" />
+	</resultMap>
+
+<!-- 	<select id="selectMapByKeyword" resultType="deliciousMapVO" parameterType="string">
+		select * from (select dm.deliciousMapNum, del.deliciousNum, dm.memberNum ,dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousAddress, del.deliciousName, del.deliciousImg
+						from deliciousMap dm 
+						right outer join delicious del 
+						on dm.deliciousMapNum=del.deliciousMapNum) delInfo
+		where deliciousMapName regexp #{searchKeyword} 
+			or deliciousMapTag regexp #{searchKeyword} 
+			or deliciousName regexp #{searchKeyword};
+	</select> -->
+	
+	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO" useGeneratedKeys="true" keyProperty="deliciousNum">
 		insert into delicious
-		values (#{deliciousPinNum}, #{deliciousPinName}, #{deliciousPinAddress}, #{deliciousPinPhone}, #{deliciousPinCategory}, #{deliciousPinGrade}, #{deliciousPinDetail}, #{deliciousPinImg}, #{deliciousMapNum}, #{deliciousPinRestaurant})
+		values (#{deliciousNum}, #{deliciousMapNum}, #{deliciousName}, #{deliciousAddress}, #{deliciousCategory}, #{deliciousPhone}, #{deliciousGrade}, #{deliciousDetail}, #{deliciousImg})
 	</insert>
 	
-	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="int">
+	<select id="selectPinListBydeliciousMapNum" resultType="com.bit.emoji.model.DeliciousVO" parameterType="int">
 		select * from delicious
 		where deliciousMapNum=#{deliciousMapNum}
 	</select>

@@ -15,8 +15,9 @@ public class RouteVO {
 	private int encore;
 	private String routeCreateDate;
 	private double routeGrade;
-	private List<DeliciousPinVO> deliciousList;
+	private List<DeliciousVO> deliciousList;
 	private List<JoinVO> joinList;	
+	private String memberName;
 	
 	public RouteVO() {
 		super();
@@ -25,7 +26,7 @@ public class RouteVO {
 	
 	public RouteVO(int routeNum, int memberNum, String routeName, int possibleNum, String startDate, String spendTime,
 			int budget, String rule, String routeTag, int encore, String routeCreateDate, double routeGrade,
-			List<DeliciousPinVO> deliciousList, List<JoinVO> joinList) {
+			List<DeliciousVO> deliciousList, List<JoinVO> joinList) {
 		super();
 		this.routeNum = routeNum;
 		this.memberNum = memberNum;
@@ -115,10 +116,10 @@ public class RouteVO {
 	public void setRouteGrade(double routeGrade) {
 		this.routeGrade = routeGrade;
 	}
-	public List<DeliciousPinVO> getDeliciousList() {
+	public List<DeliciousVO> getDeliciousList() {
 		return deliciousList;
 	}
-	public void setDeliciousList(List<DeliciousPinVO> deliciousList) {
+	public void setDeliciousList(List<DeliciousVO> deliciousList) {
 		this.deliciousList = deliciousList;
 	}
 	public List<JoinVO> getJoinList() {
@@ -135,6 +136,14 @@ public class RouteVO {
 				+ budget + ", rule=" + rule + ", routeTag=" + routeTag + ", encore=" + encore + ", routeCreateDate="
 				+ routeCreateDate + ", routeGrade=" + routeGrade + ", deliciousList=" + deliciousList + ", joinList="
 				+ joinList + "]";
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	
 	

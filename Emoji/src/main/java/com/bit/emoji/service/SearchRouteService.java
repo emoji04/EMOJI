@@ -1,10 +1,6 @@
 package com.bit.emoji.service;
 
-import com.bit.emoji.mapper.SqlSession;
-import com.bit.emoji.model.RouteVO;
-
-
-public class SearchRouteService extends SqlSession {
+public class SearchRouteService extends ServiceDao {
 /*	public RouteVO searchRoute(String search, String searchDate) {
 	
 	}
