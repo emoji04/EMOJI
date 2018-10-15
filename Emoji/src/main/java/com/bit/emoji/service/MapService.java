@@ -1,7 +1,6 @@
 package com.bit.emoji.service;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapVO;
+import com.bit.emoji.model.DeliciousSearchVO;
 import com.bit.emoji.model.DeliciousVO;
 
 @Repository
@@ -29,8 +29,8 @@ public class MapService extends ServiceDao {
 		return sqlSession.selectOne(MapperName.DELICIOUSMAP + ".selectMapByMemberNum", memberNum);
 	}
 	
-	//
-	public List<DeliciousMapVO> selectMapByKeyword(String searchKeyword) {
+	//검색어와 일치하는 지도 정보 가져오기
+	public List<DeliciousSearchVO> selectMapByKeyword(String searchKeyword) {
 		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByKeyword", searchKeyword);
 	}
 	
