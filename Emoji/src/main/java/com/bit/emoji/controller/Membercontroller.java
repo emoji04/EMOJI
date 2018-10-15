@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.bit.emoji.model.EmailKeyVO;
 import com.bit.emoji.model.MemberVO;
@@ -218,10 +219,8 @@ public class Membercontroller {
     @ResponseBody
     public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
     	System.out.println(email);
-		MemberVO memberVO = memberService.login(email);
-		System.out.println(memberVO);
 		
-		if(memberVO != null) {
+		if(memberService.login(email) != null) {
 			return "alreadyExist";			
 		}else {
 			return "possibleRegi";			
@@ -233,17 +232,31 @@ public class Membercontroller {
     }
     
     
-    @RequestMapping("/emailsend")
+    @RequestMapping(value="/emailsend", method = RequestMethod.POST)
 	public ModelAndView htmlSendMail(HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email) {
     	System.out.println("이메일 보낼 이메일ㅋ"+ email);
 		// 메일 발송
 		mailSendService.htmlMailSend(email);
-		String viewName = "member/emailSend";
-		ModelAndView modelAndView = new ModelAndView();
+		String viewName = "redirect:/emailSend.do";
+		System.out.println("아자");
+		RedirectView rv = new RedirectView(viewName);
+		System.out.println("아자아자");
+		rv.setExposeModelAttributes(false);
+		System.out.println("아자아자아자");
+		ModelAndView modelAndView = new ModelAndView(rv);
 		modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);
+		System.out.println("아자아자자자자");
 		return modelAndView;
 	}
+    
+    @RequestMapping(value = "/emailSend.do")
+    public String goEmailSend(@RequestParam String email, HttpServletRequest request){
+    	
+    	request.setAttribute("email", request.getParameter("email"));
+    	
+        return "member/emailSend";
+    }
     
     
     @RequestMapping(value="/registe", method = RequestMethod.POST)

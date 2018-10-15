@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -112,11 +112,15 @@
 						});
 	});
 	function checkValue() {
+		console.log("ok");
 		if ($("#idtext").val() == '') {
 			$('#idcheck').text('필수항목 입니다.').css("color", "red");
+			return false;};
+		if(emailcheck($("#idtext").val()) == false){
+			$('#idcheck').text('올바른 이메일을  입력 해 주세요.').css("color", "red");
 			return false;
-		} else { 
-			if(emailcheck($("#idtext").val())){
+		}
+		if(emailcheck($("#idtext").val())){
 				var email = $('#idtext').val();
 				
 				$.ajax({
@@ -125,7 +129,6 @@
 					data : 'email=' + email,
 					dataType: 'text',
 					success : function(data) {
-						console.log(data);
 						if (data == "possibleRegi") {
 							$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
 						}else{
@@ -134,8 +137,8 @@
 				});
 			} else{
 				$('#idcheck').text('올바른 이메일을  입력 해 주세요.').css("color", "red");
-			}
-		};
+			};
+		
 		setTimeout(function() {
 			if($('#idcheck').text() != '환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.'){
 				return false;
