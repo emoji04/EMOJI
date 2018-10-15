@@ -1,5 +1,7 @@
 package com.bit.emoji.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinInfo;
+import com.bit.emoji.model.DeliciousSearchVO;
 import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.service.MapService;
-import com.bit.emoji.service.MemberService;
 import com.bit.emoji.service.MapService.PinService;
+import com.bit.emoji.service.MemberService;
 
 @Controller
 public class MapController {
@@ -104,6 +107,13 @@ public class MapController {
 	public DeliciousPinInfo selectPin(@RequestParam("deliciousMapNum") int deliciousMapNum) {
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousMapNum));
 	}*/
+	
+	//맛집지도 검색하기
+	@RequestMapping(value="/deliciousSearch", method=RequestMethod.GET)
+	@ResponseBody
+	public List<DeliciousSearchVO> deliciousSearch(@RequestParam("keyword") String keyword) {
+		return mapService.selectMapByKeyword(keyword);
+	}
 	
 	//예외 발생 시
 	@ExceptionHandler(Exception.class)
