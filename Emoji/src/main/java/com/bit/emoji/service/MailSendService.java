@@ -68,7 +68,7 @@ public class MailSendService {
 							"\n" + 
 							"				<tr><td>\n" + 
 							"						<div style=\"background-color:#17212e\">\n" + 
-							"<form action=\"http://localhost:8080/emoji/registerForm \"    method=\"post\" >"
+							"<form action=\"http://localhost:8088/emoji/registerForm \"    method=\"post\" >"
 							+ "<input type=\"hidden\" name=\"allowedEmail\" value=\""+ memberEmail + "\">"
 							+ "<input type=\"hidden\" name=\"emailKey\" value=\""+ key + "\">"
 							+ "<input type=\"submit\" value=\"인증완료\" style=\"    background-color: #e7e7e7; color: black;\n" + 
