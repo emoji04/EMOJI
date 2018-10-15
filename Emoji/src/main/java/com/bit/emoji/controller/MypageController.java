@@ -52,8 +52,8 @@ public class MypageController {
 	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
 		logger.info(deliciousMapNum);
 		logger.info("........myDmReview GET ...");
-		List<DeliciousReviewVO> test = mypageService.myDmReview(Integer.parseInt(deliciousMapNum));
-		System.out.println(test);
-		return test;
+		List<DeliciousReviewVO> callList = mypageService.myDmReview(Integer.parseInt(deliciousMapNum));
+		System.out.println(callList);
+		return callList;
 	}
 }

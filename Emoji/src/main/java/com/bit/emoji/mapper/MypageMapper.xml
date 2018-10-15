@@ -49,11 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="myDmReview"
 		resultType="com.bit.emoji.model.DeliciousReviewVO" parameterType="int">
 		SELECT
-		deliciousMapReviewNum, deliciousMapTitle,
-		deliciousMapContent, deliciousMapWriteDate,
-		deliciousMapImg, deliciousMapGrade,
-		memberNum, deliciousMapNum
-		FROM deliciousReview
+		deliciousMapReviewNum,deliciousMapNum, memberNum,
+		deliciousMapReviewTitle, deliciousMapReviewContent,
+		deliciousMapReviewWriteDate, deliciousMapReviewImg,
+		deliciousMapGrade
+		FROM deliciousMapReview
 		where deliciousMapNum = #{deliciousMapNum}
 	</select>
 
