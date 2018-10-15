@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
-<<<<<<< HEAD
+
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.OrderedPin;
-=======
+
 import com.bit.emoji.model.DeliciousVO;
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 import com.bit.emoji.model.RouteVO;
 import com.bit.emoji.service.MakeRouteService;
 import com.mysql.fabric.xmlrpc.base.Array;
@@ -36,10 +34,11 @@ public class MakeRouteController {
 	public String goMakeRoute() {
 		return "route";
 	}	
+	
+	//검색 ajax 컨트롤러
 	@ResponseBody
 	@RequestMapping("search")
-	public List<DeliciousVO> searchDelicious(@RequestParam(value="search", defaultValue="떡볶이") String search, Model model) {
-		System.out.println(search);
+	public List<DeliciousVO> searchDelicious(@RequestParam(value="ajaxSearch", defaultValue="떡볶이") String search, Model model) {
 		return makeRouteService.selectDelicious(search);
 	}
 	
@@ -59,7 +58,11 @@ public class MakeRouteController {
 		//배열로 만들어줌
 		String[] order=orders.split(",");				
 		//루트넘버 가지고오기	
-		String maxRoute=makeRouteService.selectRouteNum();
+		System.out.println("맛집번호 순서대로 담은 스트링 : "+orders);
+		System.out.println("스트링 배열로 만든것 : "+order);
+/*		String maxRoute=makeRouteService.selectRouteNum();
+
+		System.out.println("maxRouteNum : "+maxRoute);
 		
 		if(maxRoute==null) {
 			routeNum=1;
@@ -68,10 +71,11 @@ public class MakeRouteController {
 			int max=Integer.parseInt(maxRoute);
 			routeNum=max+1;
 			route.setRouteNum(routeNum);
-		}
-		
+		}*/
+		System.out.println("루트 모델에 들어간 모양 : "+route);
+		System.out.println("인서트 된 행의 수 : "+makeRouteService.insertRoute(route));
 		//경로를 우선 입력 후 입력이 완료 되었으면 맛집 순서를 넣기
-		if(makeRouteService.insertRoute(route)>0) {			
+		if(makeRouteService.insertRoute(route)==null) {			
 			for (int i = 0; i < order.length; i++) {	
 				OrderedPin orderPin= new OrderedPin();
 				//스트링 배열이므로 숫자로 바꾼후에 모델에 저장

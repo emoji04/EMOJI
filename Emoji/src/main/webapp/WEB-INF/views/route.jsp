@@ -198,16 +198,16 @@ input[type=text] {
 </head>
 
 <body>
+<%@ include file="commons/top_bar.jsp" %>
 	<div id="page">
-		<div id="header">
+<!-- 		<div id="header">
 			<div id="headerImg">
 				<a href=""><img url="">header1</a>
 			</div>
 			<div id="logout">
 				<a href="">로그아웃</a>
 			</div>
-		</div>
-
+		</div>  -->
 		<div id="leftside">
 			<div id="container">
 				<ul class="tabs">
@@ -221,8 +221,7 @@ input[type=text] {
 							<label><input type="date" name="searchDateTo"></label>
 						</div>
 						<div>
-							<label><input type="text" name="search"
-								placeholder="맛집이름,카테고리,상세정보">
+							<label><input type="text" placeholder="맛집이름,카테고리,상세정보">
 								<button onclick="search()">검색</button></label>
 						</div>
 
@@ -317,7 +316,7 @@ input[type=text] {
 </body>
 <c:url var="search1" value="/search"></c:url>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services,drawing"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
 <script>        
 //경로를 만들기 위해서 주소들을 배열에 저장해 놓음
 var addresses = new Array();
@@ -504,21 +503,21 @@ function search() {
             }
         };
         places.keywordSearch(keyword, callback);
-
     } else {
-        //내 맛집지도 불러오기      		
-
+        //내 맛집지도 불러오기 
+        var search2 = $('input[name=search]').val();	
         //검색을 눌렀을 때 비동기 시작            	
         $.ajax({
             type: "get",
             url: "${search1}",
+            data: {"ajaxSearch" : search2},
             dataType: "json", //json형태로 데이터를 받아옴
             success: function(data) {
                 //검색된 맛집이 여러개 일 수 있으므로
                 $.each(data, function(key, value) {
                     //데이터 가져오기
-                    name = value.deliciousPinName;
-                    detail = value.deliciousPinDetail;
+                    name = value.deliciousName;
+                    detail = value.deliciousDetail;
                     //검색 결과 영역에 각각 div 형태로 붙여넣기
                     $('#searched')
                         .append(
@@ -527,7 +526,7 @@ function search() {
                             "</div>" +
                             "<div>" +
                             detail +
-                            "</div><input class='address' name='" + i + "'  type='hidden' value='" + value.deliciousPinAddress + "' /><input name='pinNumber'  type='hidden' value='" + value.deliciousPinNum + "' /></div>");
+                            "</div><input class='address' name='" + i + "'  type='hidden' value='" + value.deliciousAddress + "' /><input name='pinNumber'  type='hidden' value='" + value.deliciousNum + "' /></div>");
                     i++;
                 });
             }

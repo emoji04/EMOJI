@@ -3,10 +3,6 @@ package com.bit.emoji.service;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-
-
-import com.bit.emoji.mapper.RouteMapper;
-import com.bit.emoji.mapper.SqlSession;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
 import com.bit.emoji.model.OrderedPin;
@@ -15,22 +11,21 @@ import com.bit.emoji.model.RouteVO;
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousVO;
 
-
 @Repository
 public class MakeRouteService extends ServiceDao {	
 	public List<DeliciousVO> selectDelicious(String search) {
 		return sqlSession.selectList(MapperName.MAKEROUTE + ".selectDelicious", search);
 	}
 	public String selectRouteNum() {
-		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".selectRouteNum");
+		return sqlSession.selectOne(MapperName.MAKEROUTE+".selectRouteNum");
 	}
 	
-	public int insertRoute(RouteVO route) {
-		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".routeInsert",route);
+	public Object insertRoute(RouteVO route) {
+		return sqlSession.selectOne(MapperName.MAKEROUTE+".routeInsert",route);
 	}
 	
 	public int insertOrder(List<OrderedPin> orderedPinList) {
-		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".orderInsert",orderedPinList);
+		return sqlSession.selectOne(MapperName.MAKEROUTE+".orderInsert",orderedPinList);
 	}
 	
 	/*	public List<DeliciousMapVO> selectDeliciousMapbyId(int memberNum) {

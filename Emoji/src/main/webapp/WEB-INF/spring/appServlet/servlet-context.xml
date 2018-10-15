@@ -44,66 +44,38 @@
 	<beans:bean
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver">
-
-
 		<beans:property name="defaultEncoding">
-
 			<beans:value>utf-8</beans:value>
-
 		</beans:property>
-
 	</beans:bean>
 
 	<!-- 데이터베이스 연동을 위한 MYSQL dataSource 빈 등록 : jdbcTemplate에 주입 , mybatis 설정 -->
-
-
 	<beans:bean class="org.apache.commons.dbcp2.BasicDataSource"
 		id="dataSource" p:password="eunalee1234" p:username="eunalee"
 		p:url="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useSSL=false&amp;chracterEncoding=utf-8&amp;serverTimezone=UTC"
 		p:driverClassName="com.mysql.jdbc.Driver" />
-
 	<!-- p:username="root" p:password="admin"/> -->
-
-
 	<!-- jdbcTemplate 빈 등록 - DAO에 주입 -->
-
-
 
 	<beans:bean
 		class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
-
 		<!-- p:dataSource-ref="dataSource"> -->
-
-
 		<beans:property name="dataSource" ref="dataSource" />
-
 	</beans:bean>
-
 	<!-- mybatis - spring 연동 설정 -->
-
-
 
 	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		id="sqlSessionFactory">
-
 		<beans:property name="dataSource" ref="dataSource" />
-
 		<beans:property
 			value="classpath:com/bit/emoji/mapper/*.xml" name="mapperLocations" />
-
 	</beans:bean>
-
 	<!-- SessionTemplate 클래스 등록 -->
-
-
 
 	<beans:bean class="org.mybatis.spring.SqlSessionTemplate"
 		id="sqlSession">
-
 		<beans:constructor-arg ref="sqlSessionFactory" />
-
 	</beans:bean>
-
 	<context:component-scan
 		base-package="com.bit.emoji" />
 
@@ -116,13 +88,9 @@
 		<beans:prop key="mail.smtp.starttls.enable">true</beans:prop> <beans:prop 
 		key="mail.debug">true</beans:prop> </beans:props> </beans:property> </beans:bean> -->
 
-
 	<!-- 서비스 등록 -->
-
 
 	<!-- <beans:bean id="MakeRouteService" class="com.bit.emoji.route.service.MakeRouteService"></beans:bean> 
 		<beans:bean id="SearchRouteService" class="com.bit.emoji.route.service.SearchRouteService"></beans:bean> -->
-
-
 
 </beans:beans>
