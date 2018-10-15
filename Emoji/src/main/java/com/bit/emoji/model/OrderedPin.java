@@ -2,19 +2,25 @@ package com.bit.emoji.model;
 
 public class OrderedPin {
 	private int routeNum;
-	private int deliciousNum;
-	private int order;
+	private int deliciousPinNum;
+	private int deliciousPinOrder;
 	
-	public OrderedPin(int routeNum, int deliciousNum, int order) {
-		super();
-		this.routeNum = routeNum;
-		this.deliciousNum = deliciousNum;
-		this.order = order;
-	}
-
 	public OrderedPin() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public OrderedPin(int routeNum, int deliciousPinNum, int deliciousPinOrder) {
+		super();
+		this.routeNum = routeNum;
+		this.deliciousPinNum = deliciousPinNum;
+		this.deliciousPinOrder = deliciousPinOrder;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderedPin [routeNum=" + routeNum + ", deliciousPinNum=" + deliciousPinNum + ", deliciousPinOrder="
+				+ deliciousPinOrder + "]";
 	}
 
 	public int getRouteNum() {
@@ -25,26 +31,22 @@ public class OrderedPin {
 		this.routeNum = routeNum;
 	}
 
-	public int getDeliciousNum() {
-		return deliciousNum;
+	public int getDeliciousPinNum() {
+		return deliciousPinNum;
 	}
 
-	public void setDeliciousNum(int deliciousNum) {
-		this.deliciousNum = deliciousNum;
+	public void setDeliciousPinNum(int deliciousPinNum) {
+		this.deliciousPinNum = deliciousPinNum;
 	}
 
-	public int getOrder() {
-		return order;
+	public int getDeliciousPinOrder() {
+		return deliciousPinOrder;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
+	public void setDeliciousPinOrder(int deliciousPinOrder) {
+		this.deliciousPinOrder = deliciousPinOrder;
 	}
-
-	@Override
-	public String toString() {
-		return "OrderedPins [routeNum=" + routeNum + ", deliciousNum=" + deliciousNum + ", order=" + order + "]";
-	}
+	
 	
 	
 	

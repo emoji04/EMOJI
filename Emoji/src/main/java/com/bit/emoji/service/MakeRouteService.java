@@ -9,6 +9,7 @@ import com.bit.emoji.mapper.RouteMapper;
 import com.bit.emoji.mapper.SqlSession;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinVO;
+import com.bit.emoji.model.OrderedPin;
 import com.bit.emoji.model.RouteVO;
 
 @Repository
@@ -20,21 +21,23 @@ public class MakeRouteService extends SqlSession {
 		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".selectRouteNum");
 	}
 	
+	public int insertRoute(RouteVO route) {
+		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".routeInsert",route);
+	}
+	
+	public int insertOrder(List<OrderedPin> orderedPinList) {
+		return sqlSession.selectOne(RouteMapper.MAKEROUTE+".orderInsert",orderedPinList);
+	}
+	
 	/*	public List<DeliciousMapVO> selectDeliciousMapbyId(int memberNum) {
 	}
 	
 	public List<DeliciousPinVO> selectMyDelicious(String search, List<DeliciousMapVO> myMaps) {
 	}
 	
-	public int insertRoute(RouteVO route) {
-	
-	}
+
 	
 	public int updateRoute(RouteVO newRoute) {
-	
-	}
-	
-	public int deleteRouteDelicious(List<DeliciousPinVO> deleteList) {
 	
 	}
 	

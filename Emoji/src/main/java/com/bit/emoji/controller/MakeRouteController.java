@@ -42,6 +42,9 @@ public class MakeRouteController {
 
 	@RequestMapping(value="makeRoute",produces = "application/text; charset=utf8", method=RequestMethod.GET)
 	public String makeRoute(RouteVO route, Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+		route.setMemberNum((int)session.getAttribute("loginInfo"));
 		//맛집과 순서를 담을 모델 생성
 		List<OrderedPin> orderedPinList = new ArrayList<OrderedPin>();;
 		
@@ -56,22 +59,27 @@ public class MakeRouteController {
 		
 		if(maxRoute==null) {
 			routeNum=1;
+			route.setRouteNum(routeNum);
 		}else {
 			int max=Integer.parseInt(maxRoute);
 			routeNum=max+1;
+			route.setRouteNum(routeNum);
 		}
 		
-
-		for (int i = 0; i < order.length; i++) {	
-			OrderedPin orderPin= new OrderedPin();
-			//스트링 배열이므로 숫자로 바꾼후에 모델에 저장
-			orderPin.setDeliciousNum(Integer.parseInt(order[i]));
-			orderPin.setOrder(i+1);
-			orderPin.setRouteNum(routeNum);
-			orderedPinList.add(orderPin);
+		//경로를 우선 입력 후 입력이 완료 되었으면 맛집 순서를 넣기
+		if(makeRouteService.insertRoute(route)>0) {			
+			for (int i = 0; i < order.length; i++) {	
+				OrderedPin orderPin= new OrderedPin();
+				//스트링 배열이므로 숫자로 바꾼후에 모델에 저장
+				orderPin.setDeliciousPinNum(Integer.parseInt(order[i]));
+				orderPin.setDeliciousPinOrder(i+1);
+				orderPin.setRouteNum(routeNum);
+				orderedPinList.add(orderPin);
+			}
+			
+			model.addAttribute("insert결과",makeRouteService.insertOrder(orderedPinList));
+			
 		}
-
-		//int result=makeRouteService.
 				
 		return "home";
 	}

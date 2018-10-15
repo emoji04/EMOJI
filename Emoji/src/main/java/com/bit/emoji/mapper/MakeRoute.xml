@@ -6,9 +6,20 @@
 select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
 </select>
 
-<insert id="routeInsert">
-
+<insert id="routeInsert" parameterType="com.bit.emoji.model.RouteVO">
+	insert into emoji.route(routeNum,memberNum,routeName,possibleNum,startDate,spendTime,budget,rule,routeTag) 
+	values(#{routeNum},#{memberNum},#{routeName},#{possibleNum},#{startDate},#{spendTime},#{budget},#{rule},#{routeTag})
 </insert>
+
+<insert id="orderInsert" parameterType="java.util.ArrayList">
+	insert into emoji.rDelicious
+	values
+	<foreach collection="list" item="item" separator=",">
+	#{item.routeNum},#{item.deliciousPinNum},#{item.deliciousPinOrder})
+	</foreach>
+</insert>
+
+
 
 <select id="selectRouteNum" resultType="int">
 	select max(routeNum) from emoji.route
@@ -18,6 +29,7 @@ select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
 </mapper>
 
 <!-- <trim prefix="%" suffix="%" prefixOverrides="'" suffixOverrides="'">
+
 #{search}  like '%' || '${search}' || '%'
 
 
