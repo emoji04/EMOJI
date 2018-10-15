@@ -52,7 +52,7 @@ public class MapService extends ServiceDao {
 			
 			//사용자의 업로드 파일 물리적으로 저장
 			if(!deliciousVO.getDeliciousFile().isEmpty()) {
-				deliciousImgName = "dm_" + deliciousVO.getDeliciousNum() + "_" + deliciousVO.getDeliciousFile().getOriginalFilename();
+				deliciousImgName = deliciousVO.getDeliciousFile().getOriginalFilename();
 				
 				//저장
 				deliciousVO.getDeliciousFile().transferTo(new File(dir, deliciousImgName));

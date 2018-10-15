@@ -169,10 +169,9 @@
 						<input type="hidden" name="deliciousMapOpen" value="open">
 					
 						<jsp:useBean id="now" class="java.util.Date" />
-						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
+						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd HH:mm:ss' />">
 					
-<%-- 						<input type="hidden" name="memberNum" value="${ loginInfo }"> --%>
-						<input type="hidden" name="memberNum" value="2">
+ 						<input type="hidden" name="memberNum" value="${ loginInfo }">
 						<input type="button" id="makeMapBtn" value="지도 생성" class="boxSize">
 					
 						<!-- <input type="image" src="resources/img/saveBtn.png" id="save" onclick="submit(); return false;" style="float:right; margin-bottom:3%;"> -->
