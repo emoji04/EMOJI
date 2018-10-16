@@ -1,21 +1,20 @@
 package com.bit.emoji.model;
+
 public class JoinVO {
 	private int joinNum;
 	private int memberNum;
 	private int routeNum;
-	private String state;
+	private String joinstate;
 	private double joinGrade;
 	
-	public JoinVO(int joinNum, int memberNum, int routeNum, String state, double joinGrade) {
+	public JoinVO(int joinNum, int memberNum, int routeNum, String joinstate, double joinGrade) {
 		super();
 		this.joinNum = joinNum;
 		this.memberNum = memberNum;
 		this.routeNum = routeNum;
-		this.state = state;
+		this.joinstate = joinstate;
 		this.joinGrade = joinGrade;
 	}
-	
-	public JoinVO() {	}
 
 	public int getJoinNum() {
 		return joinNum;
@@ -41,12 +40,12 @@ public class JoinVO {
 		this.routeNum = routeNum;
 	}
 
-	public String getState() {
-		return state;
+	public String getJoinstate() {
+		return joinstate;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setJoinstate(String joinstate) {
+		this.joinstate = joinstate;
 	}
 
 	public double getJoinGrade() {
@@ -59,11 +58,7 @@ public class JoinVO {
 
 	@Override
 	public String toString() {
-		return "JoinVO [joinNum=" + joinNum + ", memberNum=" + memberNum + ", routeNum=" + routeNum + ", state=" + state
-				+ ", joinGrade=" + joinGrade + "]";
+		return "JoinVO [joinNum=" + joinNum + ", memberNum=" + memberNum + ", routeNum=" + routeNum + ", joinstate="
+				+ joinstate + ", joinGrade=" + joinGrade + "]";
 	}
-	
-	
-	
-	
 }

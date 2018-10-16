@@ -36,7 +36,7 @@
 .subClass {
 	display: none 
 }
-#subClass .active subClass{
+.subClass .active subClass{
 	display: block;
 }
 		

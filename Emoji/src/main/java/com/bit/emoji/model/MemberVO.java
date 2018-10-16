@@ -3,8 +3,8 @@ package com.bit.emoji.model;
 public class MemberVO {
     private int memberNum;
     private String memberEmail;
-    private String memberName;
     private String memberPassword;
+    private String memberName;
     private String memberGender;
     private String memberPhoneNum;
     private String memberRegDate;
@@ -66,8 +66,8 @@ public class MemberVO {
 	}
 	@Override
 	public String toString() {
-		return "MemberVO [memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", memberName=" + memberName
-				+ ", memberPassword=" + memberPassword + ", memberGender=" + memberGender + ", memberPhoneNum="
+		return "MemberVO [memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", memberPassword="
+				+ memberPassword + ", memberName=" + memberName + ", memberGender=" + memberGender + ", memberPhoneNum="
 				+ memberPhoneNum + ", memberRegDate=" + memberRegDate + ", memberJoinGrade=" + memberJoinGrade
 				+ ", memberCapGrade=" + memberCapGrade + "]";
 	}
