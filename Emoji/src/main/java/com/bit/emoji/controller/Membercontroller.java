@@ -59,56 +59,6 @@ public class Membercontroller {
 	@Autowired
 	Sha256 sha ;
     
-    /*private GoogleConnectionFactory googleConnectionFactory;
-    private OAuth2Parameters googleOAuth2Parameters;
-    
-    public void setGoogleConnectionFactory(GoogleConnectionFactory googleConnectionFactory) {
-		this.googleConnectionFactory = googleConnectionFactory;
-	}
-
-	public void setGoogleOAuth2Parameters(OAuth2Parameters googleOAuth2Parameters) {
-		this.googleOAuth2Parameters = googleOAuth2Parameters;
-	}
-	
-	@RequestMapping(value = "/googleSignIn", method = RequestMethod.POST)
-	public String doGoogleSignInActionPage(HttpServletResponse response, Model model) {
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		model.addAttribute("url", url);
-		return "/member/LoginFormtest";
-	}
-	
-	@RequestMapping("/googleSignInCallback")
-	public String doSessionAssignActionPage(HttpServletRequest request){
-		String code = request.getParameter("code");
-		
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(), null);
-		
-		String accessToken = accessGrant.getAccessToken();
-		Long expireTime = accessGrant.getExpireTime();
-		
-		if (expireTime != null && expireTime < System.currentTimeMillis()) {
-			accessToken = accessGrant.getRefreshToken();
-			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
-		}
-		
-		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
-		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-		
-		PlusOperations plusOperations = google.plusOperations();
-		Person person = plusOperations.getGoogleProfile();
-		
-		MemberVO member = new MemberVO();
-		member.setMemeberEmail(person.getAccountEmail());
-		member.setMemeberName(person.getDisplayName());
-
-		HttpSession session = request.getSession();
-		session.setAttribute("member", member);
-		
-		return "redirect:/";
-	}*/
-    
     @RequestMapping(value = "/member/loginSuccess")
     public String goLoginSuccess(){
         return "member/loginSuccess";
@@ -147,30 +97,18 @@ public class Membercontroller {
 		
     	String memberEmail = request.getParameter("memberEmail");
     	String pw = request.getParameter("memberPassword");
-//    	MemberVO memberVO = memberService.login(memberEmail);
-    	
-//		System.out.println(memberService.login(memberEmail));
-//		System.out.println(memberVO.getMemberPassword());
-//		System.out.println(memberService.login(memberService.login(memberEmail).getMemberPassword()));
-//    	System.out.println(memberService.login(memberPassword));
-    	if(memberService.login(memberEmail) != null && pw.equals(memberService.login(memberEmail).getMemberPassword())){
+    	String shaPassword = sha.encrypt(pw);
+    	if(memberService.login(memberEmail) != null && shaPassword.equals(memberService.login(memberEmail).getMemberPassword())){
     		
     		session.setAttribute("loginInfo", memberService.login(memberEmail).getMemberNum());
-    		System.out.println(session.getAttribute("loginInfo"));
-    	System.out.println(memberService.login(memberEmail));
-    	InetAddress localHost = InetAddress.getLocalHost();
-        System.out.println("자신의 IP 정보");
-        System.out.println("localHost.getHostName() : " + localHost.getHostName());
-        System.out.println("localHost.getHostAddress() : " + localHost.getHostAddress());
-
-
-		return "home";}else {
-    	
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('회원정보가 올바르지 않습니다. 다시 로그인 해 주세요.'); </script>");
-        out.flush();
-		return "member/loginForm";}
+    		return "home";
+		}else {
+	        response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('회원정보가 올바르지 않습니다. 다시 로그인 해 주세요.'); </script>");
+	        out.flush();
+			return "member/loginForm";
+		}
     }
     
     @RequestMapping(value = "/naver_login.json")
@@ -180,13 +118,11 @@ public class Membercontroller {
 		if(memberService.login(memberEmail) != null) {
 			MemberVO memberVO = memberService.login(memberEmail);
 			session.setAttribute("loginInfo", memberVO.getMemberNum());
-	    	System.out.println(memberEmail);
 	    	return memberEmail;
     	}else {
     		long time = System.currentTimeMillis(); 
     		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
     		String regidate = dayTime.format(new Date(time));
-    		System.out.println(memberName+"-->네이버 이름");
     		MemberVO naverVO = new MemberVO();
     		naverVO.setMemberEmail(memberEmail);
     		naverVO.setMemberName(memberName);
@@ -197,7 +133,6 @@ public class Membercontroller {
     		int a = memberService.insertMember(naverVO);
     		int e = naverVO.getMemberNum();
 			session.setAttribute("loginInfo", e);
-	    	System.out.println(memberEmail+"-->네이버 db등록하고 나서");
 	    	return memberEmail;
     	}	
     }
@@ -219,13 +154,9 @@ public class Membercontroller {
     @RequestMapping(value = "/regicheck.json" , method = RequestMethod.POST)
     @ResponseBody
     public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
-    	System.out.println(email);
-		
-		if(memberService.login(email) != null) {
-			return "alreadyExist";			
-		}else {
-			return "possibleRegi";			
-		}
+    	System.out.println(memberService.login(email));
+    	System.out.println((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
+		return ((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
     }
 
     public String edit(Model model, HttpSession session){
@@ -240,8 +171,6 @@ public class Membercontroller {
 		mailSendService.htmlMailSend(email);
 		String viewName = "redirect:/emailSend.do";
 		ModelAndView modelAndView = new ModelAndView();
-		//ModelAndView modelAndView = new ModelAndView();
-		//modelAndView.addObject("email", redirectAttr.addFlashAttribute("email" ,email));
 		modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);
 		
@@ -261,28 +190,21 @@ public class Membercontroller {
     
     
     @RequestMapping(value="/registe", method = RequestMethod.POST)
-	public ModelAndView processLogin(MemberVO member, HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email, @RequestParam("emailKey") String emailKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
-/*		String a = member.getMemberPassword();
+	public ModelAndView processLogin(MemberVO member, HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email, @RequestParam String emailKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
+		String password = member.getMemberPassword();
 		
-		String b = sha.encrypt(a);
-		System.out.println("암호화 후 비밀번호 : " + b);*/
+		String shaPassword = sha.encrypt(password);
     	long time = System.currentTimeMillis(); 
     	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
 		String regidate = dayTime.format(new Date(time));
 		String viewName = "redirect:/regiSuccess.do";
-		String viewName2 = "member/emailchk";
 
-		EmailKeyVO emailAllowed = memberService.allowedEmail(email);
-		System.out.println(emailAllowed);
-		if(emailAllowed != null && emailKey.equals(emailAllowed.getKey())) {
-			System.out.println(emailAllowed);
-			System.out.println(emailKey);
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject("memberRegDate", regidate);
+		ModelAndView modelAndView = new ModelAndView();
+		if(memberService.allowedEmail(email) != null && emailKey.equals(memberService.allowedEmail(email).getKey()) && memberService.login(email) == null) {
 			modelAndView.setViewName(viewName);
-			System.out.println(regidate);
+			modelAndView.addObject("memberRegDate", regidate);
+			member.setMemberPassword(shaPassword);
 			member.setMemberRegDate(regidate);
-	
 			
 			int insertCnt = memberService.insertMember(member);
 	
@@ -290,24 +212,21 @@ public class Membercontroller {
 			
 			return modelAndView;
 		}else {
+			viewName = "member/emailchk";
 			response.setContentType("text/html; charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        out.println("<script>alert('이메일 인증 후 한 시간이 지났거나 잘못된 접근입니다. 다시 이메일 인증을 해주세요'); </script>");
 	        out.flush();
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName(viewName2);
+			modelAndView.setViewName(viewName);
 			return modelAndView;
 		}
     };
     @RequestMapping(value = "/regiSuccess.do")
-    public ModelAndView regiSuccessDo(HttpServletRequest request)throws Exception {
+    public String regiSuccessDo(HttpServletRequest request)throws Exception {
     	
+    	request.getParameter("memberName");
     	
-    	String viewName = "member/regiSuccess";
-    	ModelAndView modelAndView = new ModelAndView();
-    	modelAndView.addObject("memberName", request.getParameter("memberName"));
-		modelAndView.setViewName(viewName);
-        return modelAndView;
+        return "member/regiSuccess";
     }
 }
 

@@ -169,7 +169,7 @@
     					<label>상호명</label>
 							<div class="textBox">
     							<input type="text" id="deliciousName" name="deliciousName" class="boxSize">
-    							<input type="button" id="nameSearchBtn" value="상호검색" class="btnStyle">
+<!--     							<input type="button" id="nameSearchBtn" value="상호검색" class="btnStyle"> -->
     						</div>
     						
     					<label>카테고리</label>
@@ -265,20 +265,6 @@
 	
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 		
-/* 		//만들기, 검색 탭 이동
-		$('.tab_content').hide();
-		$('ul.tab li:first').addClass('active').show();
-		$('.tab_content:first').show();
-		
-		$('ul.tab li').click(function(){
-			$('ul.tab li').removeClass('active');
-			$(this).addClass('active');
-			$('.tab_content').hide();
-			
-			var activeTab = $(this).find('a').attr('href');
-			$(activeTab).fadeIn();
-		}); */
-		
 		//핀 만들기 주소검색
 		$('#deliciousAddress').keyup(function() {
 			var address = $('#deliciousAddress').val();
@@ -358,8 +344,6 @@
  					contentType: false,
  					dataType: 'json',
  					success: function(data) {
- 						//alert(JSON.stringify(data));
- 					
  						var deliciousPinList = data.deliciousPinInfo;  //select한 결과 데이터
  						var addressList = [];  //주소를 담기 위한 배열		
  						var pinNameList = [];  //핀 이름을 담기 위한 배열		
@@ -393,125 +377,71 @@
 	 								}); 
 	 								
 	 								marker.setMap(map);   //지도에 마커 표시 
-	 									 								
-/* 	 								var iwContent = '<div style="width: 70%; text-align: center; padding: 6px 0; font-size: 14px; font-weight: bold;">' + pinNameList[index]  + '</div>',
-	 									iwPosition = coords;  //인포윈도우를 표시할 위치 */
-	 								
-/* 	 								//커스텀 오버레이에 표시할 컨텐츠
-	 								var content = '<div class="wrap">' 
-	 												+ '<div class="info">' 
-	 												+ 	'<div class="title">' 
-	 												+ 		pinNameList[index] 
-	 												+ 			'<div class="close" id="closeBtn" title="닫기"></div>' 
-	 												+ 	'</div>' 
-	 												+ 	'<div class="body">' 
-	 												+ 		'<div class="img">' 
-	 												+			'<img src="${pageContext.request.contextPath}/uploadFile/deliciousPinPhoto/' + photoList[index] + '" width="73" height="70">' 
-	 												+ 		'</div>' 
-	 												+ 		'<div class="desc">' 
-	 												+ 			'<div class="address">'
-	 												+ 				addressList[index]
-	 												+ 			'</div>' 
-	 												+ 			'<div class="phone address">'
-	 												+				phoneList[index]
-	 												+ 			'</div>' 
-	 												+ 			'<div class="detail">'
-	 												+ 				detailList[index]
-	 												+			'</div>' 
-	 												+ 		'</div>' 
-	 												+ 	'</div>' 
-	 												+ '</div>' 
-	 												+ '</div>'; */
-	 												
-	 				 					//마커 위에 커스텀 오버레이 표시
-	 				 					var overlay = new daum.maps.CustomOverlay({
-	 				 							position: marker.getPosition()
-	 				 					});
-	 									
-	 									//커스텀 오버레이에 표시할 컨텐츠
-	 									var content = document.createElement('div');
-	 									content.className = 'wrap';
-	 									document.body.appendChild(content);
-	 												  
-	 									var info = document.createElement('div');
-	 									info.className = 'info';
-	 									content.appendChild(info);
 
-	 									var title = document.createElement('div');
-	 									title.className = 'title';
-	 									title.appendChild(document.createTextNode(pinNameList[index]));
-	 									info.appendChild(title);
-	 												  
-	 									var closeBtn = document.createElement('button');
-	 									closeBtn.className = 'close';
-	 									//커스텀 오버레이 닫기
-	 									closeBtn.appendChild(document.createTextNode('X'));
-	 									closeBtn.onclick = function() { overlay.setMap(null); };
-	 									title.appendChild(closeBtn);
-	 												  
-	 									var contentBox = document.createElement('div');
-	 									contentBox.className = 'contentBox';
-	 									info.appendChild(contentBox);
+	 												
+	 				 				//마커 위에 커스텀 오버레이 표시
+	 				 				var overlay = new daum.maps.CustomOverlay({
+	 				 						position: marker.getPosition()
+	 				 				});
 	 									
-	 									var image = document.createElement('img');
-	 									image.className = 'imageInfo';
-	 									image.src = '${pageContext.request.contextPath}/uploadFile/deliciousPinPhoto/' + photoList[index];
-	 									image.width = '70';
-	 									image.height = '73';
-	 									contentBox.appendChild(image);
+	 								//커스텀 오버레이에 표시할 컨텐츠
+	 								var content = document.createElement('div');
+	 								content.className = 'wrap';
+	 								document.body.appendChild(content);
 	 												  
-	 									var desc = document.createElement('div');
-	 									desc.className = 'desc';
-	 									contentBox.appendChild(desc);
+	 								var info = document.createElement('div');
+	 								info.className = 'info';
+	 								content.appendChild(info);
+
+	 								var title = document.createElement('div');
+	 								title.className = 'title';
+	 								title.appendChild(document.createTextNode(pinNameList[index]));
+	 								info.appendChild(title);
 	 												  
-	 									var address = document.createElement('div');
-	 									address.className = 'address';
-	 									address.appendChild(document.createTextNode(addressList[index]));
-	 									desc.appendChild(address);
+	 								var closeBtn = document.createElement('button');
+	 								closeBtn.className = 'close';
+	 								//커스텀 오버레이 닫기
+	 								closeBtn.appendChild(document.createTextNode('X'));
+	 								closeBtn.onclick = function() { overlay.setMap(null); };
+	 								title.appendChild(closeBtn);
 	 												  
-	 									var phone = document.createElement('div');
-	 									phone.className = 'phone';
-	 									phone.appendChild(document.createTextNode(phoneList[index]));
-	 									desc.appendChild(phone);
-	 												  
-	 									var detail = document.createElement('div');
-	 									detail.className = 'detail';
-	 									detail.appendChild(document.createTextNode(detailList[index]));
-	 									desc.appendChild(detail);
+	 								var contentBox = document.createElement('div');
+	 								contentBox.className = 'contentBox';
+	 								info.appendChild(contentBox);
 	 									
-	 									//커스텀 오버레이 컨텐츠 담기
-	 									overlay.setContent(content);
+	 								var image = document.createElement('img');
+	 								image.className = 'imageInfo';
+	 								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+	 								image.width = '70';
+	 								image.height = '73';
+	 								contentBox.appendChild(image);
+	 												  
+	 								var desc = document.createElement('div');
+	 								desc.className = 'desc';
+	 								contentBox.appendChild(desc);
+	 												  
+	 								var address = document.createElement('div');
+	 								address.className = 'address';
+	 								address.appendChild(document.createTextNode(addressList[index]));
+	 								desc.appendChild(address);
+	 												  
+	 								var phone = document.createElement('div');
+	 								phone.className = 'phone';
+	 								phone.appendChild(document.createTextNode(phoneList[index]));
+	 								desc.appendChild(phone);
+	 												  
+	 								var detail = document.createElement('div');
+	 								detail.className = 'detail';
+	 								detail.appendChild(document.createTextNode(detailList[index]));
+	 								desc.appendChild(detail);
 	 									
-/* 	 								//마커 위에 커스텀 오버레이 표시
-	 								var overlay = new daum.maps.CustomOverlay({
-	 									content: content,
-	 									position: marker.getPosition()
-	 								}); */
+	 								//커스텀 오버레이 컨텐츠 담기
+	 								overlay.setContent(content);
 	 									
 	 								//마커 클릭 시, 커스텀 오버레이 표시
 	 								daum.maps.event.addListener(marker, 'click', function() {
 	 									overlay.setMap(map);
-	 								});/* 
-	 									
- 	 								//커스텀 오버레이 닫기
-	 								function closeOverlay() {
-	 									overlay.setMap(null);
-	 								} */
-
-	 	 	 	 					
-/* 	 	 	 	 					//인포 윈도우 생성
-	 	 	 	 					var infowindow = new daum.maps.InfoWindow({
-	 	 	 							position: iwPosition,
-	 	 	 							content: iwContent
-	 	 	 						});
-	 	 	 						
-	 								//마커 위에 인포윈도우 표시
-	 	 	 						infowindow.open(map, marker);
-	 								$('#pinCheck').html('<div style="border:1px solid blue; text-align: center; font-size: 20px; font-weight: bold;">핀 목록 리스트'
-	 													+ '[' + index + ']' + pinNameList[index]
-	 													+ '<br></div>'
-	 													+ '<button class="boxSize">핀 삭제</button>'); */
-	 								
+	 								}); 
 	 							}
 	 						});
 	 					});
@@ -592,39 +522,6 @@
   			var deliciousName = $('#deliciousName').val();
   		});
 	});
-  			/* //주소검색 창 open
- 	  		function searchAddr() {
- 	  			//윈도우 창 크기
- 	  			var width = 500;
- 	  			var height = 600;
- 	  		
- 	  			daum.postcode.load(function() {
- 	  				new daum.Postcode({
- 	  					//주소 검색이 완료됐으면
- 	  					oncomplete: function(data) {
- 	  						$('#deliciousAddress').val(data.address);
- 	  					
- 	  						var address = $('#deliciousAddress').val();
- 	  					
- 	  						//주소로 좌표 검색
- 	  						geocoder.addressSearch(address, function(result, status) {
- 	  							//정상적으로 검색이 완료됐으면
- 	  							if(status == daum.maps.services.Status.OK) {
- 	  								var coords = new daum.maps.LatLng(result[0].y, result[0].x);
- 	  							
- 	  								//지도의 중심을 결과값으로 받은 위치로 이동
- 	  								map.setCenter(coords);
- 	  								marker.setPosition(coords);
- 	  								window.close();
- 	  							}
- 	  						});
- 	  					}
- 	  				}).open({
- 	  					left: (window.screen.width/2)-(width/2),
- 	  					top: (window.screen.height/2)-(height/2)
- 	  				});
- 	  			});
- 	  		}  */
 </script>
 </body>
 </html>
