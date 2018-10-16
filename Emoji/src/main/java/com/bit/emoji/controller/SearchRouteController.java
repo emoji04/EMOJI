@@ -40,12 +40,27 @@ public class SearchRouteController {
 		
 		return searchRouteService.selectRouteJoin(routeScrap);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="clickJoin",produces="text/plain;charset=UTF-8")
+	public String clickJoin(RouteScrapVO routeScrap, HttpSession session) {
+		System.out.println("들어옴");
+		int memberNum=(int) session.getAttribute("loginInfo");
+		routeScrap.setMemberNum(memberNum);	
+		
+		Object result=searchRouteService.insertJoin(routeScrap);
+		if(result==null) {
+			return "성공";
+		}else
+			return "실패";
+		
+	}
+	
 	/*	
 	public String clicksScrap(HttpSession session, int routeNum, String state) {
 	
 	}
 	
-	public String clickJoin(HttpSession session, int routeNum, String state) {
-	
-	}*/
+*/
 }

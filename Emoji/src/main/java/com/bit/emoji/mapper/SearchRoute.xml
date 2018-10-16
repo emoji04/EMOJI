@@ -6,6 +6,14 @@
 select * from emoji.route;
 </select>
 
+	<select id="getRoute" parameterType="String"
+		resultType="com.bit.emoji.model.RouteVO">
+		select * from route join member on
+		route.memberNum=member.memberNum
+		where route.routeName like
+		CONCAT('%',#{search},'%')		
+	</select>
+
 <select id="selectRouteById" resultType="com.bit.emoji.model.RouteVO" >
 select * from emoji.route where routeNum=#{routeNum};
 </select>
@@ -18,6 +26,10 @@ where rd.routeNum=r.routeNum and rd.deliciousNum=d.deliciousNum and rd.routeNum=
 <select id="selectJoin" resultType="java.lang.String" parameterType="com.bit.emoji.model.RouteScrapVO">
 select joinstate from emoji.join where routeNum=#{routeNum} and memberNum=#{memberNum};
 </select>
+
+<insert id="insertJoin" parameterType="com.bit.emoji.model.RouteScrapVO">
+insert into emoji.join(routeNum,memberNum) values(#{routeNum},#{memberNum})
+</insert>
 
 </mapper>
 

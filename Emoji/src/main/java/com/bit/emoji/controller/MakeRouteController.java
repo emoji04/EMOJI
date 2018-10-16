@@ -45,7 +45,7 @@ public class MakeRouteController {
 	
 
 	@RequestMapping(value="makeRoute", method=RequestMethod.GET)
-	public String makeRoute(RouteVO route, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
+	public String makeRoute(RouteVO route,HttpServletRequest request) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 
 		HttpSession session = request.getSession(false);
