@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.bit.emoji.model.EmailKeyVO;
 import com.bit.emoji.model.MemberVO;
@@ -214,14 +216,12 @@ public class Membercontroller {
         return "home";
     }
     
-    @RequestMapping(value = "/regicheck.json")
+    @RequestMapping(value = "/regicheck.json" , method = RequestMethod.POST)
     @ResponseBody
     public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
     	System.out.println(email);
-		MemberVO memberVO = memberService.login(email);
-		System.out.println(memberVO);
 		
-		if(memberVO != null) {
+		if(memberService.login(email) != null) {
 			return "alreadyExist";			
 		}else {
 			return "possibleRegi";			
@@ -233,17 +233,31 @@ public class Membercontroller {
     }
     
     
-    @RequestMapping("/emailsend")
+    @RequestMapping(value="/emailsend", method = RequestMethod.POST)
 	public ModelAndView htmlSendMail(HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email) {
     	System.out.println("이메일 보낼 이메일ㅋ"+ email);
 		// 메일 발송
 		mailSendService.htmlMailSend(email);
-		String viewName = "member/emailSend";
+		String viewName = "redirect:/emailSend.do";
 		ModelAndView modelAndView = new ModelAndView();
+		//ModelAndView modelAndView = new ModelAndView();
+		//modelAndView.addObject("email", redirectAttr.addFlashAttribute("email" ,email));
 		modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);
+		
 		return modelAndView;
 	}
+    
+    @RequestMapping(value = "/emailSend.do")
+    public ModelAndView goEmailSend(@RequestParam String email, HttpServletRequest request){
+    	
+    	request.setAttribute("email", request.getParameter("email"));
+    	String viewName = "member/emailSend";
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("email", email);
+		modelAndView.setViewName(viewName);
+        return modelAndView;
+    }
     
     
     @RequestMapping(value="/registe", method = RequestMethod.POST)
@@ -255,7 +269,7 @@ public class Membercontroller {
     	long time = System.currentTimeMillis(); 
     	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
 		String regidate = dayTime.format(new Date(time));
-		String viewName = "member/regiSuccess";
+		String viewName = "redirect:/regiSuccess.do";
 		String viewName2 = "member/emailchk";
 
 		EmailKeyVO emailAllowed = memberService.allowedEmail(email);
@@ -284,6 +298,16 @@ public class Membercontroller {
 			modelAndView.setViewName(viewName2);
 			return modelAndView;
 		}
+    };
+    @RequestMapping(value = "/regiSuccess.do")
+    public ModelAndView regiSuccessDo(HttpServletRequest request)throws Exception {
+    	
+    	
+    	String viewName = "member/regiSuccess";
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("memberName", request.getParameter("memberName"));
+		modelAndView.setViewName(viewName);
+        return modelAndView;
     }
 }
 

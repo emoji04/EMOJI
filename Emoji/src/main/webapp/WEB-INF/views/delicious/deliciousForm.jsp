@@ -169,10 +169,9 @@
 						<input type="hidden" name="deliciousMapOpen" value="open">
 					
 						<jsp:useBean id="now" class="java.util.Date" />
-						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd' />">
+						<input type="hidden" name="deliciousMapCreateDate" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd HH:mm:ss' />">
 					
-<%-- 						<input type="hidden" name="memberNum" value="${ loginInfo }"> --%>
-						<input type="hidden" name="memberNum" value="2">
+ 						<input type="hidden" name="memberNum" value="${ loginInfo }">
 						<input type="button" id="makeMapBtn" value="지도 생성" class="boxSize">
 					
 						<!-- <input type="image" src="resources/img/saveBtn.png" id="save" onclick="submit(); return false;" style="float:right; margin-bottom:3%;"> -->
@@ -356,24 +355,43 @@
 		
 		//맛집지도 검색
 		$('#searchBtn').click(function() {
-			var text = $('#searchKeyword').val();
+			var keyword = $('#searchKeyword').val();
 			
-			$('#searchResult').html('<div style="width: 100%; height: 75px; margin-top: 5%;">' 
-									+ 	'<div style="width: 30%; float:left; display: inline-table;">'
-									+		'<img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width=50 height=70>'
-									+ 	'</div>'
-									+	'<div class="active" style="width: 70%; padding-left:5%; float:left; display: inline-table;">'
-									+ 		'<span class="title" style="font-size: 18px; font-weight: bold;">'
-									+ 		text 
-									+		'</span><br>'
-									+ 		'<span>'
-									+ 		'#합정#홍대#연남동#맛집#핫플'
-									+		'</span><br>'
-									+ 		'<span>'
-									+ 		'연남동 맛집 리스트'
-									+		'</span><br>'
-									+ 	'</div>'
-									+'</div>');
+			$.ajax({
+				type: 'GET',
+				url: '<c:url value='/deliciousSearch' />',
+				data: 'keyword=' + keyword,
+				dataType: json,
+				success: function(data) {
+					alert(JSON.stringify(data));
+					
+/* 					var searchResult = document.getElementById('searchResult');
+					searchResult.innerHTML = '';
+					
+					var content = '';
+						content += '<div style="width: 100%; height: 75px; margin-top: 5%;">';
+						content += 	'<div style="width: 30%; float:left; display: inline-table;">'
+						content +=		'<img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width=50 height=70>'
+						content += 	'</div>'
+						content +=	'<div class="active" style="width: 70%; padding-left:5%; float:left; display: inline-table;">'
+						content += 		'<span class="title" style="font-size: 18px; font-weight: bold;">'
+						content += 		text 
+						content +=		'</span><br>'
+						content += 		'<span>'
+						content += 		'#합정#홍대#연남동#맛집#핫플'
+						content +=		'</span><br>'
+						content += 		'<span>'
+						content += 		'연남동 맛집 리스트'
+						content +=		'</span><br>'
+						content += 	'</div>'
+						content +='</div>';
+					
+					searchResult.innerHTML += content; */
+				},
+				error: function(request, status) {
+					alert('처리 실패!' + request.status);
+				}
+			});
 		});
 /* 	else {
 		var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
