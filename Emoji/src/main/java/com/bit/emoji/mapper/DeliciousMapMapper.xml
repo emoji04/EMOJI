@@ -19,7 +19,7 @@
 		limit 1
 	</select>
 
-<!-- 	<select id="selectMapByKeyword" resultType="DeliciousSearchVO " parameterType="string">
+<!-- 	<select id="selectMapByKeyword" resultType="com.bit.emoji.model.DeliciousSearchVO " parameterType="string">
 		select distinct dm.deliciousMapNum, dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousImg
 		from deliciousMap dm 
 		right outer join delicious del 

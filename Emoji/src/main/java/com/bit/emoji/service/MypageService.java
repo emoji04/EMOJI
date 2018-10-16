@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapVO;
-import com.bit.emoji.model.DeliciousReviewVO;
+import com.bit.emoji.model.DeliciousMapReviewVO;
 import com.bit.emoji.model.MemberVO;
 
 @Repository
@@ -23,7 +23,7 @@ public class MypageService extends ServiceDao {
 		return sqlSession.selectList(MapperName.MYPAGE + ".myDmList", loginInfo);
 	}
 	
-	public List<DeliciousReviewVO> myDmReview(int deliciousMapNum) throws Exception{
+	public List<DeliciousMapReviewVO> myDmReview(int deliciousMapNum) throws Exception{
 		return sqlSession.selectList(MapperName.MYPAGE + ".myDmReview", deliciousMapNum);
 	}
 }

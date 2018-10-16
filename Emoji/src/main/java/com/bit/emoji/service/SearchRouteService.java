@@ -1,14 +1,39 @@
 package com.bit.emoji.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.bit.emoji.mapper.MapperName;
+import com.bit.emoji.model.OrderedPin;
+import com.bit.emoji.model.RouteScrapVO;
+import com.bit.emoji.model.RouteVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class SearchRouteService extends ServiceDao {
-/*	public RouteVO searchRoute(String search, String searchDate) {
 	
+	public List<RouteVO> searchRoute() {
+		return sqlSession.selectList(MapperName.SEARCHROUTE + ".selectRoute");
 	}
 	
-	public RouteVO selectRouteJoin(int memberNum, int routeNum) {
-	
+	public String selectRouteJoin(RouteScrapVO routeScrap) throws JsonProcessingException {
+		Map<Object, Object> result = new HashMap<Object, Object>();
+		
+		RouteVO route=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectRouteById",routeScrap.getRouteNum());
+		List<OrderedPin> routeDelicious=sqlSession.selectList(MapperName.SEARCHROUTE+".selectRouteDeclicious", routeScrap.getRouteNum());		
+		String joinState=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectJoin", routeScrap);
+		result.put("routeInfo", route);
+		result.put("routeDelicious",routeDelicious);
+		if(joinState!=null) {
+		result.put("joinState", joinState);
+		}else {
+			result.put("joinState", null);
+		}
+		String data = new ObjectMapper().writeValueAsString(result);
+		return data;
 	}
-	
+	/*		
 	public int insertScrap(int memberNum, int routeNum) {
 	
 	}
@@ -18,7 +43,8 @@ public class SearchRouteService extends ServiceDao {
 	}
 	
 	public int insertJoin(int memberNum, int routeNum) {
-	
+		//메일에서 승인받으면  joinstate만 바꾸기
+		//pathvariable 
 	}
 	
 	public int deleteJoin(int memberNum, int routeNum) {

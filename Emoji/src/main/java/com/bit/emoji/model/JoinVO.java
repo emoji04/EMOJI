@@ -7,6 +7,11 @@ public class JoinVO {
 	private String joinstate;
 	private double joinGrade;
 	
+	public JoinVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public JoinVO(int joinNum, int memberNum, int routeNum, String joinstate, double joinGrade) {
 		super();
 		this.joinNum = joinNum;

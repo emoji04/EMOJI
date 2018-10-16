@@ -154,8 +154,9 @@ public class Membercontroller {
     @RequestMapping(value = "/regicheck.json" , method = RequestMethod.POST)
     @ResponseBody
     public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
-    	System.out.println(email);
-		return memberService.login(email) != null ? "alreadyExist" : "possibleRegi";
+    	System.out.println(memberService.login(email));
+    	System.out.println((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
+		return ((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
     }
 
     public String edit(Model model, HttpSession session){
