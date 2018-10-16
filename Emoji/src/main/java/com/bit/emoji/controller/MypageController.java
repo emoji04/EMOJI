@@ -29,7 +29,7 @@ public class MypageController {
 	public String listAll(Model model, HttpSession session) throws Exception {
 		int loginInfo =  (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("............................GET");
-		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
+		model.addAttribute("memberUpdateForm", mypageService.selectMember((Integer) session.getAttribute("loginInfo")));
 		return "mypage/memberUpdateForm";
 	}
 

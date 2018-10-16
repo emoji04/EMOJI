@@ -33,15 +33,50 @@
 }
 
 /* 하위항목숨김처리 */
-.subClass {
+.subClass { /* 큰 지도 */
 	display: none;
 }
-
+/* .Resub { 
+display: none;
+}
+ */
 /* 테이블 */
 table {
 	border: 1px solid black;
 }
+
+/* 지도 크기  */
+.map {
+	width: 100%;
+	height: 500px;
+}
+
+.Retable td{
+width : auto ;
+border : 1px solid black;
+}
+
+/* 드랍다운 */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 </style>
+
+
 </head>
 
 <body>
@@ -70,7 +105,7 @@ table {
 					<input type="checkbox"> <input type="text"
 						name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}"
 						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
-						<input name="DeliciousMapCreateDate"
+					<input name="DeliciousMapCreateDate"
 						value="${DeliciousMapVO.deliciousMapCreateDate}"
 						readonly="readyonly"> <input type="button" value="비공개">
 					<input type="button" value="수정"> <input type="button"
@@ -78,34 +113,36 @@ table {
 					<div class="subClass" id="accordian${status.count}">
 						<input name="DeliciousMapTag"
 							value="${DeliciousMapVO.deliciousMapTag}">
-						<div id="map${status.count}" class="map" style="width: 500px; height: 400px;"></div>
+						<div id="map${status.count}" class="map"></div>
 						<br>
-						<table>
-							<tr>
 								<!-- 리뷰 상세목록 -->
-								<td id="deliciousMapReviewNum${status.count }"></td>
-								<td id="deliciousMapReviewTitle${status.count}"></td>
-								<td id="deliciousMapReviewContent${status.count}"></td>
-								<td id="deliciousMapReviewWriteDate${status.count}"></td>
-								<td id="deliciousMapReviewImg${status.count}"></td>
-								<td id="deliciousMapGrade${status.count}"></td>
-								<td id="deliciousMapNum${status.count}"></td>
-							</tr>
-						</table>
+							<div class="dropdown">
+							<p id="deliciousMapReviewTitle${status.count}"></p>
+							</div>
+							<div class="dropdown-content" onclick = "dropdown()">
+							<p id="deliciousMapReviewContent${status.count}"></p>
+							<p id="deliciousMapReviewWriteDate${status.count}"></p>
+							<p id="deliciousMapReviewImg${status.count}"></p>
+							<p id="deliciousMapGrade${status.count}"></p>
+							</div>
+
 					</div>
 				</div>
-			</c:forEach> 
+			</c:forEach>
 
 
-		</div> 
-		
+		</div>
+
 	</div>
 
 
 
 </body>
- 
+
 <script> 
+
+/* 리뷰 클릭이벤트 */
+ 
 //지도 
 
 
@@ -124,22 +161,9 @@ $(function() {
 
 
 });
-	
-/* var mapContainer = document.getElementById('map+value'),   //지도 담을 영역
-	
-		//지도 생성 시, 필요한 기본 옵션
-		mapOptions = { 
-			center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
-			level: 3   //지도 레벨(확대, 축소)
-		}; 
-		var map= new daum.maps.Map(mapContainer, mapOptions);   //지도 생성, 객체 리턴
 
-		*/
 
-	
-	
-	
-	/* 	 */
+// 아코디언 Function 
 	function CallmyDmList(value, value1) {
 		//현재 열려있는 항목 모두 닫음
 		$(".subClass").slideUp(); 
@@ -160,25 +184,21 @@ $(function() {
 				console.log(data);
 
 				//앞전 데이터 삭제
-				document.getElementById("deliciousMapReviewNum" + value1).innerHTML = '';
 				document.getElementById("deliciousMapReviewTitle" + value1).innerHTML = '';
 				document.getElementById("deliciousMapReviewContent" + value1).innerHTML = '';
 				document.getElementById("deliciousMapReviewWriteDate" + value1).innerHTML = '';
 				document.getElementById("deliciousMapReviewImg" + value1).innerHTML = '';
 				document.getElementById("deliciousMapGrade" + value1).innerHTML = '';
-				document.getElementById("deliciousMapNum" + value1).innerHTML = '';
 				
 				//데이터 삽입
 				
 				$.each(data, function(i,DeliciousMapReviewVO){
 				console.log(DeliciousMapReviewVO.deliciousMapReviewContent); 
-				document.getElementById("deliciousMapReviewNum"+ value1).innerHTML += "<th>" + DeliciousMapReviewVO.deliciousMapReviewNum+ "<br>" + "</th>";
-				document.getElementById("deliciousMapReviewTitle" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapReviewTitle+ "<br>"+"</td>";
-				document.getElementById("deliciousMapReviewContent" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapReviewContent+ "<br>"+"</td>";
-				document.getElementById("deliciousMapReviewWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapReviewWriteDate+ "<br>"+"</td>";
-				document.getElementById("deliciousMapReviewImg" + value1).innerHTML +="<td>" + DeliciousMapReviewVO.deliciousMapReviewImg+ "<br>"+"</td>";
-				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
-				document.getElementById("deliciousMapNum" + value1).innerHTML +="<td>" + DeliciousMapReviewVO.deliciousMapNum+ "<br>"+"</td>";
+				document.getElementById("deliciousMapReviewTitle" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewTitle+ "<br>"+"</p>";
+				document.getElementById("deliciousMapReviewContent" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewContent+ "<br>"+"</p>";
+				document.getElementById("deliciousMapReviewWriteDate"+ value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewWriteDate+ "<br>"+"</p>";
+				document.getElementById("deliciousMapReviewImg" + value1).innerHTML +="<p>" + DeliciousMapReviewVO.deliciousMapReviewImg+ "<br>"+"</p>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</p>";
 
 				});
 				 },	
@@ -186,8 +206,6 @@ $(function() {
 				alert("에러발생");
 			}
 		});
-		
-
 		
 	}
 			
