@@ -16,7 +16,7 @@
 	<!-- DataSource 등록 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com:3306/emoji?characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useSSL=false&amp;chracterEncoding=utf-8&amp;serverTimezone=UTC" />
 		<property name="username" value="eunalee" />
 		<property name="password" value="eunalee1234" />
 	</bean>
@@ -25,7 +25,8 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/bit/emoji/mapper/*Mapper.xml" />
+		<property
+			value="classpath:com/bit/emoji/mapper/*.xml" name="mapperLocations" />
 	</bean>
 	
 	<!-- SqlSessionTemplate 클래스 등록 -->

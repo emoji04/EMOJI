@@ -17,7 +17,7 @@ from emoji.delicious where deliciousDetail like '%' || #{search} || '%'
 	insert into emoji.routeDelicious
 	values
 	<foreach collection="list" item="item" separator=",">
-	#{item.routeNum},#{item.deliciousNum},#{item.deliciousOrder})
+	(#{item.routeNum},#{item.deliciousNum},#{item.deliciousOrder})
 	</foreach>
 </insert>
 

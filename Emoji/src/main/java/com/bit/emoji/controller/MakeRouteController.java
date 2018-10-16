@@ -60,8 +60,7 @@ public class MakeRouteController {
 		//루트넘버 가지고오기	
 		System.out.println("맛집번호 순서대로 담은 스트링 : "+orders);
 		System.out.println("스트링 배열로 만든것 : "+order);
-/*		String maxRoute=makeRouteService.selectRouteNum();
-
+		String maxRoute=makeRouteService.selectRouteNum();
 		System.out.println("maxRouteNum : "+maxRoute);
 		
 		if(maxRoute==null) {
@@ -71,22 +70,22 @@ public class MakeRouteController {
 			int max=Integer.parseInt(maxRoute);
 			routeNum=max+1;
 			route.setRouteNum(routeNum);
-		}*/
+		}
 		System.out.println("루트 모델에 들어간 모양 : "+route);
-		System.out.println("인서트 된 행의 수 : "+makeRouteService.insertRoute(route));
+		
 		//경로를 우선 입력 후 입력이 완료 되었으면 맛집 순서를 넣기
-		if(makeRouteService.insertRoute(route)==null) {			
+		Object result=makeRouteService.insertRoute(route);
+		
+		if(result==null) {			
 			for (int i = 0; i < order.length; i++) {	
 				OrderedPin orderPin= new OrderedPin();
 				//스트링 배열이므로 숫자로 바꾼후에 모델에 저장
-				orderPin.setDeliciousPinNum(Integer.parseInt(order[i]));
-				orderPin.setDeliciousPinOrder(i+1);
+				orderPin.setDeliciousNum(Integer.parseInt(order[i]));
+				orderPin.setDeliciousOrder(i+1);
 				orderPin.setRouteNum(routeNum);
 				orderedPinList.add(orderPin);
 			}
-			
-			model.addAttribute("insert결과",makeRouteService.insertOrder(orderedPinList));
-			
+			makeRouteService.insertOrder(orderedPinList);		
 		}
 				
 		return "home";
