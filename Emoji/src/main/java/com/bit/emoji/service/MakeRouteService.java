@@ -24,7 +24,7 @@ public class MakeRouteService extends ServiceDao {
 		return sqlSession.selectOne(MapperName.MAKEROUTE+".routeInsert",route);
 	}
 	
-	public int insertOrder(List<OrderedPin> orderedPinList) {
+	public Object insertOrder(List<OrderedPin> orderedPinList) {
 		return sqlSession.selectOne(MapperName.MAKEROUTE+".orderInsert",orderedPinList);
 	}
 	
