@@ -25,30 +25,33 @@ public class MypageController {
 	@Autowired
 	MypageService mypageService;
 
-	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.GET)
-	public void listAll(Model model, HttpSession session) throws Exception {
+	@RequestMapping(value = "/memberUpdateForm", method = RequestMethod.GET)
+	public String listAll(Model model, HttpSession session) throws Exception {
 		int loginInfo =  (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("............................GET");
 		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
+		return "mypage/memberUpdateForm";
 	}
 
-	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.POST)
-	public void update(Model model, MemberVO vo, HttpSession session) throws Exception {
+	@RequestMapping(value = "memberUpdateForm", method = RequestMethod.POST)
+	public String update(Model model, MemberVO vo, HttpSession session) throws Exception {
 		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("...............POST");
 		model.addAttribute("updateMember", mypageService.updateMember(vo));
 		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
+		return "mypage/memberUpdateForm";
 	}
 
-	@RequestMapping(value ="mypage/MydmForm",  method = RequestMethod.GET)
-	public void myDmList(Model model, HttpSession session) throws Exception{
+	@RequestMapping(value ="MydmForm",  method = RequestMethod.GET)
+	public String myDmList(Model model, HttpSession session) throws Exception{
 		int loginInfo =  (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("........myDmList GET ...");
 		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
+		return "mypage/MydmForm";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/myDmReview")
+	@RequestMapping(value="myDmReview")
 	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
 		logger.info(deliciousMapNum);
 		logger.info("........myDmReview GET ...");

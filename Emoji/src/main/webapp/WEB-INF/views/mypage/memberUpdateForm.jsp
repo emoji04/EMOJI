@@ -23,7 +23,7 @@
 
 			로그인 ID : ${loginInfo }
 
-			<form id = "form" action="../mypage/memberUpdateForm" method = "POST">
+			<form id = "form" action="/memberUpdateForm" method = "POST">
 			
 				<table>
 					<thead>

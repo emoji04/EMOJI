@@ -36,7 +36,7 @@
 .subClass {
 	display: none 
 }
-.subClass .active subClass{
+.subClass {
 	display: block;
 }
 		
@@ -52,9 +52,9 @@
 		<div>
 			<!-- <내 등록지도/ 내 관심지도 tap> -->
 			<span id="tap_1" class="tap"><a
-				href='<c:url value="/mypage/MydmForm" />'>내 등록 지도 </a></span> <span
+				href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span
 				id="tap_2" class="tap"><a
-				href='<c:url value="/mypage/MydmForm" />'>내 관심 지도</a></span>
+				href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
 		</div>
 		<div id="myDmBox">
 			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
