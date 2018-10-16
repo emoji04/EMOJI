@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% 
-request.setCharacterEncoding("utf-8"); 
-String memberName= request.getParameter("memberName"); 
-String memberEmail = request.getParameter("memberEmail");
-%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +58,7 @@ String memberEmail = request.getParameter("memberEmail");
 
 
 			<p class="welcome" style="font-size: 50px;"><strong>환영합니다!</strong></p>
-			<p class="congra"><strong><%=memberName %></strong>님, 회원가입을 축하합니다. </p>
+			<p class="congra">회원가입을 축하합니다. </p>
 			<p>로그인을 하여 모두와 함께 지도를 공유 해 주세요!</p>
 			<input class="doregi" type="button" value="로그인 하러가기" id="registerBtn" onclick="location.href='<c:url value='/loginForm' />'" >
 		</div>
