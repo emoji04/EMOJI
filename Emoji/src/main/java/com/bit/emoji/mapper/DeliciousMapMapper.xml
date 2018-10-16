@@ -19,7 +19,7 @@
 		limit 1
 	</select>
 
-	<select id="selectMapByKeyword" resultType="DeliciousSearchVO " parameterType="string">
+<!-- 	<select id="selectMapByKeyword" resultType="DeliciousSearchVO " parameterType="string">
 		select distinct dm.deliciousMapNum, dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousImg
 		from deliciousMap dm 
 		right outer join delicious del 
@@ -27,7 +27,7 @@
 		where deliciousMapName regexp #{searchKeyword}
 		or deliciousMapTag regexp #{searchKeyword}
 		group by deliciousMapNum;
-	</select>
+	</select> -->
 	
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO" useGeneratedKeys="true" keyProperty="deliciousNum">
 		insert into delicious

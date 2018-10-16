@@ -10,8 +10,9 @@ select * from emoji.route;
 select * from emoji.route where routeNum=#{routeNum};
 </select>
 
-<select id="selectRouteDeclicious" resultType="com.bit.emoji.model.OrderedPin" >
-select * from emoji.routeDelicious where routeNum=#{routeNum};
+<select id="selectRouteDeclicious" resultType="com.bit.emoji.model.DeliciousVO" >
+select d.deliciousName,d.deliciousAddress,d.deliciousGrade,d.deliciousDetail from delicious d, route r, routeDelicious rd
+where rd.routeNum=r.routeNum and rd.deliciousNum=d.deliciousNum and rd.routeNum=#{routeNum} order by rd.order;
 </select>
 
 <select id="selectJoin" resultType="java.lang.String" parameterType="com.bit.emoji.model.RouteScrapVO">
@@ -19,4 +20,5 @@ select joinstate from emoji.join where routeNum=#{routeNum} and memberNum=#{memb
 </select>
 
 </mapper>
+
 

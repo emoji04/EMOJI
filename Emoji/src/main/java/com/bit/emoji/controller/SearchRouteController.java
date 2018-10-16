@@ -23,17 +23,17 @@ public class SearchRouteController {
 	SearchRouteService searchRouteService;
 	
 	@ResponseBody
-	@RequestMapping("routeSearch")
+	@RequestMapping(value="routeSearch")
 	public List<RouteVO> searchRoute(
-			@RequestParam("from") String from,
+/*			@RequestParam("from") String from,
 			@RequestParam("to") String to, 
-			@RequestParam("routeWord") String word) {		
+			@RequestParam("routeWord") String word*/) {		
 		
 		return searchRouteService.searchRoute();
 	}
 	
 	@ResponseBody
-	@RequestMapping("clickRoute")
+	@RequestMapping(value="clickRoute",produces="text/plain;charset=UTF-8")
 	public String clickRoute(RouteScrapVO routeScrap, HttpSession session) throws JsonProcessingException {
 		int memberNum=(int) session.getAttribute("loginInfo");
 		routeScrap.setMemberNum(memberNum);	

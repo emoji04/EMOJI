@@ -1,5 +1,6 @@
 package com.bit.emoji.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,21 +31,23 @@ public class MakeRouteController {
 	@Inject
 	MakeRouteService makeRouteService;
 	
-	@RequestMapping("goRoute")
+	@RequestMapping(value="goRoute")
 	public String goMakeRoute() {
 		return "route";
 	}	
 	
 	//검색 ajax 컨트롤러
 	@ResponseBody
-	@RequestMapping("search")
+	@RequestMapping(value="search")
 	public List<DeliciousVO> searchDelicious(@RequestParam(value="ajaxSearch", defaultValue="떡볶이") String search, Model model) {
 		return makeRouteService.selectDelicious(search);
 	}
 	
 
-	@RequestMapping(value="makeRoute",produces = "application/text; charset=utf8", method=RequestMethod.GET)
-	public String makeRoute(RouteVO route, Model model,HttpServletRequest request) {
+	@RequestMapping(value="makeRoute", method=RequestMethod.GET)
+	public String makeRoute(RouteVO route, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+
 		HttpSession session = request.getSession(false);
 		
 		route.setMemberNum((int)session.getAttribute("loginInfo"));
