@@ -115,9 +115,13 @@
 		console.log("ok");
 		if ($("#idtext").val() == '') {
 			$('#idcheck').text('필수항목 입니다.').css("color", "red");
-			return false;};
+			return false;
+			}
 		if(emailcheck($("#idtext").val()) == false){
 			$('#idcheck').text('올바른 이메일을  입력 해 주세요.').css("color", "red");
+			return false;
+		}
+		if($('#idcheck').text() == '이미 등록 된 이메일 입니다.'){
 			return false;
 		}
 		if(emailcheck($("#idtext").val())){
@@ -131,12 +135,16 @@
 					success : function(data) {
 						if (data == "possibleRegi") {
 							$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
+							$('#registerBtn').prop("disabled", true);
 						}else{
-						$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");}
+							$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");
+							return false;
+						}
 					}
 				});
 			} else{
 				$('#idcheck').text('올바른 이메일을  입력 해 주세요.').css("color", "red");
+				return false;
 			};
 		
 		setTimeout(function() {

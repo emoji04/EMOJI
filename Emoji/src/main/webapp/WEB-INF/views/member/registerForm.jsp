@@ -91,7 +91,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 				</div>
 				
 				<div class="boxarea">
-					<input class="widthtext inputfocus" id="name" name="memberName" type="text">
+					<input class="widthtext inputfocus" id="name" name="memberName" placeholder="이름을 입력 해 주세요." type="text">
 				</div>
 				
 				<div id="namechk" class="divchk"></div>
@@ -101,11 +101,11 @@ String allowedEmail = request.getParameter("allowedEmail");
 				</div>
 				<div class="genderarea" style="height: 60px;">
 					<input id="manchk" class="genderchkbox" type="radio" name="memberGender"
-						value="man"> <label class="genderchk" for="manchk">
+						value="M"> <label class="genderchk" for="manchk">
 						<span>남자</span>
 					</label> <input id="womanchk" class="genderchkbox" type="radio"
 						name="memberGender" value="woman"> <label class="genderchk"
-						for="womanchk"> <span>여자</span>
+						for="W"> <span>여자</span>
 					</label>
 				</div>
 				
@@ -344,7 +344,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 				</div>
 
 				<div id="getnumtext">
-					<input class="widthtext inputfocus" id="phone" name="memberPhoneNum" type="text" placeholder="전화번호 입력">
+					<input class="widthtext inputfocus" id="phone" name="memberPhoneNum" type="text" placeholder="(-)을 제외하고 휴대폰번호를 입력 해 주세요.">
 				</div>
 				
 				<div class="getnum">
@@ -352,7 +352,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 				</div>
 				
 				<div class="boxarea disablecol" >
-					<input class="widthtext inputfocus" type="text" id="chkNum" placeholder="인증번호를 입력하세요" disabled="disabled">
+					<input class="widthtext inputfocus" type="text" id="chkNum" placeholder="인증번호 4자리를 입력하세요" disabled="disabled">
 				</div>
 				<div id="phoneindenti" class="divchk"></div>
 				<div>
@@ -526,27 +526,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 			var gender = $(':radio[name=memberGender]:checked').val();
 			var gender2 = $(':radio[name=memberGender]:checked');
 			
-			
-/*			if (email.length ==  0) {
-				$('#idcheck').text('필수항목 입니다.').css("color", "red");
-			} else { 
-				if(emailcheck($("#idtext").val())){
-					$.ajax({
-						type : 'POST',
-						url : '<c:url value='/regicheck.json'/>',
-						data : 'email=' + email,
-						dataType: 'text',
-						success : function(data) {
-							console.log(data);
-							if (data == "possibleRegi") {
-								$('#idcheck').text('멋진 아이디 입니다!').css("color", "green");
-							}
-						}
-					});
-				} else{
-					$('#idcheck').text('올바르지 않은 이메일 형식 입니다.').css("color", "red");
-				}
-			}; */
+
 			if (pass.length == 0) {
 				$('#passchk1').text('필수항목 입니다.').css("color", "red");
 			} else {
@@ -577,9 +557,6 @@ String allowedEmail = request.getParameter("allowedEmail");
 			} else{
 				$('#genderchk').text('').css('color', 'red');
 			};
-/* 			if($('#idcheck').text() != '멋진 아이디 입니다!'){
-				return false;
-			}; */
 			if ($('#passchk1').text() != '안전한 비밀번호 입니다.') {
 				return false;
 			};
