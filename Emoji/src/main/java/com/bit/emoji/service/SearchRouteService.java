@@ -51,7 +51,11 @@ public class SearchRouteService extends ServiceDao {
 		//pathvariable 
 		return sqlSession.selectOne(MapperName.SEARCHROUTE + ".insertJoin",routeScrap);				
 	}
-	
+	public Object deleteJoin(RouteScrapVO routeScrap) {
+		return sqlSession.selectOne(MapperName.SEARCHROUTE+".deleteJoin", routeScrap);
+				
+				
+	}
 	/*		
 	public int insertScrap(int memberNum, int routeNum) {
 	
@@ -63,7 +67,5 @@ public class SearchRouteService extends ServiceDao {
 	
 
 	
-	public int deleteJoin(int memberNum, int routeNum) {
-	
-	}*/
+*/
 }

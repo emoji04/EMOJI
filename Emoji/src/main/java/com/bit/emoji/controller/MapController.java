@@ -66,6 +66,8 @@ public class MapController {
 
 		return "/delicious/deliciousDetail";
 	}
+	
+	
 
 	//맛집지도 등록하고 보여주기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)

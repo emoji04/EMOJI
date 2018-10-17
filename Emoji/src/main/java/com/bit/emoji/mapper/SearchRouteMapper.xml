@@ -24,6 +24,10 @@ select joinstate from emoji.join where routeNum=#{routeNum} and memberNum=#{memb
 insert into emoji.join(routeNum,memberNum) values(#{routeNum},#{memberNum})
 </insert>
 
+<delete id="deleteJoin" parameterType="com.bit.emoji.model.RouteScrapVO">
+delete from emoji.join where routeNum=#{routeNum} and memberNum=#{memberNum};
+</delete>
+
 </mapper>
 
 

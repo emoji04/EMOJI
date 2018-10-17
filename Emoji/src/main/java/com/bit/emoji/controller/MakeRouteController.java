@@ -32,8 +32,14 @@ public class MakeRouteController {
 	MakeRouteService makeRouteService;
 	
 	@RequestMapping(value="goRoute")
-	public String goMakeRoute() {
-		return "route";
+	public String goMakeRoute(HttpSession session) {
+		
+		if(session.getAttribute("loginInfo")!=null) {
+			return "route/route";
+		}else {
+			return "member/loginForm";
+		}
+		
 	}	
 	
 	//검색 ajax 컨트롤러
