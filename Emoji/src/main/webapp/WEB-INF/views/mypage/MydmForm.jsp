@@ -97,8 +97,11 @@ table {
 					<input type="checkbox"> 
 						<input type="hidden" id="DeliciousMapNum" value="${DeliciousMapVO.deliciousMapNum}">
 						<input type="text" name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
+						
+						<!-- 지도 생성일자를 날짜만 나오도록함  -->
 						<fmt:parseDate var="DeliciousMapCreateDate" value="${DeliciousMapVO.deliciousMapCreateDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 						<input name="DeliciousMapCreateDate" value="<fmt:formatDate value='${DeliciousMapCreateDate}' pattern='yyyy-MM-dd' />" readonly="readonly"> 
+						
 						<input type="button" value="비공개">
 						<input type="button" value="수정"> 
 						<input type="button" value="삭제"> <br>
@@ -265,7 +268,6 @@ function CallmyDmList(value, value1) {
 						}
 					});
 				});
-				
 			});
 
 			//앞전 데이터 삭제
@@ -293,8 +295,7 @@ function CallmyDmList(value, value1) {
 		}
 	});
 
-	
-/* 	//리뷰 Ajax
+ 	//리뷰 Ajax
 	$.ajax({
 		type : "POST",
 		url : "<c:url value='myDmReview'/>",
@@ -325,7 +326,7 @@ function CallmyDmList(value, value1) {
 			error : function(xhr, status, error){
 				alert("에러발생");
 			}
-		}); */
+		}); 
 }
 </script>
 </html>
