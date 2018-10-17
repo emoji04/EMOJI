@@ -129,30 +129,6 @@ wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-
 							<p id="deliciousMapImg${status.count}"></p>
 							<p id="deliciousMapGrade${status.count}"></p>
 
-<<<<<<< HEAD
-						<!-- Delicious 임시 정보 불러오는 화면 -->
-					<%-- <div>
-							<p id="deliciousName${status.count}"></p>
-							<p id="deliciousAddress${status.count}"></p>
-							<p id="deliciousCategory${status.count}"></p>
-							<p id="deliciousPhone${status.count}"></p>
-							<p id="deliciousGrade${status.count}"></p>
-							<p id="deliciousDetail${status.count}"></p>
-							<p id="deliciousImg${status.count}"></p>
-						</div> --%>
-
-=======
-							<!-- Delicious 임시 정보 불러오는 화면 -->
-							<div>
-								<p id="deliciousName${status.count}"></p>
-								<p id="deliciousAddress${status.count}"></p>
-								<p id="deliciousCategory${status.count}"></p>
-								<p id="deliciousPhone${status.count}"></p>
-								<p id="deliciousGrade${status.count}"></p>
-								<p id="deliciousDetail${status.count}"></p>
-								<p id="deliciousImg${status.count}"></p>
-							</div>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 					</div>
 				</div>
 			</c:forEach>
@@ -352,7 +328,6 @@ function CallmyDmList(value, value1) {
 			error : function(xhr, status, error){
 				alert("에러발생");
 			}
-<<<<<<< HEAD
 		});
 		
 		//지도 핀찍을 주소 정보 출력 
@@ -511,9 +486,7 @@ function CallmyDmList(value, value1) {
 						alert("에러발생");
 					}
 				});
-=======
 		}); 
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 }
 </script>
 </html>
