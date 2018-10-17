@@ -54,10 +54,7 @@ public class MapController {
 	}
 	
 	@RequestMapping("/deliciousDetail")
-	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum,
-			@RequestParam(value = "deliciousImg") String deliciousImg) {
-
-		
+	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum, @RequestParam(value = "deliciousImg") String deliciousImg) {
 		model.addAttribute("deliciousImg", deliciousImg);
 		model.addAttribute("gradeAvg", mapDetailService.selectMapReviewAvg(deliciousMapNum));
 		model.addAttribute("dmDetail", mapDetailService.selectDetail(deliciousMapNum));
@@ -67,8 +64,6 @@ public class MapController {
 		return "/delicious/deliciousDetail";
 	}
 	
-	
-
 	//맛집지도 등록하고 보여주기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) throws Exception {
