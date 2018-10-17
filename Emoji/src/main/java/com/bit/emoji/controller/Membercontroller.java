@@ -86,6 +86,10 @@ public class Membercontroller {
     public String goFindPassword(){
         return "member/findPass";
     }
+    @RequestMapping(value = "/changePassword")
+    public String goChangePassword(){
+        return "member/changePassword";
+    }
     
     public String goUpdateForm(){
         return null;
@@ -209,7 +213,7 @@ public class Membercontroller {
     public ModelAndView goEmailSend2(@RequestParam String email, HttpServletRequest request){
     	
     	request.setAttribute("email", request.getParameter("email"));
-    	String viewName = "member/changePassword";
+    	String viewName = "member/changePassEmail";
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);
@@ -255,6 +259,40 @@ public class Membercontroller {
     	request.getParameter("memberName");
     	
         return "member/regiSuccess";
+    }
+    
+    @RequestMapping(value="/changePasswordOk", method = RequestMethod.POST)
+	public ModelAndView changePasswordOk(HttpServletResponse response, MemberVO memberVO,@RequestParam String memberEmail, @RequestParam String emailKey, @RequestParam String memberPassword) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
+		String shaPassword = sha.encrypt(memberPassword);
+		String viewName = "redirect:/passwordChangeSuccess.do";
+		
+		ModelAndView modelAndView = new ModelAndView();
+		if(memberService.allowedEmail(memberEmail) != null && emailKey.equals(memberService.allowedEmail(memberEmail).getKey()) && memberService.login(memberEmail) != null) {
+			
+			modelAndView.setViewName(viewName);
+			memberVO.setMemberPassword(shaPassword);
+			int updateCnt = memberService.changePassword(memberVO);
+	
+			modelAndView.addObject("insertMember", updateCnt);
+			
+			return modelAndView;
+		}else {
+			viewName = "member/emailchk";
+			response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('이메일 인증 후 한 시간이 지났거나 잘못된 접근입니다. 다시 이메일 인증을 해주세요'); </script>");
+	        out.flush();
+			modelAndView.setViewName(viewName);
+			return modelAndView;
+		}
+    };
+    
+    @RequestMapping(value = "/passwordChangeSuccess.do")
+    public String passwordChangeSuccess(HttpServletRequest request)throws Exception {
+    	
+    	request.getParameter("memberName");
+    	
+        return "member/findPass";
     }
 }
 

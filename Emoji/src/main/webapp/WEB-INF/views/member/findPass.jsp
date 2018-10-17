@@ -99,7 +99,7 @@
 										dataType: 'text',
 										success : function(data) {
 											if (data == "possibleRegi") {
-												$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailsend"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+												$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailcheck"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
 											}else{
 											$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");}
 										}
