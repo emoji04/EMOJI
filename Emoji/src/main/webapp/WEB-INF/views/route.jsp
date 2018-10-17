@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-%>
+
 <!DOCTYPE html>
 <html>
 
@@ -273,7 +271,7 @@ input[type=text] {
 						ondragover="allowDrop(event)"></div>
 				</div>
 				<div id="smallright">
-					<form action='<c:url value="/makeRoute"/>'
+					<form action='<c:url value="/makeRoute"/>' id="form1" 
 						onsubmit="return save($(this));">
 						<table border=1>
 							<tr>
@@ -310,7 +308,6 @@ input[type=text] {
 							</tr>
 							<tr>
 								<td><button id="button1">원정대 만들기</button>
-									<button id="button2">취소</button></td>
 								<td><input type="hidden" id="add" name="order" />
 								<input type="hidden" id="searchedRouteNum" /></td>
 								
@@ -770,12 +767,14 @@ input[type=text] {
 		var check = confirm("원정대 만들기를 취소하시겠습니까?");
 		if (check) {
 			tabChange(e);
+			$('#form1').children('input').attr('readonly',true);
 			erase();
 			//원정대 폼은 검색된 원정대 정보에 따라서 참여취소와 참여하기 스크랩하기 만들것.
 		}
 	}
 	function resetMake(e){		
 		tabChange(e);
+		$('#form1').children('input').removeAttr('readonly');
 		$('#button1').text("원정대 만들기");
 		erase();
 	}
@@ -842,9 +841,11 @@ input[type=text] {
 		setPolylines(null);
 		polylines=[]; 
 		
+		//클릭된 원정대의 지도상의 뜰 마커의 주소 초기화
 		searchAddresses=[];
 		
 		var routeNum=0;
+		
 		$(e).each(function(){
 			routeNum=$(this).find('.routeNum').val();
 		});		
