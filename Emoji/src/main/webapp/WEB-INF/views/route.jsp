@@ -227,7 +227,7 @@ input[type=text] {
 								name="searchDateTo" id="toDate"></label>
 						</div>
 						<div>
-							<label><input type="text" placeholder="맛집이름,카테고리,상세정보"
+							<label><input type="text" placeholder="원정대이름,해시태그,예산"
 								id="routeWord">
 								<button onclick="routeSearch()">검색</button></label>
 						</div>
@@ -699,7 +699,6 @@ input[type=text] {
 		routeNum=$('#searchedRouteNum').val();
 		alert(routeNum);
 		if($('#button1').text()==='참여가능'){
-			alert('가능?');	
 			event.preventDefault(); 
 			//폼의 주소로만 가서 makeRoute컨트롤러로간다
 			//ajax를 가지않음			
@@ -709,17 +708,20 @@ input[type=text] {
 				data : {
 					"routeNum":routeNum					
 				},
-				dataType : "json",
 				success:function(data){
 					alert(data);			
-					alert("참여가 완료되었습니다.")
-					$('#button1').text("승인을 기다리는중");
+					if(data=="참여가 완료되었습니다."){
+						$('#button1').text("승인 중");						
+					}	
 					return false;
 				}
 			})
 		}else if($('#button1').text()==='원정대 대장으로 참여중'){
 			alert("참여하실 수 없습니다.")
-			return false;
+			return false;			
+		}else if($('#button1').text()==='승인 중'){
+			//다시 누르면 취소하는 ajax하기
+			
 		}else{
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {

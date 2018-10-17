@@ -19,7 +19,7 @@
 		limit 1
 	</select>
 
-<<<<<<< HEAD
+
 <!-- 	<select id="selectMapByKeyword" resultType="DeliciousSearchVO " parameterType="string">
 		select distinct dm.deliciousMapNum, dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousImg
 		from deliciousMap dm 
@@ -33,6 +33,7 @@
 		from deliciousMap 
 		right outer join delicious
 		on deliciousMap.deliciousMapNum=delicious.deliciousMapNum
+		
 		<where>
 			<if test="deliciousMapName != null and deliciousMapTag != null">
 				deliciousMapName like CONCAT('%',#{deliciousMapName},'%')

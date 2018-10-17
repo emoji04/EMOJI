@@ -2,17 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SearchRoute">
 
-<select id="selectRoute" resultType="com.bit.emoji.model.RouteVO">
-select * from emoji.route;
+<select id="selectRoute" parameterType="com.bit.emoji.model.RouteSearchVO" resultType="com.bit.emoji.model.RouteVO">
+select * from emoji.route where startDate between #{from} and #{to} 
+and routeName like CONCAT('%',#{routeWord},'%')  or routeTag like CONCAT('%',#{routeWord},'%') or budget like CONCAT('%',#{routeWord},'%');
 </select>
-
-	<select id="getRoute" parameterType="String"
-		resultType="com.bit.emoji.model.RouteVO">
-		select * from route join member on
-		route.memberNum=member.memberNum
-		where route.routeName like
-		CONCAT('%',#{search},'%')		
-	</select>
 
 <select id="selectRouteById" resultType="com.bit.emoji.model.RouteVO" >
 select * from emoji.route where routeNum=#{routeNum};

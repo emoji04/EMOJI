@@ -40,6 +40,7 @@ public class MakeRouteController {
 	@ResponseBody
 	@RequestMapping(value="search")
 	public List<DeliciousVO> searchDelicious(@RequestParam(value="ajaxSearch", defaultValue="떡볶이") String search, Model model) {
+		System.out.println(search);
 		return makeRouteService.selectDelicious(search);
 	}
 	
