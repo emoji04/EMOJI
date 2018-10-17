@@ -73,12 +73,6 @@ public class MailSendService {
 							"\n" + 
 							"				<tr>\n" + 
 							"					<td>\n" + 
-							"						<div style=\"background-color: white\">\n" + 
-<<<<<<< HEAD
-							"							<form action=\"http://localhost:/emoji/registerForm \"\n" + 
-=======
-							"							<form action=\"http://10.10.10.159:8080/emoji/registerForm \"\n" + 
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 							"								method=\"post\">\n" + 
 							"								 <input type=\"hidden\" name=\"allowedEmail\"\n" + 
 							"									value=\""+ memberEmail + "\"> <input type=\"hidden\"\n" + 
