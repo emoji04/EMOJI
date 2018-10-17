@@ -73,18 +73,10 @@ public class MypageController {
 		System.out.println(callList);
 		return callList;
 	}
-<<<<<<< HEAD
-
-	@ResponseBody
-	@RequestMapping(value = "myDeliciousList")
-	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,
-			@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
-=======
 	
 	@ResponseBody
 	@RequestMapping(value="myDeliciousList")
 	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,  @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		logger.info("........myDeliciousList POST ...");
 		logger.info(deliciousMapNum);
 		List<DeliciousVO> callAddress = mypageService.myDeliciousList(Integer.parseInt(deliciousMapNum));
@@ -92,7 +84,6 @@ public class MypageController {
 		return callAddress;
 
 	}
-<<<<<<< HEAD
 	
 //	나의 원정대
 	@RequestMapping(value = "/MyRouteForm",  method = RequestMethod.GET)
@@ -104,7 +95,6 @@ public class MypageController {
 		return "mypage/MyRouteForm";
 	}
 
-=======
 
 	//예외 발생 시
 	@ExceptionHandler(Exception.class)
@@ -113,5 +103,4 @@ public class MypageController {
 	
 		return "exception";
 	}
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 }
