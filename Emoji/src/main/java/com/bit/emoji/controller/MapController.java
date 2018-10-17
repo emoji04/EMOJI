@@ -1,7 +1,5 @@
 package com.bit.emoji.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,11 @@ import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinInfo;
 import com.bit.emoji.model.DeliciousSearchInfo;
 import com.bit.emoji.model.DeliciousVO;
+import com.bit.emoji.service.MapDetailService;
 import com.bit.emoji.service.MapService;
 import com.bit.emoji.service.MapService.PinService;
 import com.bit.emoji.service.MemberService;
+import com.bit.emoji.service.ScrapCheckService;
 import com.bit.emoji.service.SearchService;
 
 @Controller
@@ -36,6 +36,17 @@ public class MapController {
 	@Autowired
 	SearchService searchService;
 	
+	@Autowired
+	ScrapCheckService scrapCheckService;
+	
+	@Autowired
+	MapDetailService mapDetailService;
+	
+	@RequestMapping(value = "/scrapCheck.do")
+	public String scrapCheck() {
+		return "/delicious/deliciousDetail";
+	}
+	
 	//맛집지도 메인 페이지
 	@RequestMapping(value="/deliciousForm")
 	public String deliciousForm() {
@@ -43,9 +54,15 @@ public class MapController {
 	}
 	
 	@RequestMapping("/deliciousDetail")
-	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum) {
+	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum,
+			@RequestParam(value = "deliciousImg") String deliciousImg) {
 
-		model.addAttribute("dmDetail", mapService.selectMapByDeliciousMapNum(deliciousMapNum));
+		
+		model.addAttribute("deliciousImg", deliciousImg);
+		model.addAttribute("gradeAvg", mapDetailService.selectMapReviewAvg(deliciousMapNum));
+		model.addAttribute("dmDetail", mapDetailService.selectDetail(deliciousMapNum));
+		model.addAttribute("deliciousDetail", mapDetailService.selectDetailDelicious(deliciousMapNum));
+		model.addAttribute("reviewDetail", mapDetailService.selectDetailReview(deliciousMapNum));
 
 		return "/delicious/deliciousDetail";
 	}
