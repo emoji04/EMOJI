@@ -21,13 +21,15 @@ import com.bit.emoji.service.MypageService;
 @Controller
 public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	
+	
 
 	@Autowired
 	MypageService mypageService;
 
 	@RequestMapping(value = "memberUpdateForm", method = RequestMethod.GET)
 	public String listAll(Model model, HttpSession session) throws Exception {
-		int loginInfo =  (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
+		int loginInfo =  (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum*/
 		logger.info("............................GET");
 		model.addAttribute("memberUpdateForm", mypageService.selectMember((Integer) session.getAttribute("loginInfo")));
 		return "mypage/memberUpdateForm";

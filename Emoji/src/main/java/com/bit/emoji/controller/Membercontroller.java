@@ -99,8 +99,10 @@ public class Membercontroller {
     	String pw = request.getParameter("memberPassword");
     	String shaPassword = sha.encrypt(pw);
     	if(memberService.login(memberEmail) != null && shaPassword.equals(memberService.login(memberEmail).getMemberPassword())){
-    		
+    	
     		session.setAttribute("loginInfo", memberService.login(memberEmail).getMemberNum());
+    		
+    		
     		return "home";
 		}else {
 	        response.setContentType("text/html; charset=UTF-8");
