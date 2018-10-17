@@ -55,7 +55,6 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-<<<<<<< HEAD
 
 			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>"
 				style="font-size: 25px;"> <img alt=""
@@ -64,10 +63,7 @@
 				style="padding-right: 120px;">모두의지도
 			</a>
 
-=======
-			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>" style="font-size: 25px; padding-top: 18px">
-			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 100px; border-radius: 5px; padding-right: 20px;">모두의지도 </a>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
+
 		</div>
 		<div style="width: 100px"></div>
 
