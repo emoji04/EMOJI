@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,11 +73,18 @@ public class MypageController {
 		System.out.println(callList);
 		return callList;
 	}
+<<<<<<< HEAD
 
 	@ResponseBody
 	@RequestMapping(value = "myDeliciousList")
 	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,
 			@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+=======
+	
+	@ResponseBody
+	@RequestMapping(value="myDeliciousList")
+	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,  @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		logger.info("........myDeliciousList POST ...");
 		logger.info(deliciousMapNum);
 		List<DeliciousVO> callAddress = mypageService.myDeliciousList(Integer.parseInt(deliciousMapNum));
@@ -84,6 +92,7 @@ public class MypageController {
 		return callAddress;
 
 	}
+<<<<<<< HEAD
 	
 //	나의 원정대
 	@RequestMapping(value = "/MyRouteForm",  method = RequestMethod.GET)
@@ -95,4 +104,14 @@ public class MypageController {
 		return "mypage/MyRouteForm";
 	}
 
+=======
+
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+	
+		return "exception";
+	}
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 }
