@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.bit.emoji.model.DeliciousMapReviewVO"
 		parameterType="int">
 		SELECT
-		deliciousMapReviewNum,deliciousMapNum, memberNum,
-		deliciousMapReviewTitle, deliciousMapReviewContent,
-		deliciousMapReviewWriteDate, deliciousMapReviewImg,
-		deliciousMapReviewGrade
+		deliciousMapNum,deliciousMapNum, memberNum,
+		deliciousMapTitle, deliciousMapContent,
+		deliciousMapWriteDate, deliciousMapImg,
+		deliciousMapGrade
 		FROM deliciousMapReview
 		where deliciousMapNum = #{deliciousMapNum}
 	</select>
