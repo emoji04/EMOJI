@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.RouteScrapVO;
+import com.bit.emoji.model.RouteSearchVO;
 import com.bit.emoji.model.RouteVO;
 import com.bit.emoji.service.SearchRouteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,12 +25,8 @@ public class SearchRouteController {
 	
 	@ResponseBody
 	@RequestMapping(value="routeSearch")
-	public List<RouteVO> searchRoute(
-/*			@RequestParam("from") String from,
-			@RequestParam("to") String to, 
-			@RequestParam("routeWord") String word*/) {		
-		
-		return searchRouteService.searchRoute();
+	public List<RouteVO> searchRoute(RouteSearchVO routeSearch) {		
+		return searchRouteService.searchRoute(routeSearch);
 	}
 	
 	@ResponseBody
@@ -45,18 +42,32 @@ public class SearchRouteController {
 	@ResponseBody
 	@RequestMapping(value="clickJoin",produces="text/plain;charset=UTF-8")
 	public String clickJoin(RouteScrapVO routeScrap, HttpSession session) {
-		System.out.println("들어옴");
 		int memberNum=(int) session.getAttribute("loginInfo");
 		routeScrap.setMemberNum(memberNum);	
 		
 		Object result=searchRouteService.insertJoin(routeScrap);
 		if(result==null) {
-			return "성공";
-		}else
-			return "실패";
+			return "참여가 완료되었습니다.";
+		}else {
+			return "참여가 정상적으로 완료되지 않았습니다.";
+		}
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="cancelJoin",produces="text/plain;charset=UTF-8")
+	public String cancelJoin(RouteScrapVO routeScrap, HttpSession session) {
+		int memberNum=(int) session.getAttribute("loginInfo");
+		routeScrap.setMemberNum(memberNum);	
+		
+		Object result=searchRouteService.deleteJoin(routeScrap);
+		if(result==null) {
+			return "참여가 취소되었습니다.";
+		}else {
+			return "참여취소가 정상적으로 완료되지 않았습니다.";
+		}
+		
+	}
 	/*	
 	public String clicksScrap(HttpSession session, int routeNum, String state) {
 	

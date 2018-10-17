@@ -4,25 +4,13 @@
 
 <select id="selectDelicious" resultType="com.bit.emoji.model.DeliciousVO" parameterType="String">
 select deliciousNum,deliciousName,deliciousAddress,deliciousPhone,deliciousGrade,deliciousDetail
-from emoji.delicious where deliciousDetail like '%' || #{search} || '%'
+from emoji.delicious where 
+deliciousDetail like CONCAT('%',#{search},'%') 
+or deliciousName like CONCAT('%',#{search},'%')
+or deliciousCategory like CONCAT('%',#{search},'%');
+<!-- '%' || #{search} || '%' -->		
 
 </select>
-
-<!-- <insert id="multiInsert">
-{call
-	declare
-	begin
-		insert into emoji.route(memberNum,routeName,possibleNum,startDate,spendTime,budget,rule,routeTag) 
-	values(#{memberNum},#{routeName},#{possibleNum},#{startDate},#{spendTime},#{budget},#{rule},#{routeTag});
-	
-	insert into emoji.routeDelicious
-	values
-	<foreach collection="list" item="item" separator=",">
-	(#{item.routeNum},#{item.deliciousNum},#{item.deliciousOrder});
-	</foreach>
-}
-
-</insert> -->
 
 
 <insert id="routeInsert" parameterType="com.bit.emoji.model.RouteVO" >

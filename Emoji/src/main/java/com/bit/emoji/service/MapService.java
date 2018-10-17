@@ -46,7 +46,7 @@ public class MapService extends ServiceDao {
 			//저장용 파일 이름
 			String deliciousImgName = "";
 			//저장 경로 설정
-			String uploadUri = "resources/uploadFile/deliciousPinPhoto";
+			String uploadUri = "resources/img/deliciousPin";
 			
 			//시스템의 물리적인 경로
 			String dir = request.getSession().getServletContext().getRealPath(uploadUri);

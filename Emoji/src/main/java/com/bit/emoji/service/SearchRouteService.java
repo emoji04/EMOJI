@@ -4,18 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.model.OrderedPin;
 import com.bit.emoji.model.RouteScrapVO;
+import com.bit.emoji.model.RouteSearchVO;
 import com.bit.emoji.model.RouteVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+@Repository
 public class SearchRouteService extends ServiceDao {
 	
-	public List<RouteVO> searchRoute() {
-		return sqlSession.selectList(MapperName.SEARCHROUTE + ".selectRoute");
+	public List<RouteVO> searchRoute(RouteSearchVO routeSearch) {
+		return sqlSession.selectList(MapperName.SEARCHROUTE + ".selectRoute",routeSearch);
 	}
 	
 	public String selectRouteJoin(RouteScrapVO routeScrap) throws JsonProcessingException {
@@ -46,9 +49,13 @@ public class SearchRouteService extends ServiceDao {
 	public Object insertJoin(RouteScrapVO routeScrap) {
 		//메일에서 승인받으면  joinstate만 바꾸기
 		//pathvariable 
-		return sqlSession.selectList(MapperName.SEARCHROUTE + ".insertJoin",routeScrap);				
+		return sqlSession.selectOne(MapperName.SEARCHROUTE + ".insertJoin",routeScrap);				
 	}
-	
+	public Object deleteJoin(RouteScrapVO routeScrap) {
+		return sqlSession.selectOne(MapperName.SEARCHROUTE+".deleteJoin", routeScrap);
+				
+				
+	}
 	/*		
 	public int insertScrap(int memberNum, int routeNum) {
 	
@@ -60,7 +67,5 @@ public class SearchRouteService extends ServiceDao {
 	
 
 	
-	public int deleteJoin(int memberNum, int routeNum) {
-	
-	}*/
+*/
 }

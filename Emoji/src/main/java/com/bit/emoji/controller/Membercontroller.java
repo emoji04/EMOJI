@@ -82,6 +82,10 @@ public class Membercontroller {
     public String goEmailcheck(){
         return "member/emailchk";
     }
+    @RequestMapping(value = "/findPass")
+    public String goFindPassword(){
+        return "member/findPass";
+    }
     
     public String goUpdateForm(){
         return null;
@@ -184,6 +188,30 @@ public class Membercontroller {
     	
     	request.setAttribute("email", request.getParameter("email"));
     	String viewName = "member/emailSend";
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("email", email);
+		modelAndView.setViewName(viewName);
+        return modelAndView;
+    }
+    
+    @RequestMapping(value="/emailsend2", method = RequestMethod.POST)
+	public ModelAndView htmlSendMail2(HttpServletRequest request, HttpServletResponse response, @RequestParam("memberEmail") String email) {
+    	System.out.println("이메일 보낼 이메일ㅋ"+ email);
+		// 메일 발송
+		mailSendService.htmlMailSend2(email);
+		String viewName = "redirect:/emailSend2.do";
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("email", email);
+		modelAndView.setViewName(viewName);
+		
+		return modelAndView;
+	}
+    
+    @RequestMapping(value = "/emailSend2.do")
+    public ModelAndView goEmailSend2(@RequestParam String email, HttpServletRequest request){
+    	
+    	request.setAttribute("email", request.getParameter("email"));
+    	String viewName = "member/changePassword";
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);

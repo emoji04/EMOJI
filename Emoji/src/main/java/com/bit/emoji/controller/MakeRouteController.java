@@ -32,14 +32,21 @@ public class MakeRouteController {
 	MakeRouteService makeRouteService;
 	
 	@RequestMapping(value="goRoute")
-	public String goMakeRoute() {
-		return "route";
+	public String goMakeRoute(HttpSession session) {
+		
+		if(session.getAttribute("loginInfo")!=null) {
+			return "route/route";
+		}else {
+			return "member/loginForm";
+		}
+		
 	}	
 	
 	//검색 ajax 컨트롤러
 	@ResponseBody
 	@RequestMapping(value="search")
 	public List<DeliciousVO> searchDelicious(@RequestParam(value="ajaxSearch", defaultValue="떡볶이") String search, Model model) {
+		System.out.println(search);
 		return makeRouteService.selectDelicious(search);
 	}
 	

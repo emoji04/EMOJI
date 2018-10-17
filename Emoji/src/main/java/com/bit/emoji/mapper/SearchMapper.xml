@@ -5,37 +5,31 @@
 <mapper namespace="Search">
 
 
-	<select id="getDmap" parameterType="String"
-		resultType="com.bit.emoji.model.DeliciousMapVO">
 
-		select deliciousMap.deliciousMapNum,
-		deliciousMap.deliciousMapName,
-		deliciousMap.deliciousMapDetail,
+
+	<select resultType="com.bit.emoji.model.DeliciousMapVO"
+		parameterType="String" id="getDmap"> select deliciousMap.deliciousMapNum,
+		deliciousMap.deliciousMapName, deliciousMap.deliciousMapDetail,
 		delicious.deliciousImg, deliciousMap.deliciousMapCreateDate,
-		member.memberEmail, member.memberNum
-		from member join (delicious right
-		outer join deliciousMap
-		on
+		member.memberEmail, member.memberNum from member join (delicious
+		right
+		outer join deliciousMap on
 		deliciousMap.deliciousMapNum=delicious.deliciousMapNum) where
-		deliciousMapName like CONCAT('%',#{search},'%') or
-		deliciousMapDetail
-		like
-		CONCAT('%',#{search},'%')
-		group by
-		deliciousMapNum
-		order by
+		deliciousMapName like CONCAT('%',#{search},'%') or deliciousMapDetail
+		like CONCAT('%',#{search},'%') group by deliciousMapNum order by
 		deliciousMapNum;
-
-
 	</select>
 
-	<select id="getRoute" parameterType="String"
-		resultType="com.bit.emoji.model.RouteVO">
-		select * from route join member on
-		route.memberNum=member.memberNum
-		where route.routeName like
-		CONCAT('%',#{search},'%')
+	<select resultType="com.bit.emoji.model.RouteVO"
+		parameterType="String" id="getRoute"> select * from route join member on
+		route.memberNum=member.memberNum where route.routeName like
+		CONCAT('%',#{search},'%') </select>
+
+	<select resultType="int" parameterType="int" id="getCount"> select
+		count(*)
+		from deliciousMapScrap where deliciousMapNum=#{count};
 	</select>
+
 
 
 </mapper>

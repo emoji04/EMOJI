@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-%>
+
 <!DOCTYPE html>
 <html>
 
@@ -227,7 +225,7 @@ input[type=text] {
 								name="searchDateTo" id="toDate"></label>
 						</div>
 						<div>
-							<label><input type="text" placeholder="맛집이름,카테고리,상세정보"
+							<label><input type="text" placeholder="원정대이름,해시태그,예산"
 								id="routeWord">
 								<button onclick="routeSearch()">검색</button></label>
 						</div>
@@ -236,8 +234,8 @@ input[type=text] {
 					<!-- #tab1 -->
 					<div id="tab2" class="tab_content">
 						<div>
-							<label><input type="radio" name="searchPool"
-								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label>
+<!-- 							<label><input type="radio" name="searchPool"
+								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> -->
 						</div>
 						<div>
 							<label><input type="radio" name="searchPool"
@@ -273,7 +271,7 @@ input[type=text] {
 						ondragover="allowDrop(event)"></div>
 				</div>
 				<div id="smallright">
-					<form action='<c:url value="/makeRoute"/>'
+					<form action='<c:url value="/makeRoute"/>' id="form1" 
 						onsubmit="return save($(this));">
 						<table border=1>
 							<tr>
@@ -310,7 +308,6 @@ input[type=text] {
 							</tr>
 							<tr>
 								<td><button id="button1">원정대 만들기</button>
-									<button id="button2">취소</button></td>
 								<td><input type="hidden" id="add" name="order" />
 								<input type="hidden" id="searchedRouteNum" /></td>
 								
@@ -327,6 +324,7 @@ input[type=text] {
 <c:url var="search2" value="/routeSearch"></c:url>
 <c:url var="getRouteInfo" value="/clickRoute"></c:url>
 <c:url var="insertJoin" value="/clickJoin"></c:url>
+<c:url var="cancelJoin" value="/cancelJoin"></c:url>
 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
@@ -433,6 +431,7 @@ input[type=text] {
 											imageSrc, imageSize);
 
 									var marker = new daum.maps.Marker({
+										
 										map : map,
 										position : coords,
 										image : markerImage
@@ -560,7 +559,7 @@ input[type=text] {
 														.append(
 																"<div class='delicious' id='"
 																		+ i
-																		+ "' draggable='true' ondragstart='drag(event)'><div>"
+																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='${pageContext.request.contextPath}/resources/img/deliciousPin/"+value.deliciousImg+"' alt='${pageContext.request.contextPath}/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
 																		+ name
 																		+ "</div>"
 																		+ "<div>"
@@ -699,7 +698,6 @@ input[type=text] {
 		routeNum=$('#searchedRouteNum').val();
 		alert(routeNum);
 		if($('#button1').text()==='참여가능'){
-			alert('가능?');	
 			event.preventDefault(); 
 			//폼의 주소로만 가서 makeRoute컨트롤러로간다
 			//ajax를 가지않음			
@@ -709,17 +707,33 @@ input[type=text] {
 				data : {
 					"routeNum":routeNum					
 				},
-				dataType : "json",
 				success:function(data){
 					alert(data);			
-					alert("참여가 완료되었습니다.")
-					$('#button1').text("승인을 기다리는중");
+					if(data=="참여가 완료되었습니다."){
+						$('#button1').text("승인 중");						
+					}	
 					return false;
 				}
 			})
 		}else if($('#button1').text()==='원정대 대장으로 참여중'){
 			alert("참여하실 수 없습니다.")
-			return false;
+			return false;			
+		}else if($('#button1').text()==='승인 중'){
+			event.preventDefault(); 
+			//다시 누르면 취소하는 ajax하기
+			$.ajax({
+				type : "get",
+				url : "${cancelJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert(data);
+					$('#button1').text("참여가능")
+				}
+				
+				
+			})
 		}else{
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {
@@ -768,12 +782,14 @@ input[type=text] {
 		var check = confirm("원정대 만들기를 취소하시겠습니까?");
 		if (check) {
 			tabChange(e);
+			$('#form1').children('input').attr('readonly',true);
 			erase();
 			//원정대 폼은 검색된 원정대 정보에 따라서 참여취소와 참여하기 스크랩하기 만들것.
 		}
 	}
 	function resetMake(e){		
 		tabChange(e);
+		$('#form1').children('input').removeAttr('readonly');
 		$('#button1').text("원정대 만들기");
 		erase();
 	}
@@ -819,8 +835,8 @@ input[type=text] {
 			success : function(data) {
 				$.each(data, function(key, value) {
 					$('#searched').append(
-							"<div id='click' onclick='show(this)'><div class='routeName' >" + value.routeName
-									+ "</div><div>" + value.routeName
+							"<div onclick='show(this)'><div class='routeName' >" + value.routeName
+									+ "</div><div>" + value.routeTag
 									+ "</div><input type='hidden' class='routeNum' value='"+value.routeNum+"' /></div>")
 				})
 			}
@@ -840,9 +856,11 @@ input[type=text] {
 		setPolylines(null);
 		polylines=[]; 
 		
+		//클릭된 원정대의 지도상의 뜰 마커의 주소 초기화
 		searchAddresses=[];
 		
 		var routeNum=0;
+		
 		$(e).each(function(){
 			routeNum=$(this).find('.routeNum').val();
 		});		
@@ -878,9 +896,9 @@ input[type=text] {
 						$.each(value,function(key,vvalue){	
 							if(value==data.routeDelicious){
 								$('#smallLeftLeft').append(
-										"<div class='deliciousList listOrder'>" + key + "</div>");
+										"<div class='deliciousList listOrder'>" + (key+1) + "</div>");
 							$('#smallLeftRight').append(
-									"<div><div>" + vvalue.deliciousName 
+									"<div class='delicious'><div>" + vvalue.deliciousName 
 									+ "</div><div>"+vvalue.deliciousDetail
 									+"</div></div>");								
 								//주소저장
@@ -910,6 +928,7 @@ input[type=text] {
 													imageSize = new daum.maps.Size(
 															30, 35); // 마커이미지의 크기입니다
 
+															
 													var markerImage = new daum.maps.MarkerImage(
 															imageSrc, imageSize);
 
@@ -954,7 +973,6 @@ input[type=text] {
 																			 //원래있던 배열의 값을 새로바꿈
 																			/* polylines[index - 1]
 																					.setPath(linePath); */
-
 																		});
 													}
 													//좌표 중심을 마지막 마커로 설정
@@ -964,7 +982,6 @@ input[type=text] {
 												}
 											});
 						});
-				
 			}		
 			
 		})

@@ -377,7 +377,6 @@
 	 								}); 
 	 								
 	 								marker.setMap(map);   //지도에 마커 표시 
-
 	 												
 	 				 				//마커 위에 커스텀 오버레이 표시
 	 				 				var overlay = new daum.maps.CustomOverlay({
@@ -411,7 +410,7 @@
 	 									
 	 								var image = document.createElement('img');
 	 								image.className = 'imageInfo';
-	 								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+	 								image.src = 'resources/img/deliciousPin/' + photoList[index];
 	 								image.width = '70';
 	 								image.height = '73';
 	 								contentBox.appendChild(image);
