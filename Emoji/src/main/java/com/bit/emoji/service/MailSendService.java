@@ -74,7 +74,7 @@ public class MailSendService {
 							"				<tr>\n" + 
 							"					<td>\n" + 
 							"						<div style=\"background-color: white\">\n" + 
-							"							<form action=\"http://localhost:8088/emoji/changePassword \"\n" + 
+							"							<form action=\"http://localhost:8088/emoji/registerForm \"\n" + 
 							"								method=\"post\">\n" + 
 							"								 <input type=\"hidden\" name=\"allowedEmail\"\n" + 
 							"									value=\""+ memberEmail + "\"> <input type=\"hidden\"\n" + 
