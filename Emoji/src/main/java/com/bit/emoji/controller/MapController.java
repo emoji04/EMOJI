@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinInfo;
-import com.bit.emoji.model.DeliciousSearchVO;
+import com.bit.emoji.model.DeliciousSearchInfo;
 import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.service.MapService;
 import com.bit.emoji.service.MapService.PinService;
 import com.bit.emoji.service.MemberService;
+import com.bit.emoji.service.SearchService;
 
 @Controller
 public class MapController {
@@ -32,14 +33,13 @@ public class MapController {
 	@Autowired
 	PinService pinService;    //맛집지도 내의 핀 CR(U)D
 	
+	@Autowired
+	SearchService searchService;
+	
 	//맛집지도 메인 페이지
 	@RequestMapping(value="/deliciousForm")
 	public String deliciousForm() {
 		return "/delicious/deliciousForm";
-	}
-	
-	public String delete(int num, Model model) {
-		return "";
 	}
 	
 	@RequestMapping("/deliciousDetail")
@@ -50,18 +50,17 @@ public class MapController {
 		return "/delicious/deliciousDetail";
 	}
 
-	
-	//맛집지도 등록하기
+	//맛집지도 등록하고 보여주기
 	@RequestMapping(value="/deliciousMapInfo", method=RequestMethod.POST)
 	public String insertMap(HttpServletRequest request, DeliciousMapVO deliciousMapVO, Model model) throws Exception {
-		//deliciousMapVO.setDeliciousMapNum(10);
-		
 		deliciousMapVO.setMemberNum(Integer.parseInt(request.getParameter("memberNum")));
 		
+		//맛집지도 정보 입력
 		mapService.insertMap(deliciousMapVO);
+		
+		//해당 회원번호에 대한 맛집지도 번호 가져오기
 		int deliciousMapNum = mapService.selectMapByMemberNum(deliciousMapVO.getMemberNum());
 		
-		//model.addAttribute("cnt", cnt);
 		model.addAttribute("deliciousMapNum", deliciousMapNum);
 		model.addAttribute("deliciousMapList", mapService.selectMapByDeliciousMapNum(deliciousMapNum));
 		
@@ -69,50 +68,27 @@ public class MapController {
 	}
 	
 	//핀 정보 등록하고 보여주기
-	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST/*, produces="application/text; charset=utf8"*/)
+	@RequestMapping(value="/deliciousPinInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public DeliciousPinInfo insertPin(HttpServletRequest request, DeliciousVO deliciousVO, Model model) throws Exception {
-		//deliciousVO.setDeliciousNum(9);
-
+		//핀 정보 입력
 		pinService.insertPin(request, deliciousVO);
-		
-		//System.out.println(deliciousMap);
-		//deliciousMap.get(index)
-
-		//System.out.println(pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum()));
 		
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousVO.getDeliciousMapNum()));
 	}
 	
-/*	//핀 정보 등록하고 보여주기
-	@RequestMapping(value="/deliciousPinInsert", method=RequestMethod.POST, produces="application/text; charset=utf8")
-	//@ResponseBody
-	public String insertPin(HttpServletRequest request, DeliciousPinVO deliciousPinVO, Model model) throws Exception {
-		deliciousPinVO.setDeliciousPinNum(6);
-		System.out.println(deliciousPinVO);
-
-		int cnt = pinService.insertPin(request, deliciousPinVO);
-		System.out.println(deliciousPinVO.getDeliciousPinAddress());
-		pinService.selectPinListBydeliciousMapNum(deliciousPinVO.getDeliciousMapNum());
-		
-		if(cnt != 1)
-			return "실패";
-		else
-			return deliciousPinVO.getDeliciousPinAddress();
-		return "/delicious/deliciousMap";
+	//맛집지도 검색하기
+	@RequestMapping(value="/deliciousMapSearch", method=RequestMethod.GET)
+	@ResponseBody
+	public DeliciousSearchInfo deliciousSearch(@RequestParam("keyword") String keyword) {
+		return new DeliciousSearchInfo(mapService.selectMapByKeyword(keyword));
 	}
 	
-	@RequestMapping(value="/deliciousPinSelect", method=RequestMethod.GET)
+	//지도번호에 따른 핀 정보 가져오기
+	@RequestMapping(value="/getDeliciousPinInfo", method=RequestMethod.GET)
 	@ResponseBody
 	public DeliciousPinInfo selectPin(@RequestParam("deliciousMapNum") int deliciousMapNum) {
 		return new DeliciousPinInfo(pinService.selectPinListBydeliciousMapNum(deliciousMapNum));
-	}*/
-	
-	//맛집지도 검색하기
-	@RequestMapping(value="/deliciousSearch", method=RequestMethod.GET)
-	@ResponseBody
-	public List<DeliciousSearchVO> deliciousSearch(@RequestParam("keyword") String keyword) {
-		return mapService.selectMapByKeyword(keyword);
 	}
 	
 	//예외 발생 시

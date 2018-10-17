@@ -19,6 +19,7 @@
 		limit 1
 	</select>
 
+<<<<<<< HEAD
 <!-- 	<select id="selectMapByKeyword" resultType="DeliciousSearchVO " parameterType="string">
 		select distinct dm.deliciousMapNum, dm.deliciousMapName, dm.deliciousMapTag, dm.deliciousMapDetail, del.deliciousImg
 		from deliciousMap dm 
@@ -26,6 +27,19 @@
 		on dm.deliciousMapNum=del.deliciousMapNum
 		where deliciousMapName regexp #{searchKeyword}
 		or deliciousMapTag regexp #{searchKeyword}
+=======
+ 	<select id="selectMapByKeyword" resultType="com.bit.emoji.model.DeliciousSearchVO" parameterType="map">
+		select DISTINCT deliciousMap.deliciousMapNum, deliciousMap.deliciousMapName, deliciousMap.deliciousMapTag, deliciousMap.deliciousMapDetail, delicious.deliciousImg
+		from deliciousMap 
+		right outer join delicious
+		on deliciousMap.deliciousMapNum=delicious.deliciousMapNum
+		<where>
+			<if test="deliciousMapName != null and deliciousMapTag != null">
+				deliciousMapName like CONCAT('%',#{deliciousMapName},'%')
+				or deliciousMapTag like CONCAT('%',#{deliciousMapTag},'%')
+			</if>
+		</where>
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		group by deliciousMapNum;
 	</select> -->
 	

@@ -1,7 +1,9 @@
 package com.bit.emoji.service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,12 +32,12 @@ public class MapService extends ServiceDao {
 	}
 	
 	//검색어와 일치하는 지도 정보 가져오기
-	public List<DeliciousSearchVO> selectMapByKeyword(String searchKeyword) {
-		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByKeyword", searchKeyword);
-	}
-	
-	public int deleteMap(int deliciousMapNum) {
-		return 1;
+	public List<DeliciousSearchVO> selectMapByKeyword(String keyword) {
+		Map<String, String> parameter = new HashMap<String, String>();
+		parameter.put("deliciousMapName", keyword);
+		parameter.put("deliciousMapTag", keyword);
+		
+		return sqlSession.selectList(MapperName.DELICIOUSMAP + ".selectMapByKeyword", parameter);
 	}
 
 	public class PinService {
@@ -43,9 +45,8 @@ public class MapService extends ServiceDao {
 		public int insertPin(HttpServletRequest request, DeliciousVO deliciousVO) throws Exception {
 			//저장용 파일 이름
 			String deliciousImgName = "";
-			
 			//저장 경로 설정
-			String uploadUri = "/uploadFile/deliciousPinPhoto";
+			String uploadUri = "resources/uploadFile/deliciousPinPhoto";
 			
 			//시스템의 물리적인 경로
 			String dir = request.getSession().getServletContext().getRealPath(uploadUri);
@@ -57,7 +58,7 @@ public class MapService extends ServiceDao {
 				//저장
 				deliciousVO.getDeliciousFile().transferTo(new File(dir, deliciousImgName));
 				
-				//DB에 저장할 파일 이름
+				//DB에 저장할 파일 이름 설정
 				deliciousVO.setDeliciousImg(deliciousImgName);
 			}
 			

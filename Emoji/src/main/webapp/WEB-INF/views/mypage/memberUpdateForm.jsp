@@ -16,6 +16,7 @@
 <title>회원정보상세</title>
 </head>
 <body>
+
 	<div id="all">
 		<%@ include file="../commons/top_bar.jsp"%>
 		<div id="table">
@@ -23,7 +24,7 @@
 
 			로그인 ID : ${loginInfo }
 
-			<form id = "form" action="../mypage/memberUpdateForm" method = "POST">
+			<form id = "form" action="/memberUpdateForm" method = "POST">
 			
 				<table>
 					<thead>
@@ -75,6 +76,8 @@
 			</form>
 		</div>
 	</div>
+	
+	
 </body>
 </html>
 <script>
