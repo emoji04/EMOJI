@@ -16,7 +16,7 @@
 	<!-- DataSource 등록 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useSSL=false&amp;chracterEncoding=utf-8&amp;serverTimezone=UTC" />
+		<property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useUnicode=yes&amp;useSSL=false&amp;chracterEncoding=utf8&amp;serverTimezone=UTC" />
 		<property name="username" value="eunalee" />
 		<property name="password" value="eunalee1234" />
 	</bean>
@@ -76,7 +76,7 @@
 		/> <property name="redirectUri" value="http://localhost:8080/emoji/user/googleSignInCallback" 
 		/> </bean> -->
 
-	<context:component-scan base-package="com.bit.emoji.mapper" />
+	<context:component-scan base-package="com.bit.emoji" />
 	
 		<!-- 메일보내기 -->
 	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">

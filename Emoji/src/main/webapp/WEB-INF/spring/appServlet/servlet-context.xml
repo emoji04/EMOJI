@@ -46,7 +46,7 @@
 	<!-- 데이터베이스 연동을 위한 MYSQL dataSource 빈 등록 : jdbcTemplate에 주입 , mybatis 설정 -->
 	<beans:bean class="org.apache.commons.dbcp2.BasicDataSource"
 		id="dataSource" p:password="eunalee1234" p:username="eunalee"
-		p:url="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useSSL=false&amp;chracterEncoding=utf-8&amp;serverTimezone=UTC"
+		p:url="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useUnicode=yes&amp;useSSL=false&amp;chracterEncoding=utf8&amp;serverTimezone=UTC"
 		p:driverClassName="com.mysql.jdbc.Driver" />
 	<!-- p:username="root" p:password="admin"/> -->
 	<!-- jdbcTemplate 빈 등록 - DAO에 주입 -->

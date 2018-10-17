@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bit.emoji.mapper.MapperName;
+import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.model.OrderedPin;
 import com.bit.emoji.model.RouteScrapVO;
 import com.bit.emoji.model.RouteVO;
@@ -21,18 +22,33 @@ public class SearchRouteService extends ServiceDao {
 		Map<Object, Object> result = new HashMap<Object, Object>();
 		
 		RouteVO route=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectRouteById",routeScrap.getRouteNum());
-		List<OrderedPin> routeDelicious=sqlSession.selectList(MapperName.SEARCHROUTE+".selectRouteDeclicious", routeScrap.getRouteNum());		
+		List<DeliciousVO> routeDelicious=sqlSession.selectList(MapperName.SEARCHROUTE+".selectRouteDeclicious", routeScrap.getRouteNum());		
 		String joinState=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectJoin", routeScrap);
 		result.put("routeInfo", route);
 		result.put("routeDelicious",routeDelicious);
-		if(joinState!=null) {
-		result.put("joinState", joinState);
+		
+		
+		if(joinState==null) {
+			if(route.getMemberNum()==routeScrap.getMemberNum()) {
+				result.put("joinState", "원정대 대장으로 참여중");
+			}else {
+				result.put("joinState", "참여가능");
+			}
+				
 		}else {
-			result.put("joinState", null);
+			result.put("joinState", joinState);		
 		}
+		
 		String data = new ObjectMapper().writeValueAsString(result);
 		return data;
 	}
+	
+	public Object insertJoin(RouteScrapVO routeScrap) {
+		//메일에서 승인받으면  joinstate만 바꾸기
+		//pathvariable 
+		return sqlSession.selectList(MapperName.SEARCHROUTE + ".insertJoin",routeScrap);				
+	}
+	
 	/*		
 	public int insertScrap(int memberNum, int routeNum) {
 	
@@ -42,10 +58,7 @@ public class SearchRouteService extends ServiceDao {
 	
 	}
 	
-	public int insertJoin(int memberNum, int routeNum) {
-		//메일에서 승인받으면  joinstate만 바꾸기
-		//pathvariable 
-	}
+
 	
 	public int deleteJoin(int memberNum, int routeNum) {
 	

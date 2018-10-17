@@ -8,6 +8,23 @@ from emoji.delicious where deliciousDetail like '%' || #{search} || '%'
 
 </select>
 
+<!-- <insert id="multiInsert">
+{call
+	declare
+	begin
+		insert into emoji.route(memberNum,routeName,possibleNum,startDate,spendTime,budget,rule,routeTag) 
+	values(#{memberNum},#{routeName},#{possibleNum},#{startDate},#{spendTime},#{budget},#{rule},#{routeTag});
+	
+	insert into emoji.routeDelicious
+	values
+	<foreach collection="list" item="item" separator=",">
+	(#{item.routeNum},#{item.deliciousNum},#{item.deliciousOrder});
+	</foreach>
+}
+
+</insert> -->
+
+
 <insert id="routeInsert" parameterType="com.bit.emoji.model.RouteVO" >
 	insert into emoji.route(memberNum,routeName,possibleNum,startDate,spendTime,budget,rule,routeTag) 
 	values(#{memberNum},#{routeName},#{possibleNum},#{startDate},#{spendTime},#{budget},#{rule},#{routeTag})

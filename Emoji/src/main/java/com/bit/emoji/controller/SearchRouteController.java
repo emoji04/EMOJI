@@ -23,29 +23,44 @@ public class SearchRouteController {
 	SearchRouteService searchRouteService;
 	
 	@ResponseBody
-	@RequestMapping("routeSearch")
+	@RequestMapping(value="routeSearch")
 	public List<RouteVO> searchRoute(
-			@RequestParam("from") String from,
+/*			@RequestParam("from") String from,
 			@RequestParam("to") String to, 
-			@RequestParam("routeWord") String word) {		
+			@RequestParam("routeWord") String word*/) {		
 		
 		return searchRouteService.searchRoute();
 	}
 	
 	@ResponseBody
-	@RequestMapping("clickRoute")
+	@RequestMapping(value="clickRoute",produces="text/plain;charset=UTF-8")
 	public String clickRoute(RouteScrapVO routeScrap, HttpSession session) throws JsonProcessingException {
 		int memberNum=(int) session.getAttribute("loginInfo");
 		routeScrap.setMemberNum(memberNum);	
 		
 		return searchRouteService.selectRouteJoin(routeScrap);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="clickJoin",produces="text/plain;charset=UTF-8")
+	public String clickJoin(RouteScrapVO routeScrap, HttpSession session) {
+		System.out.println("들어옴");
+		int memberNum=(int) session.getAttribute("loginInfo");
+		routeScrap.setMemberNum(memberNum);	
+		
+		Object result=searchRouteService.insertJoin(routeScrap);
+		if(result==null) {
+			return "성공";
+		}else
+			return "실패";
+		
+	}
+	
 	/*	
 	public String clicksScrap(HttpSession session, int routeNum, String state) {
 	
 	}
 	
-	public String clickJoin(HttpSession session, int routeNum, String state) {
-	
-	}*/
+*/
 }
