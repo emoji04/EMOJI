@@ -559,7 +559,7 @@ input[type=text] {
 														.append(
 																"<div class='delicious' id='"
 																		+ i
-																		+ "' draggable='true' ondragstart='drag(event)'><div>"
+																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='${pageContext.request.contextPath}/resources/img/deliciousPin/"+value.deliciousImg+"' alt='${pageContext.request.contextPath}/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
 																		+ name
 																		+ "</div>"
 																		+ "<div>"

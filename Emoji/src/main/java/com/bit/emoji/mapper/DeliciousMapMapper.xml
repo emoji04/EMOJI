@@ -17,10 +17,7 @@
 		where memberNum=#{memberNum}
 		order by deliciousMapCreateDate desc
 		limit 1
-<<<<<<< HEAD
-	</select>
-	
-=======
+
 	</select>
 	
  	<select id="selectMapByKeyword" resultType="com.bit.emoji.model.DeliciousSearchVO" parameterType="map">
@@ -61,7 +58,6 @@
 		id="delete"> DELETE FROM deliciousMapScrap WHERE memberNum=#{memberNum} and
 		deliciousMapNum=#{deliciousMapNum}; </delete>
 
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	<insert id="insertPin" parameterType="com.bit.emoji.model.DeliciousVO" useGeneratedKeys="true" keyProperty="deliciousNum">
 		insert into delicious
 		values (#{deliciousNum}, #{deliciousMapNum}, #{deliciousName}, #{deliciousAddress}, #{deliciousCategory}, #{deliciousPhone}, #{deliciousGrade}, #{deliciousDetail}, #{deliciousImg})
