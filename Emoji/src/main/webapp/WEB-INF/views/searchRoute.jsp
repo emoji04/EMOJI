@@ -60,13 +60,13 @@
 		}
 	}
 	function clickFunction(routeNum){
-		window.location.href="<%=request.getContextPath()%>/routeDetail?"
+		window.location.href="${pageContext.request.contextPath}/routeDetail?"
 		       +'routeNum='
 			 +routeNum;
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="<%=request.getContextPath()%>/MyrmForm?"
+		window.location.href="${pageContext.request.contextPath}/MyrmForm?"
 		       +'memberNum='
 			 +memberNum;
 	}
