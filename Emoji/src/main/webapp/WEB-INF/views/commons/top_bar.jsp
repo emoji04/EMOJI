@@ -49,14 +49,13 @@
 	<div></div>
 	<div class="container-fluid ">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header " style="padding-bottom: 35px;">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
+		<div class="navbar-header " style="padding-bottom: 25px;">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> 
+				<span class="icon-bar"></span> <span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
 			</button>
+<<<<<<< HEAD
 
 			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>"
 				style="font-size: 25px;"> <img alt=""
@@ -65,6 +64,10 @@
 				style="padding-right: 120px;">모두의지도
 			</a>
 
+=======
+			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>" style="font-size: 25px; padding-top: 18px">
+			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 100px; border-radius: 5px; padding-right: 20px;">모두의지도 </a>
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		</div>
 		<div style="width: 100px"></div>
 

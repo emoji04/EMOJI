@@ -24,8 +24,8 @@
 
 			로그인 ID : ${loginInfo }
 
-			<form id = "form" action="/memberUpdateForm" method = "POST">
-			
+			<form id = "form" action="<c:url value="/memberUpdateForm" />" method = "POST">
+				<input type="hidden" name="memberNum" value="${loginInfo }" >
 				<table>
 					<thead>
 						<c:forEach items="${memberUpdateForm }" var="MemberVO">
@@ -42,11 +42,11 @@
 
 							<tr>
 								<th>비밀번호</th>
-								<th><input type="text" id ="memberPassword"name="memberPassword" value="" value=""></th>
+								<th><input type="password" id ="memberPassword" name="memberPassword" value=""></th>
 							</tr>
 							<tr>
 								<th>비밀번호 확인</th>
-								<th><input type="text" id = "memberPasswordCh" name="memberPasswordCh" value=""></th>
+								<th><input type="password" id = "memberPasswordCh" name="memberPasswordCh" value=""></th>
 							</tr>
 							<tr>
 								<th>성별</th>
@@ -82,11 +82,13 @@
 </html>
 <script>
 
-pw = $('#memberPassword').val();
-pwch = $('#memberPasswordCh').val();
+
 	$(document).ready(function() {
+		
+	/* 	var pw = $('#memberPassword').val();
+		var pwch = $('#memberPasswordCh').val(); */
 		$("#btnUpdate").click(function() {
-			if(pw == pwch){
+			if( $('#memberPassword').val() == $('#memberPasswordCh').val()){
 				alert($('#memberPassword').val())
 				alert($('#memberPasswordCh').val())
 				 $("#form").submit(); 

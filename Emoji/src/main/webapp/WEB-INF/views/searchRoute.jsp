@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,7 @@
 <div id="list">
 	<table id="listtable" style="border: 1px solid black;">
 		<c:forEach items="${Search}" var="search" varStatus="status">
-			<tr style="border: 1px solid black; display: none" class="lastlist"
-				name="${status.last}" id="${status.index }">
+			<tr style="border: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index }">
 				<td><a href="javascript:clickFunction(${search.routeNum });" id="lsittitle">${search.routeName}</a><br>
 				주최자 : <a href="javascript:memberFunction(${search.memberNum });">${search.memberName }</a><br>
 				참여인원 : ${search.possibleNum }<br>
@@ -55,7 +55,7 @@
 			$('#' + i).css('display', 'block');
 		}
 		itemCount += 5;
-		if (name_by_class) {
+		if (itemCount>=name_by_class) {
 			alert('모든 리스트가 출력되었습니다.');
 		}
 	}

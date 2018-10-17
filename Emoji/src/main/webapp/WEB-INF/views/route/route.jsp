@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -214,7 +215,7 @@ input[type=text] {
 				<ul class="tabs">
 					<li class="active" rel="tab1" onclick="resetSearch(this)">원정대
 						검색</li>
-					<li rel="tab2" onclick="tabChange(this)">원정대 만들기</li>
+					<li rel="tab2" onclick="resetMake(this)">원정대 만들기</li>
 				</ul>
 				<div class="tab_container">
 					<div id="tab1" class="tab_content">
@@ -224,7 +225,7 @@ input[type=text] {
 								name="searchDateTo" id="toDate"></label>
 						</div>
 						<div>
-							<label><input type="text" placeholder="맛집이름,카테고리,상세정보"
+							<label><input type="text" placeholder="원정대이름,해시태그,예산"
 								id="routeWord">
 								<button onclick="routeSearch()">검색</button></label>
 						</div>
@@ -233,8 +234,8 @@ input[type=text] {
 					<!-- #tab1 -->
 					<div id="tab2" class="tab_content">
 						<div>
-							<label><input type="radio" name="searchPool"
-								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label>
+<!-- 							<label><input type="radio" name="searchPool"
+								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> -->
 						</div>
 						<div>
 							<label><input type="radio" name="searchPool"
@@ -270,7 +271,7 @@ input[type=text] {
 						ondragover="allowDrop(event)"></div>
 				</div>
 				<div id="smallright">
-					<form action='<c:url value="/makeRoute"/>'
+					<form action='<c:url value="/makeRoute"/>' id="form1" 
 						onsubmit="return save($(this));">
 						<table border=1>
 							<tr>
@@ -306,9 +307,10 @@ input[type=text] {
 								<td><input type="text" name="routeTag" value="#떡볶이, #종로" /></td>
 							</tr>
 							<tr>
-								<td><button id="">원정대 만들기</button>
-									<button>취소</button></td>
-								<td><input type="hidden" id="add" name="order" /></td>
+								<td><button id="button1">원정대 만들기</button>
+								<td><input type="hidden" id="add" name="order" />
+								<input type="hidden" id="searchedRouteNum" /></td>
+								
 							</tr>
 						</table>
 
@@ -321,6 +323,8 @@ input[type=text] {
 <c:url var="search1" value="/search"></c:url>
 <c:url var="search2" value="/routeSearch"></c:url>
 <c:url var="getRouteInfo" value="/clickRoute"></c:url>
+<c:url var="insertJoin" value="/clickJoin"></c:url>
+<c:url var="cancelJoin" value="/cancelJoin"></c:url>
 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
@@ -410,8 +414,7 @@ input[type=text] {
 			//주소-좌표 변환 객체를 생성합니다
 			var geocoder = new daum.maps.services.Geocoder();
 			//주소를 좌표로 변환합니다
-			geocoder
-					.addressSearch(
+			geocoder.addressSearch(
 							addresses[order - 1],
 							function(result, status) {
 								// 정상적으로 검색이 완료됐으면 
@@ -428,6 +431,7 @@ input[type=text] {
 											imageSrc, imageSize);
 
 									var marker = new daum.maps.Marker({
+										
 										map : map,
 										position : coords,
 										image : markerImage
@@ -536,6 +540,7 @@ input[type=text] {
 					.ajax({
 						type : "get",
 						url : "${search1}",
+						contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 						data : {
 							"ajaxSearch" : search2
 						},
@@ -554,7 +559,7 @@ input[type=text] {
 														.append(
 																"<div class='delicious' id='"
 																		+ i
-																		+ "' draggable='true' ondragstart='drag(event)'><div>"
+																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='${pageContext.request.contextPath}/resources/img/deliciousPin/"+value.deliciousImg+"' alt='${pageContext.request.contextPath}/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
 																		+ name
 																		+ "</div>"
 																		+ "<div>"
@@ -658,7 +663,8 @@ input[type=text] {
 																			 // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 																			 strokeStyle: 'solid' // 선의 스타일입니다
 																			 }); */
-
+																		
+																			 //원래있던 배열의 값을 새로바꿈
 																			polylines[index - 1]
 																					.setPath(linePath);
 
@@ -686,13 +692,57 @@ input[type=text] {
 	}
 
 	function save(e) {
+		
 		/* $('#add').val(addresses); */
-		var size = document.getElementsByName("orderedPinNumber").length;
-		for (var i = 0; i < size; i++) {
-			orderedPins
-					.push(document.getElementsByName("orderedPinNumber")[i].value);
+
+		routeNum=$('#searchedRouteNum').val();
+		alert(routeNum);
+		if($('#button1').text()==='참여가능'){
+			event.preventDefault(); 
+			//폼의 주소로만 가서 makeRoute컨트롤러로간다
+			//ajax를 가지않음			
+			$.ajax({
+				type : "get",
+				url : "${insertJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert(data);			
+					if(data=="참여가 완료되었습니다."){
+						$('#button1').text("승인 중");						
+					}	
+					return false;
+				}
+			})
+		}else if($('#button1').text()==='원정대 대장으로 참여중'){
+			alert("참여하실 수 없습니다.")
+			return false;			
+		}else if($('#button1').text()==='승인 중'){
+			event.preventDefault(); 
+			//다시 누르면 취소하는 ajax하기
+			$.ajax({
+				type : "get",
+				url : "${cancelJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert(data);
+					$('#button1').text("참여가능")
+				}
+				
+				
+			})
+		}else{
+			var size = document.getElementsByName("orderedPinNumber").length;
+			for (var i = 0; i < size; i++) {
+				orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
+			}
+			$('#add').val(orderedPins);		
+			return true;
 		}
-		$('#add').val(orderedPins);
+
 
 	}
 </script>
@@ -732,46 +782,50 @@ input[type=text] {
 		var check = confirm("원정대 만들기를 취소하시겠습니까?");
 		if (check) {
 			tabChange(e);
-
-			//화면 초기화
-			$("#searched").text("");
-			//경로안의 맛집들 다 지우기
-			$('#smallLeftLeft').text("");
-			$('#smallLeftRight').text("");
-			//원정대이름 다 지우기
-			$('input[type=text]').each(function() {
-				$(this).val("");
-			});
-			//지도의 마커 지우기
-			setMarkers(null);
-			//지도의 선지우기
-			setPolylines(null);
-
+			$('#form1').children('input').attr('readonly',true);
+			erase();
 			//원정대 폼은 검색된 원정대 정보에 따라서 참여취소와 참여하기 스크랩하기 만들것.
-
 		}
+	}
+	function resetMake(e){		
+		tabChange(e);
+		$('#form1').children('input').removeAttr('readonly');
+		$('#button1').text("원정대 만들기");
+		erase();
+	}
+	function erase(){
+		//화면 초기화
+		$("#searched").text("");
+		//경로안의 맛집들 다 지우기
+		$('#smallLeftLeft').text("");
+		$('#smallLeftRight').text("");
+		//지도의 마커 지우기
+		setMarkers(null);
+		markers = [];
+		//지도의 선지우기
+		setPolylines(null);
+		polylines=[];
+		//드래그 막기
+/* 		$('#smallLeftRight'). removeAttr("ondrop");
+		$('#smallLeftRight'). removeAttr("ondragover"); */
+		
+		//원정대이름 다 지우기
+		$('input[type=text]').each(function() {
+			$(this).val("");
+		});		
+
 	}
 	function routeSearch() {
 		var from = $('#fromDate').val();
 		var to = $('#toDate').val();
 		var routeWord = $('#routeWord').val();
-		
-		//지도의 마커 지우기
-		setMarkers(null);
-		//지도의 선지우기
-		setPolylines(null);		
-		$("#searched").text("");
-		//경로안의 맛집들 다 지우기
-		$('#smallLeftLeft').text("");
-		$('#smallLeftRight').text("");
-		//원정대이름 다 지우기
-		$('input[type=text]').each(function() {
-			$(this).val("");
-		});
+
+		erase();		
 		
 		$.ajax({
 			type : "get",
 			url : "${search2}",
+			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 			data : {
 				"from" : from,
 				"to" : to,
@@ -781,8 +835,8 @@ input[type=text] {
 			success : function(data) {
 				$.each(data, function(key, value) {
 					$('#searched').append(
-							"<div id='click' onclick='show(this)'><div class='routeName' >" + value.routeName
-									+ "</div><div>" + value.routeName
+							"<div onclick='show(this)'><div class='routeName' >" + value.routeName
+									+ "</div><div>" + value.routeTag
 									+ "</div><input type='hidden' class='routeNum' value='"+value.routeNum+"' /></div>")
 				})
 			}
@@ -792,7 +846,21 @@ input[type=text] {
 	}
 	
 	function show(e){
+ 		//경로안의 맛집들 다 지우기
+		$('#smallLeftLeft').text("");
+		$('#smallLeftRight').text("");
+		//지도의 마커 지우기
+		setMarkers(null);
+		markers = [];
+		//지도의 선지우기
+		setPolylines(null);
+		polylines=[]; 
+		
+		//클릭된 원정대의 지도상의 뜰 마커의 주소 초기화
+		searchAddresses=[];
+		
 		var routeNum=0;
+		
 		$(e).each(function(){
 			routeNum=$(this).find('.routeNum').val();
 		});		
@@ -800,19 +868,127 @@ input[type=text] {
 		$.ajax({
 			type:"get",
 			url:"${getRouteInfo}",
+			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 			data:{"routeNum" : routeNum},
 			dataType:"json",
-			success:function(data){
+			success:function(data){				
+				//참여상태 출력
 				console.log(data);
+				console.log(data.joinState);
+				$('#button1').text(data.joinState);
 				$.each(data,function(key,value){
-					$.each($(this),function(key,value){
-						console.log(value.routeNum);
-						//조인해서 값가져오기
-						//value값좀 제대로 한번씩만 뽑아보기
-					})
-				});
-			}
+					//원정대 상세정보 출력
+					if(value==data.routeInfo){
+						$('input[name=routeName]').val(value.routeName);
+						$('input[name=memeberName]').val(value.memeberName);
+						$('input[name=possibleNum]').val(value.possibleNum);
+						$('input[name=startDate]').val(value.startDate);
+						$('input[name=spendTime]').val(value.spendTime);
+						$('input[name=budget]').val(value.budget);
+						$('input[name=rule]').val(value.rule);
+						$('input[name=routeTag]').val(value.routeTag);	
+						$('#searchedRouteNum').val(value.routeNum);
+/* 						console.log(value);							
+						console.log("value.possibleNum : "+value.possibleNum); */
+					}
+					if(value!=data.joinState && value!= data.routeInfo){
+						//원정대 경로 출력
+						$.each(value,function(key,vvalue){	
+							if(value==data.routeDelicious){
+								$('#smallLeftLeft').append(
+										"<div class='deliciousList listOrder'>" + (key+1) + "</div>");
+							$('#smallLeftRight').append(
+									"<div class='delicious'><div>" + vvalue.deliciousName 
+									+ "</div><div>"+vvalue.deliciousDetail
+									+"</div></div>");								
+								//주소저장
+								searchAddresses.push(vvalue.deliciousAddress);
+								
+							}
+						})
+					}
+
+				}); 
+				//주소로 마커, 선생성
+				$.each(searchAddresses,
+						function(index) {
+							var geocoder = new daum.maps.services.Geocoder();
+							geocoder.addressSearch(
+											searchAddresses[index],
+											function(result, status) {
+												// 정상적으로 검색이 완료됐으면
+												if (status === daum.maps.services.Status.OK) {
+													var coords = new daum.maps.LatLng(
+															result[0].y,
+															result[0].x);
+													alert(searchAddresses[index]);
+													var imageSrc = '${pageContext.request.contextPath}/resources/img/orderedPin/marker'
+															+ (index + 1)
+															+ '.png', // 마커이미지의 주소입니다
+													imageSize = new daum.maps.Size(
+															30, 35); // 마커이미지의 크기입니다
+
+															
+													var markerImage = new daum.maps.MarkerImage(
+															imageSrc, imageSize);
+
+													var marker = new daum.maps.Marker(
+															{
+																map : map,
+																position : coords,
+																image : markerImage
+															});
+													markers.push(marker);
+													map.panTo(coords);
+
+													if (index - 1 >= 0) {
+														geocoder.addressSearch(
+																		searchAddresses[index - 1],
+																		function(
+																				result2,
+																				status2) {
+																			// 정상적으로 검색이 완료됐으면
+																			if (status2 === daum.maps.services.Status.OK) {
+																				var coords2 = new daum.maps.LatLng(
+																						result2[0].y,
+																						result2[0].x);
+																			}
+																			// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+																			var linePath = [
+																					coords2,
+																					coords ];
+																			                    
+																			 // 지도에 표시할 선을 생성합니다
+																			 var polyline = new daum.maps.Polyline({
+																			 path: linePath, // 선을 구성하는 좌표배열 입니다
+																			 strokeWeight: 5, // 선의 두께 입니다
+																			 strokeColor: '#FFAE00', // 선의 색깔입니다
+																			 strokeOpacity: 0.7,
+																			 // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+																			 strokeStyle: 'solid' // 선의 스타일입니다
+																			 }); 
+																		
+																				polyline.setMap(map);
+																				polylines.push(polyline);
+																			 //원래있던 배열의 값을 새로바꿈
+																			/* polylines[index - 1]
+																					.setPath(linePath); */
+																		});
+													}
+													//좌표 중심을 마지막 마커로 설정
+													if (index == (addresses.length - 1)) {
+														map.panTo(coords);
+													}
+												}
+											});
+						});
+			}		
+			
 		})
+		
+
+		
+		
 	}
 </script>
 </html>

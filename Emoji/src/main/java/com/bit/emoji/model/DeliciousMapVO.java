@@ -12,6 +12,9 @@ public class DeliciousMapVO {
 	private String deliciousImg;
 	private DeliciousVO deliciousVO;
 	
+	//스크랩수 저장
+		private int deliciousCount;
+	
 	public DeliciousMapVO() { }
 
 	public DeliciousMapVO(int deliciousMapNum, String deliciousMapName, String deliciousMapTag,
@@ -117,5 +120,13 @@ public class DeliciousMapVO {
 				+ ", deliciousMapOpen=" + deliciousMapOpen + ", deliciousMapCreateDate=" + deliciousMapCreateDate
 				+ ", memberNum=" + memberNum + ", memberEmail=" + memberEmail + ", deliciousImg=" + deliciousImg
 				+ ", deliciousVO=" + deliciousVO + "]";
+	}
+
+	public int getDeliciousCount() {
+		return deliciousCount;
+	}
+
+	public void setDeliciousCount(int deliciousCount) {
+		this.deliciousCount = deliciousCount;
 	}
 }

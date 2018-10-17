@@ -177,7 +177,8 @@
 
 				<div class="text-center p-t-57 p-b-20">
 					<span class="txt1">
-							<a href="<c:url value='/emailcheck' />">회원가입</a>
+							<a href="<c:url value='/emailcheck' />">회원가입</a> /
+							<a href="<c:url value='/findPass' />">비밀번호 찾기</a>
 					</span><br>
 					<hr/>
 					<span class="txt1">
