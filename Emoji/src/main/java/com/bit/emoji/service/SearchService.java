@@ -11,12 +11,19 @@ import com.bit.emoji.model.RouteVO;
 @Repository
 public class SearchService extends ServiceDao {
 
-	public List<DeliciousMapVO> selectDmap(String search2) {
-		return sqlSession.selectList(MapperName.SEARCH + ".getDmap", search2);
-	}
+	//맛집 지도 검색리스트
+		public List<DeliciousMapVO> selectDmap(String search2) {
+			return sqlSession.selectList(MapperName.SEARCH + ".getDmap", search2);
+		}
+		
+		//스크랩수 정보
+		public int selectScrapCount(int count) {
+			return sqlSession.selectOne(MapperName.SEARCH + ".getCount", count);
+		}
 
-	public List<RouteVO> selectRoute(String search2) {
-		return sqlSession.selectList(MapperName.SEARCH + ".getRoute", search2);
-	}
+		//원정대 검색리스트
+		public List<RouteVO> selectRoute(String search2) {
+			return sqlSession.selectList(MapperName.SEARCH + ".getRoute", search2);
+		}
 
 }

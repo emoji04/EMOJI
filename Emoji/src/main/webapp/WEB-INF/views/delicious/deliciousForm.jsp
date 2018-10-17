@@ -379,7 +379,7 @@
  					$.each(searchInfo, function(key, value) {
 						content +='<div style="width: 100%; height: 75px; margin-top: 7%;">';
 						content += 	'<div style="width: 30%; float:left; padding-left: 7%; display: inline-table;">'
-						content +=		'<img src="resources/uploadFile/deliciousPinPhoto/' + value.deliciousImg + '" width=70 height=70>'
+						content +=		'<img src="resources/img/deliciousPin/' + value.deliciousImg + '" width=70 height=70>'
 						content += 	'</div>'
 						content +=	'<div class="mapInfoClick" style="width: 70%; padding-left:2%; float:left; display: inline-table;" value="' + value.deliciousMapNum + '">'
 						content += 		'<span class="title" style="font-size: 18px; font-weight: bold;">'
@@ -484,7 +484,7 @@
  				 									
  				 								var image = document.createElement('img');
  				 								image.className = 'imageInfo';
- 				 								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+ 				 								image.src = 'resources/img/deliciousPin/' + photoList[index];
  				 								image.width = '70';
  				 								image.height = '73';
  				 								contentBox.appendChild(image);
