@@ -104,8 +104,8 @@ String allowedEmail = request.getParameter("allowedEmail");
 						value="M"> <label class="genderchk" for="manchk">
 						<span>남자</span>
 					</label> <input id="womanchk" class="genderchkbox" type="radio"
-						name="memberGender" value="woman"> <label class="genderchk"
-						for="W"> <span>여자</span>
+						name="memberGender" value="W"> <label class="genderchk"
+						for="womanchk"> <span>여자</span>
 					</label>
 				</div>
 				
