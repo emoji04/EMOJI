@@ -98,11 +98,11 @@ table {
 						<div id="map${status.count}" class="map"></div>
 						<br>
 						<!-- 리뷰 상세목록 -->
-							<p id="deliciousMapReviewTitle${status.count}"></p>
-							<p id="deliciousMapReviewContent${status.count}"></p>
-							<p id="deliciousMapReviewWriteDate${status.count}"></p>
-							<p id="deliciousMapReviewImg${status.count}"></p>
-							<p id="deliciousMapReviewGrade${status.count}"></p>
+							<p id="deliciousMapTitle${status.count}"></p>
+							<p id="deliciousMapContent${status.count}"></p>
+							<p id="deliciousMapWriteDate${status.count}"></p>
+							<p id="deliciousMapImg${status.count}"></p>
+							<p id="deliciousMapGrade${status.count}"></p>
 
 						<!-- Delicious 임시 정보 불러오는 화면 -->
 					<div>
@@ -162,21 +162,21 @@ $(function() {
 				console.log(data);
 
 				//앞전 데이터 삭제
-				document.getElementById("deliciousMapReviewTitle" + value1).innerHTML = '';
-				document.getElementById("deliciousMapReviewContent" + value1).innerHTML = '';
-				document.getElementById("deliciousMapReviewWriteDate" + value1).innerHTML = '';
-				document.getElementById("deliciousMapReviewImg" + value1).innerHTML = '';
-				document.getElementById("deliciousMapReviewGrade" + value1).innerHTML = '';
+				document.getElementById("deliciousMapTitle" + value1).innerHTML = '';
+				document.getElementById("deliciousMapContent" + value1).innerHTML = '';
+				document.getElementById("deliciousMapWriteDate" + value1).innerHTML = '';
+				document.getElementById("deliciousMapImg" + value1).innerHTML = '';
+				document.getElementById("deliciousMapGrade" + value1).innerHTML = '';
 				
 				//데이터 삽입
 				
 				$.each(data, function(i,DeliciousMapReviewVO){
 				console.log(DeliciousMapReviewVO.deliciousMapReviewContent); 
-				document.getElementById("deliciousMapReviewTitle" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewTitle+ "<br>"+"</p>";
-				document.getElementById("deliciousMapReviewContent" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewContent+ "<br>"+"</p>";
-				document.getElementById("deliciousMapReviewWriteDate"+ value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewWriteDate+ "<br>"+"</p>";
-				document.getElementById("deliciousMapReviewImg" + value1).innerHTML +="<p>" + DeliciousMapReviewVO.deliciousMapReviewImg+ "<br>"+"</p>";
-				document.getElementById("deliciousMapReviewGrade" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapReviewGrade+ "<br>"+"</p>";
+				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</p>";
+				document.getElementById("deliciousMapContent" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</p>";
+				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</p>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<p>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</p>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</p>";
 
 				});
 				 },	
