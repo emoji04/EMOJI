@@ -234,8 +234,8 @@ input[type=text] {
 					<!-- #tab1 -->
 					<div id="tab2" class="tab_content">
 						<div>
-							<label><input type="radio" name="searchPool"
-								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label>
+<!-- 							<label><input type="radio" name="searchPool"
+								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> -->
 						</div>
 						<div>
 							<label><input type="radio" name="searchPool"
@@ -324,6 +324,7 @@ input[type=text] {
 <c:url var="search2" value="/routeSearch"></c:url>
 <c:url var="getRouteInfo" value="/clickRoute"></c:url>
 <c:url var="insertJoin" value="/clickJoin"></c:url>
+<c:url var="cancelJoin" value="/cancelJoin"></c:url>
 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
@@ -430,6 +431,7 @@ input[type=text] {
 											imageSrc, imageSize);
 
 									var marker = new daum.maps.Marker({
+										
 										map : map,
 										position : coords,
 										image : markerImage
@@ -717,8 +719,21 @@ input[type=text] {
 			alert("참여하실 수 없습니다.")
 			return false;			
 		}else if($('#button1').text()==='승인 중'){
+			event.preventDefault(); 
 			//다시 누르면 취소하는 ajax하기
-			
+			$.ajax({
+				type : "get",
+				url : "${cancelJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert(data);
+					$('#button1').text("참여가능")
+				}
+				
+				
+			})
 		}else{
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {
@@ -820,8 +835,8 @@ input[type=text] {
 			success : function(data) {
 				$.each(data, function(key, value) {
 					$('#searched').append(
-							"<div id='click' onclick='show(this)'><div class='routeName' >" + value.routeName
-									+ "</div><div>" + value.routeName
+							"<div onclick='show(this)'><div class='routeName' >" + value.routeName
+									+ "</div><div>" + value.routeTag
 									+ "</div><input type='hidden' class='routeNum' value='"+value.routeNum+"' /></div>")
 				})
 			}
@@ -881,9 +896,9 @@ input[type=text] {
 						$.each(value,function(key,vvalue){	
 							if(value==data.routeDelicious){
 								$('#smallLeftLeft').append(
-										"<div class='deliciousList listOrder'>" + key + "</div>");
+										"<div class='deliciousList listOrder'>" + (key+1) + "</div>");
 							$('#smallLeftRight').append(
-									"<div><div>" + vvalue.deliciousName 
+									"<div class='delicious'><div>" + vvalue.deliciousName 
 									+ "</div><div>"+vvalue.deliciousDetail
 									+"</div></div>");								
 								//주소저장
@@ -913,6 +928,7 @@ input[type=text] {
 													imageSize = new daum.maps.Size(
 															30, 35); // 마커이미지의 크기입니다
 
+															
 													var markerImage = new daum.maps.MarkerImage(
 															imageSrc, imageSize);
 
@@ -957,7 +973,6 @@ input[type=text] {
 																			 //원래있던 배열의 값을 새로바꿈
 																			/* polylines[index - 1]
 																					.setPath(linePath); */
-
 																		});
 													}
 													//좌표 중심을 마지막 마커로 설정
@@ -967,7 +982,6 @@ input[type=text] {
 												}
 											});
 						});
-				
 			}		
 			
 		})
