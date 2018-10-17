@@ -44,6 +44,8 @@ public class MapController {
 	
 	@RequestMapping(value = "/scrapCheck.do")
 	public String scrapCheck() {
+		
+		
 		return "/delicious/deliciousDetail";
 	}
 	
@@ -53,7 +55,7 @@ public class MapController {
 		return "/delicious/deliciousForm";
 	}
 	
-	@RequestMapping("/deliciousDetail")
+	@RequestMapping(value="/deliciousDetail")
 	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum,
 			@RequestParam(value = "deliciousImg") String deliciousImg) {
 

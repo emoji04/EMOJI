@@ -44,8 +44,7 @@
 		<c:forEach items="${dmDetail}" var="dmDetail" varStatus="status">
 			<div id="listDetail">${dmDetail.deliciousMapName }
 				<div id="posi">
-					<a
-						href="javascript:scrapFunction(${dmDetail.deliciousMapNum},${dmDetail.memberNum} );">
+					<a href="javascript:scrapFunction(${dmDetail.deliciousMapNum},${dmDetail.memberNum} );">
 						<div id="circle"></div>
 					</a>
 				</div>
@@ -81,16 +80,13 @@ ${rvDetail.deliciousMapReviewGrade }
 	});
 	
 	function scrapFunction(deliciousMapNum,memberNum ) {
-			
-		
-		
-			
+			alert('asd');
 			$.ajax({
 				type : 'post',
 				url : 'scrapCheck.do',
 				data : {
-					deliciousMapNum : deliciousMapNum,
-					memberNum : memberNum,
+					deliciousMapNum : deliciousMapNum
+					memberNum : memberNum
 					turn : trun
 				},
 				success : function(data) {
