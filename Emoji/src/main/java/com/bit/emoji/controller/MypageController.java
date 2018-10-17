@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,7 @@ public class MypageController {
 		return callList;
 	}
 	
-@ResponseBody
+	@ResponseBody
 	@RequestMapping(value="myDeliciousList")
 	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,  @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
 		logger.info("........myDeliciousList POST ...");
@@ -81,5 +82,13 @@ public class MypageController {
 		System.out.println(callAddress);
 		return callAddress;
 		
+	}
+
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+	
+		return "exception";
 	}
 }

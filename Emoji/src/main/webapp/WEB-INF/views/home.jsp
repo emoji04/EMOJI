@@ -36,7 +36,7 @@
 <script>
 function searchFunction(){
 	
-	 window.location.href="<%=request.getContextPath()%>/mainsearch?"
+	 window.location.href="${pageContext.request.contextPath}/mainsearch?"
 	       +'search3='
 		 +$("#mainsearch").val()
 		 +'&dbchoice='

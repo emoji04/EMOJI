@@ -3,12 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Search">
-
-
-
-
 	<select resultType="com.bit.emoji.model.DeliciousMapVO"
-		parameterType="String" id="getDmap"> select deliciousMap.deliciousMapNum,
+		parameterType="String" id="getDmap"> 
+		select deliciousMap.deliciousMapNum,
 		deliciousMap.deliciousMapName, deliciousMap.deliciousMapDetail,
 		delicious.deliciousImg, deliciousMap.deliciousMapCreateDate,
 		member.memberEmail, member.memberNum from member join (delicious
@@ -29,7 +26,5 @@
 		count(*)
 		from deliciousMapScrap where deliciousMapNum=#{count};
 	</select>
-
-
 
 </mapper>
