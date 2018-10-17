@@ -80,7 +80,7 @@ String allowedEmail = request.getParameter("allowedEmail");
 				<div id="passchk2" class="divchk"></div>
 				
 				<div>
-					<input class="doregi" type="submit" value="가입하기" id="registerBtn" >
+					<input class="doregi" type="submit" value="비밀번호 변경하기" id="registerBtn" >
 				</div>
 			</form>
 

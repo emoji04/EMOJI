@@ -136,7 +136,7 @@ public class Membercontroller {
     		MemberVO naverVO = new MemberVO();
     		naverVO.setMemberEmail(memberEmail);
     		naverVO.setMemberName(memberName);
-    		naverVO.setMemberPassword("0000");
+    		naverVO.setMemberPassword("aaaa");
     		naverVO.setMemberGender("M");
     		naverVO.setMemberPhoneNum("0000");
     		naverVO.setMemberRegDate(regidate);
@@ -163,15 +163,28 @@ public class Membercontroller {
     
     @RequestMapping(value = "/regicheck.json" , method = RequestMethod.POST)
     @ResponseBody
-    public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
-    	System.out.println(memberService.login(email));
-    	System.out.println((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
+    public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam String email){
 		return ((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
     }
-
-    public String edit(Model model, HttpSession session){
-        return null;
+    
+    @RequestMapping(value = "/regicheck2.json" , method = RequestMethod.POST)
+    @ResponseBody
+    public String regiCheck2(HttpServletRequest request, HttpServletResponse response, @RequestParam String email){
+    	if(memberService.login(email) != null) {
+    		String a = "aaaa";
+    		String aa = memberService.login(email).getMemberPassword();
+    		if(aa != a) {
+    		System.out.println(memberService.login(email).getMemberPassword() != "aaaa" ? "alreadyExist" : "naverRegi" );
+    			return "alreadyExist";
+    		}else {
+    			return "naverRegi";
+    		}
+    		//return (memberService.login(email).getMemberPassword() == "aaaa" ? "naverRegi" : "alreadyExist");
+    	}else {
+    		return "possibleRegi";
+    	}
     }
+
     
     
     @RequestMapping(value="/emailsend", method = RequestMethod.POST)
@@ -294,7 +307,7 @@ public class Membercontroller {
     	
     	request.getParameter("memberName");
     	
-        return "member/findPass";
+        return "member/changeSuccess";
     }
 }
 
