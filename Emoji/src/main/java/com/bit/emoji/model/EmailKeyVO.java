@@ -4,7 +4,14 @@ public class EmailKeyVO {
 	private String email;
 	private String emailKey;
 	private String checkDate;
+	public EmailKeyVO(){}
 	
+	public EmailKeyVO(String email, String emailKey, String checkDate) {
+		
+		this.email = email;
+		this.emailKey = emailKey;
+		this.checkDate = checkDate;
+	}
 	public String getEmail() {
 		return email;
 	}
