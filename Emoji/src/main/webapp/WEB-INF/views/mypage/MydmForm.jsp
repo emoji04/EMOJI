@@ -206,17 +206,11 @@ wrap {
 					type="button" value="선택공개"> <input class="selectbox"
 					type="button" value="선택삭제">
 			</div>
-<<<<<<< HEAD
 
-			<c:forEach items="${myDmList}" var="DeliciousMapVO"
-				varStatus="status">
 				<div class="detailDmbox">
-=======
 			<c:forEach items="${myDmList}" var="DeliciousMapVO" varStatus="status">
 				<div>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 					<!-- 내 등록 지도 List -->
-<<<<<<< HEAD
 					<input type="checkbox"> <input type="text"
 						class="deliciousMapName" name="DeliciousMapName"
 						value="${DeliciousMapVO.deliciousMapName}"
@@ -226,23 +220,16 @@ wrap {
 						readonly="readyonly"> <input type="button" value="비공개">
 					<input type="button" value="수정"> <input type="button"
 						value="삭제"> <br>
-=======
 					<input type="checkbox"> 
 						<input type="text" name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
 						<input name="DeliciousMapCreateDate" value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readonly"> 
 						<input type="button" value="비공개">
 						<input type="button" value="수정"> 
 						<input type="button" value="삭제"> <br>
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-					<div class="subClass" id="accordian${status.count}">
-<<<<<<< HEAD
 						<div id="DeliciousMapTag">
 							<input class="DeliciousMapTag" name="DeliciousMapTag"
 								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
 						</div>
-=======
-						<input name="DeliciousMapTag" value="${DeliciousMapVO.deliciousMapTag}">
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 						<div id="map${status.count}" class="map"></div>
 						<div id="review">리뷰</div>
 						<div id="reviewList">
