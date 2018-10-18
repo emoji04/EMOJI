@@ -7,6 +7,10 @@ select * from emoji.route where startDate between #{from} and #{to}
 and routeName like CONCAT('%',#{routeWord},'%')  or routeTag like CONCAT('%',#{routeWord},'%') or budget like CONCAT('%',#{routeWord},'%');
 </select>
 
+<select id="selectMemberName" parameterType="com.bit.emoji.model.RouteScrapVO" resultType="java.lang.String">
+select memberName from emoji.member m, emoji.route r where r.routeNum=#{routeNum} and m.memberNum=#{memberNum};
+</select>
+
 <select id="selectRouteById" resultType="com.bit.emoji.model.RouteVO" >
 select * from emoji.route where routeNum=#{routeNum};
 </select>

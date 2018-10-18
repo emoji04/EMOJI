@@ -23,10 +23,20 @@ public class SearchRouteService extends ServiceDao {
 	
 	public String selectRouteJoin(RouteScrapVO routeScrap) throws JsonProcessingException {
 		Map<Object, Object> result = new HashMap<Object, Object>();
+		RouteScrapVO memberNameRoute=new RouteScrapVO();
 		
 		RouteVO route=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectRouteById",routeScrap.getRouteNum());
+		
+		memberNameRoute.setMemberNum(route.getMemberNum());
+		memberNameRoute.setRouteNum(route.getRouteNum());
+		
 		List<DeliciousVO> routeDelicious=sqlSession.selectList(MapperName.SEARCHROUTE+".selectRouteDeclicious", routeScrap.getRouteNum());		
 		String joinState=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectJoin", routeScrap);
+		String memberName=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectMemberName",memberNameRoute);
+		
+		System.out.println("주최자이름"+memberName);
+		
+		result.put("memberName", memberName);
 		result.put("routeInfo", route);
 		result.put("routeDelicious",routeDelicious);
 		
@@ -36,8 +46,7 @@ public class SearchRouteService extends ServiceDao {
 				result.put("joinState", "원정대 대장으로 참여중");
 			}else {
 				result.put("joinState", "참여가능");
-			}
-				
+			}				
 		}else {
 			result.put("joinState", joinState);		
 		}

@@ -13,13 +13,15 @@
 body {
 	margin: 3px;
 	padding: 0px;
+	
 }
 
 #page {
 	width: 1500px;
 	margin: 0 auto;
 	/* 	margin-top: 150px; */
-	height: 1500px;
+	height: 1000px;
+	
 }
 
 #header {
@@ -42,20 +44,21 @@ body {
 	border: 1px solid #eee;
 	display: inline;
 	float: left;
+
 }
 
 #rightside {
 	width: 1090px;
-	height: 1500px;
+	height: 1000px;
 	display: inline;
 	float: right;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 }
 
 #righttop {
 	/*         	border-bottom:1px solid #eee; */
 	width: 1090px;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 	height: 500px;
 }
 
@@ -68,7 +71,7 @@ body {
 #smallLeft {
 	width: 400px;
 	height: 1000px;
-	border-right: 1px solid;
+	border-right: 1px solid #eee;
 	float: left;
 	overflow: hidden;
 }
@@ -93,7 +96,7 @@ body {
 #smallLeftLeft {
 	width: 50px;
 	height: 1000px;
-	border-right: 1px solid;
+	border-right: 1px solid #eee;
 	float: left;
 }
 
@@ -106,12 +109,12 @@ body {
 table {
 	width: 650px;
 	hegith: 700px;
-	border: 1px solid;
+	border: 1px solid #eee;
 	border-collapse: collapse;
 }
 
 td {
-	border: 1px solid;
+	border: 1px solid #eee;
 }
 
 .deliciousList {
@@ -122,6 +125,7 @@ td {
 
 .delicious {
 	height: 50px;
+	background:#f7f8f9;
 }
 
 ul.tabs {
@@ -159,7 +163,7 @@ ul.tabs li.active {
 }
 
 .tab_container {
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 	clear: both;
 	float: left;
 	width: 400px;
@@ -196,7 +200,12 @@ input[type=text] {
 	margin: 10px;
 	width: 200px;
 }
+
+img{
+	
+}
 </style>
+
 </head>
 
 <body>
@@ -559,7 +568,7 @@ input[type=text] {
 														.append(
 																"<div class='delicious' id='"
 																		+ i
-																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='${pageContext.request.contextPath}/resources/img/deliciousPin/"+value.deliciousImg+"' alt='${pageContext.request.contextPath}/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
+																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='"+getContextPath()+"/resources/img/deliciousPin/"+value.deliciousImg+"' src='"+getContextPath()+"/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
 																		+ name
 																		+ "</div>"
 																		+ "<div>"
@@ -876,11 +885,11 @@ input[type=text] {
 				console.log(data);
 				console.log(data.joinState);
 				$('#button1').text(data.joinState);
+				$('input[name=memeberName]').val(data.memberName);
 				$.each(data,function(key,value){
 					//원정대 상세정보 출력
 					if(value==data.routeInfo){
-						$('input[name=routeName]').val(value.routeName);
-						$('input[name=memeberName]').val(value.memeberName);
+						$('input[name=routeName]').val(value.routeName);						
 						$('input[name=possibleNum]').val(value.possibleNum);
 						$('input[name=startDate]').val(value.startDate);
 						$('input[name=spendTime]').val(value.spendTime);
@@ -891,7 +900,7 @@ input[type=text] {
 /* 						console.log(value);							
 						console.log("value.possibleNum : "+value.possibleNum); */
 					}
-					if(value!=data.joinState && value!= data.routeInfo){
+					if(value!=data.joinState && value!= data.routeInfo && value!=data.memberName){
 						//원정대 경로 출력
 						$.each(value,function(key,vvalue){	
 							if(value==data.routeDelicious){
@@ -982,13 +991,14 @@ input[type=text] {
 												}
 											});
 						});
-			}		
-			
+			}			
 		})
-		
-
-		
-		
+			
 	}
+	
+	function getContextPath() {
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+		return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	};
 </script>
 </html>
