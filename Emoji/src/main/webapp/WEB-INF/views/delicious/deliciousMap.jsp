@@ -18,20 +18,21 @@
 		float: left;
 		list-style: none;
 		height: 32px;
-		border-bottom: 1px solid #999;
-		border-left: 1px solid #999;
-		width: 100%;
-	}
+		/* border-bottom: 1px solid #999; */
+		/* border-left: 1px solid #999; */
+		width: 100%;	}
 	
 	ul.tab li {
 		float: left;
 		margin: 0;
 		padding: 0;
-		height: 31px;
+		width:170px;
+		height: 33px;
 		line-height: 31px;
 		border: 1px solid #999;
-		border-left: none;
-		margin-bottom: -1px;
+		text-align:center;
+		border-radius: 10px 10px 0 0;
+		/* margin-bottom: -1px; */
 		overflow: hidden;
 		position: relative;
 		background: #e0e0e0;
@@ -52,7 +53,8 @@
 	
 	html ul.tab li.active, html ul.tab li.active a:hover {
 		backgroud: #fff;
-		border-bottom: 1px solid #fff;
+		height:33px;
+		/* border-bottom: 1px solid #fff; */
 	}
 	
 	.active{
@@ -64,16 +66,19 @@
 	}
 	
 	#container {
-		border: 1px solid #999;
-/* 		border-top: none; */
+		/* border: 1px solid #999; */
+		/* border-top: none; */
 		overflow: hidden;
 		clear: both;
 		float: left;
 		width: 100%;
-		background: #fff;
 	}
 	
 	.tab_content {
+		margin-top:32px;
+		border: 1px solid #999;
+		border-radius: 0 0 0 10px;
+		padding-top:0px;
 		padding: 20px;
 	}
 	
@@ -84,7 +89,7 @@
  	}
  	
  	#pinContent {
-	 	margin-top: 30px;
+	 	/* margin-top: 30px; */
  	}
  	
  	.textBox {
@@ -114,7 +119,7 @@
  	
  	 #right {
  	 	padding-left: 2%;
- 	 	width:63%;
+ 	 	width:68%;
  	 	float: left;
  	}
  	
