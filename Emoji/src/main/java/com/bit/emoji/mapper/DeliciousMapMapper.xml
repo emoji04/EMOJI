@@ -17,7 +17,6 @@
 		where memberNum=#{memberNum}
 		order by deliciousMapCreateDate desc
 		limit 1
-
 	</select>
 	
  	<select id="selectMapByKeyword" resultType="com.bit.emoji.model.DeliciousSearchVO" parameterType="map">
@@ -31,6 +30,7 @@
 				or deliciousMapTag like CONCAT('%',#{deliciousMapTag},'%')
 			</if>
 		</where>
+		group by deliciousMapNum;
 	</select> 
 
 	<select parameterType="int" id="selectMapDetail"

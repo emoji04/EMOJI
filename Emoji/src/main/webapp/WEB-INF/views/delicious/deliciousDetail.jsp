@@ -109,7 +109,7 @@ ${rvDetail.deliciousMapReviewGrade }
 		}
 		
 function searchFunction(){
-	 window.location.href="<%=request.getContextPath()%>/mainsearch?"
+	 window.location.href="${pageContext.request.contextPath}/mainsearch?"
 	       +'search3='
 		 +$("#mainsearch").val()
 		 +'&dbchoice='
@@ -117,7 +117,7 @@ function searchFunction(){
 }
 
 function memberFunction(memberNum){
-	window.location.href="<%=request.getContextPath()%>/MydmForm?"
+	window.location.href="${pageContext.request.contextPath}/MydmForm?"
 					+ 'memberNum=' + memberNum;
 		}
 	</script>

@@ -28,6 +28,7 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -86,6 +87,10 @@ public class Membercontroller {
     public String goFindPassword(){
         return "member/findPass";
     }
+    @RequestMapping(value = "/changePassword")
+    public String goChangePassword(){
+        return "member/changePassword";
+    }
     
     public String goUpdateForm(){
         return null;
@@ -132,7 +137,7 @@ public class Membercontroller {
     		MemberVO naverVO = new MemberVO();
     		naverVO.setMemberEmail(memberEmail);
     		naverVO.setMemberName(memberName);
-    		naverVO.setMemberPassword("0000");
+    		naverVO.setMemberPassword("aaaa");
     		naverVO.setMemberGender("M");
     		naverVO.setMemberPhoneNum("0000");
     		naverVO.setMemberRegDate(regidate);
@@ -159,15 +164,28 @@ public class Membercontroller {
     
     @RequestMapping(value = "/regicheck.json" , method = RequestMethod.POST)
     @ResponseBody
-    public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String email){
-    	System.out.println(memberService.login(email));
-    	System.out.println((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
+    public String regiCheck(HttpServletRequest request, HttpServletResponse response, @RequestParam String email){
 		return ((memberService.login(email) != null) ? "alreadyExist" : "possibleRegi");
     }
-
-    public String edit(Model model, HttpSession session){
-        return null;
+    
+    @RequestMapping(value = "/regicheck2.json" , method = RequestMethod.POST)
+    @ResponseBody
+    public String regiCheck2(HttpServletRequest request, HttpServletResponse response, @RequestParam String email){
+    	if(memberService.login(email) != null) {
+    		String a = "aaaa";
+    		String aa = memberService.login(email).getMemberPassword();
+    		if(aa != a) {
+    		System.out.println(memberService.login(email).getMemberPassword() != "aaaa" ? "alreadyExist" : "naverRegi" );
+    			return "alreadyExist";
+    		}else {
+    			return "naverRegi";
+    		}
+    		//return (memberService.login(email).getMemberPassword() == "aaaa" ? "naverRegi" : "alreadyExist");
+    	}else {
+    		return "possibleRegi";
+    	}
     }
+
     
     
     @RequestMapping(value="/emailsend", method = RequestMethod.POST)
@@ -211,7 +229,7 @@ public class Membercontroller {
     public ModelAndView goEmailSend2(@RequestParam String email, HttpServletRequest request){
     	
     	request.setAttribute("email", request.getParameter("email"));
-    	String viewName = "member/changePassword";
+    	String viewName = "member/changePassEmail";
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("email", email);
 		modelAndView.setViewName(viewName);
@@ -258,5 +276,46 @@ public class Membercontroller {
     	
         return "member/regiSuccess";
     }
+    
+    @RequestMapping(value="/changePasswordOk", method = RequestMethod.POST)
+	public ModelAndView changePasswordOk(HttpServletResponse response, MemberVO memberVO,@RequestParam String memberEmail, @RequestParam String emailKey, @RequestParam String memberPassword) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, Exception {
+		String shaPassword = sha.encrypt(memberPassword);
+		String viewName = "redirect:/passwordChangeSuccess.do";
+		
+		ModelAndView modelAndView = new ModelAndView();
+		if(memberService.allowedEmail(memberEmail) != null && emailKey.equals(memberService.allowedEmail(memberEmail).getKey()) && memberService.login(memberEmail) != null) {
+			
+			modelAndView.setViewName(viewName);
+			memberVO.setMemberPassword(shaPassword);
+			int updateCnt = memberService.changePassword(memberVO);
+	
+			modelAndView.addObject("insertMember", updateCnt);
+			
+			return modelAndView;
+		}else {
+			viewName = "member/emailchk";
+			response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('이메일 인증 후 한 시간이 지났거나 잘못된 접근입니다. 다시 이메일 인증을 해주세요'); </script>");
+	        out.flush();
+			modelAndView.setViewName(viewName);
+			return modelAndView;
+		}
+    };
+    
+    @RequestMapping(value = "/passwordChangeSuccess.do")
+    public String passwordChangeSuccess(HttpServletRequest request)throws Exception {
+    	
+    	request.getParameter("memberName");
+    	
+        return "member/changeSuccess";
+    }
+    
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+		
+		return "exception";
+	}
 }
-

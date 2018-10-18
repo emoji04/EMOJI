@@ -73,6 +73,8 @@ public class MailSendService {
 							"\n" + 
 							"				<tr>\n" + 
 							"					<td>\n" + 
+							"						<div style=\"background-color: white\">\n" + 
+							"							<form action=\"http://localhost:8088/emoji/registerForm \"\n" + 
 							"								method=\"post\">\n" + 
 							"								 <input type=\"hidden\" name=\"allowedEmail\"\n" + 
 							"									value=\""+ memberEmail + "\"> <input type=\"hidden\"\n" + 
@@ -194,7 +196,7 @@ public class MailSendService {
 							"				<tr>\n" + 
 							"					<td>\n" + 
 							"						<div style=\"background-color: white\">\n" + 
-							"							<form action=\"http://10.10.10.159:8080/emoji/registerForm \"\n" + 
+							"							<form action=\"http://localhost:8088/emoji/changePassword \"\n" + 
 							"								method=\"post\">\n" + 
 							"								 <input type=\"hidden\" name=\"allowedEmail\"\n" + 
 							"									value=\""+ memberEmail + "\"> <input type=\"hidden\"\n" + 
@@ -221,7 +223,7 @@ public class MailSendService {
 							"							password.</p>\n" + 
 							"						<p style=\"padding-bottom: 10px; color: #c6d4df;\">\n" + 
 							"							<span style=\"color: black; font-weight: bold;\">인증 메일 발송\n" + 
-							"								기준 10분 이내로 비밀번호 변경이 이루어 지지 않을 시<br> 다시 이메일 인증을 받으셔야 합니다.\n" + 
+							"								기준 1시간 이내로 비밀번호 변경이 이루어 지지 않을 시<br> 다시 이메일 인증을 받으셔야 합니다.\n" + 
 							"							</span>\n" + 
 							"						</p>\n" + 
 							"						<p style=\"padding-bottom: 10px; color: black;\">\n" + 

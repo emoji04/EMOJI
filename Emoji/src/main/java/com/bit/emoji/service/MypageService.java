@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
+import com.bit.emoji.model.DeliciousMapReviewVO;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousVO;
-import com.bit.emoji.model.DeliciousMapReviewVO;
 import com.bit.emoji.model.MemberVO;
+import com.bit.emoji.model.RouteVO;
 
 @Repository
 public class MypageService extends ServiceDao {
@@ -31,5 +32,8 @@ public class MypageService extends ServiceDao {
 	
 	public List<DeliciousVO> myDeliciousList(int deliciousMapNum) throws Exception{
 		return sqlSession.selectList(MapperName.MYPAGE +".myDeliciousList", deliciousMapNum);
+	}
+	public List<RouteVO> myRouteList(int loginInfo) throws Exception {
+		return sqlSession.selectList(MapperName.MYPAGE +"myRouteList", loginInfo);
 	}
 }

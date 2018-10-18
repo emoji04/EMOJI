@@ -22,4 +22,7 @@
 		]]>
 	</select>
 	
+	<update id="changePassword" parameterType="com.bit.emoji.model.MemberVO">
+  		update member set memberPassword = #{memberPassword} where memberEmail = #{memberEmail}
+	</update>
 </mapper>
