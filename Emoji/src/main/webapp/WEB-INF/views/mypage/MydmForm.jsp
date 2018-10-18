@@ -173,7 +173,7 @@ wrap {
 	margin: 23px 10px 20px 10px;
 }
 .deliciousMapImg {
-	float : right;
+	float : left;
 	margin : 0;
 }
 .deliciousMapTitle{
@@ -207,9 +207,9 @@ wrap {
 					type="button" value="선택삭제">
 			</div>
 
+			<c:forEach items="${myDmList}" var="DeliciousMapVO"
+				varStatus="status">
 				<div class="detailDmbox">
-			<c:forEach items="${myDmList}" var="DeliciousMapVO" varStatus="status">
-				<div>
 					<!-- 내 등록 지도 List -->
 					<input type="checkbox"> <input type="text"
 						class="deliciousMapName" name="DeliciousMapName"
@@ -220,12 +220,7 @@ wrap {
 						readonly="readyonly"> <input type="button" value="비공개">
 					<input type="button" value="수정"> <input type="button"
 						value="삭제"> <br>
-					<input type="checkbox"> 
-						<input type="text" name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
-						<input name="DeliciousMapCreateDate" value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readonly"> 
-						<input type="button" value="비공개">
-						<input type="button" value="수정"> 
-						<input type="button" value="삭제"> <br>
+					<div class="subClass" id="accordian${status.count}">
 						<div id="DeliciousMapTag">
 							<input class="DeliciousMapTag" name="DeliciousMapTag"
 								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
@@ -277,6 +272,15 @@ wrap {
 <script> 
 
 /* 리뷰 클릭이벤트 */
+ 
+//지도 
+
+
+$(function() {
+	
+
+})
+
 
 // 아코디언 Function 
 	function CallmyDmList(value, value1) {
@@ -285,6 +289,8 @@ wrap {
 		
 		//선택항목 열림 
 		$("#accordian"+value1).slideDown();
+
+		
 		
 		//리뷰 Ajax
 		$.ajax({
@@ -320,15 +326,16 @@ wrap {
 			}
 		});
 		
-		
 		//지도 핀찍을 주소 정보 출력 
 		$.ajax({
 			type : "POST",
 			url : "<c:url value='myDeliciousList'/>",
 			data: "deliciousMapNum=" + value,
 			dataType:"JSON",
-			success: function(data){				
-				console.log(data);				
+			success: function(data){
+				
+				console.log(data);
+
 				
 				var addressList = [];  //주소를 담기 위한 배열
 				var pinNameList = [];  //핀 이름을 담기 위한 배열	
@@ -344,7 +351,9 @@ wrap {
 					detailList.push(deliciousPin.deliciousDetail);
 					photoList.push(deliciousPin.deliciousImg);
 		 		});
-								
+				
+				
+				
 			 	$(".map").each(function(value1){
 					
 					var mapContainer = document.getElementById('map'+(value1+1)); // 지도를 표시할 div 
@@ -357,11 +366,11 @@ wrap {
 					var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
 					imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
 
-					var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
+				var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
 				
-					var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
+				var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 				
-					addressList.forEach(function(addressList, index) {
+				addressList.forEach(function(addressList, index) {
 						//주소로 좌표 검색
 						geocoder.addressSearch(addressList, function(result, status) {
 							//정상적으로 검색이 완료됐으면
@@ -411,7 +420,7 @@ wrap {
 									
 								var image = document.createElement('img');
 								image.className = 'imageInfo';
-								image.src = 'resources/img/deliciousPin/' + photoList[index];
+								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
 								image.width = '70';
 								image.height = '73';
 								contentBox.appendChild(image);
@@ -445,6 +454,7 @@ wrap {
 							}
 						});
 					});
+					
 				});
 
 				//앞전 데이터 삭제
@@ -467,11 +477,13 @@ wrap {
 				document.getElementById("deliciousImg" + value1).innerHTML += "<p>" +DeliciousVO.deliciousImg+ "<br>"+"</p>";
 
 				}); */
-				},	
-			error : function(xhr, status, error){
-					alert("에러발생");
-			}
-		});
+				 },	
+				 error : function(xhr, status, error){
+						alert("에러발생");
+					}
+				});
 }
+			
+	
 </script>
 </html>
