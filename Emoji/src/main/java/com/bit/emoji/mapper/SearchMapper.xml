@@ -7,7 +7,7 @@
 		parameterType="String" id="getDmap"> 
 		select deliciousMap.deliciousMapNum,
 		deliciousMap.deliciousMapName, deliciousMap.deliciousMapDetail,
-		delicious.deliciousImg, deliciousMap.deliciousMapCreateDate,
+		delicious.deliciousImg, date_format(str_to_date(deliciousMap.deliciousMapCreateDate, '%Y-%m-%d %H:%i:%s'), '%Y-%m-%d') deliciousMapCreateDate,
 		member.memberEmail, member.memberNum from member join (delicious
 		right
 		outer join deliciousMap on

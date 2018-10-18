@@ -206,11 +206,17 @@ wrap {
 					type="button" value="선택공개"> <input class="selectbox"
 					type="button" value="선택삭제">
 			</div>
+<<<<<<< HEAD
 
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
 				<div class="detailDmbox">
+=======
+			<c:forEach items="${myDmList}" var="DeliciousMapVO" varStatus="status">
+				<div>
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 					<!-- 내 등록 지도 List -->
+<<<<<<< HEAD
 					<input type="checkbox"> <input type="text"
 						class="deliciousMapName" name="DeliciousMapName"
 						value="${DeliciousMapVO.deliciousMapName}"
@@ -220,11 +226,23 @@ wrap {
 						readonly="readyonly"> <input type="button" value="비공개">
 					<input type="button" value="수정"> <input type="button"
 						value="삭제"> <br>
+=======
+					<input type="checkbox"> 
+						<input type="text" name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}" onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
+						<input name="DeliciousMapCreateDate" value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readonly"> 
+						<input type="button" value="비공개">
+						<input type="button" value="수정"> 
+						<input type="button" value="삭제"> <br>
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 					<div class="subClass" id="accordian${status.count}">
+<<<<<<< HEAD
 						<div id="DeliciousMapTag">
 							<input class="DeliciousMapTag" name="DeliciousMapTag"
 								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
 						</div>
+=======
+						<input name="DeliciousMapTag" value="${DeliciousMapVO.deliciousMapTag}">
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 						<div id="map${status.count}" class="map"></div>
 						<div id="review">리뷰</div>
 						<div id="reviewList">
@@ -272,15 +290,6 @@ wrap {
 <script> 
 
 /* 리뷰 클릭이벤트 */
- 
-//지도 
-
-
-$(function() {
-	
-
-})
-
 
 // 아코디언 Function 
 	function CallmyDmList(value, value1) {
@@ -289,8 +298,6 @@ $(function() {
 		
 		//선택항목 열림 
 		$("#accordian"+value1).slideDown();
-
-		
 		
 		//리뷰 Ajax
 		$.ajax({
@@ -333,10 +340,8 @@ $(function() {
 			url : "<c:url value='myDeliciousList'/>",
 			data: "deliciousMapNum=" + value,
 			dataType:"JSON",
-			success: function(data){
-				
-				console.log(data);
-
+			success: function(data){				
+				console.log(data);				
 				
 				var addressList = [];  //주소를 담기 위한 배열
 				var pinNameList = [];  //핀 이름을 담기 위한 배열	
@@ -352,9 +357,7 @@ $(function() {
 					detailList.push(deliciousPin.deliciousDetail);
 					photoList.push(deliciousPin.deliciousImg);
 		 		});
-				
-				
-				
+								
 			 	$(".map").each(function(value1){
 					
 					var mapContainer = document.getElementById('map'+(value1+1)); // 지도를 표시할 div 
@@ -367,11 +370,11 @@ $(function() {
 					var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
 					imgSize = new daum.maps.Size(30, 30);  //마커 이미지 크기
 
-				var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
+					var markerImg = new daum.maps.MarkerImage(imgSrc, imgSize);
 				
-				var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
+					var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 				
-				addressList.forEach(function(addressList, index) {
+					addressList.forEach(function(addressList, index) {
 						//주소로 좌표 검색
 						geocoder.addressSearch(addressList, function(result, status) {
 							//정상적으로 검색이 완료됐으면
@@ -421,7 +424,7 @@ $(function() {
 									
 								var image = document.createElement('img');
 								image.className = 'imageInfo';
-								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+								image.src = 'resources/img/deliciousPin/' + photoList[index];
 								image.width = '70';
 								image.height = '73';
 								contentBox.appendChild(image);
@@ -455,7 +458,6 @@ $(function() {
 							}
 						});
 					});
-					
 				});
 
 				//앞전 데이터 삭제
@@ -478,13 +480,11 @@ $(function() {
 				document.getElementById("deliciousImg" + value1).innerHTML += "<p>" +DeliciousVO.deliciousImg+ "<br>"+"</p>";
 
 				}); */
-				 },	
-				 error : function(xhr, status, error){
-						alert("에러발생");
-					}
-				});
+				},	
+			error : function(xhr, status, error){
+					alert("에러발생");
+			}
+		});
 }
-			
-	
 </script>
 </html>
