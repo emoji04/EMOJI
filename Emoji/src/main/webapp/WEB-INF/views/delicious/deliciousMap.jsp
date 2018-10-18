@@ -352,11 +352,11 @@
 		
 		$('#deliciousPhone').focusout(function() {
 			var deliciousPhone = $(this).val();
-			var count = (deliciousPhone.match(/-/g) || []).length;  //-의 갯수 추출
+			var reg = /^\d{2,3}-\d{3,4}-\d{4}$/;   //전화번호
 			
 			//전화번호가 입력되었을 때
  			if(deliciousPhone.length > 0) {
- 				if(count > 0) 
+ 				if(reg.test(deliciousPhone)) 
  					$('#phone_output').empty().removeClass('focus');
  				else
  					$('#phone_output').text('(-)포함 입력입니다.').addClass('focus');
@@ -371,8 +371,8 @@
  			var deliciousGrade = $('#deliciousGrade').val();
  			var deliciousPhone = $('#deliciousPhone').val();
  			
-	 		var reg = /^[0-9]+\.?[0-9]*$/;  //소수점 1자리까지 허용
- 			var count = (deliciousPhone.match(/-/g) || []).length;  //-의 갯수 추출
+	 		var regGrade = /^[0-9]+\.?[0-9]*$/;  //소수점 1자리까지 허용
+			var regPhone = /^\d{2,3}-\d{3,4}-\d{4}$/;   //전화번호
  			
  			var formData = new FormData($('#pinInfo')[0]);  //form 데이터 객체
 
@@ -382,7 +382,7 @@
  			else {
  		 		//평점 값이 입력되었을 때
  				if(deliciousGrade.length > 0) {
- 					if(reg.test(deliciousGrade)) {
+ 					if(regGrade.test(deliciousGrade)) {
  						if(deliciousGrade > 5.0)
  							$('#grade_output').text('최대 5점입니다.').addClass('focus');
  						else
@@ -394,7 +394,7 @@
  			 			
  				//전화번호가 입력되었을 때
  				if(deliciousPhone.length > 0) {
- 		 			if(count > 0) 
+ 					if(regPhone.test(deliciousPhone)) 
  		 				$('#phone_output').empty().removeClass('focus');
  		 			else
  		 				$('#phone_output').text('(-)포함 입력입니다.').addClass('focus');

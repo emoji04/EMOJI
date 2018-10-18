@@ -400,6 +400,7 @@ function deleteDeliciousMap(value) {
 						center: new daum.maps.LatLng(37.5676184544478, 126.98855631199186), // 지도의 중심좌표
 						level: 3 // 지도의 확대 레벨
 					};  
+					
 					var map= new daum.maps.Map(mapContainer, mapOption);   //지도 생성, 객체 리턴
 					
 					var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
