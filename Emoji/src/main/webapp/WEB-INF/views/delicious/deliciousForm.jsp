@@ -235,23 +235,6 @@
 	 		$('#searchMap_li').addClass('click');
 	 		$('#makeMap_li').removeClass('click');
 	 	}); 
-	 	
-  		 //만들기, 검색 탭 이동
-		 /* $('.tab_content').hide();
-		$('ul.tab li:first').addClass('active').show();
-		$('.tab_content:first').show();
-		
-		$('ul.tab li').click(function(){
-			$('ul.tab li').removeClass('active');
-			$(this).addClass('active');
-			alert($(this));
-			$('.tab_content').hide();
- 			$(this).show();
-  			$('.tab_content').hide(); 
-			
- 			var activeTab = $(this).find('a').attr('href');
-			$(activeTab).fadeIn();  
-		});   */
 		
 		//지도 만들기 상세설명 입력크기 지정
 		$('#deliciousMapDetail').keyup(function() {
