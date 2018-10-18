@@ -173,15 +173,15 @@ public class Membercontroller {
     public String regiCheck2(HttpServletRequest request, HttpServletResponse response, @RequestParam String email){
     	if(memberService.login(email) != null) {
     		String a = "aaaa";
-    		String aa = memberService.login(email).getMemberPassword();
-    		if(aa != a) {
-    		System.out.println(memberService.login(email).getMemberPassword() != "aaaa" ? "alreadyExist" : "naverRegi" );
-    			return "alreadyExist";
-    		}else {
+    		return (memberService.login(email).getMemberPassword().equals("aaaa") ? "naverRegi" : "alreadyExist");
+    		/*String aa = memberService.login(email).getMemberPassword();
+    		if(aa.equals(a)) {
     			return "naverRegi";
+    		}else {
+    			return "alreadyExist";
     		}
     		//return (memberService.login(email).getMemberPassword() == "aaaa" ? "naverRegi" : "alreadyExist");
-    	}else {
+*/    	}else {
     		return "possibleRegi";
     	}
     }

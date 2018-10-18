@@ -56,12 +56,8 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>"
-				style="font-size: 25px;"> <img alt=""
-				src="<c:url value='/resources/img/Logo.jpg' />"
-				style="width: 100px; border-radius: 5px;"
-				style="padding-right: 120px;">모두의지도
-			</a>
+			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>" style="font-size: 25px; padding-top: 18px">
+			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 100px; border-radius: 5px; padding-right: 20px;">모두의지도 </a>
 
 
 		</div>
