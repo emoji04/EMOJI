@@ -17,32 +17,39 @@
 <style>
 /*전체 테두리*/
 #all {
-	margin: 30%;
+	margin: 10%;
 }
 /*탭 스타일*/
-.tap {
-	display: inline-block;
-	border: 1px solid black;
-	width: 100px;
-}
 /*상세정보 전체 창*/
 #myDmBox {
 	border: 1px solid black;
-	width: 900px;
+	width: 1500;
 	height: auto;
+	margin: 10px;
 }
 
 /* 하위항목숨김처리 */
 .subClass { /* 큰 지도 */
 	display: none;
 }
-/* .Resub { 
-display: none;
+
+.selectLine {
+	margin: 5px;
 }
- */
+
 /* 테이블 */
 table {
+	width: 100px;
 	border: 1px solid black;
+}
+
+.deliciousMapName {
+	width: 600px;
+}
+
+.detailDmbox {
+	margin: 5px;
+	height : auto;
 }
 
 /* 지도 크기  */
@@ -55,18 +62,147 @@ table {
 	width: auto;
 	border: 1px solid black;
 }
-wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -140px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info { width: 286px;height: 125px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; }
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .wrap .title {padding: 2px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .close { float: right; margin-top: 1%; margin-right: 5%; }
-    .contentBox {position: relative; float: left; width: 100%; }
-    .desc  { overflow:hidden; position: relative; float: left; margin-top: 5%; width: 50%; margin-left: 35%;}
-    .desc .address { overflow:hidden; text-overflow: ellipsis; white-space: nowrap;}
-    .desc .phone {font-size: 13px;color: #888; margin-top: -2px;}
-    .desc .detail {color: #5085BB; margin-top: 3px;}
-    .imageInfo {position: absolute;top: 10px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden; margin-left: 3%;}
+
+wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	height: 132px;
+	margin-left: -140px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 125px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.wrap .title {
+	padding: 2px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.close {
+	float: right;
+	margin-top: 1%;
+	margin-right: 5%;
+}
+
+.contentBox {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.desc {
+	overflow: hidden;
+	position: relative;
+	float: left;
+	margin-top: 5%;
+	width: 50%;
+	margin-left: 35%;
+}
+
+.desc .address {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.desc .phone {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.desc .detail {
+	color: #5085BB;
+	margin-top: 3px;
+}
+
+.imageInfo {
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+	overflow: hidden;
+	margin-left: 3%;
+}
+
+.selectbox {
+	text-align: left;
+}
+
+#DeliciousMapTag {
+	text-align: center;
+	margin: 5px;
+}
+
+.DeliciousMapTag {
+	border: hidden;
+}
+
+#reviewList {
+	display : inline-block;
+	width : 100%;
+}
+
+           
+           .img {
+
+            left: 0;
+            width: 50px;
+            height: 50px;
+            
+            border: 1px solid red;
+            float: left;
+            margin: 5px 0px 0px 10px;
+        }
+
+        .title {
+
+            margin: 5px 30px 0px 10px;
+            width:  130px ;
+             height: 50px;
+            border: 1px solid blue;
+            float: left;
+        }
+
+        .content {
+
+            border: 1px solid green;
+            width: 75%;
+            height: auto;
+            float: left;
+            margin: 5px 0px 30px 10px;
+        }
 
 </style>
 
@@ -79,45 +215,57 @@ wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-
 
 	<div id="all">
 		<!-- 전체를 묶는 Div 위 아래 여백  -->
-		<div>
-			<!-- <내 등록지도/ 내 관심지도 tap> -->
-			<span id="tap_1" class="tap"><a
-				href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
-				class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
-		</div>
+
 		<div id="myDmBox">
-			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
 			<div>
-				<!-- 내 등록 지도 (전체선택란) -->
-				<input type="checkbox">전체선택<input type="button" value="선택공개"><input
+				<!-- <내 등록지도/ 내 관심지도 tap> -->
+				<span id="tap_1" class="tap"><as
+						href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
+					class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
+			</div>
+			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
+			<!-- 내 등록 지도 (전체선택란) -->
+			<div class="selectLine">
+				<input type="checkbox">전체선택 <input class="selectbox"
+					type="button" value="선택공개"> <input class="selectbox"
 					type="button" value="선택삭제">
 			</div>
+
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
-				<div>
+				<div class="detailDmbox">
 					<!-- 내 등록 지도 List -->
 					<input type="checkbox"> <input type="text"
-						name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}"
+						class="deliciousMapName" name="DeliciousMapName"
+						value="${DeliciousMapVO.deliciousMapName}"
 						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
 					<input name="DeliciousMapCreateDate"
-						value="${DeliciousMapVO.deliciousMapCreateDate}"
-						readonly="readyonly"> <input type="button" value="비공개">
-					<input type="button" value="수정"> <input type="button"
-						value="삭제"> <br>
+						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly"> 
+					<input type="button" value="비공개">
+					<input type="button" value="수정"> 
+					<input type="button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" > <br>
 					<div class="subClass" id="accordian${status.count}">
-						<input name="DeliciousMapTag"
-							value="${DeliciousMapVO.deliciousMapTag}">
+						<div id="DeliciousMapTag">
+							<input class="DeliciousMapTag" name="DeliciousMapTag"
+								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
+						</div>
 						<div id="map${status.count}" class="map"></div>
-						<br>
-						<!-- 리뷰 상세목록 -->
-							<p id="deliciousMapTitle${status.count}"></p>
-							<p id="deliciousMapContent${status.count}"></p>
-							<p id="deliciousMapWriteDate${status.count}"></p>
-							<p id="deliciousMapImg${status.count}"></p>
-							<p id="deliciousMapGrade${status.count}"></p>
+						<div id="review">리뷰</div>
+						<div id="reviewList">
 
+							<!-- 리뷰 상세목록 -->
+								<p id="deliciousMapImg${status.count}"></p>
+							<div id="title">
+								<p id="deliciousMapTitle${status.count}"></p>
+							</div>
+							<div id="content">
+								<p id="deliciousMapGrade${status.count}"></p>
+								<p id="deliciousMapContent${status.count}"></p>
+								<p id="deliciousMapWriteDate${status.count}"></p>
+							</div>
+						</div>
 						<!-- Delicious 임시 정보 불러오는 화면 -->
-					<%-- <div>
+						<%-- <div>
 							<p id="deliciousName${status.count}"></p>
 							<p id="deliciousAddress${status.count}"></p>
 							<p id="deliciousCategory${status.count}"></p>
@@ -147,10 +295,30 @@ wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-
 //지도 
 
 
-$(function() {
-	
+function deleteDeliciousMap(value) {
+	$.ajax({
+		type : "POST",
+		url : "<c:url value='/DeliciousMapDelete'/>",
+		data: "deliciousMapNum=" + value,
+		dataType:"text",
+		success: function(data){
+			alert(data);
+			console.log(data);
 
-})
+			//데이터 삭제
+			document.getElementById("deliciousMapTitle" + value).remove();
+			document.getElementById("deliciousMapContent" + value).remove();
+			document.getElementById("deliciousMapWriteDate" + value).remove();
+			document.getElementById("deliciousMapImg" + value).remove();
+			document.getElementById("deliciousMapGrade" + value).remove(); 
+			
+			},
+	error : function(xhr, status, error){
+		alert("에러발생");
+	}
+			 })
+		
+} 
 
 
 // 아코디언 Function 
@@ -184,11 +352,11 @@ $(function() {
 				
 				$.each(data, function(i,DeliciousMapReviewVO){
 				console.log(DeliciousMapReviewVO.deliciousMapContent); 
-				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</p>";
-				document.getElementById("deliciousMapContent" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</p>";
-				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</p>";
-				document.getElementById("deliciousMapImg" + value1).innerHTML +="<p>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</p>";
-				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</p>";
+				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<td class='title'>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</td>";
+				document.getElementById("deliciousMapContent" + value1).innerHTML += "<td class='content'>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</td>";
+				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</td>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
 
 				});
 				 },	
@@ -241,9 +409,9 @@ $(function() {
 				
 				var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 				
-				addressList.forEach(function(addressList, index) {
+				addressList.forEach(function(address, index) {
 						//주소로 좌표 검색
-						geocoder.addressSearch(addressList, function(result, status) {
+						geocoder.addressSearch(address, function(result, status) {
 							//정상적으로 검색이 완료됐으면
 							if(status == daum.maps.services.Status.OK) {
 								var coords = new daum.maps.LatLng(result[0].y, result[0].x);
@@ -338,7 +506,7 @@ $(function() {
 				document.getElementById("deliciousImg" + value1).innerHTML = ''; */
 
 				//데이터 삽입
-		/* 		$.each(data, function(i,DeliciousVO){
+		/*		$.each(data, function(i,DeliciousVO){
 				document.getElementById("deliciousName" + value1).innerHTML += "<p>" +DeliciousVO.deliciousName+ "<br>"+"</p>";
 				document.getElementById("deliciousAddress" + value1).innerHTML += "<p>" +DeliciousVO.deliciousAddress+ "<br>"+"</p>";
 				document.getElementById("deliciousCategory"+ value1).innerHTML += "<p>" +DeliciousVO.deliciousCategory+ "<br>"+"</p>";

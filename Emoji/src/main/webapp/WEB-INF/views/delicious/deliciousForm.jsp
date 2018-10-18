@@ -236,8 +236,8 @@
 	 		$('#makeMap_li').removeClass('click');
 	 	}); 
 	 	
-/*  		//만들기, 검색 탭 이동
-		$('.tab_content').hide();
+  		 //만들기, 검색 탭 이동
+		 /* $('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
 		$('.tab_content:first').show();
 		
@@ -251,7 +251,7 @@
 			
  			var activeTab = $(this).find('a').attr('href');
 			$(activeTab).fadeIn();  
-		});  */	
+		});   */
 		
 		//지도 만들기 상세설명 입력크기 지정
 		$('#deliciousMapDetail').keyup(function() {
@@ -327,7 +327,9 @@
 				$('#deliciousMap').submit();
 		});
 		
-		var mapContainer = document.getElementById('map'),   //지도 담을 영역
+		var mapContainer = document.getElementById('map');  //지도 담을 영역
+			mapContainer.style.width = '100%';
+			mapContainer.style.height = '700px',
 			//지도 생성 시, 필요한 기본 옵션
 			mapOptions = { 
 				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표

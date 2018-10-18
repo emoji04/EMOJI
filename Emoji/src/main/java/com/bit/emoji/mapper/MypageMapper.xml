@@ -40,9 +40,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		deliciousMapNum, deliciousMapName, deliciousMapTag,
 		deliciousMapDetail, deliciousMapOpen,
-		deliciousMapCreateDate, memberNum
+		date_format(str_to_date(deliciousMapCreateDate, '%Y-%m-%d %H:%i:%s'),
+		'%Y-%m-%d') deliciousMapCreateDate, memberNum
 		from deliciousMap
-		where memberNum = #{memberNum}
+		where
+		memberNum = #{memberNum}
 	</select>
 
 	<!-- 지도 목록 리뷰 조회 -->
@@ -75,14 +77,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+	<!-- deliciousMap 삭제 -->
+	<delete id="deliciousMapDelete" parameterType="int">
+		delete FROM emoji.deliciousMap where deliciousMapNum = #{deliciousMapNum};
+	</delete>
+
 	<!-- 내가 만든 원정대 목록 조 -->
 	<select id="myRouteList"
 		resultType="com.bit.emoji.model.RouteVO" parameterType="int">
 		SELECT
 		routeNum, memberNum, routeName,
-		possibleNum, startDate, spendTime, budget, rule, routeTag,
+		possibleNum, startDate, spendTime,
+		budget, rule, routeTag,
 		encore, routeCreateDate, routeGrade
-		FROM emoji.route
-		where memberNum = {memberNum};
+		FROM
+		emoji.route
+		where memberNum = #{memberNum};
 	</select>
+
 </mapper>
