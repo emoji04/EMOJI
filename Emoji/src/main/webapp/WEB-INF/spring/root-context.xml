@@ -79,14 +79,10 @@
 		class="com.bit.emoji.service.SearchService" />
 
 	<!-- MapDetailService 등록 -->
-
-
 	<bean class="com.bit.emoji.service.MapDetailService"
 		id="mapDetailService" />
 
 	<!-- ScrapCheckService 등록 -->
-
-
 	<bean class="com.bit.emoji.service.ScrapCheckService"
 		id="scrapCheckService" />
 

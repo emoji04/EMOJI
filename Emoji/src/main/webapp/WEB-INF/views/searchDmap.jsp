@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +26,7 @@
 	<table id="listtable" style="border: 1px solid black;">
 		<c:forEach items="${Search}" var="search" varStatus="status">
 			<tr style="border: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
-				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img src="${search.deliciousImg }"></a></td>
+				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img style="margin: 10px; width:100px; height:100px;" src='${pageContext.request.contextPath}/resources/img/deliciousPin/${search.deliciousImg }'></a></td>
 				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');" id="lsittitle" >${search.deliciousMapName}</a><br>
 					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount }"></c:out>
 
@@ -67,7 +66,7 @@
 	}
 	
 	function clickFunction(deliciousMapNum, deliciousImg){
-		window.location.href="<%=request.getContextPath()%>/deliciousDetail?"
+		window.location.href="${pageContext.request.contextPath}/deliciousDetail?"
 		       +'deliciousMapNum='
 			 +deliciousMapNum
 			 +'&deliciousImg='
@@ -75,7 +74,7 @@
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="<%=request.getContextPath()%>/MydmForm?"
+		window.location.href="${pageContext.request.contextPath}/MydmForm?"
 		       +'memberNum='
 			 +memberNum;
 	}

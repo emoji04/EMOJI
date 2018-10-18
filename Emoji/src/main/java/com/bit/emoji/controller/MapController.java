@@ -1,6 +1,7 @@
 package com.bit.emoji.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.emoji.model.DeliciousMapScrapVO;
 import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousPinInfo;
 import com.bit.emoji.model.DeliciousSearchInfo;
@@ -42,9 +44,23 @@ public class MapController {
 	@Autowired
 	MapDetailService mapDetailService;
 	
+	
 	@RequestMapping(value = "/scrapCheck.do")
-	public String scrapCheck() {
+	public String scrapCheck(Model model, HttpServletRequest request, DeliciousMapScrapVO deliciousMapScrapVO) {
 		
+		int deliciousMapNum = Integer.parseInt(request.getParameter("deliciousMapNum"));
+		int memberNum = Integer.parseInt(request.getParameter("memberNum"));
+		int scrapCheck = Integer.parseInt(request.getParameter("scrapCheck"));
+		
+		
+		deliciousMapScrapVO.setDeliciousMapNum(deliciousMapNum);
+		deliciousMapScrapVO.setMemberNum(memberNum);
+		
+		if(scrapCheck==0){ // 클릭시 0이면 스크랩하기
+			scrapCheckService.insertScrap(deliciousMapScrapVO);
+		} else { // 클릭시 1이면 스크랩 해제하기
+			scrapCheckService.deleteScrap(deliciousMapScrapVO);
+		}
 		
 		return "/delicious/deliciousDetail";
 	}
@@ -56,11 +72,22 @@ public class MapController {
 	}
 	
 	@RequestMapping(value="/deliciousDetail")
-	public String deliciousDetail(Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum,
+	public String deliciousDetail(DeliciousMapScrapVO deliciousMapScrapVO, HttpSession session, Model model, @RequestParam(value = "deliciousMapNum") int deliciousMapNum,
 			@RequestParam(value = "deliciousImg") String deliciousImg) {
 
+		int memberNum;
+		if(session.getAttribute("loginInfo")==null) {
+			memberNum = 0;
+		} else {
+			memberNum = (int)session.getAttribute("loginInfo");
+		}
+		
+		deliciousMapScrapVO.setDeliciousMapNum(deliciousMapNum);
+		deliciousMapScrapVO.setMemberNum(memberNum);
 		
 		model.addAttribute("deliciousImg", deliciousImg);
+		model.addAttribute("memberNum", memberNum);
+		model.addAttribute("scrapCheck", mapDetailService.selectScrapCheck(deliciousMapScrapVO));
 		model.addAttribute("gradeAvg", mapDetailService.selectMapReviewAvg(deliciousMapNum));
 		model.addAttribute("dmDetail", mapDetailService.selectDetail(deliciousMapNum));
 		model.addAttribute("deliciousDetail", mapDetailService.selectDetailDelicious(deliciousMapNum));

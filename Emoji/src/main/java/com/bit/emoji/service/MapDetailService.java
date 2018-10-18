@@ -2,11 +2,10 @@ package com.bit.emoji.service;
 
 import java.util.List;
 
-
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousMapReviewVO;
+import com.bit.emoji.model.DeliciousMapScrapVO;
 import com.bit.emoji.model.DeliciousMapVO;
-import com.bit.emoji.model.DeliciousMapReviewVO;
 import com.bit.emoji.model.DeliciousVO;
 
 public class MapDetailService extends ServiceDao {
@@ -30,5 +29,10 @@ public class MapDetailService extends ServiceDao {
 	//맛집지도 리뷰평균
 	public float selectMapReviewAvg(int deliciousMapNum) {
 		return sqlSession.selectOne(MapperName.DELICIOUSMAP + ".selectMapReviewAvg", deliciousMapNum);
+	}
+
+	//맵스크랩 확인
+	public int selectScrapCheck(DeliciousMapScrapVO deliciousMapScrapVO) {
+		return sqlSession.selectOne(MapperName.DELICIOUSMAP + ".selectScrapCheck", deliciousMapScrapVO);
 	}
 }

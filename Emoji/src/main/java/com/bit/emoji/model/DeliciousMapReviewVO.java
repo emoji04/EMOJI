@@ -1,16 +1,15 @@
 package com.bit.emoji.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class DeliciousMapReviewVO {
 	private int deliciousReviewNum;
 	private int deliciousMapNum;
 	private int memberNum;
-	private String deliciousMapReviewTitle;
-	private String deliciousMapReviewContent;
-	private String deliciousMapReviewWriteDate;
-	private String deliciousMapReviewImg;
-	private double deliciousMapReviewGrade;
+	private String deliciousMapTitle;
+	private String deliciousMapContent;
+	private String deliciousMapWriteDate;
+	private String deliciousMapImg;
+	private double deliciousMapGrade;
+	
 	public int getDeliciousReviewNum() {
 		return deliciousReviewNum;
 	}
@@ -29,44 +28,44 @@ public class DeliciousMapReviewVO {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public String getDeliciousMapReviewTitle() {
-		return deliciousMapReviewTitle;
+	public String getDeliciousMapTitle() {
+		return deliciousMapTitle;
 	}
-	public void setDeliciousMapReviewTitle(String deliciousMapReviewTitle) {
-		this.deliciousMapReviewTitle = deliciousMapReviewTitle;
+	public void setDeliciousMapTitle(String deliciousMapTitle) {
+		this.deliciousMapTitle = deliciousMapTitle;
 	}
-	public String getDeliciousMapReviewContent() {
-		return deliciousMapReviewContent;
+	public String getDeliciousMapContent() {
+		return deliciousMapContent;
 	}
-	public void setDeliciousMapReviewContent(String deliciousMapReviewContent) {
-		this.deliciousMapReviewContent = deliciousMapReviewContent;
+	public void setDeliciousMapContent(String deliciousMapContent) {
+		this.deliciousMapContent = deliciousMapContent;
 	}
-	public String getDeliciousMapReviewWriteDate() {
-		return deliciousMapReviewWriteDate;
+	public String getDeliciousMapWriteDate() {
+		return deliciousMapWriteDate;
 	}
-	public void setDeliciousMapReviewWriteDate(String deliciousMapReviewWriteDate) {
-		this.deliciousMapReviewWriteDate = deliciousMapReviewWriteDate;
+	public void setDeliciousMapWriteDate(String deliciousMapWriteDate) {
+		this.deliciousMapWriteDate = deliciousMapWriteDate;
 	}
-	public String getDeliciousMapReviewImg() {
-		return deliciousMapReviewImg;
+	public String getDeliciousMapImg() {
+		return deliciousMapImg;
 	}
-	public void setDeliciousMapReviewImg(String deliciousMapReviewImg) {
-		this.deliciousMapReviewImg = deliciousMapReviewImg;
+	public void setDeliciousMapImg(String deliciousMapImg) {
+		this.deliciousMapImg = deliciousMapImg;
 	}
-	public double getDeliciousMapReviewGrade() {
-		return deliciousMapReviewGrade;
+	public double getDeliciousMapGrade() {
+		return deliciousMapGrade;
 	}
-	public void setDeliciousMapReviewGrade(double deliciousMapReviewGrade) {
-		this.deliciousMapReviewGrade = deliciousMapReviewGrade;
+	public void setDeliciousMapGrade(double deliciousMapGrade) {
+		this.deliciousMapGrade = deliciousMapGrade;
 	}
 	@Override
 	public String toString() {
-		return "DeliciousReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", deliciousMapNum=" + deliciousMapNum
-				+ ", memberNum=" + memberNum + ", deliciousMapReviewTitle=" + deliciousMapReviewTitle
-				+ ", deliciousMapReviewContent=" + deliciousMapReviewContent + ", deliciousMapReviewWriteDate="
-				+ deliciousMapReviewWriteDate + ", deliciousMapReviewImg=" + deliciousMapReviewImg
-				+ ", deliciousMapReviewGrade=" + deliciousMapReviewGrade + "]";
+		return "DeliciousMapReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", deliciousMapNum=" + deliciousMapNum
+				+ ", memberNum=" + memberNum + ", deliciousMapTitle=" + deliciousMapTitle + ", deliciousMapContent="
+				+ deliciousMapContent + ", deliciousMapWriteDate=" + deliciousMapWriteDate + ", deliciousMapImg="
+				+ deliciousMapImg + ", deliciousMapGrade=" + deliciousMapGrade + "]";
 	}
+	
 
 
 }
