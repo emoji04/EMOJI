@@ -31,9 +31,8 @@
 				<td style="padding-left: 5%;"><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg}');" id="lsittitle" >${search.deliciousMapName}</a><br>
 					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount}"></c:out>
 					by <a href="javascript:memberFunction(${search.memberNum});">${search.memberNum} ${search.memberEmail}</a> 작성일
-					<!-- 지도 생성일자를 날짜만 나오도록함  -->
-					<fmt:parseDate var="deliciousMapCreateDate" value="${search.deliciousMapCreateDate}" pattern="yyyy-MM-dd HH:mm:ss" /> 
-					<fmt:formatDate value='${deliciousMapCreateDate}' pattern='yyyy-MM-dd' /></td>
+					${search.deliciousMapCreateDate}
+				</td>
 			</tr>
 				<input type="hidden" id="deliciousImg" value="${search.deliciousImg}">
 		</c:forEach>

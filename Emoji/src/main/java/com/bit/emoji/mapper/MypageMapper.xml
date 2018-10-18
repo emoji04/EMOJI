@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		deliciousMapNum, deliciousMapName, deliciousMapTag,
 		deliciousMapDetail, deliciousMapOpen,
-		deliciousMapCreateDate, memberNum
+		date_format(str_to_date(deliciousMapCreateDate, '%Y-%m-%d %H:%i:%s'), '%Y-%m-%d') deliciousMapCreateDate, memberNum
 		from deliciousMap
 		where memberNum = #{memberNum}
 	</select>

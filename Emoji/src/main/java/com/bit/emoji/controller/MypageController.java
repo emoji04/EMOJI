@@ -60,7 +60,9 @@ public class MypageController {
 	public String myDmList(Model model, HttpSession session) throws Exception {
 		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
 		logger.info("........myDmList GET ...");
+		
 		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
+		System.out.println(mypageService.myDmListAll(loginInfo));
 		return "mypage/MydmForm";
 	}
 
