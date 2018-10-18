@@ -327,7 +327,9 @@
 				$('#deliciousMap').submit();
 		});
 		
-		var mapContainer = document.getElementById('map'),   //지도 담을 영역
+		var mapContainer = document.getElementById('map');  //지도 담을 영역
+			mapContainer.style.width = '100%';
+			mapContainer.style.height = '700px',
 			//지도 생성 시, 필요한 기본 옵션
 			mapOptions = { 
 				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
