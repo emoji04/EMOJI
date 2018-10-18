@@ -34,6 +34,12 @@ public class MypageService extends ServiceDao {
 		return sqlSession.selectList(MapperName.MYPAGE +".myDeliciousList", deliciousMapNum);
 	}
 	public List<RouteVO> myRouteList(int loginInfo) throws Exception {
-		return sqlSession.selectList(MapperName.MYPAGE +"myRouteList", loginInfo);
+		return sqlSession.selectList(MapperName.MYPAGE +".myRouteList", loginInfo);
+	}
+	
+	public int DeliciousMapDelete (int deliciousMapNum){
+		System.out.println(deliciousMapNum);
+		return sqlSession.delete(MapperName.MYPAGE +".deliciousMapDelete", deliciousMapNum);
+		
 	}
 }

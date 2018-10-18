@@ -86,6 +86,16 @@ public class MypageController {
 		return callAddress;
 
 	}
+	//나의 지도삭제 
+		@ResponseBody
+		@RequestMapping(value="/DeliciousMapDelete", method = RequestMethod.POST) 
+		public int myDelicious(@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+			logger.info("......DeliciousMap Delete .....");
+			logger.info(deliciousMapNum);
+			int deliciousMapDelete = mypageService.DeliciousMapDelete(Integer.parseInt(deliciousMapNum));
+			return deliciousMapDelete;
+			
+		}
 	
 //	나의 원정대
 	@RequestMapping(value = "/MyRouteForm",  method = RequestMethod.GET)
@@ -96,6 +106,8 @@ public class MypageController {
 
 		return "mypage/MyRouteForm";
 	}
+	
+	
 
 
 	//예외 발생 시

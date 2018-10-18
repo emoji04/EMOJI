@@ -49,6 +49,7 @@ table {
 
 .detailDmbox {
 	margin: 5px;
+	height : auto;
 }
 
 /* 지도 크기  */
@@ -169,17 +170,40 @@ wrap {
 }
 
 #reviewList {
-	border: 2px solid black;
-	margin: 23px 10px 20px 10px;
+	display : inline-block;
+	width : 100%;
 }
-.deliciousMapImg {
-	float : left;
-	margin : 0;
-}
-.deliciousMapTitle{
-	float : right;
-	margin : 0;
-}
+
+           
+           .img {
+
+            left: 0;
+            width: 50px;
+            height: 50px;
+            
+            border: 1px solid red;
+            float: left;
+            margin: 5px 0px 0px 10px;
+        }
+
+        .title {
+
+            margin: 5px 30px 0px 10px;
+            width:  130px ;
+             height: 50px;
+            border: 1px solid blue;
+            float: left;
+        }
+
+        .content {
+
+            border: 1px solid green;
+            width: 75%;
+            height: auto;
+            float: left;
+            margin: 5px 0px 30px 10px;
+        }
+
 </style>
 
 
@@ -216,10 +240,10 @@ wrap {
 						value="${DeliciousMapVO.deliciousMapName}"
 						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
 					<input name="DeliciousMapCreateDate"
-						value="${DeliciousMapVO.deliciousMapCreateDate}"
-						readonly="readyonly"> <input type="button" value="비공개">
-					<input type="button" value="수정"> <input type="button"
-						value="삭제"> <br>
+						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly"> 
+					<input type="button" value="비공개">
+					<input type="button" value="수정"> 
+					<input type="button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" > <br>
 					<div class="subClass" id="accordian${status.count}">
 						<div id="DeliciousMapTag">
 							<input class="DeliciousMapTag" name="DeliciousMapTag"
@@ -230,20 +254,15 @@ wrap {
 						<div id="reviewList">
 
 							<!-- 리뷰 상세목록 -->
-							<div >
-							<div class="deliciousMapImg">
 								<p id="deliciousMapImg${status.count}"></p>
-							</div>
-							<div class="deliciousMapTitle">
+							<div id="title">
 								<p id="deliciousMapTitle${status.count}"></p>
 							</div>
-							</div>
-							<div>
+							<div id="content">
 								<p id="deliciousMapGrade${status.count}"></p>
 								<p id="deliciousMapContent${status.count}"></p>
 								<p id="deliciousMapWriteDate${status.count}"></p>
 							</div>
-							</table>
 						</div>
 						<!-- Delicious 임시 정보 불러오는 화면 -->
 						<%-- <div>
@@ -276,10 +295,30 @@ wrap {
 //지도 
 
 
-$(function() {
-	
+function deleteDeliciousMap(value) {
+	$.ajax({
+		type : "POST",
+		url : "<c:url value='/DeliciousMapDelete'/>",
+		data: "deliciousMapNum=" + value,
+		dataType:"text",
+		success: function(data){
+			alert(data);
+			console.log(data);
 
-})
+			//데이터 삭제
+			document.getElementById("deliciousMapTitle" + value).remove();
+			document.getElementById("deliciousMapContent" + value).remove();
+			document.getElementById("deliciousMapWriteDate" + value).remove();
+			document.getElementById("deliciousMapImg" + value).remove();
+			document.getElementById("deliciousMapGrade" + value).remove(); 
+			
+			},
+	error : function(xhr, status, error){
+		alert("에러발생");
+	}
+			 })
+		
+} 
 
 
 // 아코디언 Function 
@@ -313,11 +352,11 @@ $(function() {
 				
 				$.each(data, function(i,DeliciousMapReviewVO){
 				console.log(DeliciousMapReviewVO.deliciousMapContent); 
-				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</p>";
-				document.getElementById("deliciousMapContent" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</p>";
-				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</p>";
-				document.getElementById("deliciousMapImg" + value1).innerHTML +="<p>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</p>";
-				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<p>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</p>";
+				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<td class='title'>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</td>";
+				document.getElementById("deliciousMapContent" + value1).innerHTML += "<td class='content'>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</td>";
+				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</td>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
 
 				});
 				 },	
@@ -370,9 +409,9 @@ $(function() {
 				
 				var geocoder = new daum.maps.services.Geocoder();    //주소-좌표 변환 객체 생성
 				
-				addressList.forEach(function(addressList, index) {
+				addressList.forEach(function(address, index) {
 						//주소로 좌표 검색
-						geocoder.addressSearch(addressList, function(result, status) {
+						geocoder.addressSearch(address, function(result, status) {
 							//정상적으로 검색이 완료됐으면
 							if(status == daum.maps.services.Status.OK) {
 								var coords = new daum.maps.LatLng(result[0].y, result[0].x);
@@ -467,7 +506,7 @@ $(function() {
 				document.getElementById("deliciousImg" + value1).innerHTML = ''; */
 
 				//데이터 삽입
-		/* 		$.each(data, function(i,DeliciousVO){
+		/*		$.each(data, function(i,DeliciousVO){
 				document.getElementById("deliciousName" + value1).innerHTML += "<p>" +DeliciousVO.deliciousName+ "<br>"+"</p>";
 				document.getElementById("deliciousAddress" + value1).innerHTML += "<p>" +DeliciousVO.deliciousAddress+ "<br>"+"</p>";
 				document.getElementById("deliciousCategory"+ value1).innerHTML += "<p>" +DeliciousVO.deliciousCategory+ "<br>"+"</p>";
