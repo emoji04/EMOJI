@@ -49,7 +49,7 @@
 		<div class="mainarea">
 
 
-			<form id="register" action="<c:url value='/emailsend2'/>" method="post"  enctype="multipart/form-data">
+			<form id="register" action="<c:url value='/emailsend'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
 				<div class="maintext">
 					<b>이메일 입력을 통한 비밀번호 변경</b>
 				</div>
@@ -61,7 +61,7 @@
 				<div id="idcheck" class="divchk"></div>
 				
 				<div>
-					<button class="doregi" onclick="javascript:checkValue();" type="button" id="registerBtn"> 이메일 인증하기 </button>
+					<input class="doregi" type="submit" value="이메일 인증하기" id="registerBtn" >
 				</div>
 			</form>
 		</div>
@@ -142,7 +142,6 @@
 							return false;
 						if(data == "alreadyExist")
 							$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
-							$('#registerBtn').prop('disabled', true);
 					}
 				});
 			} else{
@@ -150,16 +149,8 @@
 				return false;
 			};
 		
-		setTimeout(function() {
-			if($('#registerBtn').prop('disabled') == false){
-				console.log("여기 왔")
-				return false;
-			}else{
 				$('#idcheck').text('인증 메일을 보내는 중입니다. 잠시만 기다려 주세요.').css("color", "green");
-				$('#register').submit();
-			}
-		}, 700);
-		
+				$('#registerBtn').prop('disabled', true);
 	}
 </script>
 
