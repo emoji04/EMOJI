@@ -17,32 +17,38 @@
 <style>
 /*전체 테두리*/
 #all {
-	margin: 30%;
+	margin: 10%;
 }
 /*탭 스타일*/
-.tap {
-	display: inline-block;
-	border: 1px solid black;
-	width: 100px;
-}
 /*상세정보 전체 창*/
 #myDmBox {
 	border: 1px solid black;
-	width: 900px;
+	width: 1500;
 	height: auto;
+	margin: 10px;
 }
 
 /* 하위항목숨김처리 */
 .subClass { /* 큰 지도 */
 	display: none;
 }
-/* .Resub { 
-display: none;
+
+.selectLine {
+	margin: 5px;
 }
- */
+
 /* 테이블 */
 table {
+	width: 100px;
 	border: 1px solid black;
+}
+
+.deliciousMapName {
+	width: 600px;
+}
+
+.detailDmbox {
+	margin: 5px;
 }
 
 /* 지도 크기  */
@@ -55,19 +61,125 @@ table {
 	width: auto;
 	border: 1px solid black;
 }
-wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -140px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info { width: 286px;height: 125px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; }
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .wrap .title {padding: 2px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .close { float: right; margin-top: 1%; margin-right: 5%; }
-    .contentBox {position: relative; float: left; width: 100%; }
-    .desc  { overflow:hidden; position: relative; float: left; margin-top: 5%; width: 50%; margin-left: 35%;}
-    .desc .address { overflow:hidden; text-overflow: ellipsis; white-space: nowrap;}
-    .desc .phone {font-size: 13px;color: #888; margin-top: -2px;}
-    .desc .detail {color: #5085BB; margin-top: 3px;}
-    .imageInfo {position: absolute;top: 10px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden; margin-left: 3%;}
 
+wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	height: 132px;
+	margin-left: -140px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 125px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.wrap .title {
+	padding: 2px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.close {
+	float: right;
+	margin-top: 1%;
+	margin-right: 5%;
+}
+
+.contentBox {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.desc {
+	overflow: hidden;
+	position: relative;
+	float: left;
+	margin-top: 5%;
+	width: 50%;
+	margin-left: 35%;
+}
+
+.desc .address {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.desc .phone {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.desc .detail {
+	color: #5085BB;
+	margin-top: 3px;
+}
+
+.imageInfo {
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+	overflow: hidden;
+	margin-left: 3%;
+}
+
+.selectbox {
+	text-align: left;
+}
+
+#DeliciousMapTag {
+	text-align: center;
+	margin: 5px;
+}
+
+.DeliciousMapTag {
+	border: hidden;
+}
+
+#reviewList {
+	border: 2px solid black;
+	margin: 23px 10px 20px 10px;
+}
+.deliciousMapImg {
+	float : right;
+	margin : 0;
+}
+.deliciousMapTitle{
+	float : right;
+	margin : 0;
+}
 </style>
 
 
@@ -79,25 +191,29 @@ wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-
 
 	<div id="all">
 		<!-- 전체를 묶는 Div 위 아래 여백  -->
-		<div>
-			<!-- <내 등록지도/ 내 관심지도 tap> -->
-			<span id="tap_1" class="tap"><a
-				href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
-				class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
-		</div>
+
 		<div id="myDmBox">
-			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
 			<div>
-				<!-- 내 등록 지도 (전체선택란) -->
-				<input type="checkbox">전체선택<input type="button" value="선택공개"><input
+				<!-- <내 등록지도/ 내 관심지도 tap> -->
+				<span id="tap_1" class="tap"><as
+						href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
+					class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
+			</div>
+			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
+			<!-- 내 등록 지도 (전체선택란) -->
+			<div class="selectLine">
+				<input type="checkbox">전체선택 <input class="selectbox"
+					type="button" value="선택공개"> <input class="selectbox"
 					type="button" value="선택삭제">
 			</div>
+
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
-				<div>
+				<div class="detailDmbox">
 					<!-- 내 등록 지도 List -->
 					<input type="checkbox"> <input type="text"
-						name="DeliciousMapName" value="${DeliciousMapVO.deliciousMapName}"
+						class="deliciousMapName" name="DeliciousMapName"
+						value="${DeliciousMapVO.deliciousMapName}"
 						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
 					<input name="DeliciousMapCreateDate"
 						value="${DeliciousMapVO.deliciousMapCreateDate}"
@@ -105,19 +221,32 @@ wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-
 					<input type="button" value="수정"> <input type="button"
 						value="삭제"> <br>
 					<div class="subClass" id="accordian${status.count}">
-						<input name="DeliciousMapTag"
-							value="${DeliciousMapVO.deliciousMapTag}">
+						<div id="DeliciousMapTag">
+							<input class="DeliciousMapTag" name="DeliciousMapTag"
+								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
+						</div>
 						<div id="map${status.count}" class="map"></div>
-						<br>
-						<!-- 리뷰 상세목록 -->
-							<p id="deliciousMapTitle${status.count}"></p>
-							<p id="deliciousMapContent${status.count}"></p>
-							<p id="deliciousMapWriteDate${status.count}"></p>
-							<p id="deliciousMapImg${status.count}"></p>
-							<p id="deliciousMapGrade${status.count}"></p>
+						<div id="review">리뷰</div>
+						<div id="reviewList">
 
+							<!-- 리뷰 상세목록 -->
+							<div >
+							<div class="deliciousMapImg">
+								<p id="deliciousMapImg${status.count}"></p>
+							</div>
+							<div class="deliciousMapTitle">
+								<p id="deliciousMapTitle${status.count}"></p>
+							</div>
+							</div>
+							<div>
+								<p id="deliciousMapGrade${status.count}"></p>
+								<p id="deliciousMapContent${status.count}"></p>
+								<p id="deliciousMapWriteDate${status.count}"></p>
+							</div>
+							</table>
+						</div>
 						<!-- Delicious 임시 정보 불러오는 화면 -->
-					<%-- <div>
+						<%-- <div>
 							<p id="deliciousName${status.count}"></p>
 							<p id="deliciousAddress${status.count}"></p>
 							<p id="deliciousCategory${status.count}"></p>
@@ -196,6 +325,7 @@ $(function() {
 				alert("에러발생");
 			}
 		});
+		
 		
 		//지도 핀찍을 주소 정보 출력 
 		$.ajax({

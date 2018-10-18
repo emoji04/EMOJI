@@ -236,8 +236,8 @@
 	 		$('#makeMap_li').removeClass('click');
 	 	}); 
 	 	
-/*  		//만들기, 검색 탭 이동
-		$('.tab_content').hide();
+  		 //만들기, 검색 탭 이동
+		 /* $('.tab_content').hide();
 		$('ul.tab li:first').addClass('active').show();
 		$('.tab_content:first').show();
 		
@@ -251,7 +251,7 @@
 			
  			var activeTab = $(this).find('a').attr('href');
 			$(activeTab).fadeIn();  
-		});  */	
+		});   */
 		
 		//지도 만들기 상세설명 입력크기 지정
 		$('#deliciousMapDetail').keyup(function() {
