@@ -40,21 +40,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		deliciousMapNum, deliciousMapName, deliciousMapTag,
 		deliciousMapDetail, deliciousMapOpen,
-		deliciousMapCreateDate, memberNum
+		date_format(str_to_date(deliciousMapCreateDate, '%Y-%m-%d %H:%i:%s'),
+		'%Y-%m-%d') deliciousMapCreateDate, memberNum
 		from deliciousMap
-		where memberNum = #{memberNum}
+		where
+		memberNum = #{memberNum}
 	</select>
 
 	<!-- 지도 목록 리뷰 조회 -->
 	<select id="myDmReview"
-		resultType="com.bit.emoji.model.DeliciousReviewVO" parameterType="int">
+		resultType="com.bit.emoji.model.DeliciousMapReviewVO"
+		parameterType="int">
 		SELECT
-		deliciousMapReviewNum, deliciousMapTitle,
-		deliciousMapContent, deliciousMapWriteDate,
-		deliciousMapImg, deliciousMapGrade,
-		memberNum, deliciousMapNum
-		FROM deliciousReview
-		where deliciousMapNum = #{deliciousMapNum}
+		deliciousMapReviewNum,deliciousMapNum, memberNum,
+		deliciousMapTitle, deliciousMapContent,
+		deliciousMapWriteDate,
+		deliciousMapImg,
+		deliciousMapGrade
+		FROM deliciousMapReview
+		where
+		deliciousMapNum = #{deliciousMapNum}
 	</select>
+
+	<!-- 지도 맛집목록 조회 -->
+
+	<select id="myDeliciousList"
+		resultType="com.bit.emoji.model.DeliciousVO" parameterType="int">
+		SELECT
+		deliciousNum, deliciousMapNum,
+		deliciousName, deliciousAddress,
+		deliciousCategory, deliciousPhone,
+		deliciousGrade, deliciousDetail,
+		deliciousImg
+		FROM delicious
+		where deliciousMapNum = #{deliciousMapNum};
+
+	</select>
+
+	<!-- deliciousMap 삭제 -->
+	<delete id="deliciousMapDelete" parameterType="int">
+		delete FROM
+		emoji.deliciousMap where deliciousMapNum = #{deliciousMapNum};
+	</delete>
+
+	<!-- 내가 만든 원정대 목록 조 -->
+	<select id="myRouteList"
+		resultType="com.bit.emoji.model.RouteVO" parameterType="int">
+		SELECT
+		routeNum, memberNum, routeName,
+		possibleNum, startDate, spendTime,
+		budget, rule, routeTag,
+		encore, routeCreateDate, routeGrade
+		FROM
+		emoji.route
+		where memberNum = #{memberNum};
+	</select>
+
+
+	<!-- 공개 비공개 Button -->
+	<update id="changeOpen"
+		parameterType="com.bit.emoji.model.DeliciousMapVO">
+		UPDATE emoji.deliciousMap
+		SET
+		deliciousMapOpen = #{deliciousMapOpen}
+		WHERE deliciousMapNum = #{deliciousMapNum};
+	</update>
 
 </mapper>

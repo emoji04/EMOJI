@@ -7,24 +7,47 @@
 <meta http-equiv="Content-Type" content="text/html">
 <title>회원정보상세보기</title>
 <style>
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
 #table {
-	margin: 30%;
+	margin: 100px;
+	width: 400px;
+}
+input{
+border: 0px;
+width: 100%;
+height: 100%;
+}
+th{
+height: 50px;
 }
 </style>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원정보상세</title>
 </head>
-<body>
-	<div id="all">
+<body style="background-color: #F3F3F3">
+
+	<div id="all" style="width: 600px; height:650px;margin: 150px auto;  border-radius:20px; background-color: white;">
 		<%@ include file="../commons/top_bar.jsp"%>
 		<div id="table">
-			<h1>회원정보상세보기</h1>
+			<h1 style="padding: 50px;">회원정보상세보기</h1>
 
-			로그인 ID : ${loginInfo }
-
-			<form id = "form" action="../mypage/memberUpdateForm" method = "POST">
 			
+
+			<form id = "form" action="<c:url value="/memberUpdateForm" />" method = "POST">
+				<input type="hidden" name="memberNum" value="${loginInfo }" >
 				<table>
 					<thead>
 						<c:forEach items="${memberUpdateForm }" var="MemberVO">
@@ -41,11 +64,11 @@
 
 							<tr>
 								<th>비밀번호</th>
-								<th><input type="text" id ="memberPassword"name="memberPassword" value="" value=""></th>
+								<th><input type="password" id ="memberPassword" name="memberPassword" value="" placeholder="변경하실 비밀번호를 입력 해 주세요."></th>
 							</tr>
 							<tr>
 								<th>비밀번호 확인</th>
-								<th><input type="text" id = "memberPasswordCh" name="memberPasswordCh" value=""></th>
+								<th><input type="password" id = "memberPasswordCh" name="memberPasswordCh" value="" placeholder="다시한번 입력 해 주세요."></th>
 							</tr>
 							<tr>
 								<th>성별</th>
@@ -71,19 +94,23 @@
 					</thead>
 				</table>
 
-				<input type="button" value="수정" id="btnUpdate">
+				<input type="button" value="수정" id="btnUpdate" style="width: 200px;height: 40px;position: relative;left: 93px;top: 27px;border-radius: 10px;">
 			</form>
 		</div>
 	</div>
+	
+	
 </body>
 </html>
 <script>
 
-pw = $('#memberPassword').val();
-pwch = $('#memberPasswordCh').val();
+
 	$(document).ready(function() {
+		
+	/* 	var pw = $('#memberPassword').val();
+		var pwch = $('#memberPasswordCh').val(); */
 		$("#btnUpdate").click(function() {
-			if(pw == pwch){
+			if( $('#memberPassword').val() == $('#memberPasswordCh').val()){
 				alert($('#memberPassword').val())
 				alert($('#memberPasswordCh').val())
 				 $("#form").submit(); 

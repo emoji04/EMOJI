@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>EMOJI - 회원가입</title>
+	<title>[EMOJI] - 비밀번호변경</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -42,7 +42,7 @@
 			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
 			<br><hr><br>
 			<h5> ${email} 로<br> 메일이 발송되었습니다.<br> 메일을 확인 해 주세요</h5>
-			<h6>*1시간 이내로 회원가입이 이루어 지지 않으면 다시 이메일 인증을 하셔야 합니다.</h6>
+			<h6>*1시간 이내로 비밀번호 변경이 이루어 지지 않으면 다시 이메일 인증을 하셔야 합니다.</h6>
 		</div>
 	</div>
 

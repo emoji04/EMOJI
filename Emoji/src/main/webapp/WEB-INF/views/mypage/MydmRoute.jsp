@@ -209,7 +209,7 @@ wrap {
 	margin: 5px;
 }
 
-.DeliciousMapTag {
+.routeTag {
 	border: hidden;
 }
 
@@ -270,29 +270,29 @@ wrap {
 			<div>
 				<!-- <내 등록지도/ 내 관심지도 tap> -->
 				<span id="tap_1" class="tap"><a
-						href='<c:url value="MydmForm" />'>나의 등록 지도 </a></span> <span id="tap_2"
-					class="tap"><a href='<c:url value="MydmForm" />'>나의 관심 지도</a></span>
+						href='<c:url value="MydmRoute" />'>나의 원정대 </a></span> <span id="tap_2"
+					class="tap"><a href='<c:url value="MydmRoute" />'>나의 관심 원정대</a></span>
 			</div>
 			<div class="the_tap">
 			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
-			<c:forEach items="${myDmList}" var="DeliciousMapVO"
+			<c:forEach items="${myRouteList}" var="RouteVO"
 				varStatus="status">
 				<div class="detailDmbox">
 					<!-- 내 등록 지도 List -->
 					<input type="text"
-						class="deliciousMapName" name="DeliciousMapName"
-						value="${DeliciousMapVO.deliciousMapName}"
-						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
-					<input type="text" name="DeliciousMapCreateDate"
-						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly">
+						class="routeName" name="routeName"
+						value="${RouteVO.routeName}"
+						onclick="CallmyDmList(${RouteVO.routeName}, ${status.count})">
+					<input type="text" name="routeCreateDate"
+						value="${RouteVO.routeCreateDate}" readonly="readyonly">
 					<div class="left_bt">
 					<input type="button" class="input_button" value="비공개" onclick="changeOpen(${DeliciousMapVO.deliciousMapNum}, ${DeliciousMapVO.deliciousMapOpen}, $(this))" >
 					<input type="button" class="input_button" value="수정"> 
 					<input type="button" class="input_button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" ></div> <br>
 					<div class="subClass" id="accordian${status.count}">
 						<div id="DeliciousMapTag">
-							<input class="DeliciousMapTag" name="DeliciousMapTag"
-								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
+							<input class="routeTag" name="routeTag"
+								value="${RouteVO.routeTag}" readonly="readyonly">
 						</div>
 						<div id="map${status.count}" class="map"></div>
 						<div id="review">리뷰</div>

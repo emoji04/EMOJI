@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>회원가입</title>
+<title>[EMOJI]-비밀번호 찾기</title>
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 <link href="<c:url value="/resources/css/naverCss.css"/>" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.12.4.js"
@@ -49,13 +49,13 @@
 		<div class="mainarea">
 
 
-			<form id="register" action="<c:url value='/emailsend'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
+			<form id="register" action="<c:url value='/emailsend2'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
 				<div class="maintext">
-					<b>이메일</b>
+					<b>이메일 입력을 통한 비밀번호 변경</b>
 				</div>
 				
 				<div class="boxarea">
-					<input class="inputfocus" id="idtext" name="memberEmail" style="width: 99%" type="text">
+					<input class="inputfocus" id="idtext" name="memberEmail" placeholder="비밀번호를 변경 할 이메일을 입력 해 주세요" style="width: 99%" type="text">
 				</div>
 				
 				<div id="idcheck" class="divchk"></div>
@@ -87,7 +87,7 @@
 				$('#idtext').focusout(
 						function() {
 							if ($("#idtext").val() == '') {
-								$('#idcheck').text('필수항목 입니다.').css("color", "red");
+								$('#idcheck').text('이메일을 입력 해 주세요.').css("color", "red");
 							} else { 
 								if(emailcheck($("#idtext").val())){
 									var email = $('#idtext').val();
@@ -98,12 +98,13 @@
 										data : 'email=' + email,
 										dataType: 'text',
 										success : function(data) {
+											console.log(data);
 											if(data == "naverRegi")
 												$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
-											if (data == "possibleRegi") 
-												$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
-											if (data == "alreadyExist")
-												$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");
+											if(data == "possibleRegi") 
+												$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailcheck"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+											if(data == "alreadyExist")
+												$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
 										}
 									});
 								} else{
@@ -113,7 +114,6 @@
 						});
 	});
 	function checkValue() {
-		console.log("ok");
 		if ($("#idtext").val() == '') {
 			$('#idcheck').text('필수항목 입니다.').css("color", "red");
 			return false;
@@ -136,12 +136,12 @@
 					success : function(data) {
 						if(data == "naverRegi")
 							$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
-						if (data == "possibleRegi") 
-							$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
-							
-						if (data == "alreadyExist")
-							$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");
 							return false;
+						if(data == "possibleRegi") 
+							$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailcheck"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+							return false;
+						if(data == "alreadyExist")
+							$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
 					}
 				});
 			} else{
@@ -149,15 +149,8 @@
 				return false;
 			};
 		
-		setTimeout(function() {
-			if($('#idcheck').text() != '환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.'){
-				return false;
-			}else{
 				$('#idcheck').text('인증 메일을 보내는 중입니다. 잠시만 기다려 주세요.').css("color", "green");
-				$('#registerBtn').prop("disabled", true);
-				return true;
-			}
-		}, 700);
+				$('#registerBtn').prop('disabled', true);
 	}
 </script>
 

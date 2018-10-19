@@ -153,7 +153,7 @@
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
 		<a href="<c:url value='/home'/>">
-			<img alt="" src="<c:url value='/resources/img/Logo.jpg' />" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
+			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 280px; border-radius: 5px;" style="padding-left:120px;"></a>
 			<form class="login100-form validate-form" action="<c:url value='/login' />" method="post">
 				<span class="login100-form-title p-b-37">
 					Sign In
@@ -177,7 +177,8 @@
 
 				<div class="text-center p-t-57 p-b-20">
 					<span class="txt1">
-							<a href="<c:url value='/emailcheck' />">회원가입</a>
+							<a href="<c:url value='/emailcheck' />">회원가입</a> /
+							<a href="<c:url value='/findPass' />">비밀번호 찾기</a>
 					</span><br>
 					<hr/>
 					<span class="txt1">
@@ -195,18 +196,17 @@
   					<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 			    	<div id="naver_id_login"></div>
 			    	
-			    	<!-- facebook -->
-					<div id="fb-root"></div>
-					<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-					
+			  		<!-- facebook -->
+				 <!--  	<div id="fb-root" style="margin:5px; width:220px;"></div>
+					<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" style="width:220px;"></div>
+					 -->
 					
 					<!-- 구글 로그인 추가 -->
 					<div id="googleLogin" align="center">                                                    
-					    <div class="g-signin2" data-onsuccess="onSuccess" data-theme="dark"></div>
+					    <div class="g-signin2" data-onsuccess="onSuccess" data-theme="dark" style="margin:5px; width:220px;"></div>
 					</div>
 					
-					<div id="firebaseui-auth-container"></div>
-					<div id="loader">Loading...</div>
+					
 					
 				</div>
 			</form>
@@ -241,7 +241,7 @@ function login(){
 
     <!-- //네이버아이디로로그인 버튼 노출 영역 -->
  	<script type="text/javascript">
-  		var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://localhost:8080/emoji/member/loginSuccess");
+  		var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://localhost:8088/emoji/member/loginSuccess");
   		var state = naver_id_login.getUniqState();
 	  	naver_id_login.setButton("green", 3,48);
 	  	//naver_id_login.setDomain("YOUR_SERVICE_URL");

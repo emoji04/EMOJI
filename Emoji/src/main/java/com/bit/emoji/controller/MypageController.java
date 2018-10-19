@@ -9,51 +9,123 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.emoji.model.DeliciousReviewVO;
+import com.bit.emoji.model.DeliciousMapReviewVO;
+import com.bit.emoji.model.DeliciousMapVO;
+import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.MypageService;
+import com.bit.emoji.service.Sha256;
 
 @Controller
 public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	@Autowired
+	Sha256 sha;
+
+	@Autowired
 	MypageService mypageService;
 
-	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.GET)
-	public void listAll(Model model, HttpSession session) throws Exception {
-		int loginInfo = (int) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
+//	회원정보수정
+	@RequestMapping(value = "/memberUpdateForm", method = RequestMethod.GET)
+	public String listAll(Model model, HttpSession session) throws Exception {
+		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum*/
 		logger.info("............................GET");
-		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
+		model.addAttribute("memberUpdateForm", mypageService.selectMember((Integer) session.getAttribute("loginInfo")));
+		return "mypage/memberUpdateForm";
 	}
 
-	@RequestMapping(value = "mypage/memberUpdateForm", method = RequestMethod.POST)
-	public void update(Model model, MemberVO vo, HttpSession session) throws Exception {
-		int loginInfo = (int) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
+	@RequestMapping(value = "/memberUpdateForm", method = RequestMethod.POST)
+	public String update(Model model, MemberVO vo, HttpSession session) throws Exception {
+		/* 암호화 */
+		String shaPassword = sha.encrypt(vo.getMemberPassword());
+		vo.setMemberPassword(shaPassword);
+
+		System.out.println(vo);
+		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
+		System.out.println(loginInfo);
 		logger.info("...............POST");
 		model.addAttribute("updateMember", mypageService.updateMember(vo));
+		System.out.println(mypageService.updateMember(vo));
 		model.addAttribute("memberUpdateForm", mypageService.selectMember(loginInfo));
+		return "mypage/memberUpdateForm";
+	}
+//	나의지도
+	@RequestMapping(value = "MydmForm", method = RequestMethod.GET)
+	public String myDmList(Model model, HttpSession session) throws Exception {
+		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
+		logger.info("........myDmList GET ...");
+		
+		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
+		System.out.println(mypageService.myDmListAll(loginInfo));
+		return "mypage/MydmForm";
 	}
 
-	@RequestMapping(value ="mypage/MydmForm",  method = RequestMethod.GET)
-	public void myDmList(Model model, HttpSession session) throws Exception{
-		int loginInfo = (int) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum
-		logger.info("........myDmList GET ...");
-		model.addAttribute("myDmList", mypageService.myDmListAll(loginInfo));
+	@ResponseBody
+	@RequestMapping(value = "myDmReview")
+	public List<DeliciousMapReviewVO> myDmReviewList(DeliciousMapReviewVO vo, Model model,
+			@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+		logger.info("........myDmReview POST ...");
+		List<DeliciousMapReviewVO> callList = mypageService.myDmReview(Integer.parseInt(deliciousMapNum));
+		System.out.println(callList);
+		return callList;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/myDmReview")
-	public List<DeliciousReviewVO> myDmReviewList(DeliciousReviewVO vo, Model model, @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+	@RequestMapping(value="myDeliciousList")
+	public List<DeliciousVO> myDelicious(DeliciousVO vo, Model model,  @RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+		logger.info("........myDeliciousList POST ...");
 		logger.info(deliciousMapNum);
-		logger.info("........myDmReview GET ...");
-		List<DeliciousReviewVO> test = mypageService.myDmReview(Integer.parseInt(deliciousMapNum));
-		System.out.println(test);
-		return test;
+		List<DeliciousVO> callAddress = mypageService.myDeliciousList(Integer.parseInt(deliciousMapNum));
+		System.out.println(callAddress);
+		return callAddress;
+
+	}
+	//나의 지도삭제 
+		@ResponseBody
+		@RequestMapping(value="/DeliciousMapDelete", method = RequestMethod.POST) 
+		public int myDelicious(@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+			logger.info("......DeliciousMap Delete .....");
+			logger.info(deliciousMapNum);
+			int deliciousMapDelete = mypageService.DeliciousMapDelete(Integer.parseInt(deliciousMapNum));
+			return deliciousMapDelete;
+			
+		}
+		//Open Close Button
+		@ResponseBody
+		@RequestMapping(value ="/changeOpen", method=RequestMethod.POST)
+		public int changeOpen(Model model, DeliciousMapVO vo) throws Exception {
+			logger.info("........ChangeOpenANDClose"+vo);
+			mypageService.changeOpen(vo);
+			
+			return mypageService.changeOpen(vo);
+		}
+	
+//	나의 원정대
+	@RequestMapping(value = "MyRouteForm",  method = RequestMethod.GET)
+	public String myRouteList (Model model, MemberVO vo, HttpSession session) throws Exception{
+		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum*/
+		logger.info("................MyRouteForm........GET");
+		model.addAttribute("myRouteList", mypageService.myRouteList((Integer) session.getAttribute("loginInfo")));
+
+		return "mypage/MydmRoute";
+	}
+	
+
+	
+
+
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+	
+		return "exception";
 	}
 }

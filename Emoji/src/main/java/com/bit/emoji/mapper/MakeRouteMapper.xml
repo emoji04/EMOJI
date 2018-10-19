@@ -2,16 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MakeRoute">
 
-<select id="selectDelicious" resultType="com.bit.emoji.model.DeliciousPinVO" parameterType="String">
-select * from delicious where deliciousPinDetail like '%' || #{search} || '%'
+<select id="selectDelicious" resultType="com.bit.emoji.model.DeliciousVO" parameterType="String">
+select deliciousNum,deliciousName,deliciousAddress,deliciousPhone,deliciousGrade,deliciousDetail
+from emoji.delicious where 
+deliciousDetail like CONCAT('%',#{search},'%') 
+or deliciousName like CONCAT('%',#{search},'%')
+or deliciousCategory like CONCAT('%',#{search},'%');
+<!-- '%' || #{search} || '%' -->		
+
 </select>
 
 
+<insert id="routeInsert" parameterType="com.bit.emoji.model.RouteVO" >
+	insert into emoji.route(memberNum,routeName,possibleNum,startDate,spendTime,budget,rule,routeTag) 
+	values(#{memberNum},#{routeName},#{possibleNum},#{startDate},#{spendTime},#{budget},#{rule},#{routeTag})
+</insert>
+
+<insert id="orderInsert" parameterType="java.util.ArrayList">
+	insert into emoji.routeDelicious
+	values
+	<foreach collection="list" item="item" separator=",">
+	(#{item.routeNum},#{item.deliciousNum},#{item.deliciousOrder})
+	</foreach>
+</insert>
+
+<select id="selectRouteNum" resultType="java.lang.String">
+	select max(routeNum) from emoji.route
+</select>
 
 
 </mapper>
 
 <!-- <trim prefix="%" suffix="%" prefixOverrides="'" suffixOverrides="'">
+
 #{search}  like '%' || '${search}' || '%'
 
 

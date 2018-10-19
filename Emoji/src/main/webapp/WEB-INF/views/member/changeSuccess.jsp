@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>[EMOJI]-회원가입 완료</title>
+<title>[EMOJI]-비밀번호 변경 완료</title>
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 <link href="<c:url value="/resources/css/naverCss.css"/>" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.12.4.js"
@@ -57,9 +57,9 @@
 		<div class="mainarea">
 
 
-			<p class="welcome" style="font-size: 50px;"><strong>환영합니다!</strong></p>
-			<p class="congra">회원가입을 축하합니다. </p>
-			<p>로그인을 하여 모두와 함께 지도를 공유 해 주세요!</p>
+			<p class="welcome" style="font-size: 50px;"><strong>변경완료</strong></p>
+			<p class="congra">비밀번호 변경이 완료되었습니다.
+			<p>변경된 비밀번호로 로그인 해 주세요.</p>
 			<input class="doregi" type="button" value="로그인 하러가기" id="registerBtn" onclick="location.href='<c:url value='/loginForm' />'" >
 		</div>
 	</div>
