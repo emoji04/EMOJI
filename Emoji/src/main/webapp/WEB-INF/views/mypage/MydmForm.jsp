@@ -22,10 +22,46 @@
 /*탭 스타일*/
 /*상세정보 전체 창*/
 #myDmBox {
-	border: 1px solid black;
-	width: 1500;
+	/* border: 1px solid black; */
+	width: 1000px;
 	height: auto;
-	margin: 10px;
+	padding:15px;
+	margin: 0 auto;
+	background-color: white;
+	border-radius: 20px;
+}
+.input_button {
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 3px 2px;
+    cursor: pointer;
+    background-color:white;
+    border: #e7e7e7 1px solid;
+    border-radius: 10px;
+}
+.tap{
+	padding:5px;
+	margin:20px;
+	margin-left:0px;
+	margin-right:0px;
+	font-size: 18px;
+	border: #999999 solid 1px;
+	border-bottom:none;
+	border-radius: 10px 10px 0 0;
+}
+#tap_1 {
+		background-color:  #E7E7E7;
+		/* border-bottom: 1px solid #fff; */
+	}
+.the_tap{
+	border: #999999 solid 1px;
+	border-radius: 0 10px 10px 10px;
+	padding: 10px;
+	
 }
 
 /* 하위항목숨김처리 */
@@ -44,12 +80,20 @@ table {
 }
 
 .deliciousMapName {
-	width: 600px;
+	width: 300px;
 }
 
 .detailDmbox {
 	margin: 5px;
 	height : auto;
+	border: #BEBEBE solid 1px;
+	border-bottom:none;
+	border-radius: 10px 10px 0 0;
+	padding: 10px;
+}
+input[type=text] {
+    border: none;
+    /* border-bottom: 1px solid #F3F3F3; */
 }
 
 /* 지도 크기  */
@@ -203,13 +247,19 @@ wrap {
             float: left;
             margin: 5px 0px 30px 10px;
         }
+        
+        .left_bt{
+            display: inline-block;
+ 		    position: relative;
+ 		    left: 120px;
+        }
 
 </style>
 
 
 </head>
 
-<body>
+<body style="background-color: #F3F3F3">
 	<%@ include file="../commons/top_bar.jsp"%>
 
 
@@ -219,15 +269,16 @@ wrap {
 		<div id="myDmBox">
 			<div>
 				<!-- <내 등록지도/ 내 관심지도 tap> -->
-				<span id="tap_1" class="tap"><as
+				<span id="tap_1" class="tap"><a
 						href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
 					class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
 			</div>
+			<div class="the_tap">
 			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
 			<!-- 내 등록 지도 (전체선택란) -->
 			<div class="selectLine">
-				<input type="checkbox">전체선택 <input class="selectbox"
-					type="button" value="선택공개"> <input class="selectbox"
+				<input type="checkbox">전체선택 <input class="selectbox input_button"
+					type="button" value="선택공개"> <input class="selectbox input_button"
 					type="button" value="선택삭제">
 			</div>
 
@@ -235,15 +286,20 @@ wrap {
 				varStatus="status">
 				<div class="detailDmbox">
 					<!-- 내 등록 지도 List -->
-					<input type="checkbox"> <input type="text"
+					<label class="chkcontainer">
+						<input type="checkbox">
+						<span class="checkmark"></span>
+					</label> 
+					<input type="text"
 						class="deliciousMapName" name="DeliciousMapName"
 						value="${DeliciousMapVO.deliciousMapName}"
 						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
-					<input name="DeliciousMapCreateDate"
-						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly"> 
-					<input type="button" value="비공개">
-					<input type="button" value="수정"> 
-					<input type="button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" > <br>
+					<input type="text" name="DeliciousMapCreateDate"
+						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly">
+					<div class="left_bt">
+					<input type="button" class="input_button" value="비공개">
+					<input type="button" class="input_button" value="수정"> 
+					<input type="button" class="input_button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" ></div> <br>
 					<div class="subClass" id="accordian${status.count}">
 						<div id="DeliciousMapTag">
 							<input class="DeliciousMapTag" name="DeliciousMapTag"
@@ -278,7 +334,7 @@ wrap {
 					</div>
 				</div>
 			</c:forEach>
-
+			</div>
 
 		</div>
 
