@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.emoji.model.DeliciousMapReviewVO;
+import com.bit.emoji.model.DeliciousMapVO;
 import com.bit.emoji.model.DeliciousVO;
 import com.bit.emoji.model.MemberVO;
 import com.bit.emoji.service.MypageService;
@@ -86,16 +87,38 @@ public class MypageController {
 		return callAddress;
 
 	}
+	//나의 지도삭제 
+		@ResponseBody
+		@RequestMapping(value="/DeliciousMapDelete", method = RequestMethod.POST) 
+		public int myDelicious(@RequestParam("deliciousMapNum") String deliciousMapNum) throws Exception {
+			logger.info("......DeliciousMap Delete .....");
+			logger.info(deliciousMapNum);
+			int deliciousMapDelete = mypageService.DeliciousMapDelete(Integer.parseInt(deliciousMapNum));
+			return deliciousMapDelete;
+			
+		}
+		//Open Close Button
+		@ResponseBody
+		@RequestMapping(value ="/changeOpen", method=RequestMethod.POST)
+		public int changeOpen(Model model, DeliciousMapVO vo) throws Exception {
+			logger.info("........ChangeOpenANDClose"+vo);
+			mypageService.changeOpen(vo);
+			
+			return mypageService.changeOpen(vo);
+		}
 	
 //	나의 원정대
 	@RequestMapping(value = "MyRouteForm",  method = RequestMethod.GET)
 	public String myRouteList (Model model, MemberVO vo, HttpSession session) throws Exception{
 		int loginInfo = (Integer) session.getAttribute("loginInfo"); // 세션값 불러옴 memberNum*/
-		logger.info("............................GET");
-		model.addAttribute("memberUpdateForm", mypageService.myRouteList((Integer) session.getAttribute("loginInfo")));
+		logger.info("................MyRouteForm........GET");
+		model.addAttribute("myRouteList", mypageService.myRouteList((Integer) session.getAttribute("loginInfo")));
 
-		return "mypage/MyRouteForm";
+		return "mypage/MydmRoute";
 	}
+	
+
+	
 
 
 	//예외 발생 시

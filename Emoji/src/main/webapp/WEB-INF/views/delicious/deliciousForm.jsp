@@ -17,8 +17,8 @@
 		float: left;
 		list-style: none;
 		height: 32px;
-		border-bottom: 1px solid #999;
-		border-left: 1px solid #999;
+		/* border-bottom: 1px solid #999; */
+		/* border-left: 1px solid #999; */
 		width: 100%;
 	}
 	
@@ -26,11 +26,13 @@
 		float: left;
 		margin: 0;
 		padding: 0;
-		height: 31px;
+		width:170px;
+		height: 33px;
 		line-height: 31px;
 		border: 1px solid #999;
- 		border-left: none;
-		margin-bottom: -1px;
+		text-align:center;
+		border-radius: 10px 10px 0 0;
+		/* margin-bottom: -1px; */
 		overflow: hidden;
 		position: relative;
 		background: #e0e0e0;
@@ -51,7 +53,8 @@
 	
 	html ul.tab li.active, html ul.tab li.active a:hover {
 		backgroud: #fff;
-		border-bottom: 1px solid #fff;
+		height:33px;
+		/* border-bottom: 1px solid #fff; */
 	}
 	
 	.active {
@@ -63,7 +66,7 @@
 	}
 	
 	#container {
-		border: 1px solid #999;
+		/* border: 1px solid #999; */
 		/* border-top: none; */
 		overflow: hidden;
 		clear: both;
@@ -73,6 +76,10 @@
 	}
 	
 	.tab_content {
+		margin-top:32px;
+		border: 1px solid #999;
+		border-radius: 0 10PX 10px 10px;
+		padding-top:0px;
 		padding: 20px;
 	}
 	
@@ -83,7 +90,7 @@
  	}
  	
  	#mapContent {
-	 	margin-top: 30px;
+	 	/* margin-top: 30px; */
  	}
  	
  	.textBox {
@@ -122,8 +129,9 @@
 	}
  	
  	#right {
+ 		margin-top:30px;
  	 	padding-left: 2%;
- 	 	width:63%;
+ 	 	width:68%;
  	 	float: left;
  	}
  	
@@ -195,7 +203,7 @@
     		</div>
 		</div>
 			
-		<div id="searchMap" class="tab_content" style="display: none; overflow: hidden;">
+		<div id="searchMap" class="tab_content" style="display: none; overflow-y: scroll; height: 700px;">
 			<div> 
 				<div class="input-group stylish-input-group">
 					<input type="text" id="searchKeyword" class="form-search" placeholder="맛집지도이름">
@@ -235,23 +243,6 @@
 	 		$('#searchMap_li').addClass('click');
 	 		$('#makeMap_li').removeClass('click');
 	 	}); 
-	 	
-/*  		//만들기, 검색 탭 이동
-		$('.tab_content').hide();
-		$('ul.tab li:first').addClass('active').show();
-		$('.tab_content:first').show();
-		
-		$('ul.tab li').click(function(){
-			$('ul.tab li').removeClass('active');
-			$(this).addClass('active');
-			alert($(this));
-			$('.tab_content').hide();
- 			$(this).show();
-  			$('.tab_content').hide(); 
-			
- 			var activeTab = $(this).find('a').attr('href');
-			$(activeTab).fadeIn();  
-		});  */	
 		
 		//지도 만들기 상세설명 입력크기 지정
 		$('#deliciousMapDetail').keyup(function() {
@@ -327,7 +318,9 @@
 				$('#deliciousMap').submit();
 		});
 		
-		var mapContainer = document.getElementById('map'),   //지도 담을 영역
+		var mapContainer = document.getElementById('map');  //지도 담을 영역
+			mapContainer.style.width = '100%';
+			mapContainer.style.height = '700px',
 			//지도 생성 시, 필요한 기본 옵션
 			mapOptions = { 
 				center: new daum.maps.LatLng(37.5706073, 126.9853092), //지도 중심좌표
@@ -390,7 +383,7 @@
 						content +=		'</span><br>'
 						content += 		'<span>'
 						content += 		value.deliciousMapDetail
-						content +=		'</span><br>'
+						content +=		'</span><br><hr>'
 						content += 	'</div>'
 						content +='</div>';
 					}); 

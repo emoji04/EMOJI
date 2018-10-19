@@ -86,7 +86,7 @@
 							<li><a href='<c:url value="/memberUpdateForm" />'
 								onclick='function()'>개인정보 수정</a></li>
 							<li><a href='<c:url value="/MydmForm" />'>나의 맛집지도</a></li>
-							<li><a href='<c:url value="/MyRouteForm" />'>나의 식신원정대</a></li>
+							<li><a href='<c:url value="/MydmRoute" />'>나의 식신원정대</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="#">Separated</a></li>
 							<li role="separator" class="divider"></li>

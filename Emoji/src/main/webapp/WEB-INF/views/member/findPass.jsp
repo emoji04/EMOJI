@@ -49,7 +49,7 @@
 		<div class="mainarea">
 
 
-			<form id="register" action="<c:url value='/emailsend'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
+			<form id="register" action="<c:url value='/emailsend2'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
 				<div class="maintext">
 					<b>이메일 입력을 통한 비밀번호 변경</b>
 				</div>

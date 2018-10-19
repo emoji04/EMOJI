@@ -34,8 +34,7 @@ public class SearchRouteController {
 	@RequestMapping(value="clickRoute",produces="text/plain;charset=UTF-8")
 	public String clickRoute(RouteScrapVO routeScrap, HttpSession session) throws JsonProcessingException {
 		int memberNum=(int) session.getAttribute("loginInfo");
-		routeScrap.setMemberNum(memberNum);	
-		
+		routeScrap.setMemberNum(memberNum);			
 		return searchRouteService.selectRouteJoin(routeScrap);
 	}
 	
