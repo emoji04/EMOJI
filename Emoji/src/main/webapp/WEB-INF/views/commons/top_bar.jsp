@@ -55,8 +55,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
+
 			<a class="navbar-brand" id="div2" href="<c:url value='/home'/>" style="font-size: 25px; padding-top: 18px">
 			<img alt="" src="https://i.imgur.com/fQDwXO6.png" style="width: 100px; border-radius: 5px; padding-right: 20px;">모두의지도 </a>
+
+
 		</div>
 		<div style="width: 100px"></div>
 
@@ -83,7 +86,7 @@
 							<li><a href='<c:url value="/memberUpdateForm" />'
 								onclick='function()'>개인정보 수정</a></li>
 							<li><a href='<c:url value="/MydmForm" />'>나의 맛집지도</a></li>
-							<li><a href="#">나의 식신원정대</a></li>
+							<li><a href='<c:url value="/MyRouteForm" />'>나의 식신원정대</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="#">Separated</a></li>
 							<li role="separator" class="divider"></li>

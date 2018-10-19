@@ -28,7 +28,8 @@ public class MemberService extends ServiceDao{
     	return sqlSession.selectOne(MapperName.MEMBER + ".selectMemberByAllowedEmail", memberEmail);
     }
 
-    public void edit(MemberVO membervo, HttpSession session){
+    public int changePassword(MemberVO memberVO){
+    	return sqlSession.update(MapperName.MEMBER + ".changePassword", memberVO);
     }
 
     

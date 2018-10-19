@@ -2,8 +2,8 @@ package com.bit.emoji.model;
 
 public class DeliciousMapReviewVO {
 	private int deliciousReviewNum;
-	private int deliciousMapNum;
 	private int memberNum;
+	private int deliciousMapNum;
 	private String deliciousMapTitle;
 	private String deliciousMapContent;
 	private String deliciousMapWriteDate;
@@ -16,17 +16,17 @@ public class DeliciousMapReviewVO {
 	public void setDeliciousReviewNum(int deliciousReviewNum) {
 		this.deliciousReviewNum = deliciousReviewNum;
 	}
-	public int getDeliciousMapNum() {
-		return deliciousMapNum;
-	}
-	public void setDeliciousMapNum(int deliciousMapNum) {
-		this.deliciousMapNum = deliciousMapNum;
-	}
 	public int getMemberNum() {
 		return memberNum;
 	}
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
+	}
+	public int getDeliciousMapNum() {
+		return deliciousMapNum;
+	}
+	public void setDeliciousMapNum(int deliciousMapNum) {
+		this.deliciousMapNum = deliciousMapNum;
 	}
 	public String getDeliciousMapTitle() {
 		return deliciousMapTitle;
@@ -60,12 +60,12 @@ public class DeliciousMapReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "DeliciousMapReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", deliciousMapNum=" + deliciousMapNum
-				+ ", memberNum=" + memberNum + ", deliciousMapTitle=" + deliciousMapTitle + ", deliciousMapContent="
-				+ deliciousMapContent + ", deliciousMapWriteDate=" + deliciousMapWriteDate + ", deliciousMapImg="
-				+ deliciousMapImg + ", deliciousMapGrade=" + deliciousMapGrade + "]";
+		return "DeliciousMapReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", memberNum=" + memberNum
+				+ ", deliciousMapNum=" + deliciousMapNum + ", deliciousMapTitle=" + deliciousMapTitle
+				+ ", deliciousMapContent=" + deliciousMapContent + ", deliciousMapWriteDate=" + deliciousMapWriteDate
+				+ ", deliciousMapImg=" + deliciousMapImg + ", deliciousMapGrade=" + deliciousMapGrade + "]";
 	}
-	
 
+	
 
 }

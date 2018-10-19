@@ -49,7 +49,7 @@
 		<div class="mainarea">
 
 
-			<form id="register" action="<c:url value='/emailsend2'/>" method="post"  enctype="multipart/form-data">
+			<form id="register" action="<c:url value='/emailsend'/>" method="post" onsubmit="return checkValue()" enctype="multipart/form-data">
 				<div class="maintext">
 					<b>이메일 입력을 통한 비밀번호 변경</b>
 				</div>
@@ -61,7 +61,7 @@
 				<div id="idcheck" class="divchk"></div>
 				
 				<div>
-					<button class="doregi" onclick="javascript:checkValue();" type="button" id="registerBtn" > 이메일 인증하기 </button>
+					<input class="doregi" type="submit" value="이메일 인증하기" id="registerBtn" >
 				</div>
 			</form>
 		</div>
@@ -94,14 +94,17 @@
 									
 									$.ajax({
 										type : 'POST',
-										url : '<c:url value='/regicheck.json'/>',
+										url : '<c:url value='/regicheck2.json'/>',
 										data : 'email=' + email,
 										dataType: 'text',
 										success : function(data) {
-											if (data == "possibleRegi") {
-												$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailsend"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
-											}else{
-											$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");}
+											console.log(data);
+											if(data == "naverRegi")
+												$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
+											if(data == "possibleRegi") 
+												$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailcheck"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+											if(data == "alreadyExist")
+												$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
 										}
 									});
 								} else{
@@ -127,17 +130,18 @@
 				
 				$.ajax({
 					type : 'POST',
-					url : '<c:url value='/regicheck.json'/>',
+					url : '<c:url value='/regicheck2.json'/>',
 					data : 'email=' + email,
 					dataType: 'text',
 					success : function(data) {
-						if (data != "possibleRegi") {
-							$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
-							$('#registerBtn').prop("disabled", true);
-						}else{
-							$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailsend"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+						if(data == "naverRegi")
+							$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
 							return false;
-						}
+						if(data == "possibleRegi") 
+							$('#idcheck').html('가입되어 있는 이메일이 아닙니다.<br> <a href="<c:url value="/emailcheck"/>">여기를 클릭해서 회원가입 해 주세요.</a>').css("color", "red");
+							return false;
+						if(data == "alreadyExist")
+							$('#idcheck').text(email + '님 확인 되었습니다.').css("color", "green");
 					}
 				});
 			} else{
@@ -145,16 +149,8 @@
 				return false;
 			};
 		
-		setTimeout(function() {
-			if($('#registerBtn').prop('disabled') == false){
-				console.log("여기 왔")
-				return false;
-			}else{
 				$('#idcheck').text('인증 메일을 보내는 중입니다. 잠시만 기다려 주세요.').css("color", "green");
-				$('#register').submit();
-			}
-		}, 700);
-		
+				$('#registerBtn').prop('disabled', true);
 	}
 </script>
 

@@ -3,18 +3,12 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Search">
-
-
-
-
 	<select resultType="com.bit.emoji.model.DeliciousMapVO"
-		parameterType="String" id="getDmap"> select deliciousMap.deliciousMapNum,
+		parameterType="String" id="getDmap"> 
+		select deliciousMap.deliciousMapNum,
 		deliciousMap.deliciousMapName, deliciousMap.deliciousMapDetail,
-		delicious.deliciousImg,
-		date_format(str_to_date(deliciousMap.deliciousMapCreateDate, '%Y-%m-%d
-		%H:%i:%s'), '%Y-%m-%d') deliciousMapCreateDate,
-		member.memberEmail,
-		member.memberNum from member join (delicious
+		delicious.deliciousImg, date_format(str_to_date(deliciousMap.deliciousMapCreateDate, '%Y-%m-%d %H:%i:%s'), '%Y-%m-%d') deliciousMapCreateDate,
+		member.memberEmail, member.memberNum from member join (delicious
 		right
 		outer join
 		deliciousMap on
@@ -23,14 +17,15 @@
 		deliciousMapName like
 		CONCAT('%',#{search},'%') or deliciousMapDetail
 		like
-		CONCAT('%',#{search},'%') group by deliciousMapNum order by
+		CONCAT('%',#{search},'%') and deliciousMapOpen='open'
+		group by deliciousMapNum order by
 		deliciousMapNum
 	</select>
 
 	<select resultType="com.bit.emoji.model.RouteVO"
-		parameterType="String" id="getRoute"> select route.routeName, route.possibleNum,
+		parameterType="String" id="getRoute"> select route.routeNum, route.routeName, route.possibleNum,
 		date_format(str_to_date(route.routeCreateDate, '%Y-%m-%d
-		%H:%i:%s'), '%Y-%m-%d') routeCreateDate, route.rule, member.memberName from route join
+		%H:%i:%s'), '%Y-%m-%d') routeCreateDate, route.rule, member.memberName, member.memberNum from route join
 		member on
 		route.memberNum=member.memberNum where route.routeName like
 		CONCAT('%',#{search},'%') </select>
@@ -39,7 +34,5 @@
 		count(*)
 		from deliciousMapScrap where deliciousMapNum=#{count}
 	</select>
-
-
 
 </mapper>

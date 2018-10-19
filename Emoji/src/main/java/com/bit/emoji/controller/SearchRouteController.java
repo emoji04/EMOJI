@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,6 @@ public class SearchRouteController {
 	@ResponseBody
 	@RequestMapping(value="routeSearch")
 	public List<RouteVO> searchRoute(RouteSearchVO routeSearch) {		
-		
 		return searchRouteService.searchRoute(routeSearch);
 	}
 	
@@ -43,7 +43,6 @@ public class SearchRouteController {
 	@ResponseBody
 	@RequestMapping(value="clickJoin",produces="text/plain;charset=UTF-8")
 	public String clickJoin(RouteScrapVO routeScrap, HttpSession session) {
-		System.out.println("들어옴");
 		int memberNum=(int) session.getAttribute("loginInfo");
 		routeScrap.setMemberNum(memberNum);	
 		
@@ -56,10 +55,31 @@ public class SearchRouteController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="cancelJoin",produces="text/plain;charset=UTF-8")
+	public String cancelJoin(RouteScrapVO routeScrap, HttpSession session) {
+		int memberNum=(int) session.getAttribute("loginInfo");
+		routeScrap.setMemberNum(memberNum);	
+		
+		Object result=searchRouteService.deleteJoin(routeScrap);
+		if(result==null) {
+			return "참여가 취소되었습니다.";
+		}else {
+			return "참여취소가 정상적으로 완료되지 않았습니다.";
+		}
+		
+	}
 	/*	
 	public String clicksScrap(HttpSession session, int routeNum, String state) {
 	
 	}
 	
 */
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+		
+		return "exception";
+	}
 }

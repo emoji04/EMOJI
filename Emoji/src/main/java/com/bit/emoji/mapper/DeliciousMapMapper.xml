@@ -44,14 +44,15 @@
 				or deliciousMapTag like CONCAT('%',#{deliciousMapTag},'%')
 			</if>
 		</where>
-	</select>
+		group by deliciousMapNum;
+	</select> 
 
 	<select parameterType="int" id="selectMapDetail"
 		resultType="com.bit.emoji.model.DeliciousMapVO"> select deliciousMap.deliciousMapDetail,
-		deliciousMap.deliciousMapName,
+		deliciousMap.deliciousMapName, deliciousMap.deliciousMapNum,
 		date_format(str_to_date(deliciousMap.deliciousMapCreateDate, '%Y-%m-%d
 		%H:%i:%s'), '%Y-%m-%d') deliciousMapCreateDate,
-		member.memberEmail from
+		member.memberEmail, member.memberNum from
 		deliciousMap join member on
 		deliciousMap.memberNum=member.memberNum
 		where

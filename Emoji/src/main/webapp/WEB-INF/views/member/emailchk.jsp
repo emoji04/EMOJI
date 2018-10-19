@@ -94,15 +94,16 @@
 									
 									$.ajax({
 										type : 'POST',
-										url : '<c:url value='/regicheck.json'/>',
+										url : '<c:url value='/regicheck2.json'/>',
 										data : 'email=' + email,
 										dataType: 'text',
 										success : function(data) {
-											console.log(data);
-											if (data == "possibleRegi") {
+											if(data == "naverRegi")
+												$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
+											if (data == "possibleRegi") 
 												$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
-											}else{
-											$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");}
+											if (data == "alreadyExist")
+												$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");
 										}
 									});
 								} else{
@@ -129,17 +130,18 @@
 				
 				$.ajax({
 					type : 'POST',
-					url : '<c:url value='/regicheck.json'/>',
+					url : '<c:url value='/regicheck2.json'/>',
 					data : 'email=' + email,
 					dataType: 'text',
 					success : function(data) {
-						if (data == "possibleRegi") {
+						if(data == "naverRegi")
+							$('#idcheck').html('네이버로 로그인 한 회원입니다.<br> <a href="<c:url value="/loginForm"/>">여기를 클릭해서 네이버로 로그인 해 주세요.</a>').css("color", "red");
+						if (data == "possibleRegi") 
 							$('#idcheck').text('환영합니다. 인증을 통해 EMOJI의 가족이 되어주세요.').css("color", "green");
-							$('#registerBtn').prop("disabled", true);
-						}else{
+							
+						if (data == "alreadyExist")
 							$('#idcheck').text('이미 등록 된 이메일 입니다.').css("color", "red");
 							return false;
-						}
 					}
 				});
 			} else{
@@ -152,6 +154,7 @@
 				return false;
 			}else{
 				$('#idcheck').text('인증 메일을 보내는 중입니다. 잠시만 기다려 주세요.').css("color", "green");
+				$('#registerBtn').prop("disabled", true);
 				return true;
 			}
 		}, 700);

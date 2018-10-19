@@ -13,13 +13,15 @@
 body {
 	margin: 3px;
 	padding: 0px;
+	
 }
 
 #page {
 	width: 1500px;
 	margin: 0 auto;
 	/* 	margin-top: 150px; */
-	height: 1500px;
+	height: 1000px;
+	
 }
 
 #header {
@@ -42,20 +44,21 @@ body {
 	border: 1px solid #eee;
 	display: inline;
 	float: left;
+
 }
 
 #rightside {
 	width: 1090px;
-	height: 1500px;
+	height: 1000px;
 	display: inline;
 	float: right;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 }
 
 #righttop {
 	/*         	border-bottom:1px solid #eee; */
 	width: 1090px;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 	height: 500px;
 }
 
@@ -68,7 +71,7 @@ body {
 #smallLeft {
 	width: 400px;
 	height: 1000px;
-	border-right: 1px solid;
+	border-right: 1px solid #eee;
 	float: left;
 	overflow: hidden;
 }
@@ -93,7 +96,7 @@ body {
 #smallLeftLeft {
 	width: 50px;
 	height: 1000px;
-	border-right: 1px solid;
+	border-right: 1px solid #eee;
 	float: left;
 }
 
@@ -106,12 +109,12 @@ body {
 table {
 	width: 650px;
 	hegith: 700px;
-	border: 1px solid;
+	border: 1px solid #eee;
 	border-collapse: collapse;
 }
 
 td {
-	border: 1px solid;
+	border: 1px solid #eee;
 }
 
 .deliciousList {
@@ -122,6 +125,7 @@ td {
 
 .delicious {
 	height: 50px;
+	background:#f7f8f9;
 }
 
 ul.tabs {
@@ -159,7 +163,7 @@ ul.tabs li.active {
 }
 
 .tab_container {
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #eee;
 	clear: both;
 	float: left;
 	width: 400px;
@@ -196,7 +200,12 @@ input[type=text] {
 	margin: 10px;
 	width: 200px;
 }
+
+img{
+	
+}
 </style>
+
 </head>
 
 <body>
@@ -234,8 +243,8 @@ input[type=text] {
 					<!-- #tab1 -->
 					<div id="tab2" class="tab_content">
 						<div>
-							<label><input type="radio" name="searchPool"
-								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label>
+<!-- 							<label><input type="radio" name="searchPool"
+								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> -->
 						</div>
 						<div>
 							<label><input type="radio" name="searchPool"
@@ -324,6 +333,7 @@ input[type=text] {
 <c:url var="search2" value="/routeSearch"></c:url>
 <c:url var="getRouteInfo" value="/clickRoute"></c:url>
 <c:url var="insertJoin" value="/clickJoin"></c:url>
+<c:url var="cancelJoin" value="/cancelJoin"></c:url>
 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=377fa9901a70a356db9e8b6e1ab1a3a9&libraries=services"></script>
@@ -430,6 +440,7 @@ input[type=text] {
 											imageSrc, imageSize);
 
 									var marker = new daum.maps.Marker({
+										
 										map : map,
 										position : coords,
 										image : markerImage
@@ -557,7 +568,7 @@ input[type=text] {
 														.append(
 																"<div class='delicious' id='"
 																		+ i
-																		+ "' draggable='true' ondragstart='drag(event)'><div>"
+																		+ "' draggable='true' ondragstart='drag(event)'><div><img src='"+getContextPath()+"/resources/img/deliciousPin/"+value.deliciousImg+"' src='"+getContextPath()+"/resources/img/deliciousPin/월간맛집지도_지도편.jpg'></div><div>"
 																		+ name
 																		+ "</div>"
 																		+ "<div>"
@@ -717,8 +728,21 @@ input[type=text] {
 			alert("참여하실 수 없습니다.")
 			return false;			
 		}else if($('#button1').text()==='승인 중'){
+			event.preventDefault(); 
 			//다시 누르면 취소하는 ajax하기
-			
+			$.ajax({
+				type : "get",
+				url : "${cancelJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert(data);
+					$('#button1').text("참여가능")
+				}
+				
+				
+			})
 		}else{
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {
@@ -820,8 +844,8 @@ input[type=text] {
 			success : function(data) {
 				$.each(data, function(key, value) {
 					$('#searched').append(
-							"<div id='click' onclick='show(this)'><div class='routeName' >" + value.routeName
-									+ "</div><div>" + value.routeName
+							"<div onclick='show(this)'><div class='routeName' >" + value.routeName
+									+ "</div><div>" + value.routeTag
 									+ "</div><input type='hidden' class='routeNum' value='"+value.routeNum+"' /></div>")
 				})
 			}
@@ -861,11 +885,11 @@ input[type=text] {
 				console.log(data);
 				console.log(data.joinState);
 				$('#button1').text(data.joinState);
+				$('input[name=memeberName]').val(data.memberName);
 				$.each(data,function(key,value){
 					//원정대 상세정보 출력
 					if(value==data.routeInfo){
-						$('input[name=routeName]').val(value.routeName);
-						$('input[name=memeberName]').val(value.memeberName);
+						$('input[name=routeName]').val(value.routeName);						
 						$('input[name=possibleNum]').val(value.possibleNum);
 						$('input[name=startDate]').val(value.startDate);
 						$('input[name=spendTime]').val(value.spendTime);
@@ -876,14 +900,14 @@ input[type=text] {
 /* 						console.log(value);							
 						console.log("value.possibleNum : "+value.possibleNum); */
 					}
-					if(value!=data.joinState && value!= data.routeInfo){
+					if(value!=data.joinState && value!= data.routeInfo && value!=data.memberName){
 						//원정대 경로 출력
 						$.each(value,function(key,vvalue){	
 							if(value==data.routeDelicious){
 								$('#smallLeftLeft').append(
-										"<div class='deliciousList listOrder'>" + key + "</div>");
+										"<div class='deliciousList listOrder'>" + (key+1) + "</div>");
 							$('#smallLeftRight').append(
-									"<div><div>" + vvalue.deliciousName 
+									"<div class='delicious'><div>" + vvalue.deliciousName 
 									+ "</div><div>"+vvalue.deliciousDetail
 									+"</div></div>");								
 								//주소저장
@@ -913,6 +937,7 @@ input[type=text] {
 													imageSize = new daum.maps.Size(
 															30, 35); // 마커이미지의 크기입니다
 
+															
 													var markerImage = new daum.maps.MarkerImage(
 															imageSrc, imageSize);
 
@@ -957,7 +982,6 @@ input[type=text] {
 																			 //원래있던 배열의 값을 새로바꿈
 																			/* polylines[index - 1]
 																					.setPath(linePath); */
-
 																		});
 													}
 													//좌표 중심을 마지막 마커로 설정
@@ -967,14 +991,14 @@ input[type=text] {
 												}
 											});
 						});
-				
-			}		
-			
+			}			
 		})
-		
-
-		
-		
+			
 	}
+	
+	function getContextPath() {
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+		return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	};
 </script>
 </html>

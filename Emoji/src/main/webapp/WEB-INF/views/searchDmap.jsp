@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +12,13 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-#listtable {
-	margin: 10% auto;
-}
+	#listtable {
+		margin: 10% auto;
+	}
 
-#lsittitle {
-	font-size: 30px;
-}
+	#lsittitle {
+		font-size: 30px;
+	}
 </style>
 <body>
 <!-- /////////// 상단바  //////////// -->
@@ -26,19 +28,17 @@
 	<table id="listtable" style="border: 1px solid black;">
 		<c:forEach items="${Search}" var="search" varStatus="status">
 			<tr style="border: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
-				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img style="margin: 10px; width:100px; height:100px;" src='${pageContext.request.contextPath}/resources/img/deliciousPin/${search.deliciousImg }'></a></td>
+				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img style="margin: 10px; width:100px; height:100px;" src='resources/img/deliciousPin/${search.deliciousImg }'></a></td>
 				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');" id="lsittitle" >${search.deliciousMapName}</a><br>
 					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount }"></c:out>
-
 					by <a href="javascript:memberFunction(${search.memberNum});">${search.memberEmail }</a> 작성일
 					${search.deliciousMapCreateDate }</td>
+
 			</tr>
-				<input type="hidden" id="deliciousImg" value="${search.deliciousImg }">
 		</c:forEach>
 
 		<tr>
-			<td style="border: 1px solid black;"><a
-				href="javascript:addFunction();">더보기</a></td>
+			<td style="border: 1px solid black;"><a href="javascript:addFunction();">더보기</a></td>
 		</tr>
 	</table>
 </div>
@@ -74,12 +74,8 @@
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="${pageContext.request.contextPath}/MydmForm?"
-		       +'memberNum='
-			 +memberNum;
+		window.location.href="${pageContext.request.contextPath}/MydmForm";
 	}
 </script>
 </body>
 </html>
-
-

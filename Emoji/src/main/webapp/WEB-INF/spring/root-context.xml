@@ -99,7 +99,6 @@
 
 	<context:component-scan
 		base-package="com.bit.emoji" />
-
 	<!-- 메일보내기 -->
 	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -116,5 +115,8 @@
 			</props>
 		</property>
 	</bean>
+
+	<context:component-scan
+		base-package="com.bit.emoji" />
 
 </beans>

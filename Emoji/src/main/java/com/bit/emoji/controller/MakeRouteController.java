@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +33,8 @@ public class MakeRouteController {
 	MakeRouteService makeRouteService;
 	
 	@RequestMapping(value="goRoute")
-	public String goMakeRoute() {
-		return "route";
+	public String goMakeRoute(HttpSession session) {	
+			return "route/route";		
 	}	
 	
 	//검색 ajax 컨트롤러
@@ -107,4 +108,12 @@ public class MakeRouteController {
 	public String updateRoute(RouteVO route, Model model) {
 	
 	}*/
+	
+	//예외 발생 시
+	@ExceptionHandler(Exception.class)
+	public String exception(Exception e, Model model) {
+		model.addAttribute("error", e.getMessage());
+		
+		return "exception";
+	}
 }
