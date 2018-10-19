@@ -79,7 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- deliciousMap 삭제 -->
 	<delete id="deliciousMapDelete" parameterType="int">
-		delete FROM emoji.deliciousMap where deliciousMapNum = #{deliciousMapNum};
+		delete FROM
+		emoji.deliciousMap where deliciousMapNum = #{deliciousMapNum};
 	</delete>
 
 	<!-- 내가 만든 원정대 목록 조 -->
@@ -94,5 +95,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		emoji.route
 		where memberNum = #{memberNum};
 	</select>
+
+
+	<!-- 공개 비공개 Button -->
+	<update id="changeOpen"
+		parameterType="com.bit.emoji.model.DeliciousMapVO">
+		UPDATE emoji.deliciousMap
+		SET
+		deliciousMapOpen = #{deliciousMapOpen}
+		WHERE deliciousMapNum = #{deliciousMapNum};
+	</update>
 
 </mapper>

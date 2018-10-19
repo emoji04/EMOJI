@@ -270,26 +270,15 @@ wrap {
 			<div>
 				<!-- <내 등록지도/ 내 관심지도 tap> -->
 				<span id="tap_1" class="tap"><a
-						href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
-					class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
+						href='<c:url value="MydmForm" />'>나의 등록 지도 </a></span> <span id="tap_2"
+					class="tap"><a href='<c:url value="MydmForm" />'>나의 관심 지도</a></span>
 			</div>
 			<div class="the_tap">
 			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
-			<!-- 내 등록 지도 (전체선택란) -->
-			<div class="selectLine">
-				<input type="checkbox">전체선택 <input class="selectbox input_button"
-					type="button" value="선택공개"> <input class="selectbox input_button"
-					type="button" value="선택삭제">
-			</div>
-
 			<c:forEach items="${myDmList}" var="DeliciousMapVO"
 				varStatus="status">
 				<div class="detailDmbox">
 					<!-- 내 등록 지도 List -->
-					<label class="chkcontainer">
-						<input type="checkbox">
-						<span class="checkmark"></span>
-					</label> 
 					<input type="text"
 						class="deliciousMapName" name="DeliciousMapName"
 						value="${DeliciousMapVO.deliciousMapName}"
@@ -297,7 +286,7 @@ wrap {
 					<input type="text" name="DeliciousMapCreateDate"
 						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly">
 					<div class="left_bt">
-					<input type="button" class="input_button" value="비공개">
+					<input type="button" class="input_button" value="비공개" onclick="changeOpen(${DeliciousMapVO.deliciousMapNum}, ${DeliciousMapVO.deliciousMapOpen}, $(this))" >
 					<input type="button" class="input_button" value="수정"> 
 					<input type="button" class="input_button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" ></div> <br>
 					<div class="subClass" id="accordian${status.count}">
@@ -308,7 +297,6 @@ wrap {
 						<div id="map${status.count}" class="map"></div>
 						<div id="review">리뷰</div>
 						<div id="reviewList">
-
 							<!-- 리뷰 상세목록 -->
 								<p id="deliciousMapImg${status.count}"></p>
 							<div id="title">
@@ -340,14 +328,51 @@ wrap {
 
 	</div>
 
-
-
 </body>
 
 <script> 
 
-/* 리뷰 클릭이벤트 */
- 
+//공개 비공개 전환 버튼 
+function changeOpen(value, value1, obj) {
+	var status ='';
+	if(obj.attr('value') == '비공개'){
+		obj.attr('value', '공개');
+		alert("비공개처리 되었습니다")
+		status = 'close';
+		$.ajax({
+			type : "POST",
+			url : "<c:url value='/changeOpen'/>",
+			data: {"deliciousMapNum" : value, "deliciousMapOpen" : status},
+			dataType:"",
+			success: function(data){
+				console.log(data);
+				
+				},
+		error : function(xhr, status, error){
+			alert("에러발생");
+		} 
+				  });
+	}else{
+		obj.attr('value', '비공개');
+		alert("공개처리 되었습니다")
+		status = 'open';
+		$.ajax({
+			type : "POST",
+			url : "<c:url value='/changeOpen'/>",
+			data: {"deliciousMapNum" : value, "deliciousMapOpen" : status},
+			dataType:"text",
+			success: function(data){
+				console.log(data);
+				
+				},
+		error : function(xhr, status, error){
+			alert("에러발생");
+		} 
+				  });
+	}
+	
+}
+
 //지도 
 
 
@@ -358,23 +383,23 @@ function deleteDeliciousMap(value) {
 		data: "deliciousMapNum=" + value,
 		dataType:"text",
 		success: function(data){
-			alert(data);
 			console.log(data);
 
-			//데이터 삭제
-			document.getElementById("deliciousMapTitle" + value).remove();
-			document.getElementById("deliciousMapContent" + value).remove();
-			document.getElementById("deliciousMapWriteDate" + value).remove();
-			document.getElementById("deliciousMapImg" + value).remove();
-			document.getElementById("deliciousMapGrade" + value).remove(); 
-			
+			$.each(data, function(i,DeliciousMapReviewVO){
+				console.log(DeliciousMapReviewVO.deliciousMapContent); 
+				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<td class='title'>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</td>";
+				document.getElementById("deliciousMapContent" + value1).innerHTML += "<td class='content'>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</td>";
+				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</td>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
+			});
 			},
 	error : function(xhr, status, error){
 		alert("에러발생");
 	}
-			 })
 		
-} 
+});
+}
 
 
 // 아코디언 Function 
