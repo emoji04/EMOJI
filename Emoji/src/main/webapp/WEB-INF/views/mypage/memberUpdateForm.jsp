@@ -111,8 +111,7 @@ height: 50px;
 		var pwch = $('#memberPasswordCh').val(); */
 		$("#btnUpdate").click(function() {
 			if( $('#memberPassword').val() == $('#memberPasswordCh').val()){
-				alert($('#memberPassword').val())
-				alert($('#memberPasswordCh').val())
+				
 				 $("#form").submit(); 
 			} else {
 				alert('비밀번호가 일치하지 않습니다');

@@ -55,9 +55,8 @@
 	border-radius: 10px 10px 0 0;
 }
 
-#tap_1 {
+.taponly {
 	background-color: #E7E7E7;
-	/* border-bottom: 1px solid #fff; */
 }
 
 .the_tap {
@@ -251,10 +250,8 @@ wrap {
 			<div id="myDmBox">
 				<div>
 					<!-- <내 등록원정대/ 내 관심 원정대 tap> -->
-					<span id="tap_1" class="tap"><a
-						href='<c:url value="MydmRoute" />'>나의 원정대 </a></span> <span id="tap_2"
-						class="tap"><a href='<c:url value="MydmRoute" />'>나의 관심
-							원정대</a></span>
+					<span id="taponly" class="taponly"><a
+						href='<c:url value="MydmRoute" />'>나의 원정대 </a></span> 
 				</div>
 		
 				<div class="the_tap">
