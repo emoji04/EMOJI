@@ -27,7 +27,7 @@
 <div id="list">
 	<table id="listtable" style="border: 1px solid black;">
 		<c:forEach items="${Search}" var="search" varStatus="status">
-			<tr style="border: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
+			<tr style="border-bottom: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
 				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img style="margin: 10px; width:100px; height:100px;" src='resources/img/deliciousPin/${search.deliciousImg }'></a></td>
 				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');" id="lsittitle" >${search.deliciousMapName}</a><br>
 					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount }"></c:out>

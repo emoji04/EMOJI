@@ -62,7 +62,7 @@
 }
 
 .tab-wrap article:target h1 {
-	background-color: yellow;
+	    background: #e0e0e0;
 }
 
 .tab-wrap article:nth-of-type(1) h1 {
@@ -218,15 +218,6 @@ wrap {
 	margin-left: 3%;
 }
 
-/* input[type=button]{ */
-/* border-radius:5px; */
-/* background-color:blue; */
-/* color:gay; */
-/* width:17px;  /* 이미지의 넓이*/ */
-/*  height: 16px; /* 이미지의 높이*/ */
-/*  border: 0; /*버튼은 기본으로 border값이 있으므로 0으로 만들어 줌*/ */
-/*  padding: 0;  */
-/* } */
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -454,7 +445,7 @@ wrap {
 			
 
 							if (turn == 1) { // 스크랩 되어있으면 배경색 변경
-								$('#circle').css('background', 'yellow');
+								$('#circle').css('background', 'hotpink');
 							}
 							
 // 							//리뷰 Ajax
@@ -703,7 +694,7 @@ wrap {
 				},
 				success : function(data) {
 					if (turn == 0) {
-						$('#circle').css('background', 'yellow');
+						$('#circle').css('background', 'hotpink');
 						turn = 1;
 
 					} else {
