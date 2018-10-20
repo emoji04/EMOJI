@@ -38,6 +38,7 @@
 			<mapping path="/goRoute"/>
 			<mapping path="/memberUpdateForm" />
 			<mapping path="/MydmForm" />
+			<mapping path="/deliciousDetail" />
 			<!-- 인터셉터 객체 생성 -->
 			<beans:bean id="interceptor" class="com.bit.emoji.AuthCheckInterceptor" />
 		</interceptor>
