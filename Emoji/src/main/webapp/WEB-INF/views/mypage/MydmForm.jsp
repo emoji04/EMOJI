@@ -56,7 +56,7 @@
 	border-radius: 10px 10px 0 0;
 }
 
-#tap_1 {
+#taponly {
 	background-color: #E7E7E7;
 	/* border-bottom: 1px solid #fff; */
 }
@@ -267,10 +267,8 @@ wrap {
 		<div id="myDmBox">
 			<div>
 				<!-- <내 등록지도/ 내 관심지도 tap> -->
-				<span id="tap_1" class="tap"><a
-					href='<c:url value="MydmForm" />'>나의 등록 지도 </a></span> <span id="tap_2"
-					class="tap"><a href='<c:url value="MydmForm" />'>나의 관심
-						지도</a></span>
+				<span id="taponly" class="tap"><a
+					href='<c:url value="MydmForm" />'>나의 등록 지도 </a></span>
 			</div>
 			<div class="the_tap">
 				<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
@@ -288,8 +286,7 @@ wrap {
 						<div class="left_bt">
 							<input type="button" class="input_button" value="비공개"
 								onclick="changeOpen(${DeliciousMapVO.deliciousMapNum}, ${DeliciousMapVO.deliciousMapOpen}, $(this))">
-							<input type="button" class="input_button" value="수정"> <input
-								type="button" class="input_button" value="삭제"
+							<input type="button" class="input_button" value="삭제"
 								onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})">
 						</div>
 						<br>
@@ -299,7 +296,6 @@ wrap {
 									value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
 							</div>
 							<div id="map${status.count}" class="map"></div>
-							<div id="review">리뷰</div>
 							<div id="reviewList">
 								<!-- 리뷰 상세목록 -->
 								<p id="deliciousMapImg${status.count}"></p>
@@ -313,16 +309,7 @@ wrap {
 								</div>
 							</div>
 							<!-- Delicious 임시 정보 불러오는 화면 -->
-							<%-- <div>
-							<p id="deliciousName${status.count}"></p>
-							<p id="deliciousAddress${status.count}"></p>
-							<p id="deliciousCategory${status.count}"></p>
-							<p id="deliciousPhone${status.count}"></p>
-							<p id="deliciousGrade${status.count}"></p>
-							<p id="deliciousDetail${status.count}"></p>
-							<p id="deliciousImg${status.count}"></p>
-						</div> --%>
-
+ 
 						</div>
 					</div>
 				</c:forEach>
