@@ -66,7 +66,7 @@
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="${pageContext.request.contextPath}/MyRouteForm;"
+		window.location.href="${pageContext.request.contextPath}/MydmRoute";
 	}
 </script>
 	

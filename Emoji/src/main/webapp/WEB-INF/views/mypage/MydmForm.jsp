@@ -111,7 +111,7 @@ input[type=text] {
 	border: 1px solid black;
 }
 
-wrap {
+/* wrap {
 	position: absolute;
 	left: 0;
 	bottom: 40px;
@@ -202,8 +202,21 @@ wrap {
 	color: #888;
 	overflow: hidden;
 	margin-left: 3%;
-}
+} */
 
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -140px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info { width: 286px;height: 125px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; }
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .wrap .title {padding: 2px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .close { float: right; margin-top: 1%; margin-right: 5%; }
+    .contentBox {position: relative; float: left; width: 100%; }
+    .desc  { overflow:hidden; position: relative; float: left; margin-top: 5%; width: 50%; margin-left: 35%;}
+    .desc .address { overflow:hidden; text-overflow: ellipsis; white-space: nowrap;}
+    .desc .phone {font-size: 13px;color: #888; margin-top: -2px;}
+    .desc .detail {color: #5085BB; margin-top: 3px;}
+    .imageInfo {position: absolute;top: 10px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden; margin-left: 3%;}
+    
 .selectbox {
 	text-align: left;
 }
@@ -231,13 +244,12 @@ wrap {
 	margin: 5px 0px 0px 10px;
 }
 
-.title {
+/* .title {
 	margin: 5px 30px 0px 10px;
 	width: 130px;
 	height: 50px;
-	border: 1px solid blue;
 	float: left;
-}
+} */
 
 .content {
 	border: 1px solid green;
@@ -252,6 +264,8 @@ wrap {
 	position: relative;
 	left: 120px;
 }
+
+
 </style>
 
 
@@ -299,7 +313,6 @@ wrap {
 									value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
 							</div>
 							<div id="map${status.count}" class="map"></div>
-							<div id="review">리뷰</div>
 							<div id="reviewList">
 								<!-- 리뷰 상세목록 -->
 								<p id="deliciousMapImg${status.count}"></p>
@@ -394,7 +407,7 @@ function deleteDeliciousMap(value) {
 				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<td class='title'>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</td>";
 				document.getElementById("deliciousMapContent" + value1).innerHTML += "<td class='content'>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</td>";
 				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
-				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg + "<br>"+"</td>";
 				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
 			});
 			},
@@ -545,7 +558,7 @@ function deleteDeliciousMap(value) {
 									
 								var image = document.createElement('img');
 								image.className = 'imageInfo';
-								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+								image.src = 'resources/img/deliciousPin/' + photoList[index];
 								image.width = '70';
 								image.height = '73';
 								contentBox.appendChild(image);

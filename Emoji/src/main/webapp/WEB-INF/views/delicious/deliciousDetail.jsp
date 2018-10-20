@@ -374,7 +374,7 @@ wrap {
 						"<small>작성일 :" +DeliciousMapReviewVO.deliciousMapWriteDate+ "&nbsp;&nbsp;"+"평점 :"+DeliciousMapReviewVO.deliciousMapGrade+"/5 &nbsp;</small></p>";
 						
 						if(DeliciousMapReviewVO.memberNum==memberNum){
-						document.getElementById(i).innerHTML += '<input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="updateReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewupdate" value="수정" /> <input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="deleteReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewdelete" value="삭제" />';
+						document.getElementById(i).innerHTML += '<input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="deleteReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewdelete" value="삭제" />';
 						}
 						
 						});
@@ -407,7 +407,7 @@ wrap {
 						"<small>작성일 :" +DeliciousMapReviewVO.deliciousMapWriteDate+ "&nbsp;&nbsp;"+"평점 :"+DeliciousMapReviewVO.deliciousMapGrade+"/5 &nbsp;</small></p>";
 						
 						if(DeliciousMapReviewVO.memberNum==memberNum){
-						document.getElementById(i).innerHTML += '<input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="updateReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewupdate" value="수정" /> <input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="deleteReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewdelete" value="삭제" />';
+						document.getElementById(i).innerHTML +=  '<input class="w3-btn w3-white w3-border w3-round-large" type="button" onclick="deleteReview('+DeliciousMapReviewVO.deliciousMapReviewNum+');" id="reviewdelete" value="삭제" />';
 						}
 						
 						});
@@ -491,12 +491,8 @@ wrap {
 											var photoList = []; //사진이름을 담기 위한 배열
 
 											//주소, 핀 이름, 전화번호, 상세정보, 사진이름을 배열에 담기
-											$(data)
-													.each(
-															function(index,
-																	deliciousPin) {
-																addressList
-																		.push(deliciousPin.deliciousAddress);
+											$(data).each(function(index, deliciousPin) {
+												addressList.push(deliciousPin.deliciousAddress);
 																pinNameList
 																		.push(deliciousPin.deliciousName);
 																phoneList
@@ -536,12 +532,12 @@ wrap {
 
 																addressList
 																		.forEach(function(
-																				addressList,
+																				address,
 																				index) {
 																			//주소로 좌표 검색
 																			geocoder
 																					.addressSearch(
-																							addressList,
+																							address,
 																							function(
 																									result,
 																									status) {
