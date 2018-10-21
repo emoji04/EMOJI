@@ -8,11 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.emoji.model.JoinVO;
 import com.bit.emoji.model.RouteScrapVO;
 import com.bit.emoji.model.RouteSearchVO;
 import com.bit.emoji.model.RouteVO;
@@ -41,11 +42,11 @@ public class SearchRouteController {
 	
 	@ResponseBody
 	@RequestMapping(value="clickJoin",produces="text/plain;charset=UTF-8")
-	public String clickJoin(RouteScrapVO routeScrap, HttpSession session) {
+	public String clickJoin(JoinVO joinVO, HttpSession session) {
 		int memberNum=(int) session.getAttribute("loginInfo");
-		routeScrap.setMemberNum(memberNum);	
+		joinVO.setMemberNum(memberNum);	
 		
-		Object result=searchRouteService.insertJoin(routeScrap);
+		Object result=searchRouteService.insertJoin(joinVO);
 		if(result==null) {
 			return "참여가 완료되었습니다.";
 		}else {

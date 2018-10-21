@@ -740,7 +740,7 @@ button {
 																			+ getContextPath()
 																			+ "/resources/img/deliciousPin/"
 																			+ value.deliciousImg
-																			+ "' /></div><div class='imgcssright'><div>이름 : "
+																			+ "' alt='등록된 이미지가 없습니다.'/></div><div class='imgcssright'><div>이름 : "
 																			+ name
 																			+ "</div>"
 																			+ "<div>상세 정보 : "
@@ -1110,7 +1110,7 @@ button {
 																								+ getContextPath()
 																								+ "/resources/img/deliciousPin/"
 																								+ vvalue.deliciousImg
-																								+ "' /></div><div class='imgcssright'><div>이름 : "
+																								+ "' alt='등록된 이미지가 없습니다.'/></div><div class='imgcssright'><div>이름 : "
 																								+ vvalue.deliciousName
 																								+ "</div><div>상세 정보 : "
 																								+ vvalue.deliciousDetail
