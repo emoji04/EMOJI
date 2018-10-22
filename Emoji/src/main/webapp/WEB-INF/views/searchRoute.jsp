@@ -66,9 +66,7 @@
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="${pageContext.request.contextPath}/MyrmForm?"
-		       +'memberNum='
-			 +memberNum;
+		window.location.href="${pageContext.request.contextPath}/MydmRoute";
 	}
 </script>
 	

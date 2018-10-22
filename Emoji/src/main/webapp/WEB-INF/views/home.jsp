@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>[EMOJI] - 모두의 지도</title>
 </head>
 <body style="background-image: url('resources/img/background.jpg'); background-size: 100%">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

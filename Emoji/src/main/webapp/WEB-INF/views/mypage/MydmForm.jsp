@@ -22,10 +22,49 @@
 /*탭 스타일*/
 /*상세정보 전체 창*/
 #myDmBox {
-	border: 1px solid black;
-	width: 1500;
+	/* border: 1px solid black; */
+	width: 1000px;
 	height: auto;
-	margin: 10px;
+	padding: 15px;
+	margin: 0 auto;
+	background-color: white;
+	border-radius: 20px;
+}
+
+.input_button {
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 3px 2px;
+	cursor: pointer;
+	background-color: white;
+	border: #e7e7e7 1px solid;
+	border-radius: 10px;
+}
+
+.tap {
+	padding: 5px;
+	margin: 20px;
+	margin-left: 0px;
+	margin-right: 0px;
+	font-size: 18px;
+	border: #999999 solid 1px;
+	border-bottom: none;
+	border-radius: 10px 10px 0 0;
+}
+
+#taponly {
+	background-color: #E7E7E7;
+	/* border-bottom: 1px solid #fff; */
+}
+
+.the_tap {
+	border: #999999 solid 1px;
+	border-radius: 0 10px 10px 10px;
+	padding: 10px;
 }
 
 /* 하위항목숨김처리 */
@@ -44,12 +83,21 @@ table {
 }
 
 .deliciousMapName {
-	width: 600px;
+	width: 300px;
 }
 
 .detailDmbox {
 	margin: 5px;
-	height : auto;
+	height: auto;
+	border: #BEBEBE solid 1px;
+	border-bottom: none;
+	border-radius: 10px 10px 0 0;
+	padding: 10px;
+}
+
+input[type=text] {
+	border: none;
+	/* border-bottom: 1px solid #F3F3F3; */
 }
 
 /* 지도 크기  */
@@ -63,7 +111,7 @@ table {
 	border: 1px solid black;
 }
 
-wrap {
+/* wrap {
 	position: absolute;
 	left: 0;
 	bottom: 40px;
@@ -154,8 +202,21 @@ wrap {
 	color: #888;
 	overflow: hidden;
 	margin-left: 3%;
-}
+} */
 
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -140px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info { width: 286px;height: 125px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; }
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .wrap .title {padding: 2px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .close { float: right; margin-top: 1%; margin-right: 5%; }
+    .contentBox {position: relative; float: left; width: 100%; }
+    .desc  { overflow:hidden; position: relative; float: left; margin-top: 5%; width: 50%; margin-left: 35%;}
+    .desc .address { overflow:hidden; text-overflow: ellipsis; white-space: nowrap;}
+    .desc .phone {font-size: 13px;color: #888; margin-top: -2px;}
+    .desc .detail {color: #5085BB; margin-top: 3px;}
+    .imageInfo {position: absolute;top: 10px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden; margin-left: 3%;}
+    
 .selectbox {
 	text-align: left;
 }
@@ -170,46 +231,47 @@ wrap {
 }
 
 #reviewList {
-	display : inline-block;
-	width : 100%;
+	display: inline-block;
+	width: 100%;
 }
 
-           
-           .img {
+.img {
+	left: 0;
+	width: 50px;
+	height: 50px;
+	border: 1px solid red;
+	float: left;
+	margin: 5px 0px 0px 10px;
+}
 
-            left: 0;
-            width: 50px;
-            height: 50px;
-            
-            border: 1px solid red;
-            float: left;
-            margin: 5px 0px 0px 10px;
-        }
+/* .title {
+	margin: 5px 30px 0px 10px;
+	width: 130px;
+	height: 50px;
+	float: left;
+} */
 
-        .title {
+.content {
+	border: 1px solid green;
+	width: 75%;
+	height: auto;
+	float: left;
+	margin: 5px 0px 30px 10px;
+}
 
-            margin: 5px 30px 0px 10px;
-            width:  130px ;
-             height: 50px;
-            border: 1px solid blue;
-            float: left;
-        }
+.left_bt {
+	display: inline-block;
+	position: relative;
+	left: 120px;
+}
 
-        .content {
-
-            border: 1px solid green;
-            width: 75%;
-            height: auto;
-            float: left;
-            margin: 5px 0px 30px 10px;
-        }
 
 </style>
 
 
 </head>
 
-<body>
+<body style="background-color: #F3F3F3">
 	<%@ include file="../commons/top_bar.jsp"%>
 
 
@@ -219,79 +281,104 @@ wrap {
 		<div id="myDmBox">
 			<div>
 				<!-- <내 등록지도/ 내 관심지도 tap> -->
-				<span id="tap_1" class="tap"><as
-						href='<c:url value="MydmForm" />'>내 등록 지도 </a></span> <span id="tap_2"
-					class="tap"><a href='<c:url value="MydmForm" />'>내 관심 지도</a></span>
+				<span id="taponly" class="tap"><a
+					href='<c:url value="MydmForm" />'>나의 등록 지도 </a></span>
 			</div>
-			<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
-			<!-- 내 등록 지도 (전체선택란) -->
-			<div class="selectLine">
-				<input type="checkbox">전체선택 <input class="selectbox"
-					type="button" value="선택공개"> <input class="selectbox"
-					type="button" value="선택삭제">
-			</div>
-
-			<c:forEach items="${myDmList}" var="DeliciousMapVO"
-				varStatus="status">
-				<div class="detailDmbox">
-					<!-- 내 등록 지도 List -->
-					<input type="checkbox"> <input type="text"
-						class="deliciousMapName" name="DeliciousMapName"
-						value="${DeliciousMapVO.deliciousMapName}"
-						onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})">
-					<input name="DeliciousMapCreateDate"
-						value="${DeliciousMapVO.deliciousMapCreateDate}" readonly="readyonly"> 
-					<input type="button" value="비공개">
-					<input type="button" value="수정"> 
-					<input type="button" value="삭제" onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})" > <br>
-					<div class="subClass" id="accordian${status.count}">
-						<div id="DeliciousMapTag">
-							<input class="DeliciousMapTag" name="DeliciousMapTag"
-								value="${DeliciousMapVO.deliciousMapTag}" readonly="readyonly">
+			<div class="the_tap">
+				<!-- 내 등록 지도 화면 가운데 상자 넓이/크기  -->
+				<c:forEach items="${myDmList}" var="DeliciousMapVO"
+					varStatus="status">
+					<div class="detailDmbox">
+						<!-- 내 등록 지도 List -->
+						<input type="text" class="deliciousMapName"
+							name="DeliciousMapName"
+							value="${DeliciousMapVO.deliciousMapName}"
+							onclick="CallmyDmList(${DeliciousMapVO.deliciousMapNum}, ${status.count})"
+							readonly="readonly">
+						<input type="text" name="DeliciousMapCreateDate"
+							value="${DeliciousMapVO.deliciousMapCreateDate}"
+							readonly="readonly">
+						<div class="left_bt">
+							<input type="button" class="input_button" value="비공개"
+								onclick="changeOpen(${DeliciousMapVO.deliciousMapNum}, ${DeliciousMapVO.deliciousMapOpen}, $(this))">
+							<input type="button" class="input_button" value="삭제"
+								onclick="deleteDeliciousMap(${DeliciousMapVO.deliciousMapNum})">
 						</div>
-						<div id="map${status.count}" class="map"></div>
-						<div id="review">리뷰</div>
-						<div id="reviewList">
-
-							<!-- 리뷰 상세목록 -->
+						<br>
+						<div class="subClass" id="accordian${status.count}">
+							<div id="DeliciousMapTag">
+								<input class="DeliciousMapTag" name="DeliciousMapTag"
+									value="${DeliciousMapVO.deliciousMapTag}" readonly="readonly">
+							</div>
+							<div id="map${status.count}" class="map"></div>
+							<div id="reviewList">
+								<!-- 리뷰 상세목록 -->
 								<p id="deliciousMapImg${status.count}"></p>
-							<div id="title">
-								<p id="deliciousMapTitle${status.count}"></p>
+								<div id="title">
+									<p id="deliciousMapTitle${status.count}"></p>
+								</div>
+								<div id="content">
+									<p id="deliciousMapGrade${status.count}"></p>
+									<p id="deliciousMapContent${status.count}"></p>
+									<p id="deliciousMapWriteDate${status.count}"></p>
+								</div>
 							</div>
-							<div id="content">
-								<p id="deliciousMapGrade${status.count}"></p>
-								<p id="deliciousMapContent${status.count}"></p>
-								<p id="deliciousMapWriteDate${status.count}"></p>
-							</div>
+							<!-- Delicious 임시 정보 불러오는 화면 -->
+ 
 						</div>
-						<!-- Delicious 임시 정보 불러오는 화면 -->
-						<%-- <div>
-							<p id="deliciousName${status.count}"></p>
-							<p id="deliciousAddress${status.count}"></p>
-							<p id="deliciousCategory${status.count}"></p>
-							<p id="deliciousPhone${status.count}"></p>
-							<p id="deliciousGrade${status.count}"></p>
-							<p id="deliciousDetail${status.count}"></p>
-							<p id="deliciousImg${status.count}"></p>
-						</div> --%>
-
 					</div>
-				</div>
-			</c:forEach>
-
+				</c:forEach>
+			</div>
 
 		</div>
 
 	</div>
 
-
-
 </body>
 
 <script> 
 
-/* 리뷰 클릭이벤트 */
- 
+//공개 비공개 전환 버튼 
+function changeOpen(value, value1, obj) {
+	var status ='';
+	if(obj.attr('value') == '비공개'){
+		obj.attr('value', '공개');
+		alert("비공개처리 되었습니다")
+		status = 'close';
+		$.ajax({
+			type : "POST",
+			url : "<c:url value='/changeOpen'/>",
+			data: {"deliciousMapNum" : value, "deliciousMapOpen" : status},
+			dataType:"",
+			success: function(data){
+				console.log(data);
+				
+				},
+		error : function(xhr, status, error){
+			alert("에러발생");
+		} 
+				  });
+	}else{
+		obj.attr('value', '비공개');
+		alert("공개처리 되었습니다")
+		status = 'open';
+		$.ajax({
+			type : "POST",
+			url : "<c:url value='/changeOpen'/>",
+			data: {"deliciousMapNum" : value, "deliciousMapOpen" : status},
+			dataType:"text",
+			success: function(data){
+				console.log(data);
+				
+				},
+		error : function(xhr, status, error){
+			alert("에러발생");
+		} 
+				  });
+	}
+	
+}
+
 //지도 
 
 
@@ -302,23 +389,23 @@ function deleteDeliciousMap(value) {
 		data: "deliciousMapNum=" + value,
 		dataType:"text",
 		success: function(data){
-			alert(data);
 			console.log(data);
 
-			//데이터 삭제
-			document.getElementById("deliciousMapTitle" + value).remove();
-			document.getElementById("deliciousMapContent" + value).remove();
-			document.getElementById("deliciousMapWriteDate" + value).remove();
-			document.getElementById("deliciousMapImg" + value).remove();
-			document.getElementById("deliciousMapGrade" + value).remove(); 
-			
+			$.each(data, function(i,DeliciousMapReviewVO){
+				console.log(DeliciousMapReviewVO.deliciousMapContent); 
+				document.getElementById("deliciousMapTitle" + value1).innerHTML += "<td class='title'>" +DeliciousMapReviewVO.deliciousMapTitle+ "<br>"+"</td>";
+				document.getElementById("deliciousMapContent" + value1).innerHTML += "<td class='content'>" +DeliciousMapReviewVO.deliciousMapContent+ "<br>"+"</td>";
+				document.getElementById("deliciousMapWriteDate"+ value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapWriteDate+ "<br>"+"</td>";
+				document.getElementById("deliciousMapImg" + value1).innerHTML +="<td class='img'>" + DeliciousMapReviewVO.deliciousMapImg + "<br>"+"</td>";
+				document.getElementById("deliciousMapGrade" + value1).innerHTML += "<td>" +DeliciousMapReviewVO.deliciousMapGrade+ "<br>"+"</td>";
+			});
 			},
 	error : function(xhr, status, error){
 		alert("에러발생");
 	}
-			 })
 		
-} 
+});
+}
 
 
 // 아코디언 Function 
@@ -400,6 +487,7 @@ function deleteDeliciousMap(value) {
 						center: new daum.maps.LatLng(37.5676184544478, 126.98855631199186), // 지도의 중심좌표
 						level: 3 // 지도의 확대 레벨
 					};  
+					
 					var map= new daum.maps.Map(mapContainer, mapOption);   //지도 생성, 객체 리턴
 					
 					var imgSrc = 'resources/img/deliciousPin.png', //마커 이미지 주소
@@ -459,7 +547,7 @@ function deleteDeliciousMap(value) {
 									
 								var image = document.createElement('img');
 								image.className = 'imageInfo';
-								image.src = 'resources/uploadFile/deliciousPinPhoto/' + photoList[index];
+								image.src = 'resources/img/deliciousPin/' + photoList[index];
 								image.width = '70';
 								image.height = '73';
 								contentBox.appendChild(image);
@@ -496,26 +584,6 @@ function deleteDeliciousMap(value) {
 					
 				});
 
-				//앞전 데이터 삭제
-				/* document.getElementById("deliciousName" + value1).innerHTML = '';
-				document.getElementById("deliciousAddress" + value1).innerHTML = '';
-				document.getElementById("deliciousCategory" + value1).innerHTML = '';
-				document.getElementById("deliciousPhone" + value1).innerHTML = '';
-				document.getElementById("deliciousGrade" + value1).innerHTML = '';
-				document.getElementById("deliciousDetail" + value1).innerHTML = '';
-				document.getElementById("deliciousImg" + value1).innerHTML = ''; */
-
-				//데이터 삽입
-		/*		$.each(data, function(i,DeliciousVO){
-				document.getElementById("deliciousName" + value1).innerHTML += "<p>" +DeliciousVO.deliciousName+ "<br>"+"</p>";
-				document.getElementById("deliciousAddress" + value1).innerHTML += "<p>" +DeliciousVO.deliciousAddress+ "<br>"+"</p>";
-				document.getElementById("deliciousCategory"+ value1).innerHTML += "<p>" +DeliciousVO.deliciousCategory+ "<br>"+"</p>";
-				document.getElementById("deliciousPhone" + value1).innerHTML +="<p>" + DeliciousVO.deliciousPhone+ "<br>"+"</p>";
-				document.getElementById("deliciousGrade" + value1).innerHTML += "<p>" +DeliciousVO.deliciousGrade+ "<br>"+"</p>";
-				document.getElementById("deliciousDetail" + value1).innerHTML += "<p>" +DeliciousVO.deliciousDetail+ "<br>"+"</p>";
-				document.getElementById("deliciousImg" + value1).innerHTML += "<p>" +DeliciousVO.deliciousImg+ "<br>"+"</p>";
-
-				}); */
 				 },	
 				 error : function(xhr, status, error){
 						alert("에러발생");

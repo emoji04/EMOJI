@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.emoji.mapper.MapperName;
 import com.bit.emoji.model.DeliciousVO;
-import com.bit.emoji.model.OrderedPin;
+import com.bit.emoji.model.JoinVO;
 import com.bit.emoji.model.RouteScrapVO;
 import com.bit.emoji.model.RouteSearchVO;
 import com.bit.emoji.model.RouteVO;
@@ -58,10 +58,12 @@ public class SearchRouteService extends ServiceDao {
 		return data;
 	}
 	
-	public Object insertJoin(RouteScrapVO routeScrap) {
+	public Object insertJoin(JoinVO joinVO) {
 		//메일에서 승인받으면  joinstate만 바꾸기
 		//pathvariable 
-		return sqlSession.selectOne(MapperName.SEARCHROUTE + ".insertJoin",routeScrap);				
+		int max=sqlSession.selectOne(MapperName.SEARCHROUTE + ".joinMax");		
+		joinVO.setJoinNum(max+1);
+		return sqlSession.selectOne(MapperName.SEARCHROUTE + ".insertJoin",joinVO);				
 	}
 	public Object deleteJoin(RouteScrapVO routeScrap) {
 		return sqlSession.selectOne(MapperName.SEARCHROUTE+".deleteJoin", routeScrap);

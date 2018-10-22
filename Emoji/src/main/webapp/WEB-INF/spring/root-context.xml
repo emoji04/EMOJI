@@ -14,33 +14,44 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- DataSource 등록 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useUnicode=yes&amp;useSSL=false&amp;chracterEncoding=utf8&amp;serverTimezone=UTC" />
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://dbinstance.cpf1wxb6dims.ap-northeast-2.rds.amazonaws.com/emoji?useUnicode=yes&amp;useSSL=false&amp;chracterEncoding=utf8&amp;serverTimezone=UTC" />
 		<property name="username" value="eunalee" />
 		<property name="password" value="eunalee1234" />
 	</bean>
 
 	<!-- SqlSessionFactory 등록 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		<property value="classpath:com/bit/emoji/mapper/*.xml" name="mapperLocations" />
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml" />
+		<property value="classpath:com/bit/emoji/mapper/*.xml"
+			name="mapperLocations" />
 	</bean>
 
 	<!-- SqlSessionTemplate 클래스 등록 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
 	<!-- MakeRouteService 등록 -->
-	<bean id="MakeRouteService" class="com.bit.emoji.service.MakeRouteService" />
+	<bean id="MakeRouteService"
+		class="com.bit.emoji.service.MakeRouteService" />
 
 	<!-- SearchRouteService 등록 -->
-	<bean id="SearchRouteService" class="com.bit.emoji.service.SearchRouteService" />
+	<bean id="SearchRouteService"
+		class="com.bit.emoji.service.SearchRouteService" />
 
 	<!-- MemberService 등록 -->
-	<bean id="memberService" class="com.bit.emoji.service.MemberService" />
+	<bean id="memberService"
+		class="com.bit.emoji.service.MemberService" />
 
 	<!-- ExService 등록 -->
 	<bean id="exService" class="com.bit.emoji.service.ExService" />
@@ -49,28 +60,48 @@
 	<bean id="mapService" class="com.bit.emoji.service.MapService" />
 
 	<!-- PinService 등록 -->
-	<bean id="pinService" class="com.bit.emoji.service.MapService$PinService" />
+	<bean id="pinService"
+		class="com.bit.emoji.service.MapService$PinService" />
 
 	<!-- MypageService 등록 -->
-	<bean id="mypageService" class="com.bit.emoji.service.MypageService" />
+	<bean id="mypageService"
+		class="com.bit.emoji.service.MypageService" />
 
 	<!-- sha 등록 -->
 	<bean id="sha" class="com.bit.emoji.service.Sha256" />
 
 	<!-- MailService 등록 -->
-	<bean id="mailSendService" class="com.bit.emoji.service.MailSendService" />
+	<bean id="mailSendService"
+		class="com.bit.emoji.service.MailSendService" />
 
 	<!-- SearchService 등록 -->
-	<bean id="searchService" class="com.bit.emoji.service.SearchService" />
+	<bean id="searchService"
+		class="com.bit.emoji.service.SearchService" />
 
 	<!-- MapDetailService 등록 -->
-	<bean class="com.bit.emoji.service.MapDetailService" id="mapDetailService" />
+	<bean class="com.bit.emoji.service.MapDetailService"
+		id="mapDetailService" />
 
 	<!-- ScrapCheckService 등록 -->
-	<bean class="com.bit.emoji.service.ScrapCheckService" id="scrapCheckService" />
+	<bean class="com.bit.emoji.service.ScrapCheckService"
+		id="scrapCheckService" />
 
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<!-- <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory"> 
+		<constructor-arg value="587972593169-bsf5ncac9kqbvgc5s5sreoku1ui6cb36.apps.googleusercontent.com" 
+		/> <constructor-arg value="4cDuZi9nyqly57hJK3XsLOk3" /> </bean> -->
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<!-- <bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters"> 
+		<property name="scope" value="https://www.googleapis.com/auth/plus.login" 
+		/> <property name="redirectUri" value="http://localhost:8080/emoji/user/googleSignInCallback" 
+		/> </bean> -->
+
+	<context:component-scan
+		base-package="com.bit.emoji" />
 	<!-- 메일보내기 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="emojiproject3@gmail.com" />
@@ -84,7 +115,8 @@
 			</props>
 		</property>
 	</bean>
-	
-	<context:component-scan base-package="com.bit.emoji" />
+
+	<context:component-scan
+		base-package="com.bit.emoji" />
 
 </beans>

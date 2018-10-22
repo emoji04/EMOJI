@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
@@ -26,15 +27,14 @@
 <div id="list">
 	<table id="listtable" style="border: 1px solid black;">
 		<c:forEach items="${Search}" var="search" varStatus="status">
-			<tr style="border: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
-				<td style="padding-left: 3%;"><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg}');"><img src="resources/img/deliciousPin/${search.deliciousImg}" width=100></a></td>
-				<td style="padding-left: 5%;"><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg}');" id="lsittitle" >${search.deliciousMapName}</a><br>
-					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount}"></c:out>
-					by <a href="javascript:memberFunction(${search.memberNum});">${search.memberNum} ${search.memberEmail}</a> 작성일
-					${search.deliciousMapCreateDate}
-				</td>
+			<tr style="border-bottom: 1px solid black; display: none" class="lastlist" name="${fn:length(Search)}" id="${status.index}">
+				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');"><img style="margin: 10px; width:100px; height:100px;" src='resources/img/deliciousPin/${search.deliciousImg }'></a></td>
+				<td><a href="javascript:clickFunction(${search.deliciousMapNum}, '${search.deliciousImg }');" id="lsittitle" >${search.deliciousMapName}</a><br>
+					<br> ${search.deliciousMapDetail}<br> <br> 스크랩수  <c:out value="${search.deliciousCount }"></c:out>
+					by <a href="javascript:memberFunction(${search.memberNum});">${search.memberEmail }</a> 작성일
+					${search.deliciousMapCreateDate }</td>
+
 			</tr>
-				<input type="hidden" id="deliciousImg" value="${search.deliciousImg}">
 		</c:forEach>
 
 		<tr>
@@ -74,9 +74,7 @@
 	}
 	
 	function memberFunction(memberNum){
-		window.location.href="${pageContext.request.contextPath}/MydmForm?"
-		       +'memberNum='
-			 +memberNum;
+		window.location.href="${pageContext.request.contextPath}/MydmForm";
 	}
 </script>
 </body>

@@ -1,9 +1,7 @@
 package com.bit.emoji.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class DeliciousMapReviewVO {
-	private int deliciousReviewNum;
+	private int deliciousMapReviewNum;
 	private int memberNum;
 	private int deliciousMapNum;
 	private String deliciousMapTitle;
@@ -11,11 +9,12 @@ public class DeliciousMapReviewVO {
 	private String deliciousMapWriteDate;
 	private String deliciousMapImg;
 	private double deliciousMapGrade;
-	public int getDeliciousReviewNum() {
-		return deliciousReviewNum;
+	
+	public int getDeliciousMapReviewNum() {
+		return deliciousMapReviewNum;
 	}
-	public void setDeliciousReviewNum(int deliciousReviewNum) {
-		this.deliciousReviewNum = deliciousReviewNum;
+	public void setDeliciousMapReviewNum(int deliciousMapReviewNum) {
+		this.deliciousMapReviewNum = deliciousMapReviewNum;
 	}
 	public int getMemberNum() {
 		return memberNum;
@@ -61,7 +60,7 @@ public class DeliciousMapReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "DeliciousMapReviewVO [deliciousReviewNum=" + deliciousReviewNum + ", memberNum=" + memberNum
+		return "DeliciousMapReviewVO [deliciousMapReviewNum=" + deliciousMapReviewNum + ", memberNum=" + memberNum
 				+ ", deliciousMapNum=" + deliciousMapNum + ", deliciousMapTitle=" + deliciousMapTitle
 				+ ", deliciousMapContent=" + deliciousMapContent + ", deliciousMapWriteDate=" + deliciousMapWriteDate
 				+ ", deliciousMapImg=" + deliciousMapImg + ", deliciousMapGrade=" + deliciousMapGrade + "]";

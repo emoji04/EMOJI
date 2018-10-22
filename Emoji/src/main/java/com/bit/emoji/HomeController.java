@@ -1,6 +1,9 @@
 package com.bit.emoji;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ public class HomeController {
 	@RequestMapping("/mainsearch")
 	public String search(Model model, @RequestParam(value = "search3") String search3,
 			@RequestParam(value = "dbchoice") String dbchoice) {
-
+		
 		String str = "";
 
 		//맛집지도 검색일때
