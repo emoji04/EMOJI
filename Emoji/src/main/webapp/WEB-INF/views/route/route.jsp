@@ -868,8 +868,7 @@ button {
 		})
 	}
 	function save(e) {
-<<<<<<< HEAD
-=======
+
 		var name = $('input[name=memeberName]').val();
 		var routeName = $('input[name=routeName]').val();
 		var possible = $('input[name=possibleNum]').val();
@@ -882,9 +881,8 @@ button {
 			return false;
 		}
 
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		/* $('#add').val(addresses); */
-<<<<<<< HEAD
+
 		
 		var routeNum=$('#searchedRouteNum').val();
 		var text=$('#button1').text();
@@ -892,13 +890,9 @@ button {
 		switch(text){
 		case "참여 가능":
 			event.preventDefault(); 
-=======
+
 		routeNum = $('#searchedRouteNum').val();
-		if ($('#button1').text() === '참여가능') {
-			event.preventDefault();
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-			//폼의 주소로만 가서 makeRoute컨트롤러로간다
-			//ajax를 가지않음			
+		if($('#button1').text() === '참여가능'){
 			$.ajax({
 				type : "get",
 				url : "${insertJoin}",
@@ -911,7 +905,29 @@ button {
 					}
 					return false;
 				}
-<<<<<<< HEAD
+
+			});
+			break;
+		
+		}else if ($('#button1').text() === '참여가능') {
+			event.preventDefault();
+
+			//폼의 주소로만 가서 makeRoute컨트롤러로간다
+			//ajax를 가지않음			
+			$.ajax({
+				type : "get",
+				url : "${insertJoin}",
+				data : {
+					"routeNum" : routeNum
+				},
+				success : function(data) {
+					if (data == "참여가 완료되었습니다.") {
+						alert(data);
+						$('#button1').text("승인 중");
+					}
+					return false;
+				}
+
 			});
 			break;
 		case '원정대 대장으로 참여중':
@@ -920,14 +936,14 @@ button {
 			break;
 		case "승인 중":
 			event.preventDefault(); 
-=======
+
 			})
 		} else if ($('#button1').text() === '원정대 대장으로 참여중') {
 			alert("참여하실 수 없습니다.")
 			return false;
 		} else if ($('#button1').text() === '승인 중') {
 			event.preventDefault();
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
+
 			//다시 누르면 취소하는 ajax하기
 			$.ajax({
 				type : "get",
