@@ -30,13 +30,13 @@ public class SearchRouteService extends ServiceDao {
 		
 		memberNameRoute.setMemberNum(route.getMemberNum());
 		memberNameRoute.setRouteNum(route.getRouteNum());
-		System.out.println("1");
+		
 		List<DeliciousVO> routeDelicious=sqlSession.selectList(MapperName.SEARCHROUTE+".selectRouteDeclicious", routeScrap.getRouteNum());		
 		String joinState=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectJoin", routeScrap);
 
 		String memberName=sqlSession.selectOne(MapperName.SEARCHROUTE+".selectMemberName",memberNameRoute);
 		
-		System.out.println("주최자이름"+memberName);
+
 		
 		result.put("memberName", memberName);
 		result.put("routeInfo", route);
@@ -47,7 +47,7 @@ public class SearchRouteService extends ServiceDao {
 			if(route.getMemberNum()==routeScrap.getMemberNum()) {
 				result.put("joinState", "원정대 대장으로 참여중");
 			}else {
-				result.put("joinState", "참여가능");
+				result.put("joinState", "참여 가능");
 			}				
 		}else {
 			result.put("joinState", joinState);		

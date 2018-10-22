@@ -451,7 +451,7 @@ color: black;
 							</tr>
 							<tr>
 								<td>참여가능인원</td>
-								<td><input type="text" name="possibleNum"  placeholder="필수 입력 정보입니다. ex) 5명"/></td>
+								<td><input type="text" name="possibleNum"  placeholder="필수 입력 정보입니다. ex) 5"/></td>
 							</tr>
 							<tr>
 								<td>시작시간</td>
@@ -833,21 +833,13 @@ color: black;
 		})
 	}
 	function save(e) {
-		var name=$('input[name=memeberName]').val();
-		var routeName=$('input[name=routeName]').val();						
-		var possible=$('input[name=possibleNum]').val();
-		var date=$('input[name=startDate]').val();
-		var time=$('input[name=spendTime]').val();
-		
-		if(name==="" || routeName==="" || possible==="" || date==="" || time===""){
-			alert("입력되지 않은 정보가 있습니다.");
-			return false;
-		}
-		
-		
 		/* $('#add').val(addresses); */
-		routeNum=$('#searchedRouteNum').val();
-		if($('#button1').text()==='참여가능'){
+		
+		var routeNum=$('#searchedRouteNum').val();
+		var text=$('#button1').text();
+		
+		switch(text){
+		case "참여 가능":
 			event.preventDefault(); 
 			//폼의 주소로만 가서 makeRoute컨트롤러로간다
 			//ajax를 가지않음			
@@ -863,11 +855,13 @@ color: black;
 					}	
 					return false;
 				}
-			})
-		}else if($('#button1').text()==='원정대 대장으로 참여중'){
-			alert("참여하실 수 없습니다.")
-			return false;			
-		}else if($('#button1').text()==='승인 중'){
+			});
+			break;
+		case '원정대 대장으로 참여중':
+			event.preventDefault(); 
+			alert("참여하실 수 없습니다.");
+			break;
+		case "승인 중":
 			event.preventDefault(); 
 			//다시 누르면 취소하는 ajax하기
 			$.ajax({
@@ -878,19 +872,83 @@ color: black;
 				},
 				success:function(data){
 					alert("참여가 취소되었습니다.");
-					$('#button1').text("참여가능")
+					$('#button1').text("참여 가능")
 				}
-				
-				
-			})
+			});
+			break;
+		default:
+			var name=$('input[name=memeberName]').val();
+		var routeName=$('input[name=routeName]').val();						
+		var possible=$('input[name=possibleNum]').val();
+		var date=$('input[name=startDate]').val();
+		var time=$('input[name=spendTime]').val();
+		
+		if(name==="" || routeName==="" || possible==="" || date==="" || time===""){
+			alert("입력되지 않은 정보가 있습니다.");
+			return false;
+		} 
+		var size = document.getElementsByName("orderedPinNumber").length;
+		for (var i = 0; i < size; i++) {
+			orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
+		}
+		$('#add').val(orderedPins);		
+		return true;
+			
+		}
+		
+		
+/* 		if(text==="참여 가능"){
+			event.preventDefault(); 
+			//폼의 주소로만 가서 makeRoute컨트롤러로간다
+			//ajax를 가지않음			
+			$.ajax({
+				type : "get",
+				url : "${insertJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){			
+					if(data=="참여가 완료되었습니다."){
+						$('#button1').text("승인 중");						
+					}	
+					return false;
+				}
+			});
+		}else if(text==='원정대 대장으로 참여중'){
+			alert("참여하실 수 없습니다.");
+			return false;			
+		}else if(text==="승인 중"){
+			event.preventDefault(); 
+			//다시 누르면 취소하는 ajax하기
+			$.ajax({
+				type : "get",
+				url : "${cancelJoin}",
+				data : {
+					"routeNum":routeNum					
+				},
+				success:function(data){
+					alert("참여가 취소되었습니다.");
+					$('#button1').text("참여 가능")
+				}
+			});
 		}else{
+ 			var name=$('input[name=memeberName]').val();
+			var routeName=$('input[name=routeName]').val();						
+			var possible=$('input[name=possibleNum]').val();
+			var date=$('input[name=startDate]').val();
+			var time=$('input[name=spendTime]').val();
+			
+			if(name==="" || routeName==="" || possible==="" || date==="" || time===""){
+				alert("입력되지 않은 정보가 있습니다.");
+				return false;
+			} 
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {
 				orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
 			}
 			$('#add').val(orderedPins);		
 			return true;
-		}
+		} */
 	}
 </script>
 <script>
