@@ -12,7 +12,7 @@
 <body>
 
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://localhost:8088/emoji/member/loginSuccess");
+  var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://ec2-13-125-100-1.ap-northeast-2.compute.amazonaws.com:8080/Emoji/member/loginSuccess");
   // 접근 토큰 값 출력
   //alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회

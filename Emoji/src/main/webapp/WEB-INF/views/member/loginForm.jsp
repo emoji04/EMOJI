@@ -241,7 +241,7 @@ function login(){
 
     <!-- //네이버아이디로로그인 버튼 노출 영역 -->
  	<script type="text/javascript">
-  		var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://localhost:8088/emoji/member/loginSuccess");
+  		var naver_id_login = new naver_id_login("BYXh6BlJnHeLyvt6hhbZ", "http://ec2-13-125-100-1.ap-northeast-2.compute.amazonaws.com:8080/Emoji/member/loginSuccess");
   		var state = naver_id_login.getUniqState();
 	  	naver_id_login.setButton("green", 3,48);
 	  	//naver_id_login.setDomain("YOUR_SERVICE_URL");
