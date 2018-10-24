@@ -14,7 +14,6 @@ body {
 	margin: 3px;
 	padding: 0px;
 }
-
 #page {
 	width: 1500px;
 	margin: 0 auto;
@@ -40,7 +39,6 @@ body {
 	display: inline;
 	float: left;
 }
-
 #rightside {
 	width: 1090px;
 	height: 100%;
@@ -49,20 +47,17 @@ body {
 	border-left: 1px solid lightgrey;
 	border-bottom: 1px solid #eee;
 }
-
 #righttop {
 	/*         	border-bottom:1px solid #eee; */
 	width: 1090px;
 	border-bottom: 1px solid #eee;
 	height: 50%;
 }
-
 #rightbottom {
 	width: 1090px;
 	height: 100%;
 	overflow: hidden;
 }
-
 #smallLeft {
 	width: 400px;
 	height: 100%;
@@ -70,44 +65,37 @@ body {
 	float: left;
 	overflow: hidden;
 }
-
 #smallright {
 	width: 687px;
 	height: 100%;
 	float: right;
 }
-
 #container {
 	display: block;
 	width: 400px;
 	height: 150px;
 	margin: 0 auto;
 }
-
 #searched {
 	height: 710px;
 	border-right: 1px solid #eee;
 	overflow: auto;
 }
-
 #smallLeftLeft {
 	width: 50px;
 	height: 420px;
 	border-right: 1px solid #eee;
 	float: left;
 }
-
 #smallLeftRight {
 	width: 348px;
 	height: 420px;
 	float: right;
 	overflow: auto;
 }
-
 div {
 	border-radius: 10px;
 }
-
 table {
 	width: 100%;
 	height: 420px;
@@ -115,11 +103,9 @@ table {
 	border-collapse: collapse;
 	border-radius: 25px;
 }
-
 td {
 	border: 1px solid #eee;
 }
-
 .deliciousList {
 	height: 50px;
 	line-height: 50px;
@@ -128,7 +114,6 @@ td {
 	border: 2px solid white;
 	background: aliceblue;
 }
-
 .delicious {
 	height: 50px;
 	background: #f7f8f9;
@@ -136,19 +121,16 @@ td {
 	border: 2px solid white;
 	overflow: hidden;
 }
-
 .imgcss {
 	float: left;
 	width: 90px;
 	height: 60px;
 }
-
 .imgcssright {
 	float: right;
 	width: 180px;
 	height: 60px;
 }
-
 ul.tabs {
 	margin: 0;
 	padding: 0;
@@ -162,7 +144,6 @@ ul.tabs {
 	width: 400px;
 	display: block;
 }
-
 ul.tabs li {
 	float: left;
 	text-align: center;
@@ -177,12 +158,10 @@ ul.tabs li {
 	overflow: hidden;
 	position: relative;
 }
-
 ul.tabs li.active {
 	background: #FFFFFF;
 	border-bottom: 1px solid #FFFFFF;
 }
-
 .tab_container {
 	border-bottom: 1px solid #eee;
 	clear: both;
@@ -190,33 +169,27 @@ ul.tabs li.active {
 	width: 400px;
 	background: #FFFFFF;
 }
-
 .tab_content {
 	padding: 5px;
 	font-size: 14px;
 	display: none;
 }
-
 .tab_container .tab_content ul {
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
 }
-
 .tab_container .tab_content ul li {
 	padding: 5px;
 	list-style: none
 }
-
 #map {
 	width: 1090px;
 	height: 450px;
 }
-
 input[type=radio] {
 	margin: 5px;
 }
-
 input[type=text] {
 	margin: 5px;
 	width: 300px;
@@ -232,7 +205,6 @@ input[type=text] {
 	outline: 0;
 	-webkit-appearance: none;
 }
-
 input[type=date] {
 	line-height: 25px;
 	margin: 5px;
@@ -248,36 +220,29 @@ input[type=date] {
 	outline: 0;
 	-webkit-appearance: none;
 }
-
 input:focus {
 	background-color: #f2fafc;
 }
-
 #HomeLogo {
 	width: 100px; \
 	height: 60px;
 	border-radius: 5px;
 }
-
 img {
 	width: 70px;
 	height: 60px;
 }
-
 th:nth-child(2n+1), td:nth-child(2n+1) {
 	background: aliceblue;
 }
-
 th:nth-child(2n), td:nth-child(2n) {
 	background: #f7f8f9;
 }
-
 #container div {
 	line-height: 20px;
 	text-align: center;
 	padding: 3px;
 }
-
 button {
 	border: none;
 	text-align: center;
@@ -289,20 +254,17 @@ button {
 	background-color: lightgrey;
 	border-radius: 4px;
 }
-
 .headers {
 	overflow: hidden;
 	background-color: white;
 	border: 2px solid;
 }
-
 .header {
 	overflow: hidden;
 	float: left;
 	margin-top: 5px;
 	margin-left: 5px;
 }
-
 .header a {
 	color: black;
 	text-align: center;
@@ -312,13 +274,11 @@ button {
 	line-height: 25px;
 	border-radius: 4px;
 }
-
 .header2 {
 	overflow: hidden;
 	float: right;
 	margin-top: 10px;
 }
-
 .header2 a {
 	float: left;
 	color: black;
@@ -329,25 +289,20 @@ button {
 	line-height: 25px;
 	border-radius: 4px;
 }
-
 .header a.logo {
 	font-size: 25px;
 	font-weight: bold;
 }
-
 .headers a:hover {
 	background-color: #ddd;
 	color: black;
 }
-
 .headers a.active {
 	color: black;
 }
-
 .header-right {
 	float: right;
 }
-
 @media screen and (max-width: 500px) {
 	.header a {
 		float: none;
@@ -472,8 +427,11 @@ button {
 							</tr>
 							<tr>
 								<td>참여가능인원</td>
+<<<<<<< HEAD
 								<td><input type="text" name="possibleNum"
 									placeholder="필수 입력 정보입니다. ex) 5" /></td>
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 								<td><input type="text" name="possibleNum"
 									placeholder="필수 입력 정보입니다. ex) 5명" /></td>
 							</tr>
@@ -613,7 +571,6 @@ button {
 									var markerImage = new daum.maps.MarkerImage(
 											imageSrc, imageSize);
 									var marker = new daum.maps.Marker({
-
 										map : map,
 										position : coords,
 										image : markerImage
@@ -710,7 +667,6 @@ button {
 		} else {
 			//내 맛집지도 불러오기 
 			var search2 = $('input[name=search]').val();
-
 			if (search2 != "") {
 				//검색을 눌렀을 때 비동기 시작            	
 				$
@@ -750,7 +706,6 @@ button {
 																			+ "</div><input class='address' name='" + i + "'  type='hidden' value='" + value.deliciousAddress + "' /><input name='pinNumber'  type='hidden' value='" + value.deliciousNum + "' /></div></div>");
 													i++;
 												});
-
 							}
 						});
 			} else {
@@ -841,7 +796,6 @@ button {
 																			 // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 																			 strokeStyle: 'solid' // 선의 스타일입니다
 																			 }); */
-
 																			//원래있던 배열의 값을 새로바꿈
 																			polylines[index - 1]
 																					.setPath(linePath);
@@ -867,21 +821,28 @@ button {
 	}
 
 	function save(e) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		var name = $('input[name=memeberName]').val();
 		var routeName = $('input[name=routeName]').val();
 		var possible = $('input[name=possibleNum]').val();
 		var date = $('input[name=startDate]').val();
 		var time = $('input[name=spendTime]').val();
-
 		if (name === "" || routeName === "" || possible === "" || date === ""
 				|| time === "") {
 			alert("입력되지 않은 정보가 있습니다.");
 			return false;
 		}
+<<<<<<< HEAD
 
+=======
+		/* $('#add').val(addresses); */
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		routeNum = $('#searchedRouteNum').val();
 		if ($('#button1').text() === '참여가능') {
+<<<<<<< HEAD
 			$.ajax({
 				type : "get",
 				url : "${insertJoin}",
@@ -898,8 +859,13 @@ button {
 			});
 
 		} else if ($('#button1').text() === '참여가능') {
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 			event.preventDefault();
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 			//폼의 주소로만 가서 makeRoute컨트롤러로간다
 			//ajax를 가지않음			
 			$.ajax({
@@ -910,14 +876,17 @@ button {
 				},
 				success : function(data) {
 					if (data == "참여가 완료되었습니다.") {
-						alert(data);
 						$('#button1').text("승인 중");
 					}
 					return false;
 				}
+<<<<<<< HEAD
 
 			});
 
+=======
+			})
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		} else if ($('#button1').text() === '원정대 대장으로 참여중') {
 			alert("참여하실 수 없습니다.")
 			return false;
@@ -932,8 +901,9 @@ button {
 				},
 				success : function(data) {
 					alert("참여가 취소되었습니다.");
-					$('#button1').text("참여 가능")
+					$('#button1').text("참여가능")
 				}
+<<<<<<< HEAD
 			});
 		}
 
@@ -956,6 +926,18 @@ button {
 		}
 		$('#add').val(orderedPins);
 		return true;
+=======
+			})
+		} else {
+			var size = document.getElementsByName("orderedPinNumber").length;
+			for (var i = 0; i < size; i++) {
+				orderedPins
+						.push(document.getElementsByName("orderedPinNumber")[i].value);
+			}
+			$('#add').val(orderedPins);
+			return true;
+		}
+>>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 	}
 
 	
@@ -1018,7 +1000,6 @@ button {
 		//드래그 막기
 		/* 		$('#smallLeftRight'). removeAttr("ondrop");
 		 $('#smallLeftRight'). removeAttr("ondragover"); */
-
 		//원정대이름 다 지우기
 		$('input[type=text]').each(function() {
 			$(this).val("");
@@ -1056,12 +1037,10 @@ button {
 											})
 						}
 					});
-
 		} else {
 			alert("검색어를 입력해주세요.");
 		}
 	}
-
 	function show(e) {
 		//경로안의 맛집들 다 지우기
 		$('#smallLeftLeft').text("");
@@ -1072,16 +1051,12 @@ button {
 		//지도의 선지우기
 		setPolylines(null);
 		polylines = [];
-
 		//클릭된 원정대의 지도상의 뜰 마커의 주소 초기화
 		searchAddresses = [];
-
 		var routeNum = 0;
-
 		$(e).each(function() {
 			routeNum = $(this).find('.routeNum').val();
 		});
-
 		$
 				.ajax({
 					type : "get",
@@ -1138,7 +1113,6 @@ button {
 																						"<div class='deliciousList listOrder'>"
 																								+ (key + 1)
 																								+ "</div>");
-
 																		$(
 																				'#smallLeftRight')
 																				.append(
@@ -1154,7 +1128,6 @@ button {
 																		//주소저장
 																		searchAddresses
 																				.push(vvalue.deliciousAddress);
-
 																	}
 																})
 											}
@@ -1181,7 +1154,6 @@ button {
 																	imageSize = new daum.maps.Size(
 																			30,
 																			35); // 마커이미지의 크기입니다
-
 																	var markerImage = new daum.maps.MarkerImage(
 																			imageSrc,
 																			imageSize);
@@ -1212,7 +1184,6 @@ button {
 																							var linePath = [
 																									coords2,
 																									coords ];
-
 																							// 지도에 표시할 선을 생성합니다
 																							var polyline = new daum.maps.Polyline(
 																									{
@@ -1223,7 +1194,6 @@ button {
 																										// 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 																										strokeStyle : 'solid' // 선의 스타일입니다
 																									});
-
 																							polyline
 																									.setMap(map);
 																							polylines
@@ -1243,9 +1213,7 @@ button {
 										});
 					}
 				})
-
 	}
-
 	function getContextPath() {
 		var hostIndex = location.href.indexOf(location.host)
 				+ location.host.length;
