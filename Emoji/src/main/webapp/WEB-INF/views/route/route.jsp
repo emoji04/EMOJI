@@ -14,6 +14,7 @@ body {
 	margin: 3px;
 	padding: 0px;
 }
+
 #page {
 	width: 1500px;
 	margin: 0 auto;
@@ -21,17 +22,6 @@ body {
 	height: 100%;
 	background: white;
 }
-/* #header {
-	margin: 0px auto;
-	text-align: center;
-}
-#logout {
-	float: right;
-	display: inline;
-}
-#headerImg {
-	display: inline
-} */
 #leftside {
 	width: 400px;
 	height: 100%;
@@ -39,6 +29,7 @@ body {
 	display: inline;
 	float: left;
 }
+
 #rightside {
 	width: 1090px;
 	height: 100%;
@@ -47,17 +38,20 @@ body {
 	border-left: 1px solid lightgrey;
 	border-bottom: 1px solid #eee;
 }
+
 #righttop {
 	/*         	border-bottom:1px solid #eee; */
 	width: 1090px;
 	border-bottom: 1px solid #eee;
 	height: 50%;
 }
+
 #rightbottom {
 	width: 1090px;
 	height: 100%;
 	overflow: hidden;
 }
+
 #smallLeft {
 	width: 400px;
 	height: 100%;
@@ -65,47 +59,56 @@ body {
 	float: left;
 	overflow: hidden;
 }
+
 #smallright {
 	width: 687px;
 	height: 100%;
 	float: right;
 }
+
 #container {
 	display: block;
 	width: 400px;
 	height: 150px;
 	margin: 0 auto;
 }
+
 #searched {
 	height: 710px;
 	border-right: 1px solid #eee;
 	overflow: auto;
 }
+
 #smallLeftLeft {
 	width: 50px;
 	height: 420px;
 	border-right: 1px solid #eee;
 	float: left;
 }
+
 #smallLeftRight {
 	width: 348px;
 	height: 420px;
 	float: right;
 	overflow: auto;
 }
+
 div {
 	border-radius: 10px;
 }
-table {
+
+ table {
 	width: 100%;
 	height: 420px;
 	border: 1px solid #eee;
 	border-collapse: collapse;
 	border-radius: 25px;
-}
+} 
+
 td {
 	border: 1px solid #eee;
 }
+
 .deliciousList {
 	height: 50px;
 	line-height: 50px;
@@ -114,6 +117,7 @@ td {
 	border: 2px solid white;
 	background: aliceblue;
 }
+
 .delicious {
 	height: 50px;
 	background: #f7f8f9;
@@ -121,16 +125,19 @@ td {
 	border: 2px solid white;
 	overflow: hidden;
 }
+
 .imgcss {
 	float: left;
 	width: 90px;
 	height: 60px;
 }
+
 .imgcssright {
 	float: right;
 	width: 180px;
 	height: 60px;
 }
+
 ul.tabs {
 	margin: 0;
 	padding: 0;
@@ -144,6 +151,7 @@ ul.tabs {
 	width: 400px;
 	display: block;
 }
+
 ul.tabs li {
 	float: left;
 	text-align: center;
@@ -158,10 +166,12 @@ ul.tabs li {
 	overflow: hidden;
 	position: relative;
 }
+
 ul.tabs li.active {
 	background: #FFFFFF;
 	border-bottom: 1px solid #FFFFFF;
 }
+
 .tab_container {
 	border-bottom: 1px solid #eee;
 	clear: both;
@@ -169,30 +179,36 @@ ul.tabs li.active {
 	width: 400px;
 	background: #FFFFFF;
 }
+
 .tab_content {
 	padding: 5px;
 	font-size: 14px;
 	display: none;
 }
+
 .tab_container .tab_content ul {
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
 }
+
 .tab_container .tab_content ul li {
 	padding: 5px;
 	list-style: none
 }
+
 #map {
 	width: 1090px;
 	height: 450px;
 }
+
 input[type=radio] {
 	margin: 5px;
 }
+
 input[type=text] {
 	margin: 5px;
-	width: 300px;
+ 	width: 200px; 
 	border: 1px solid #ccc;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -205,6 +221,7 @@ input[type=text] {
 	outline: 0;
 	-webkit-appearance: none;
 }
+
 input[type=date] {
 	line-height: 25px;
 	margin: 5px;
@@ -220,29 +237,36 @@ input[type=date] {
 	outline: 0;
 	-webkit-appearance: none;
 }
+
 input:focus {
 	background-color: #f2fafc;
 }
+
 #HomeLogo {
-	width: 100px; \
+	width: 100px;
 	height: 60px;
 	border-radius: 5px;
 }
+
 img {
 	width: 70px;
 	height: 60px;
 }
+
 th:nth-child(2n+1), td:nth-child(2n+1) {
 	background: aliceblue;
 }
+
 th:nth-child(2n), td:nth-child(2n) {
 	background: #f7f8f9;
 }
+
 #container div {
 	line-height: 20px;
 	text-align: center;
 	padding: 3px;
 }
+
 button {
 	border: none;
 	text-align: center;
@@ -254,17 +278,20 @@ button {
 	background-color: lightgrey;
 	border-radius: 4px;
 }
+
 .headers {
 	overflow: hidden;
 	background-color: white;
 	border: 2px solid;
 }
+
 .header {
 	overflow: hidden;
 	float: left;
 	margin-top: 5px;
 	margin-left: 5px;
 }
+
 .header a {
 	color: black;
 	text-align: center;
@@ -274,11 +301,13 @@ button {
 	line-height: 25px;
 	border-radius: 4px;
 }
+
 .header2 {
 	overflow: hidden;
 	float: right;
 	margin-top: 10px;
 }
+
 .header2 a {
 	float: left;
 	color: black;
@@ -289,20 +318,25 @@ button {
 	line-height: 25px;
 	border-radius: 4px;
 }
+
 .header a.logo {
 	font-size: 25px;
 	font-weight: bold;
 }
+
 .headers a:hover {
 	background-color: #ddd;
 	color: black;
 }
+
 .headers a.active {
 	color: black;
 }
+
 .header-right {
 	float: right;
 }
+
 @media screen and (max-width: 500px) {
 	.header a {
 		float: none;
@@ -331,10 +365,6 @@ button {
 					<a href='<c:url value="deliciousForm" />'>맛집지도</a> <a
 						href='<c:url value="/goRoute" />'>식신원정대</a> <a
 						href='<c:url value="/memberUpdateForm" />'>마이페이지</a>
-
-
-
-
 					<c:if test="${loginInfo eq null }">
 						<a href="<c:url value='/loginForm' />">LOGIN</a>
 					</c:if>
@@ -427,13 +457,8 @@ button {
 							</tr>
 							<tr>
 								<td>참여가능인원</td>
-<<<<<<< HEAD
 								<td><input type="text" name="possibleNum"
 									placeholder="필수 입력 정보입니다. ex) 5" /></td>
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-								<td><input type="text" name="possibleNum"
-									placeholder="필수 입력 정보입니다. ex) 5명" /></td>
 							</tr>
 							<tr>
 								<td>시작시간</td>
@@ -821,10 +846,6 @@ button {
 	}
 
 	function save(e) {
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		var name = $('input[name=memeberName]').val();
 		var routeName = $('input[name=routeName]').val();
 		var possible = $('input[name=possibleNum]').val();
@@ -835,14 +856,12 @@ button {
 			alert("입력되지 않은 정보가 있습니다.");
 			return false;
 		}
-<<<<<<< HEAD
 
-=======
 		/* $('#add').val(addresses); */
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
+
 		routeNum = $('#searchedRouteNum').val();
 		if ($('#button1').text() === '참여가능') {
-<<<<<<< HEAD
+
 			$.ajax({
 				type : "get",
 				url : "${insertJoin}",
@@ -859,13 +878,9 @@ button {
 			});
 
 		} else if ($('#button1').text() === '참여가능') {
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
-			event.preventDefault();
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
+			event.preventDefault();
+
 			//폼의 주소로만 가서 makeRoute컨트롤러로간다
 			//ajax를 가지않음			
 			$.ajax({
@@ -880,13 +895,8 @@ button {
 					}
 					return false;
 				}
-<<<<<<< HEAD
-
 			});
 
-=======
-			})
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
 		} else if ($('#button1').text() === '원정대 대장으로 참여중') {
 			alert("참여하실 수 없습니다.")
 			return false;
@@ -903,13 +913,18 @@ button {
 					alert("참여가 취소되었습니다.");
 					$('#button1').text("참여가능")
 				}
-<<<<<<< HEAD
 			});
+		}else {
+			var size = document.getElementsByName("orderedPinNumber").length;
+			for (var i = 0; i < size; i++) {
+				orderedPins
+						.push(document.getElementsByName("orderedPinNumber")[i].value);
+			}
+			$('#add').val(orderedPins);
+			return true;
 		}
 
-		/* 			break;
-		default: */
-		var name = $('input[name=memeberName]').val();
+/* 		var name = $('input[name=memeberName]').val();
 		var routeName = $('input[name=routeName]').val();
 		var possible = $('input[name=possibleNum]').val();
 		var date = $('input[name=startDate]').val();
@@ -925,19 +940,8 @@ button {
 			orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
 		}
 		$('#add').val(orderedPins);
-		return true;
-=======
-			})
-		} else {
-			var size = document.getElementsByName("orderedPinNumber").length;
-			for (var i = 0; i < size; i++) {
-				orderedPins
-						.push(document.getElementsByName("orderedPinNumber")[i].value);
-			}
-			$('#add').val(orderedPins);
-			return true;
-		}
->>>>>>> branch 'master' of https://github.com/emoji04/EMOJI.git
+		return true; */
+
 	}
 
 	
