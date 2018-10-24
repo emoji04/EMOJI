@@ -61,8 +61,15 @@ public class SearchRouteService extends ServiceDao {
 	public Object insertJoin(JoinVO joinVO) {
 		//메일에서 승인받으면  joinstate만 바꾸기
 		//pathvariable 
-		int max=sqlSession.selectOne(MapperName.SEARCHROUTE + ".joinMax");		
-		joinVO.setJoinNum(max+1);
+		int max=0;
+		String maxInfo=sqlSession.selectOne(MapperName.SEARCHROUTE + ".joinMax");		
+		if(maxInfo==null) {
+			max=1;
+			joinVO.setJoinNum(max);
+		}else {
+			max=Integer.parseInt(maxInfo);
+			joinVO.setJoinNum(max+1);
+		}
 		return sqlSession.selectOne(MapperName.SEARCHROUTE + ".insertJoin",joinVO);				
 	}
 	public Object deleteJoin(RouteScrapVO routeScrap) {

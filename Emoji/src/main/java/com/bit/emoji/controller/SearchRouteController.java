@@ -45,8 +45,10 @@ public class SearchRouteController {
 	public String clickJoin(JoinVO joinVO, HttpSession session) {
 		int memberNum=(int) session.getAttribute("loginInfo");
 		joinVO.setMemberNum(memberNum);	
-		
+		System.out.println("1");
 		Object result=searchRouteService.insertJoin(joinVO);
+		System.out.println(result);
+		
 		if(result==null) {
 			return "참여가 완료되었습니다.";
 		}else {

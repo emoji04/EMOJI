@@ -386,8 +386,8 @@ button {
 					<div id="tab1" class="tab_content">
 						<div>
 							<label><input type="date" name="searchDateFrom"
-								id="fromDate"></label>~ <label><input type="date"
-								name="searchDateTo" id="toDate"></label>
+								id="fromDate" value=""></label> ~ <label><input type="date"
+								name="searchDateTo" id="toDate" value=""></label>
 						</div>
 						<div>
 							<label><input type="text" placeholder="원정대이름,해시태그,예산"
@@ -434,9 +434,6 @@ button {
 			<div id="rightbottom">
 				<div id="smallLeft">
 					<div id="smallLeftLeft">
-						<%--                         	<c:forEach var="i" begin="1" end="20">
-                        	<div class='deliciousList ListOrder'>${i}</div>
-                        	</c:forEach> --%>
 					</div>
 					<div id="smallLeftRight" ondrop="drop(event)"
 						ondragover="allowDrop(event)"></div>
@@ -857,27 +854,8 @@ button {
 			return false;
 		}
 
-		/* $('#add').val(addresses); */
-
 		routeNum = $('#searchedRouteNum').val();
-		if ($('#button1').text() === '참여가능') {
-
-			$.ajax({
-				type : "get",
-				url : "${insertJoin}",
-				data : {
-					"routeNum" : routeNum
-				},
-				success : function(data) {
-					if (data == "참여가 완료되었습니다.") {
-						$('#button1').text("승인 중");
-					}
-					return false;
-				}
-
-			});
-
-		} else if ($('#button1').text() === '참여가능') {
+if ($('#button1').html() === '참여 가능') {
 
 			event.preventDefault();
 
@@ -890,17 +868,20 @@ button {
 					"routeNum" : routeNum
 				},
 				success : function(data) {
-					if (data == "참여가 완료되었습니다.") {
+					console.log(data);
+					if (data === "참여가 완료되었습니다.") {
+						alert(data);
 						$('#button1').text("승인 중");
 					}
 					return false;
 				}
 			});
 
-		} else if ($('#button1').text() === '원정대 대장으로 참여중') {
+		} else if ($('#button1').html()  === '원정대 대장으로 참여중') {
 			alert("참여하실 수 없습니다.")
 			return false;
-		} else if ($('#button1').text() === '승인 중') {
+		} else if ($('#button1').html()  === '승인 중') {
+			alert("3");
 			event.preventDefault();
 			//다시 누르면 취소하는 ajax하기
 			$.ajax({
@@ -915,6 +896,7 @@ button {
 				}
 			});
 		}else {
+			alert("4");
 			var size = document.getElementsByName("orderedPinNumber").length;
 			for (var i = 0; i < size; i++) {
 				orderedPins
@@ -922,26 +904,7 @@ button {
 			}
 			$('#add').val(orderedPins);
 			return true;
-		}
-
-/* 		var name = $('input[name=memeberName]').val();
-		var routeName = $('input[name=routeName]').val();
-		var possible = $('input[name=possibleNum]').val();
-		var date = $('input[name=startDate]').val();
-		var time = $('input[name=spendTime]').val();
-
-		if (name === "" || routeName === "" || possible === "" || date === ""
-				|| time === "") {
-			alert("입력되지 않은 정보가 있습니다.");
-			return false;
-		}
-		var size = document.getElementsByName("orderedPinNumber").length;
-		for (var i = 0; i < size; i++) {
-			orderedPins.push(document.getElementsByName("orderedPinNumber")[i].value);
-		}
-		$('#add').val(orderedPins);
-		return true; */
-
+		} 
 	}
 
 	

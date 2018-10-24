@@ -30,6 +30,6 @@
 	<delete parameterType="com.bit.emoji.model.RouteScrapVO"
 		id="deleteJoin"> delete from emoji.join where routeNum=#{routeNum} and
 		memberNum=#{memberNum}; </delete>
-	<select resultType="int" id="joinMax"> select max(joinNum) from
+	<select resultType="java.lang.String" id="joinMax"> select max(joinNum) from
 		emoji.join; </select>
 </mapper>
