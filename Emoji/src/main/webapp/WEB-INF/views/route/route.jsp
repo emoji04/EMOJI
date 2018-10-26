@@ -722,11 +722,11 @@ button {
 															.append(
 																	"<div class='delicious' id='"
 																			+ i
-																			+ "' draggable='true' ondragstart='drag(event)'><div class='imgcss'><img src='"
+																			+ "' draggable='true' ondragstart='drag(event)'><a href='#' onclick='deleteDiv(this);'>삭제</a><div class='imgcss'><img src='"
 																			+ getContextPath()
 																			+ "/resources/img/deliciousPin/"
 																			+ value.deliciousImg
-																			+ "' alt='등록된 이미지가 없습니다.'/></div><a href='#' onclick='deleteDiv(this);'>삭제</a><div class='imgcssright'><div>이름 : "
+																			+ "' alt='등록된 이미지가 없습니다.'/></div><div class='imgcssright'><div>이름 : "
 																			+ name
 																			+ "</div>"
 																			+ "<div>상세 정보 : "
@@ -1096,7 +1096,7 @@ if ($('#button1').html() === '참여 가능') {
 																		$(
 																				'#smallLeftRight')
 																				.append(
-																						"<div class='delicious'><a href='#' onclick='deleteDiv(this);' style='float:right'>삭제</a><div class='imgcss'><img src='"
+																						"<div class='delicious'><a href='#' onclick='deleteDiv(this);'>삭제</a><div class='imgcss'><img src='"
 																								+ getContextPath()
 																								+ "/resources/img/deliciousPin/"
 																								+ vvalue.deliciousImg
