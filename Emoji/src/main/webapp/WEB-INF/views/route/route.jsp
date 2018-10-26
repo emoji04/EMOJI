@@ -399,13 +399,13 @@ button {
 					<!-- #tab1 -->
 					<div id="tab2" class="tab_content">
 						<div>
-							<!-- 							<label><input type="radio" name="searchPool"
-								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> -->
+														<label><input type="radio" name="searchPool"
+								id="kakaoDelicious" class="searchPool" />맛집 검색하기</label> 
 						</div>
 						<div>
 							<div>
-								<!-- <input type="radio" name="searchPool"
-								id="myDelicious" class="searchPool" /> -->
+								 <input type="radio" name="searchPool"
+								id="myDelicious" class="searchPool" /> 
 								맛집 검색으로 원정대만들기
 							</div>
 						</div>
@@ -549,7 +549,7 @@ button {
 		//이미 옮겨져 있는 맛집의 경우 순서가 바뀌도록 할것
 		if (data.substring(0, 13) == 'deliciousCopy') {
 			for (var k = 0; k < addresses.length; k++) {
-				if (addresses[k] != $('input[name=' + data.chatAt(14) + ']')
+				if (addresses[k] != $('input[name=' + data.charAt(14) + ']')
 						.val()) {
 					cnt++;
 				}
@@ -561,6 +561,12 @@ button {
 				}
 			}
 		}
+		
+		//카카오 검색 결과 일때 드롭 할때마다 DB 생성 하기
+		if($("#kakaoDelicious").prop('checked') == true){
+			
+		}
+		
 		if (cnt == addresses.length) {
 			//해당 데이터의 노드를 카피해서 복사되서 움직일 수 있도록 함
 			var copy = document.getElementById(data).cloneNode(true);
@@ -720,7 +726,7 @@ button {
 																			+ getContextPath()
 																			+ "/resources/img/deliciousPin/"
 																			+ value.deliciousImg
-																			+ "' alt='등록된 이미지가 없습니다.'/></div><div class='imgcssright'><div>이름 : "
+																			+ "' alt='등록된 이미지가 없습니다.'/></div><a href='#' onclick='deleteDiv(this);'>삭제</a><div class='imgcssright'><div>이름 : "
 																			+ name
 																			+ "</div>"
 																			+ "<div>상세 정보 : "
@@ -745,21 +751,28 @@ button {
 		setMarkers(null);
 		//마커배열 비우기
 		markers = [];
-		//마커와 폴리라인 배열 비우기
-		//setPolylines(null);
+		
+		addresses=[];
+		$('.listOrder').remove();
+		
+		setPolylines(null);
+		
 		//전체적으로 새로운 이름 및 아이디 부여
 		$('#smallLeftRight').children().each(
 				function(index) {
 					$(this).attr('id', 'deliciousCopy' + index + '');
 					$(this).find('.address').attr('name',
 							'addressOrder' + index);
+					addresses[index] = $("input[name=addressOrder" + index + "]").val();	
 					$(this).find('input[name=pinNumber]').attr('name',
 							'orderedPinNumber');
-				});
-		//children 함수로 바꿔보기
-		$.each(addresses, function(i) {
-			addresses[i] = $("input[name=addressOrder" + i + "]").val();
-		});
+				});	
+		
+		
+ 		$.each(addresses, function(i) {
+			$('#smallLeftLeft').append('<div class="deliciousList listOrder">'+(i+1)+'</div>');			
+		}); 
+
 		//다 지우고 다시 만들기
 		//재정렬된 주소로 새로운 선 만들어내기 및 순서대로 새로운 마커 배열 만들어내기
 		//주소-좌표 변환 객체를 생성합니다
@@ -1083,7 +1096,7 @@ if ($('#button1').html() === '참여 가능') {
 																		$(
 																				'#smallLeftRight')
 																				.append(
-																						"<div class='delicious'><div class='imgcss'><img src='"
+																						"<div class='delicious'><a href='#' onclick='deleteDiv(this);' style='float:right'>삭제</a><div class='imgcss'><img src='"
 																								+ getContextPath()
 																								+ "/resources/img/deliciousPin/"
 																								+ vvalue.deliciousImg
@@ -1181,11 +1194,25 @@ if ($('#button1').html() === '참여 가능') {
 					}
 				})
 	}
+	
+	function deleteDiv(e){
+		var id1 =$(e).parent().attr('id');
+		if (id1.substring(0, 13) === 'deliciousCopy') {
+			var id2=id1.charAt(14);
+			$(e).parent().remove();
+			reorder();
+		}		
+	}
+	
 	function getContextPath() {
 		var hostIndex = location.href.indexOf(location.host)
 				+ location.host.length;
 		return location.href.substring(hostIndex, location.href.indexOf('/',
 				hostIndex + 1));
-	};
+	}
+	
+
+	
+	
 </script>
 </html>
